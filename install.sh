@@ -23,8 +23,9 @@ mkdir ~/work
 
 # clone index
 if ask "Would you like to clone The Index to ~/personal?"; then
-    # git clone git@github.com:cartwatson/second-brain ~/personal/index
-    git clone https://github.com/cartwatson/second-brain ~/personal/index
+    # assume clone via ssh is setup (how else did I get the dotfiles repo
+    git clone git@github.com:cartwatson/second-brain ~/personal/index
+    # git clone https://github.com/cartwatson/second-brain ~/personal/index
 fi
 
 # hush login

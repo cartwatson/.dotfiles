@@ -22,7 +22,7 @@ function cd() { builtin cd "$@" && ll; }
 # --git
 alias gs="git status -sb"
 alias ga="git add"
-alias gl="git log --oneline --graph"
+alias gl="git log --oneline --graph --decorate"
 alias gc="git commit -m"
 alias gd="git diff"
 alias gp="git push"

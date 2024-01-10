@@ -81,20 +81,20 @@ fi
 
 # Alias definitions.
 if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+    source ~/.bash_aliases
 fi
 
 # machine specific aliases
 if [ -f ~/.machine_aliases.sh ]; then
-    . ~/.machine_aliases.sh
+    source ~/.machine_aliases.sh
 fi
 
 # enable programmable completion features
 if ! shopt -oq posix; then
   if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
+    source /usr/share/bash-completion/bash_completion
   elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
+    source /etc/bash_completion
   fi
 fi
 
@@ -104,3 +104,7 @@ bind -s 'set completion-ignore-case on'
 # set default editor to vim
 export EDITOR='vi'
 export VISUAL='vi' 
+
+# display files
+ll
+
