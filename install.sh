@@ -18,40 +18,52 @@ function ask() {
 }
 
 # create folders
-mkdir ~/personal
-mkdir ~/work
+echo "Creating ~/personal and ~/work directories..."
+if [ ! -d ~/personal ]; then
+    mkdir ~/personal
+fi
+if [ ! -d ~/work ]; then
+    mkdir ~/work
+fi
 
 # clone index
-if ask "Would you like to clone The Index to ~/personal?"; then
-    # assume clone via ssh is setup (how else did I get the dotfiles repo
+if ask "Would you like to clone The Index to ~/personal? "; then
+    # assume clone via ssh is setup (how else did I get the dotfiles repo)
     git clone git@github.com:cartwatson/second-brain ~/personal/index
     # git clone https://github.com/cartwatson/second-brain ~/personal/index
 fi
 
 # hush login
-touch /home/$(whoami)/.hushlogin
+if ask "Would you like to hush login messages? "; then
+    touch /home/$(whoami)/.hushlogin
+fi
 
 # create backups
-mv ~/.bashrc ~/.bashrc.old
+echo "Creating backup of bashrc to .bashrc.old ..."
+if [ -f ~/.bashrc ]; then
+    mv ~/.bashrc ~/.bashrc.old
+fi
 
 # create symlinks for files
+echo "Creating symlinks for bashrc, aliases, vimconfig, and gitconfig..."
 ln -s ~/.dotfiles/bashrc.sh          ~/.bashrc
 ln -s ~/.dotfiles/aliases.sh         ~/.bash_aliases
 ln -s ~/.dotfiles/vimrc.vim          ~/.vimrc
 ln -s ~/.dotfiles/gitconfig-personal ~/.gitconfig
-ln    ~/.dotfiles/gitconfig-personal ~/work/.gitconfig # not a symlink but thats on purpose
+# don't create symlink here so this file can be edited for work purposes
+ln    ~/.dotfiles/gitconfig-personal ~/work/.gitconfig
 
 # dynamically create machine specific aliases
-if ask "Create .machine_aliases?"; then
-    touch ~/.machine_aliases.sh
+if ask "Create ~/.machine_aliases.sh? "; then
+    ln ./machine_aliases.sh ~/.machine_aliases.sh
 
     # windows/wsl instance specific aliases
     if ask "Is this a wsl instance?"; then
-	echo "adding aliases for vscode 'c' and file explorer 'e'..." 
+	echo "adding to .machine_aliases.sh for vscode 'c' and file explorer 'e'..." 
 	cat ./wsl.sh >> ~/.machine_aliases.sh
 
 	# vscode extensions
-	if ask "Would you like to install vscode extensions?"; then
+	if ask "Would you like to install vscode extensions? "; then
 	    code --install-extension ms-vscode-remote.remote-wsl  # wsl extension
 	    code --install-extension ritwickdey.liveserver        # live server
 	    code --install-extension yzhang.markdown-all-in-one   # markdown all in one
