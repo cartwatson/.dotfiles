@@ -55,7 +55,7 @@ ln    ~/.dotfiles/gitconfig-personal ~/work/.gitconfig
 
 # dynamically create machine specific aliases
 if ask "Create ~/.machine_aliases.sh? "; then
-    ln ./machine_aliases.sh ~/.machine_aliases.sh
+    cp ./machine_aliases.sh ~/.machine_aliases.sh
 
     # windows/wsl instance specific aliases
     if ask "Is this a wsl instance?"; then
@@ -68,6 +68,40 @@ if ask "Create ~/.machine_aliases.sh? "; then
 	    code --install-extension ritwickdey.liveserver        # live server
 	    code --install-extension yzhang.markdown-all-in-one   # markdown all in one
 	    code --install-extension pkief.material-icon-theme    # material icon theme
+	fi
+    fi
+
+    # arch install
+    if ask "Is this an arch machine? "; then
+	ln -s ~/.dotfiles/arch/.Xdefaults ~/.Xdefaults
+    fi
+
+    if ask "Are you using a window manager? "; then
+        # provide user with a selection of window managers 
+        options=("i3" "Awesome" "Sike, I'm not using a window manager")
+        select opt in "${options[@]}"
+        do
+            case $opt in
+                "i3")
+		    cp ~/.config/i3/config ~/.config/i3/config.old
+                    ln -s ~/.dotfiles/windowManagers/i3/config ~/.config/i3/config
+		    break
+                    ;;
+                "Awesome")
+                    echo "Haven't used awesome yet so nothing to do here"
+		    break
+                    ;;
+                "Sike, I'm not using a window manager")
+                    break
+                    ;;
+                *) echo "invalid option $REPLY";;
+            esac
+        done
+
+	# are you using polybar
+	if ask "Are you using polybar? "; then
+            cp ~/.config/polybar/config.ini ~/.config/polybar/config.ini.old
+	    ln -s ~/.dotfiles/windowManagers/misc/polybar/config.ini ~/.config/polybar/config.ini
 	fi
     fi
 fi
