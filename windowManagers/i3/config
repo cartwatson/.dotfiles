@@ -222,7 +222,7 @@ force_display_urgency_hint 500 ms
 
 # gaps
 # smart_gaps on
-gaps inner 15px
+gaps inner 5px
 
 ###############################################################################
 # execute scripts

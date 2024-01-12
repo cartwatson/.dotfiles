@@ -14,3 +14,13 @@ Use `install.sh` to create symlinks to bashrc, bash_aliases, and vimrc and to ge
 1. add to hostsite profile settings
 1. key name on hostsite should be \<user\>@\<machine hostname\>
 
+## Arch
+
+things not included in install script because I don't care about them that much
+
+#### Redshift
+
+- link redshift.conf to `~/.config/redshift/redshift.conf`
+- link redshift.service to `~/.config/systemd/user/redshift.service`
+    - modify lat/lot as desired
+- run `systemd --user enable redshift.service` from `~/.config/systemd/user` directory
