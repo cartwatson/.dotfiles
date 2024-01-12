@@ -1,8 +1,9 @@
 " credit to 
 " - https://www.freecodecamp.org/news/vimrc-configuration-guide-customize-your-vim-editor/
 " - https://jeffkreeftmeijer.com/vim-number/
+" - https://www.shortcutfoo.com/blog/top-50-vim-configuration-options
 
-" GENERAL ------------------------------------------------------------ {{{
+" GENERAL ===================================================================== 
 
 " Disable compatibility with vi which can cause unexpected issues.
 set nocompatible
@@ -14,7 +15,7 @@ set number relativenumber
 filetype on
 
 " Load an indent file for the detected file type.
-filetype indent on
+" filetype indent on
 
 " Enable auto completion menu after pressing TAB.
 set wildmenu
@@ -22,10 +23,28 @@ set wildmenu
 " Make wildmenu behave like similar to Bash completion.
 set wildmode=list:longest
 
-" }}}
+" tabs/indentation
+set expandtab " convert tab to spaces
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+
+set autoindent
+set smarttab
+
+" search
+set hlsearch
+set ignorecase
+set smartcase
+
+" general
+set linebreak " don't wrap in the middle of a word
+
+set background=dark
+colorscheme slate
 
 
-" STATUS LINE ------------------------------------------------------------ {{{
+" STATUS LINE =================================================================
 
 " Clear status line when vimrc is reloaded.
 set statusline=
@@ -42,4 +61,4 @@ set statusline+=\ row:\ %l\ col:\ %c
 " Show the status on the second to last line.
 set laststatus=2
 
-" }}}
+" Favorite color schemes: desert, slate
