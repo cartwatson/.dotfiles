@@ -54,13 +54,13 @@ ln -s ~/.dotfiles/gitconfig-personal ~/.gitconfig
 ln    ~/.dotfiles/gitconfig-personal ~/work/.gitconfig
 
 # dynamically create machine specific aliases
-if ask "Create ~/.machine_aliases.sh? "; then
-    cp ./machine_aliases.sh ~/.machine_aliases.sh
+if ask "Create ~/.bash_machine_aliases.sh? "; then
+    cp ./machine_aliases.sh ~/.bash_machine_aliases.sh
 
     # windows/wsl instance specific aliases
     if ask "Is this a wsl instance?"; then
 	echo "adding to .machine_aliases.sh for vscode 'c' and file explorer 'e'..." 
-	cat ./wsl.sh >> ~/.machine_aliases.sh
+	cat ./wsl.sh >> ~/.bash_machine_aliases.sh
 
 	# vscode extensions
 	if ask "Would you like to install vscode extensions? "; then

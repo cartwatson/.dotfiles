@@ -85,8 +85,8 @@ if [ -f ~/.bash_aliases ]; then
 fi
 
 # machine specific aliases
-if [ -f ~/.machine_aliases.sh ]; then
-    source ~/.machine_aliases.sh
+if [ -f ~/.bash_machine_aliases.sh ]; then
+    source ~/.bash_machine_aliases.sh
 fi
 
 # enable programmable completion features
