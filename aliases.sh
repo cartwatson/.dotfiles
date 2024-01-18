@@ -5,9 +5,6 @@
 #
 ###############################################################################
 
-# --override builtins
-function cd() { builtin cd "$@" && ll; }
-
 # --bash
 alias cdh="clear; cd ~"
 alias cdm="clear; cd ~/personal"
@@ -17,6 +14,9 @@ alias ll="ls -AlvhG"
 alias vbr="vim ~/.bash_aliases"
 alias sbr="source ~/.bashrc"
 alias ebr="cat ~/.bash_aliases"
+
+# --override builtins
+function cd() { builtin cd "$@" && ll; }
 
 # --git
 alias gs="git status -sb"
