@@ -57,11 +57,22 @@ else
     }
 fi
 
-# create prompt line, include user@machine:working/dir/full/path (git branch) $
-if [[ "$color_prompt" = yes ]]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[01;31m\]$(__git_ps1)\[\033[00m\]\n\$ '
+# see if terminal is being remoted/ssh into
+if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+  SESSION_TYPE=remote/ssh
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w$(__git_ps1)\n\$ '
+  case $(ps -o comm= -p $PPID) in
+    sshd|*/sshd) SESSION_TYPE=remote/ssh;;
+  esac
+fi
+
+# create prompt line - example below
+# (ssh session) user@machine:working/dir/full/path (git branch)
+# $
+if [[ "$color_prompt" = yes ]]; then
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[0;36m\]${SESSION_TYPE:+("SSH")}\[\033[00m\]:\[\033[01;34m\]\w\[\033[01;31m\]$(__git_ps1)\[\033[00m\]\n\$ '
+else
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h${SESSION_TYPE:+("SSH")}:\w$(__git_ps1)\n\$ '
 fi
 unset color_prompt force_color_prompt
 
