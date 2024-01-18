@@ -43,16 +43,25 @@ fi
 
 # attempt to source git-prompt.sh if it exists
 if [ -f /usr/share/git-core/contrib/completion/git-prompt.sh ]; then
+    # Obtain from https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh
     source /usr/share/git-core/contrib/completion/git-prompt.sh
 else
-    echo -e "unable to source git-prompt.sh\n\n obtain from https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh"
+    # define function to emulate git-prompt.sh
+    # credit: unknown, seems to have been pasted everywhere
+    __git_ps1() {
+        local branch
+        branch=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/')
+        if [ "$branch" != "" ]; then
+            printf " (%s)" $branch
+        fi
+    }
 fi
 
 # create prompt line, include user@machine:working/dir/full/path (git branch) $
-if [[ -n "$(__git_ps1 " (%s)")" && "$color_prompt" = yes ]]; then
+if [[ "$color_prompt" = yes ]]; then
     PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[01;31m\]$(__git_ps1)\[\033[00m\]\n\$ '
 else
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\n\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w$(__git_ps1)\n\$ '
 fi
 unset color_prompt force_color_prompt
 

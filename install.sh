@@ -43,6 +43,15 @@ echo "Creating backup of bashrc to .bashrc.old ..."
 if [ -f ~/.bashrc ]; then
     mv ~/.bashrc ~/.bashrc.old
 fi
+if [ -f ~/.bash_aliases ]; then
+    mv ~/.bash_aliases ~/.bash_aliases.old
+fi
+if [ -f ~/.vimrc ]; then
+    mv ~/.vimrc ~/.vimrc.old
+fi
+if [ -f ~/.bashrc ]; then
+    mv ~/.gitconfig ~/.gitconfig.old
+fi
 
 # create symlinks for files
 echo "Creating symlinks for bashrc, aliases, vimconfig, and gitconfig..."
