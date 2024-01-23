@@ -19,12 +19,8 @@ function ask() {
 
 # create folders
 echo "Creating ~/personal and ~/work directories..."
-if [ ! -d ~/personal ]; then
-    mkdir ~/personal
-fi
-if [ ! -d ~/work ]; then
-    mkdir ~/work
-fi
+if [ ! -d ~/personal ]; then mkdir ~/personal fi
+if [ ! -d ~/work     ]; then mkdir ~/work     fi
 
 # clone index
 if ask "Would you like to clone The Index to ~/personal? "; then
@@ -39,28 +35,24 @@ if ask "Would you like to hush login messages? "; then
 fi
 
 # create backups
-echo "Creating backup of bashrc to .bashrc.old ..."
-if [ -f ~/.bashrc ]; then
-    mv ~/.bashrc ~/.bashrc.old
-fi
-if [ -f ~/.bash_aliases ]; then
-    mv ~/.bash_aliases ~/.bash_aliases.old
-fi
-if [ -f ~/.vimrc ]; then
-    mv ~/.vimrc ~/.vimrc.old
-fi
-if [ -f ~/.bashrc ]; then
-    mv ~/.gitconfig ~/.gitconfig.old
-fi
+echo "Creating backups of .bashrc, bash_aliases, .vimrc, and .giconfig ..."
+if [ -f ~/.bashrc       ]; then mv ~/.bashrc       ~/.bashrc.old       fi
+if [ -f ~/.bash_aliases ]; then mv ~/.bash_aliases ~/.bash_aliases.old fi
+if [ -f ~/.vimrc        ]; then mv ~/.vimrc        ~/.vimrc.old        fi
+if [ -f ~/.gitconfig    ]; then mv ~/.gitconfig    ~/.gitconfig.old    fi
 
 # create symlinks for files
 echo "Creating symlinks for bashrc, aliases, vimconfig, and gitconfig..."
 ln -s ~/.dotfiles/bashrc.sh          ~/.bashrc
 ln -s ~/.dotfiles/aliases.sh         ~/.bash_aliases
-ln -s ~/.dotfiles/vimrc.vim          ~/.vimrc
+ln -s ~/.dotfiles/vim/vimrc.vim      ~/.vimrc
 ln -s ~/.dotfiles/gitconfig-personal ~/.gitconfig
 # don't create symlink here so this file can be edited for work purposes
 ln    ~/.dotfiles/gitconfig-personal ~/work/.gitconfig
+
+if ask "Would you like to install custom colorschemes for vim? "; then
+    ln -s ~/.dotfiles/vim/colors ~/.vim/colors
+fi
 
 # dynamically create machine specific aliases
 if ask "Create ~/.bash_machine_aliases.sh? "; then
@@ -68,21 +60,23 @@ if ask "Create ~/.bash_machine_aliases.sh? "; then
 
     # windows/wsl instance specific aliases
     if ask "Is this a wsl instance?"; then
-	echo "adding to .machine_aliases.sh for vscode 'c' and file explorer 'e'..." 
-	cat ./wsl.sh >> ~/.bash_machine_aliases.sh
+        echo "adding to .machine_aliases.sh for vscode 'c' and file explorer 'e'..." 
+        cat ./wsl.sh >> ~/.bash_machine_aliases.sh
 
-	# vscode extensions
-	if ask "Would you like to install vscode extensions? "; then
-	    code --install-extension ms-vscode-remote.remote-wsl  # wsl extension
-	    code --install-extension ritwickdey.liveserver        # live server
-	    code --install-extension yzhang.markdown-all-in-one   # markdown all in one
-	    code --install-extension pkief.material-icon-theme    # material icon theme
-	fi
+        # vscode extensions
+        # TODO: add function to allow install to vscodium
+        if ask "Would you like to install vscode extensions? "; then
+            code --install-extension ms-vscode-remote.remote-wsl  # wsl extension
+            code --install-extension ritwickdey.liveserver        # live server
+            code --install-extension yzhang.markdown-all-in-one   # markdown all in one
+            code --install-extension pkief.material-icon-theme    # material icon theme
+            code --install-extension swyphcosmo.spellchecker      # spell checker
+        fi
     fi
 
     # arch install
     if ask "Is this an arch machine? "; then
-	ln -s ~/.dotfiles/arch/.Xdefaults ~/.Xdefaults
+    	ln -s ~/.dotfiles/arch/.Xdefaults ~/.Xdefaults
     fi
 
     if ask "Are you using a window manager? "; then
@@ -107,11 +101,11 @@ if ask "Create ~/.bash_machine_aliases.sh? "; then
             esac
         done
 
-	# are you using polybar
-	if ask "Are you using polybar? "; then
+        # polybar config
+        if ask "Are you using polybar? "; then
             cp ~/.config/polybar/config.ini ~/.config/polybar/config.ini.old
-	    ln -s ~/.dotfiles/windowManagers/misc/polybar/config.ini ~/.config/polybar/config.ini
-	fi
+            ln -s ~/.dotfiles/windowManagers/misc/polybar/config.ini ~/.config/polybar/config.ini
+        fi
     fi
 fi
 
