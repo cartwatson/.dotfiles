@@ -22,17 +22,13 @@ echo "Creating ~/personal and ~/work directories..."
 if [ ! -d ~/personal ]; then mkdir ~/personal fi
 if [ ! -d ~/work     ]; then mkdir ~/work     fi
 
-# clone index
 if ask "Would you like to clone The Index to ~/personal? "; then
-    # assume clone via ssh is setup (how else did I get the dotfiles repo)
-    git clone git@github.com:cartwatson/second-brain ~/personal/index
-    # git clone https://github.com/cartwatson/second-brain ~/personal/index
+    git clone git@github.com:cartwatson/index ~/personal/index
+    # git clone https://github.com/cartwatson/index ~/personal/index
 fi
 
 # hush login
-if ask "Would you like to hush login messages? "; then
-    touch /home/$(whoami)/.hushlogin
-fi
+if ask "Would you like to hush login messages? "; then touch ~/.hushlogin fi
 
 # create backups
 echo "Creating backups of .bashrc, bash_aliases, .vimrc, and .giconfig ..."
@@ -47,7 +43,7 @@ ln -s ~/.dotfiles/bashrc.sh          ~/.bashrc
 ln -s ~/.dotfiles/aliases.sh         ~/.bash_aliases
 ln -s ~/.dotfiles/vim/vimrc.vim      ~/.vimrc
 ln -s ~/.dotfiles/gitconfig-personal ~/.gitconfig
-# don't create symlink here so this file can be edited for work purposes
+# don't create symlink here so this file can be edited
 ln    ~/.dotfiles/gitconfig-personal ~/work/.gitconfig
 
 if ask "Would you like to install custom colorschemes for vim? "; then
@@ -58,20 +54,34 @@ fi
 if ask "Create ~/.bash_machine_aliases.sh? "; then
     cp ./machine_aliases.sh ~/.bash_machine_aliases.sh
 
+    if ask "Are you using vscode/vscodium? "; then
+        declare -a code_extensions=(
+                                    "ms-vscode-remote.remote-wsl"  # wsl extension
+                                    "ritwickdey.liveserver"        # live server
+                                    "yzhang.markdown-all-in-one"   # markdown all in one
+                                    "pkief.material-icon-theme"    # material icon theme
+                                    "swyphcosmo.spellchecker"      # spell checker
+                                    )
+
+        VSCODE="code"
+        if ask "Are you using vscodium? "; then
+            VSCODE="codium"
+        fi
+
+        ## now loop through the above array
+        for extension in "${code_extensions[@]}"
+        do
+            if ask "Would you like to install $extension? "; then
+                $VSCODE --install-extension $extension
+            fi
+        done
+
+        echo -e 'alias c="$VSCODE ." # open vscode/vscodium in current directory' >> ~/.bash_machine_aliases.sh
+    fi
+
     # windows/wsl instance specific aliases
     if ask "Is this a wsl instance?"; then
-        echo "adding to .machine_aliases.sh for vscode 'c' and file explorer 'e'..." 
-        cat ./wsl.sh >> ~/.bash_machine_aliases.sh
-
-        # vscode extensions
-        # TODO: add function to allow install to vscodium
-        if ask "Would you like to install vscode extensions? "; then
-            code --install-extension ms-vscode-remote.remote-wsl  # wsl extension
-            code --install-extension ritwickdey.liveserver        # live server
-            code --install-extension yzhang.markdown-all-in-one   # markdown all in one
-            code --install-extension pkief.material-icon-theme    # material icon theme
-            code --install-extension swyphcosmo.spellchecker      # spell checker
-        fi
+        cat 'alias e="explorer.exe ." # open windows explorer in current directory' >> ~/.bash_machine_aliases.sh
     fi
 
     # arch install
@@ -88,11 +98,11 @@ if ask "Create ~/.bash_machine_aliases.sh? "; then
                 "i3")
 		    cp ~/.config/i3/config ~/.config/i3/config.old
                     ln -s ~/.dotfiles/windowManagers/i3/config ~/.config/i3/config
-		    break
+		            break
                     ;;
                 "Awesome")
                     echo "Haven't used awesome yet so nothing to do here"
-		    break
+		            break
                     ;;
                 "Sike, I'm not using a window manager")
                     break
@@ -111,4 +121,3 @@ fi
 
 # finalize
 source ~/.bashrc
-
