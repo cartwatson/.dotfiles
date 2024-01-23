@@ -125,6 +125,3 @@ bind -s 'set completion-ignore-case on'
 export EDITOR='vi'
 export VISUAL='vi' 
 
-# display files
-ll
-

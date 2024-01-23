@@ -28,7 +28,7 @@ alias gp="git push"
 alias gpl="git pull"
 alias gco="git checkout"
 alias gcod="git checkout dev"
-alias gsll="clear; echo -e '---- List Files ----'; ll; echo -e '\n---- Git Status ----'; gs"
+alias gsll="clear; ll; gs"
 function gcp() { git commit -m "$@" && git push; }
 function gpsu() { git push --set-upstream origin $(git branch --show-current); }
 
