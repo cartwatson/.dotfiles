@@ -49,7 +49,7 @@ if ask "Would you like to create backups and link .bashrc, .bash_aliases, .vimrc
 fi
 
 if ask "Would you like to install custom colorschemes for vim? "; then
-    if [ ! -d ~/.vim ]; then mkdir ~/vim; fi
+    if [ ! -d ~/.vim ]; then mkdir ~/.vim; fi
     ln -s ~/.dotfiles/vim/colors ~/.vim/
 fi
 
@@ -122,7 +122,7 @@ if ask "Create ~/.bash_machine_aliases.sh? "; then
     fi
 fi
 
-echo "Install complete"
+echo -e "\nInstall Complete!"
 
 # finalize
 source ~/.bashrc
