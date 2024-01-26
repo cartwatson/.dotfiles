@@ -29,6 +29,8 @@ alias gpl="git pull"
 alias gco="git checkout"
 alias gcod="git checkout dev"
 alias gsll="clear; ll; gs"
+function gac() { git add "$1" && git commit -m "$2"; }
 function gcp() { git commit -m "$@" && git push; }
+function gacp() { git add "$1" && git commit -m "$2" && git push; }
 function gpsu() { git push --set-upstream origin $(git branch --show-current); }
 
