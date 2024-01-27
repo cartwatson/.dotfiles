@@ -52,7 +52,7 @@ else
         local branch
         branch=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/')
         if [ "$branch" != "" ]; then
-            printf " (%s)" $branch
+            printf " %s" $branch
         fi
     }
 fi

@@ -19,8 +19,8 @@ function ask() {
 
 # create folders
 echo "Creating ~/personal and ~/work directories..."
-if [ ! -d ~/personal ]; then mkdir ~/personal fi
-if [ ! -d ~/work     ]; then mkdir ~/work     fi
+if [ ! -d ~/personal ]; then mkdir ~/personal; fi
+if [ ! -d ~/work     ]; then mkdir ~/work    ; fi
 
 if ask "Would you like to clone The Index to ~/personal? "; then
     git clone git@github.com:cartwatson/index ~/personal/index
@@ -28,26 +28,29 @@ if ask "Would you like to clone The Index to ~/personal? "; then
 fi
 
 # hush login
-if ask "Would you like to hush login messages? "; then touch ~/.hushlogin fi
+if ask "Would you like to hush login messages? "; then touch ~/.hushlogin; fi
 
 # create backups
-echo "Creating backups of .bashrc, bash_aliases, .vimrc, and .giconfig ..."
-if [ -f ~/.bashrc       ]; then mv ~/.bashrc       ~/.bashrc.old       fi
-if [ -f ~/.bash_aliases ]; then mv ~/.bash_aliases ~/.bash_aliases.old fi
-if [ -f ~/.vimrc        ]; then mv ~/.vimrc        ~/.vimrc.old        fi
-if [ -f ~/.gitconfig    ]; then mv ~/.gitconfig    ~/.gitconfig.old    fi
+if ask "Would you like to create backups and link .bashrc, .bash_aliases, .vimrc, and .gitconfig? "; then
+    echo "Creating backups of .bashrc, bash_aliases, .vimrc, and .giconfig ..."
+    if [ -f ~/.bashrc       ]; then mv ~/.bashrc       ~/.bashrc.old      ; fi
+    if [ -f ~/.bash_aliases ]; then mv ~/.bash_aliases ~/.bash_aliases.old; fi
+    if [ -f ~/.vimrc        ]; then mv ~/.vimrc        ~/.vimrc.old       ; fi
+    if [ -f ~/.gitconfig    ]; then mv ~/.gitconfig    ~/.gitconfig.old   ; fi
 
-# create symlinks for files
-echo "Creating symlinks for bashrc, aliases, vimconfig, and gitconfig..."
-ln -s ~/.dotfiles/bashrc.sh          ~/.bashrc
-ln -s ~/.dotfiles/aliases.sh         ~/.bash_aliases
-ln -s ~/.dotfiles/vim/vimrc.vim      ~/.vimrc
-ln -s ~/.dotfiles/gitconfig-personal ~/.gitconfig
-# don't create symlink here so this file can be edited
-ln    ~/.dotfiles/gitconfig-personal ~/work/.gitconfig
+    # create symlinks for files
+    echo "Creating symlinks for bashrc, aliases, vimconfig, and gitconfig..."
+    ln -s ~/.dotfiles/bashrc.sh          ~/.bashrc
+    ln -s ~/.dotfiles/aliases.sh         ~/.bash_aliases
+    ln -s ~/.dotfiles/vim/vimrc.vim      ~/.vimrc
+    ln -s ~/.dotfiles/gitconfig-personal ~/.gitconfig
+    # don't create symlink here so this file can be edited
+    ln    ~/.dotfiles/gitconfig-personal ~/work/.gitconfig
+fi
 
 if ask "Would you like to install custom colorschemes for vim? "; then
-    ln -s ~/.dotfiles/vim/colors ~/.vim/colors
+    if [ ! -d ~/.vim ]; then mkdir ~/.vim; fi
+    ln -s ~/.dotfiles/vim/colors ~/.vim/
 fi
 
 # dynamically create machine specific aliases
@@ -81,11 +84,11 @@ if ask "Create ~/.bash_machine_aliases.sh? "; then
 
     # windows/wsl instance specific aliases
     if ask "Is this a wsl instance?"; then
-        cat 'alias e="explorer.exe ." # open windows explorer in current directory' >> ~/.bash_machine_aliases.sh
+        echo 'alias e="explorer.exe ." # open windows explorer in current directory' >> ~/.bash_machine_aliases.sh
     fi
 
     # arch install
-    if ask "Is this an arch machine? "; then
+    if ask "Is this an arch machine? (set terminal theme to dark) "; then
     	ln -s ~/.dotfiles/arch/.Xdefaults ~/.Xdefaults
     fi
 
@@ -96,7 +99,7 @@ if ask "Create ~/.bash_machine_aliases.sh? "; then
         do
             case $opt in
                 "i3")
-		    cp ~/.config/i3/config ~/.config/i3/config.old
+		            cp ~/.config/i3/config ~/.config/i3/config.old
                     ln -s ~/.dotfiles/windowManagers/i3/config ~/.config/i3/config
 		            break
                     ;;
@@ -119,5 +122,8 @@ if ask "Create ~/.bash_machine_aliases.sh? "; then
     fi
 fi
 
+echo -e "\nInstall Complete!"
+
 # finalize
 source ~/.bashrc
+
