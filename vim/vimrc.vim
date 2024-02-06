@@ -41,7 +41,11 @@ set smartcase
 set linebreak " don't wrap in the middle of a word
 
 set background=dark
-colorscheme custom-slate
+try
+    colorscheme custom-slate
+catch
+    colorscheme slate
+endtry
 
 
 " STATUS LINE =================================================================
