@@ -1,4 +1,4 @@
-" Name:         slate
+" Name:         custom-slate
 " Description:  Remake of slate
 " Author:       Original maintainer Ralph Amissah <ralph@amissah.com>
 " Maintainer:   Original maintainer Ralph Amissah <ralph@amissah.com>
@@ -11,7 +11,7 @@
 set background=dark
 
 hi clear
-let g:colors_name = 'slate'
+let g:colors_name = 'custom-slate'
 
 let s:t_Co = has('gui_running') ? -1 : (&t_Co ?? 0)
 
