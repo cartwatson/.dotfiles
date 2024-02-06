@@ -67,7 +67,7 @@ else
 fi
 
 # create prompt line - example below
-# (ssh session) user@machine:working/dir/full/path (git branch)
+# user@machine(ssh session):working/dir/full/path (git branch)
 # $
 if [[ "$color_prompt" = yes ]]; then
     PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[0;36m\]${SESSION_TYPE:+("SSH")}\[\033[00m\]:\[\033[01;34m\]\w\[\033[01;31m\]$(__git_ps1)\[\033[00m\]\n\$ '

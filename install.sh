@@ -22,16 +22,16 @@ echo "Creating ~/personal and ~/work directories..."
 if [ ! -d ~/personal ]; then mkdir ~/personal; fi
 if [ ! -d ~/work     ]; then mkdir ~/work    ; fi
 
-if ask "Would you like to clone The Index to ~/personal? "; then
+if ask "Would you like to clone The Index to ~/personal?"; then
     git clone git@github.com:cartwatson/index ~/personal/index
     # git clone https://github.com/cartwatson/index ~/personal/index
 fi
 
 # hush login
-if ask "Would you like to hush login messages? "; then touch ~/.hushlogin; fi
+if ask "Would you like to hush login messages?"; then touch ~/.hushlogin; fi
 
 # create backups
-if ask "Would you like to create backups and link .bashrc, .bash_aliases, .vimrc, and .gitconfig? "; then
+if ask "Would you like to create backups and link .bashrc, .bash_aliases, .vimrc, and .gitconfig?"; then
     echo "Creating backups of .bashrc, bash_aliases, .vimrc, and .giconfig ..."
     if [ -f ~/.bashrc       ]; then mv ~/.bashrc       ~/.bashrc.old      ; fi
     if [ -f ~/.bash_aliases ]; then mv ~/.bash_aliases ~/.bash_aliases.old; fi
@@ -48,16 +48,16 @@ if ask "Would you like to create backups and link .bashrc, .bash_aliases, .vimrc
     ln    ~/.dotfiles/gitconfig-personal ~/work/.gitconfig
 fi
 
-if ask "Would you like to install custom colorschemes for vim? "; then
+if ask "Would you like to install custom colorschemes for vim?"; then
     if [ ! -d ~/.vim ]; then mkdir ~/.vim; fi
     ln -s ~/.dotfiles/vim/colors ~/.vim/
 fi
 
 # dynamically create machine specific aliases
-if ask "Create ~/.bash_machine_aliases.sh? "; then
+if ask "Create ~/.bash_machine_aliases.sh?"; then
     cp ./machine_aliases.sh ~/.bash_machine_aliases.sh
 
-    if ask "Are you using vscode/vscodium? "; then
+    if ask "Are you using vscode/vscodium?"; then
         declare -a code_extensions=(
                                     "ms-vscode-remote.remote-wsl"  # wsl extension
                                     "ritwickdey.liveserver"        # live server
@@ -67,14 +67,14 @@ if ask "Create ~/.bash_machine_aliases.sh? "; then
                                     )
 
         VSCODE="code"
-        if ask "Are you using vscodium? "; then
+        if ask "Are you using vscodium?"; then
             VSCODE="codium"
         fi
 
         ## now loop through the above array
         for extension in "${code_extensions[@]}"
         do
-            if ask "Would you like to install $extension? "; then
+            if ask "Would you like to install $extension?"; then
                 $VSCODE --install-extension $extension
             fi
         done
