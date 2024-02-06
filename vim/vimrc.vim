@@ -44,7 +44,7 @@ set background=dark
 try
     colorscheme custom-slate
 catch
-    colorscheme slate
+    colorscheme default
 endtry
 
 
