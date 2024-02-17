@@ -53,6 +53,17 @@ if ask "Would you like to install custom colorschemes for vim?"; then
     ln -s ~/.dotfiles/vim/colors ~/.vim/
 fi
 
+if ask "Would you like to install vim-airline?"; then
+    if [ ! -d ~/.vim ]; then mkdir ~/.vim; fi
+    # clone down the repos for airline + themes
+    git clone https://github.com/vim-airline/vim-airline ~/.vim/pack/dist/start/vim-airline
+    git clone https://github.com/vim-airline/vim-airline-themes ~/.vim/pack/dist/start/vim-airline-themes
+
+    # this command needs to run in vimscript to generate docs
+    # TODO: add this to vimrc
+    echo -e "run :helptags ~/.vim/pack/dist/start/vim-airline/doc\n"
+fi
+
 # dynamically create machine specific aliases
 if ask "Create ~/.bash_machine_aliases.sh?"; then
     cp ./machine_aliases.sh ~/.bash_machine_aliases.sh
