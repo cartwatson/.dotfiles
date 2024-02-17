@@ -50,6 +50,7 @@ endtry
 
 
 " STATUS LINE =================================================================
+" create status line when vim-airline isn't installed
 
 " Clear status line when vimrc is reloaded.
 set statusline=
@@ -92,6 +93,18 @@ command! T vertical terminal
 " alias for when you accidentally hold shift
 command  W write
 
+" PLUGINS =====================================================================
+
+" theme for airline
+let g:airline_theme = 'minimalist'
+" let g:airline_theme = 'distinguished'
+
+" disable checking for other extensions (helps with performance)
+let g:airline_extensions = []
+
+" customize the line section at the end
+let g:airline_section_z = 'ln: %l/%L, %v'
+
 " THINGS TO ADD ===============================================================
 " [ ] spell checker
 "   :setlocal spell spelllang=en_us
@@ -100,4 +113,5 @@ command  W write
 "   [ ] make spellcheck file only apply to text files (and maybe comments)
 " [X] command to open terminal in vertical pane
 " [ ] change status line to show mode (like vim-airline) 
+" [ ] create slate theme for vim-airline
 
