@@ -63,7 +63,7 @@ set statusline+=%f\ %y\ %M\ %R
 set statusline+=%=
 
 " Status line right side.
-set statusline+=\ r:%l\ c:%c
+set statusline+=\ r:%l/%L,\ %c
 
 " Show the status on the second to last line.
 set laststatus=2
@@ -88,10 +88,10 @@ set splitbelow
 set splitright
 
 " alias for vertical terminal
-command! T vertical terminal
+command T vertical terminal
 
 " alias for when you accidentally hold shift
-command  W write
+command W write
 
 " PLUGINS =====================================================================
 
@@ -104,14 +104,4 @@ let g:airline_extensions = []
 
 " customize the line section at the end
 let g:airline_section_z = 'ln: %l/%L, %v'
-
-" THINGS TO ADD ===============================================================
-" [ ] spell checker
-"   :setlocal spell spelllang=en_us
-"   :setlocal nospell
-"   [ ] configure spellcheck file
-"   [ ] make spellcheck file only apply to text files (and maybe comments)
-" [X] command to open terminal in vertical pane
-" [ ] change status line to show mode (like vim-airline) 
-" [ ] create slate theme for vim-airline
 
