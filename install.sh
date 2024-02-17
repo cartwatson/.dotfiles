@@ -18,7 +18,7 @@ function ask() {
 }
 
 # create folders
-echo "Creating ~/personal and ~/work directories..."
+echo "Attempting to create ~/personal and ~/work directories..."
 if [ ! -d ~/personal ]; then mkdir ~/personal; fi
 if [ ! -d ~/work     ]; then mkdir ~/work    ; fi
 
@@ -53,15 +53,17 @@ if ask "Would you like to install custom colorschemes for vim?"; then
     ln -s ~/.dotfiles/vim/colors ~/.vim/
 fi
 
-if ask "Would you like to install vim-airline?"; then
+if ask "Would you like to install vim-airline and nerdtree?"; then
     if [ ! -d ~/.vim ]; then mkdir ~/.vim; fi
     # clone down the repos for airline + themes
     git clone https://github.com/vim-airline/vim-airline ~/.vim/pack/dist/start/vim-airline
     git clone https://github.com/vim-airline/vim-airline-themes ~/.vim/pack/dist/start/vim-airline-themes
+    
+    git clone https://github.com/preservim/nerdtree.git ~/.vim/pack/vendor/start/nerdtree/doc
 
-    # this command needs to run in vimscript to generate docs
-    # TODO: add this to vimrc
-    echo -e "run :helptags ~/.vim/pack/dist/start/vim-airline/doc\n"
+    # install helptags
+    vim -u NONE -c "helptags ~/.vim/pack/vendor/start/nerdtree/doc" -c q
+    vim -u NONE -c "helptags ~/.vim/pack/dist/start/vim-airline/doc" -c q
 fi
 
 # dynamically create machine specific aliases
@@ -70,11 +72,11 @@ if ask "Create ~/.bash_machine_aliases.sh?"; then
 
     if ask "Are you using vscode/vscodium?"; then
         declare -a code_extensions=(
-                                    "ms-vscode-remote.remote-wsl"  # wsl extension
+                                    # "ms-vscode-remote.remote-wsl"  # wsl extension
                                     "ritwickdey.liveserver"        # live server
                                     "yzhang.markdown-all-in-one"   # markdown all in one
                                     "pkief.material-icon-theme"    # material icon theme
-                                    "swyphcosmo.spellchecker"      # spell checker
+                                    # "swyphcosmo.spellchecker"      # spell checker
                                     )
 
         VSCODE="code"
