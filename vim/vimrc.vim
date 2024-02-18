@@ -114,3 +114,6 @@ let g:NERDTreeShowHidden = 1
 " group hidden files at top
 let g:NERDTreeSortOrder = ['\.$', '\/$', '*' ]
 
+" remove bookmarks and help prompt
+let g:NERDTreeMinimalUI = 1
+
