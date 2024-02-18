@@ -59,7 +59,7 @@ if ask "Would you like to install vim-airline and nerdtree?"; then
     git clone https://github.com/vim-airline/vim-airline ~/.vim/pack/dist/start/vim-airline
     git clone https://github.com/vim-airline/vim-airline-themes ~/.vim/pack/dist/start/vim-airline-themes
     
-    git clone https://github.com/preservim/nerdtree.git ~/.vim/pack/vendor/start/nerdtree/doc
+    git clone https://github.com/preservim/nerdtree.git ~/.vim/pack/vendor/start/nerdtree
 
     # install helptags
     vim -u NONE -c "helptags ~/.vim/pack/vendor/start/nerdtree/doc" -c q
