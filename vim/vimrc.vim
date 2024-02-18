@@ -105,3 +105,12 @@ let g:airline_extensions = []
 " customize the line section at the end
 let g:airline_section_z = 'ln: %l/%L, %v'
 
+" ctrl+b toggles nerdtree
+nnoremap <C-b> :NERDTreeToggle<CR>
+
+" show hidden files by default
+let g:NERDTreeShowHidden = 1
+
+" group hidden files at top
+let g:NERDTreeSortOrder = ['\.$', '\/$', '*' ]
+
