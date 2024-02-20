@@ -37,8 +37,8 @@ set hlsearch
 set ignorecase
 set smartcase
 
-" general
-set linebreak " don't wrap in the middle of a word
+" don't wrap in the middle of a word
+set linebreak 
 
 " set custom color scheme
 set background=dark
@@ -47,6 +47,12 @@ try
 catch
     colorscheme default
 endtry
+
+" update refresh time for git-gutter and speed
+set updatetime=100 " ms
+
+" column should only be one width
+set signcolumn=number
 
 
 " STATUS LINE =================================================================
@@ -57,13 +63,13 @@ set statusline=
 
 " Status line left side.
 " set statusline+=\ %F\ %M\ %Y\ %R
-set statusline+=%f\ %y\ %M\ %R
+set statusline+=%f\ %M\ %R
 
 " Use a divider to separate the left side from the right side.
 set statusline+=%=
 
 " Status line right side.
-set statusline+=\ r:%l/%L,\ %c
+set statusline+=\ %y\ ln:\ %l/%L,\ %c
 
 " Show the status on the second to last line.
 set laststatus=2
@@ -95,18 +101,19 @@ command W write
 
 " PLUGINS =====================================================================
 
-" theme for airline
-let g:airline_theme = 'minimalist'
-" let g:airline_theme = 'distinguished'
-
-" disable checking for other extensions (helps with performance)
-let g:airline_extensions = []
-
-" customize the line section at the end
-let g:airline_section_z = 'ln: %l/%L, %v'
+# " theme for airline
+# let g:airline_theme = 'minimalist'
+# let g:airline_theme = 'distinguished'
+# 
+# " disable checking for other extensions (helps with performance)
+# let g:airline_extensions = []
+# 
+# " customize the line section at the end
+# let g:airline_section_z = 'ln: %l/%L, %v'
 
 " ctrl+b toggles nerdtree
-nnoremap <C-b> :NERDTreeToggle<CR>
+nnoremap <C-i> :NERDTreeToggle<CR>
+nnoremap <C-f> :NERDTreeFocus<CR>
 
 " show hidden files by default
 let g:NERDTreeShowHidden = 1
