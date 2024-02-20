@@ -101,15 +101,15 @@ command W write
 
 " PLUGINS =====================================================================
 
-# " theme for airline
-# let g:airline_theme = 'minimalist'
-# let g:airline_theme = 'distinguished'
-# 
-# " disable checking for other extensions (helps with performance)
-# let g:airline_extensions = []
-# 
-# " customize the line section at the end
-# let g:airline_section_z = 'ln: %l/%L, %v'
+" " theme for airline
+" let g:airline_theme = 'minimalist'
+" let g:airline_theme = 'distinguished'
+" 
+" " disable checking for other extensions (helps with performance)
+" let g:airline_extensions = []
+" 
+" " customize the line section at the end
+" let g:airline_section_z = 'ln: %l/%L, %v'
 
 " ctrl+b toggles nerdtree
 nnoremap <C-i> :NERDTreeToggle<CR>
