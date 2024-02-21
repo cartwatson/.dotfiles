@@ -39,3 +39,6 @@ function gcp() { git commit -m "$@" && git push; }
 function gacp() { git add "$1" && git commit -m "$2" && git push; }
 function gpsu() { git push --set-upstream origin $(git branch --show-current); }
 
+# --misc
+alias v="vim"
+
