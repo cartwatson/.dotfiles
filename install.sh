@@ -67,7 +67,7 @@ if ask "Would you like to install vim plugins?"; then
 fi
 
 # dynamically create machine specific aliases
-if [ -f ~/.bash_machine_aliases.sh ]; then cp ~/.bash_machine_alises.sh ~/.bash_machine_aliases.sh.old; fi
+if [ -f ~/.bash_machine_aliases.sh ]; then cp ~/.bash_machine_aliases.sh ~/.bash_machine_aliases.sh.old; fi
 cp ./machine_aliases.sh ~/.bash_machine_aliases.sh
 
 code_extensions=( 
@@ -107,7 +107,7 @@ if [ -f "/etc/arch-release" ]; then
     echo -e "arch files installed\n"
 fi
 
-if ask "Are you using a window manager? "; then
+if ask "Are you using a window manager?"; then
     # provide user with a selection of window managers 
     options=("i3" "Awesome" "Sike, I'm not using a window manager")
     select opt in "${options[@]}"
