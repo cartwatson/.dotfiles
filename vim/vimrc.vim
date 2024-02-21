@@ -43,7 +43,7 @@ set linebreak
 " set custom color scheme
 set background=dark
 try
-    colorscheme custom-slate
+    colorscheme gruvbox
 catch
     colorscheme default
 endtry
@@ -101,17 +101,12 @@ command W write
 
 " PLUGINS =====================================================================
 
-" " theme for airline
-" let g:airline_theme = 'minimalist'
-" let g:airline_theme = 'distinguished'
-" 
-" " disable checking for other extensions (helps with performance)
-" let g:airline_extensions = []
-" 
-" " customize the line section at the end
-" let g:airline_section_z = 'ln: %l/%L, %v'
+" gitgutter make background transparent
+highlight GitGutterAdd    ctermbg=NONE guibg=NONE
+highlight GitGutterChange ctermbg=NONE guibg=NONE
+highlight GitGutterDelete ctermbg=NONE guibg=NONE
 
-" ctrl+b toggles nerdtree
+" nerdtree shortcuts
 nnoremap <C-i> :NERDTreeToggle<CR>
 nnoremap <C-f> :NERDTreeFocus<CR>
 
@@ -123,4 +118,7 @@ let g:NERDTreeSortOrder = ['\.$', '\/$', '*' ]
 
 " remove bookmarks and help prompt
 let g:NERDTreeMinimalUI = 1
+
+" great example of good variable naming
+let g:NERDTreeQuitOnOpen = 3
 
