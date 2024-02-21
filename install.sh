@@ -51,9 +51,9 @@ if ask "Would you like to install vim plugins?"; then
     if [ ! -d ~/.vim ]; then mkdir ~/.vim; fi
     # clone down the repos for plugins
     curl "https://raw.githubusercontent.com/vim/vim/master/runtime/colors/slate.vim" > ~/.vim/colors/slate-truecolor.vim
-    git clone https://github.com/morhetz/gruvbox.git ~/.vim/pack/default/start/gruvbox
-    git clone https://github.com/preservim/nerdtree.git ~/.vim/pack/vendor/start/nerdtree
-    git clone https://github.com/airblade/vim-gitgutter.git ~/.vim/pack/airblade/start/vim-gitgutter
+    git clone https://github.com/morhetz/gruvbox.git        ~/.vim/pack/cwatson/start/gruvbox
+    git clone https://github.com/preservim/nerdtree.git     ~/.vim/pack/cwatson/start/nerdtree
+    git clone https://github.com/airblade/vim-gitgutter.git ~/.vim/pack/cwatson/start/vim-gitgutter
 
     # install helptags
     vim -u NONE -c "helptags ~/.vim/pack/vendor/start/nerdtree/doc" -c q
