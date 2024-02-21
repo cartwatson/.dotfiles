@@ -101,10 +101,15 @@ command W write
 
 " PLUGINS =====================================================================
 
-" gitgutter make background transparent
-highlight GitGutterAdd    ctermbg=NONE guibg=NONE
-highlight GitGutterChange ctermbg=NONE guibg=NONE
-highlight GitGutterDelete ctermbg=NONE guibg=NONE
+" toggle gitgutter so I can see line numbers again
+nnoremap <C-g> :GitGutterToggle<CR>
+
+" remove background from gitgutter signs
+let g:gitgutter_set_sign_backgrounds=1
+highlight signcolumn      guibg=NONE    ctermbg=NONE
+highlight GitGutterAdd    guifg=#009900 ctermfg=2
+highlight GitGutterChange guifg=#bbbb00 ctermfg=3
+highlight GitGutterDelete guifg=#ff2222 ctermfg=1
 
 " nerdtree shortcuts
 nnoremap <C-i> :NERDTreeToggle<CR>
