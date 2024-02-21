@@ -47,23 +47,17 @@ if ask "Would you like to create backups and link .bashrc, .bash_aliases, .vimrc
     ln    ~/.dotfiles/gitconfig-personal ~/work/.gitconfig
 fi
 
-if ask "Would you like to install custom colorschemes for vim?"; then
-    if [ ! -d ~/.vim ]; then mkdir ~/.vim; fi
-    ln -s ~/.dotfiles/vim/colors ~/.vim/
-fi
-
 if ask "Would you like to install vim plugins?"; then
     if [ ! -d ~/.vim ]; then mkdir ~/.vim; fi
     # clone down the repos for plugins
-    # git clone https://github.com/vim-airline/vim-airline ~/.vim/pack/dist/start/vim-airline
-    # git clone https://github.com/vim-airline/vim-airline-themes ~/.vim/pack/dist/start/vim-airline-themes
+    curl "https://raw.githubusercontent.com/vim/vim/master/runtime/colors/slate.vim" > ~/.vim/colors/slate-truecolor.vim
+    git clone https://github.com/morhetz/gruvbox.git ~/.vim/pack/default/start/gruvbox
     git clone https://github.com/preservim/nerdtree.git ~/.vim/pack/vendor/start/nerdtree
     git clone https://github.com/airblade/vim-gitgutter.git ~/.vim/pack/airblade/start/vim-gitgutter
 
     # install helptags
-    # vim -u NONE -c "helptags ~/.vim/pack/dist/start/vim-airline/doc" -c q
     vim -u NONE -c "helptags ~/.vim/pack/vendor/start/nerdtree/doc" -c q
-    vim -u NONE -c "helptags ~/.vim/pack/airblade/start/vim-gitutter/doc" -c q
+    vim -u NONE -c "helptags ~/.vim/pack/airblade/start/vim-gitgutter/doc" -c q
 fi
 
 # dynamically create machine specific aliases
