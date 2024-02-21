@@ -17,7 +17,11 @@ alias sbr="source ~/.bashrc"
 alias ebr="cat ~/.bash_aliases"
 
 # --override builtins
-function cd() { builtin cd "$@" && ll; }
+function cd() {
+    builtin cd "$@";
+    ll;
+    if [ -d ".git" ]; then gs; fi
+}
 
 # --git
 alias gs="git status -sb"
