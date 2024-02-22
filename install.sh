@@ -33,7 +33,7 @@ if ask "Would you like to create backups and link .bashrc, .bash_aliases, .vimrc
     echo "Creating symlinks for bashrc, aliases, vimconfig, and gitconfig..."
     ln -s ~/.dotfiles/bashrc.sh          ~/.bashrc
     ln -s ~/.dotfiles/aliases.sh         ~/.bash_aliases
-    ln -s ~/.dotfiles/vim/vimrc.vim      ~/.vimrc
+    ln -s ~/.dotfiles/vimrc.vim          ~/.vimrc
     ln -s ~/.dotfiles/gitconfig-personal ~/.gitconfig
     # don't create symlink here so this file can be edited
     ln    ~/.dotfiles/gitconfig-personal ~/work/.gitconfig
