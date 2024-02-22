@@ -107,8 +107,20 @@ if ask "Are you using a window manager?"; then
     do
         case $opt in
             "i3")
-                cp ~/.config/i3/config ~/.config/i3/config.old
+                if [ ! -d ~/.config/i3 ]; then 
+                    mkdir -p ~/.config/i3; 
+                else
+                    mv ~/.config/i3/config ~/.config/i3/config.old
+                fi
                 ln -s ~/.dotfiles/windowManagers/i3/config ~/.config/i3/config
+
+                # configure status bar
+                if [ ! -d ~/.config/i3status ]; then
+                    mkdir -p ~/.config/i3status;
+                else
+                    mv ~/.config/i3status/config ~/.config/i3status/config.old
+                fi
+                ln -s ~/.dotfiles/windowManagers/i3status/config ~/.config/i3status/config
                 break
                 ;;
             "Awesome")
