@@ -40,6 +40,17 @@ set smartcase
 " don't wrap in the middle of a word
 set linebreak 
 
+" remove background from gitgutter signs
+function! s:tweak_gruvbox_gitgutter_colors()
+    let g:gitgutter_set_sign_backgrounds=1
+    highlight signcolumn      guibg=NONE    ctermbg=NONE
+    highlight GitGutterAdd    guifg=#009900 ctermfg=2
+    highlight GitGutterChange guifg=#bbbb00 ctermfg=3
+    highlight GitGutterDelete guifg=#ff2222 ctermfg=1
+endfunction
+
+autocmd! ColorScheme gruvbox call s:tweak_gruvbox_gitgutter_colors()
+
 " set custom color scheme
 set background=dark
 try
@@ -104,13 +115,6 @@ command W write
 " toggle gitgutter so I can see line numbers again
 nnoremap <C-g> :GitGutterToggle<CR>
 
-" remove background from gitgutter signs
-let g:gitgutter_set_sign_backgrounds=1
-highlight signcolumn      guibg=NONE    ctermbg=NONE
-highlight GitGutterAdd    guifg=#009900 ctermfg=2
-highlight GitGutterChange guifg=#bbbb00 ctermfg=3
-highlight GitGutterDelete guifg=#ff2222 ctermfg=1
-
 " nerdtree shortcuts
 nnoremap <C-i> :NERDTreeToggle<CR>
 nnoremap <C-f> :NERDTreeFocus<CR>
@@ -130,4 +134,32 @@ let g:NERDTreeQuitOnOpen = 3
 " Start NERDTree when Vim is started without file arguments.
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists('s:std_in') | NERDTree | endif
+
+" vim command to set nonumber norelativenumber laststatus=0 syntax=off
+let s:enabled = 0
+
+function! ZenModeToggle()
+    if s:enabled
+        set number
+        set relativenumber
+        set laststatus=2
+        set signcolumn=number
+        syntax on
+        colorscheme gruvbox
+
+        let s:enabled = 0
+    else
+        set nonumber
+        set norelativenumber
+        set laststatus=0
+        set signcolumn=no
+        syntax off
+        colorscheme candle-grey
+
+        let s:enabled = 1
+    endif
+endfunction
+
+command ZenToggle call ZenModeToggle()
+nnoremap <C-z> :ZenToggle<CR>
 
