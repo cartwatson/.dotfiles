@@ -48,9 +48,10 @@ if ask "Would you like to create backups and link .bashrc, .bash_aliases, .vimrc
 fi
 
 if ask "Would you like to install vim plugins?"; then
-    if [ ! -d ~/.vim ]; then mkdir ~/.vim; fi
+    if [ ! -d ~/.vim ] || [ ! -d ~/.vim/colors ]; then mkdir -p ~/.vim/colors; fi
     # clone down the repos for plugins
     # curl "https://raw.githubusercontent.com/vim/vim/master/runtime/colors/slate.vim" > ~/.vim/colors/slate-truecolor.vim
+    curl "https://raw.githubusercontent.com/aditya-azad/candle-grey/master/colors/candle-grey.vim" > ~/.vim/colors/candle-grey.vim
     git clone https://github.com/morhetz/gruvbox.git        ~/.vim/pack/cwatson/start/gruvbox
     git clone https://github.com/preservim/nerdtree.git     ~/.vim/pack/cwatson/start/nerdtree
     git clone https://github.com/airblade/vim-gitgutter.git ~/.vim/pack/cwatson/start/vim-gitgutter
