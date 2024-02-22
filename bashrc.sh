@@ -34,10 +34,10 @@ esac
 # color support
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48 (ISO/IEC-6429).
-	color_prompt=yes
+        # We have color support; assume it's compliant with Ecma-48 (ISO/IEC-6429).
+        color_prompt=yes
     else
-	color_prompt=
+        color_prompt=
     fi
 fi
 
@@ -59,11 +59,11 @@ fi
 
 # see if terminal is being remoted/ssh into
 if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
-  SESSION_TYPE=remote/ssh
+    SESSION_TYPE=remote/ssh
 else
-  case $(ps -o comm= -p $PPID) in
-    sshd|*/sshd) SESSION_TYPE=remote/ssh;;
-  esac
+    case $(ps -o comm= -p $PPID) in
+        sshd|*/sshd) SESSION_TYPE=remote/ssh;;
+    esac
 fi
 
 # create prompt line - example below
