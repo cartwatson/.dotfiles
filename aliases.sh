@@ -16,13 +16,6 @@ alias vbr="vim ~/.bash_aliases"
 alias sbr="source ~/.bashrc"
 alias ebr="cat ~/.bash_aliases"
 
-# --override builtins
-function cd() {
-    builtin cd "$@";
-    ll;
-    if [ -d ".git" ]; then gs; fi
-}
-
 # --git
 alias gs="git status -sb"
 alias ga="git add"
@@ -38,6 +31,13 @@ function gac() { git add "$1" && git commit -m "$2"; }
 function gcp() { git commit -m "$@" && git push; }
 function gacp() { git add "$1" && git commit -m "$2" && git push; }
 function gpsu() { git push --set-upstream origin $(git branch --show-current); }
+
+# --override builtins
+function cd() {
+    builtin cd "$@";
+    ll;
+    if [ -d ".git" ]; then gs; fi
+}
 
 # --misc
 alias v="vim"
