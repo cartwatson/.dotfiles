@@ -4,17 +4,9 @@
 #
 ###############################################################################
 
-# function to ask user y/n questions
-# credit to bartekspitza on github
 function ask() {
     read -p "$1 (Y/n): " resp
-    if [ -z "$resp" ]; then
-        response_lc="y" # empty is Yes
-    else
-        response_lc=$(echo "$resp" | tr '[:upper:]' '[:lower:]') # case insensitive
-    fi
-
-    [ "$response_lc" = "y" ]
+    [ -z "$resp" ] || [ "$resp" = "y" ] || [ "$resp" = "Y" ] 
 }
 
 # create folders
