@@ -1,3 +1,4 @@
+#!/bin/bash
 ###############################################################################
 #
 # Init new systems with config files
@@ -83,7 +84,7 @@ if ask "Are you using vscode/vscodium?"; then
     done
 
     # create alias
-    echo -e 'alias c="$VSCODE ." # open vscode/vscodium in current directory' >> ~/.bash_machine_aliases.sh
+    echo -e "alias c=\"""$VSCODE"" .\" # open vscode/vscodium in current directory" >> ~/.bash_machine_aliases.sh
 fi
 
 # arch install

@@ -12,7 +12,8 @@ Use `install.sh` to create symlinks to bashrc, bash_aliases, and vimrc and to ge
     1. Make sure name of file is id_ed25519-\<hostsite\>
 1. cat ~/.ssh/id_ed2559-\<hostsite\>
 1. add to hostsite profile settings
-1. `ssh-add ~/.ssh/id_ed2558-\<hostsite\>`
+1. `` eval `ssh-agent -s` ``
+1. `ssh-add ~/.ssh/id_ed2558-<hostsite>`
 1. key name on hostsite should be \<user\>@\<machine hostname\>
 
 ## Arch
@@ -25,3 +26,4 @@ things not included in install script because I don't care about them that much
 - link redshift.service to `~/.config/systemd/user/redshift.service`
     - modify lat/lot as desired
 - run `systemd --user enable redshift.service` from `~/.config/systemd/user` directory
+
