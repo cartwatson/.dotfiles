@@ -110,6 +110,7 @@ command T vertical terminal
 " alias for when you accidentally hold shift
 command W write
 
+
 " PLUGINS =====================================================================
 
 " toggle gitgutter so I can see line numbers again
