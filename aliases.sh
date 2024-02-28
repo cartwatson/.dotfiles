@@ -12,9 +12,7 @@ alias cds="clear; cd ~/personal/index"
 alias cdw="clear; cd ~/work"
 alias cdd="clear; cd ~/.dotfiles"
 alias ll="ls -AlvhG"
-alias vbr="vim ~/.bash_aliases"
 alias sbr="source ~/.bashrc"
-alias ebr="cat ~/.bash_aliases"
 
 # --git
 alias gs="git status -sb"
@@ -41,4 +39,5 @@ function cd() {
 
 # --misc
 alias v="vim"
+alias h="helix"
 

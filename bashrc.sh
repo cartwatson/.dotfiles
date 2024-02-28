@@ -121,7 +121,14 @@ fi
 # case insensitive tab completion
 bind -s 'set completion-ignore-case on'
 
-# set default editor to vim
-export EDITOR='vi'
-export VISUAL='vi' 
+# set default editor
+export EDITOR='helix'
+export VISUAL='$EDITOR'
+
+# start ssh-agent if not already started
+if [ -n $SSH_AGENT_PID ]; then
+    eval "$(ssh-agent -s)" > /dev/null;
+    # add all private keys to ssh-agent
+    find ~/.ssh -type f -regextype egrep -regex '.*/id_[^.]+$' | xargs ssh-add -q
+fi
 

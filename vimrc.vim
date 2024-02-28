@@ -42,6 +42,7 @@ set linebreak
 
 " remove background from gitgutter signs
 function! s:tweak_gruvbox_gitgutter_colors()
+    let g:gruvbox_contrast_dark="hard"
     let g:gitgutter_set_sign_backgrounds=1
     highlight signcolumn      guibg=NONE    ctermbg=NONE
     highlight GitGutterAdd    guifg=#009900 ctermfg=2
@@ -49,7 +50,7 @@ function! s:tweak_gruvbox_gitgutter_colors()
     highlight GitGutterDelete guifg=#ff2222 ctermfg=1
 endfunction
 
-autocmd! ColorScheme gruvbox call s:tweak_gruvbox_gitgutter_colors()
+autocmd! ColorSchemePre gruvbox call s:tweak_gruvbox_gitgutter_colors()
 
 " set custom color scheme
 set background=dark
@@ -67,7 +68,6 @@ set signcolumn=number
 
 
 " STATUS LINE =================================================================
-" create status line when vim-airline isn't installed
 
 " Clear status line when vimrc is reloaded.
 set statusline=
