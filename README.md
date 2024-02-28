@@ -15,6 +15,7 @@ Use `install.sh` to create symlinks to bashrc, bash_aliases, and vimrc and to ge
 1. `` eval `ssh-agent -s` ``
 1. `ssh-add ~/.ssh/id_ed2558-<hostsite>`
 1. key name on hostsite should be \<user\>@\<machine hostname\>
+1. test with `ssh git@github.com` or whatever the default user@hostname is
 
 ## Arch
 

@@ -12,6 +12,7 @@ alias cds="clear; cd ~/personal/index"
 alias cdw="clear; cd ~/work"
 alias cdd="clear; cd ~/.dotfiles"
 alias ll="ls -AlvhG"
+alias mkdir="mkdir -p"
 alias sbr="source ~/.bashrc"
 
 # --git
