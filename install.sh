@@ -40,6 +40,11 @@ if ask "Would you like to create backups and link .bashrc, .bash_aliases, .vimrc
     ln    ~/.dotfiles/gitconfig-personal ~/work/.gitconfig
 fi
 
+if ask "Will you be using helix?"; then
+    if [ ! -d ~/.config/helix ]; then mkdir -p ~/.config/helix; fi
+    ln -s ~/.dotfiles/helix-config.toml ~/.config/helix/config.toml
+fi
+
 if ask "Would you like to install vim plugins?"; then
     if [ ! -d ~/.vim ] || [ ! -d ~/.vim/colors ]; then mkdir -p ~/.vim/colors; fi
     # clone down the repos for plugins
