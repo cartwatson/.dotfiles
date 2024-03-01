@@ -1,5 +1,6 @@
-theme = "gruvbox_dark_hard"
+# theme = "gruvbox_dark_hard"
 # theme = "molokai"
+theme = "dark_plus" # vscode color scheme
 
 [editor]
 true-color = true
@@ -29,7 +30,7 @@ render = true
 "A-l" = "move_char_right"
 
 [keys.select]
-"C-c" = ["normal_mode", "collapse_selection"]
+"C-c" = ["collapse_selection", "normal_mode"]
 esc = ["collapse_selection", "normal_mode"]
 "C-7" = "toggle_comments" # ctrl + /
 
