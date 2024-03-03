@@ -35,7 +35,9 @@ function gpsu() { git push --set-upstream origin $(git branch --show-current); }
 function cd() {
     builtin cd "$@";
     ll;
-    if [ -d ".git" ]; then gs; fi
+    if [ -d ".git" ]; then
+        git status -sb;
+    fi
 }
 
 # --misc
