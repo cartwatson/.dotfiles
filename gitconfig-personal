@@ -1,3 +1,5 @@
 [user]
 	email = 54688033+cartwatson@users.noreply.github.com
 	name = Carter Watson
+[pull]
+	rebase = false
