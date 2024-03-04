@@ -23,6 +23,7 @@ if [ -n $SSH_AGENT_PID ]; then
 fi
 
 echo -e "\nSuccessully created new key and added to ssh-agent"
-echo -e "Add the below to $site.com\n"
+echo -e "Add the below to $site.com as user@hostname\n"
 cat ~/.ssh/"$site".pub
+echo
 

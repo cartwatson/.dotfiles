@@ -14,11 +14,14 @@ echo "Creating ~/personal and ~/work directories..."
 if [ ! -d ~/personal ]; then mkdir ~/personal; fi
 if [ ! -d ~/work     ]; then mkdir ~/work    ; fi
 
+# ssh-keygen
+if ask "Generate new ssh-key?"; then source ./ssh-key.sh; fi
+
 if ask "Convert from https to ssh for this repo?"; then
     git remote set-url origin git@github.com:cartwatson/.dotfiles.git
 fi
 
-if ask "Would you like to clone The Index to ~/personal?"; then
+if ask "Clone The Index to ~/personal?"; then
     git clone git@github.com:cartwatson/index ~/personal/index
 fi
 
