@@ -4,15 +4,16 @@
 
 function ask() {
     read -p "$1 (Y/n): " resp
-    [ -z "$resp" ] || [ "$resp" = "y" ] || [ "$resp" = "Y" ] 
+    [ -z "$resp" ] || [ "$resp" = "y" ] || [ "$resp" = "Y" ]
 }
 
-function backup() { if [ -f ~/."$1"]; then mv ~/."$1" ~/."$1".old; fi }
+function backup()     { if [   -f ~/."$1" ]; then mv ~/."$1" ~/."$1".old; fi }
+function create_dir() { if [ ! -d ~/"$1"  ]; then mkdir -p ~/"$1";        fi }
 
 # create folders
-echo "Creating ~/personal and ~/work directories..."
-if [ ! -d ~/personal ]; then mkdir ~/personal; fi
-if [ ! -d ~/work     ]; then mkdir ~/work    ; fi
+create_dir personal
+create_dir work
+echo "Created ~/personal and ~/work directories..."
 
 # ssh-keygen
 if ask "Generate new ssh-key?"; then source ./ssh-key.sh; fi
@@ -46,12 +47,12 @@ if ask "Create backups and link .bashrc, .bash_aliases, .vimrc, and .gitconfig?"
 fi
 
 if ask "Will you be using helix?"; then
-    if [ ! -d ~/.config/helix ]; then mkdir -p ~/.config/helix; fi
+    create_dir .config/helix
     ln -s ~/.dotfiles/helix-config.toml ~/.config/helix/config.toml
 fi
 
 if ask "Install vim plugins?"; then
-    if [ ! -d ~/.vim ] || [ ! -d ~/.vim/colors ]; then mkdir -p ~/.vim/colors; fi
+    create_dir .vim/colors
     # clone down the repos for plugins
     curl "https://raw.githubusercontent.com/aditya-azad/candle-grey/master/colors/candle-grey.vim" > ~/.vim/colors/candle-grey.vim
     # git clone https://github.com/tomasiser/vim-code-dark.git  ~/.vim/pack/cwatson/start/vim-code-dark
