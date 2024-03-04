@@ -1,9 +1,6 @@
-#!/bin/bash
-###############################################################################
-#
-# Init new systems with config files
-#
-###############################################################################
+#!/usr/bin/env bash
+# Author: github.com/cartwatson
+# Desc: Init new systems with config files
 
 function ask() {
     read -p "$1 (Y/n): " resp
