@@ -121,3 +121,6 @@ if [ -n $SSH_AGENT_PID ]; then
     find ~/.ssh -type f -regextype egrep -regex '.*/id_[^.]+$' | xargs ssh-add -q
 fi
 
+# home for one off commands
+if [ -f "$HOME/.cargo/env" ]; then source "$HOME/.cargo/env"; fi
+
