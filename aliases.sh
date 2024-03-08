@@ -40,6 +40,11 @@ function cd() {
     fi
 }
 
+function create() {
+    mkdir -p "$@";
+    touch "$_/file.txt"
+}
+
 # --misc
 alias v="vim"
 alias h="helix"
