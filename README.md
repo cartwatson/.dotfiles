@@ -13,3 +13,7 @@ Collection of dotfiles for configs
     - key name on hostsite should be \<user\>@\<machine hostname\>
 1. test with `ssh git@github.com` or with the default user@hostname
 
+## Resources for setup of LSPs for Helix
+
+- [helix wiki](https://github.com/helix-editor/helix/wiki/How-to-install-the-default-language-servers#cc)
+- [docs](https://docs.helix-editor.com/lang-support.html)
