@@ -20,6 +20,9 @@ right = ["version-control", "diagnostics", "register", "position", "file-encodin
 [editor.indent-guides]
 render = true
 
+[editor.whitespace.render]
+space = "all"
+
 [keys.insert]
 "C-c" = ["collapse_selection", "normal_mode"]
 "C-n" = "completion"
