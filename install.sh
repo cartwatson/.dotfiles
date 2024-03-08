@@ -55,7 +55,7 @@ if ask "Install vim plugins?"; then
     create_dir .vim/colors
     # clone down the repos for plugins
     curl "https://raw.githubusercontent.com/aditya-azad/candle-grey/master/colors/candle-grey.vim" > ~/.vim/colors/candle-grey.vim
-    # git clone https://github.com/tomasiser/vim-code-dark.git  ~/.vim/pack/cwatson/start/vim-code-dark
+    git clone https://github.com/tomasiser/vim-code-dark.git  ~/.vim/pack/cwatson/start/vim-code-dark
     git clone https://github.com/morhetz/gruvbox.git          ~/.vim/pack/cwatson/start/gruvbox
     git clone https://github.com/preservim/nerdtree.git       ~/.vim/pack/cwatson/start/nerdtree
     git clone https://github.com/airblade/vim-gitgutter.git   ~/.vim/pack/cwatson/start/vim-gitgutter
