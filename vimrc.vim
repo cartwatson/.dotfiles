@@ -41,21 +41,21 @@ set smartcase
 set linebreak 
 
 " remove background from gitgutter signs
-function! s:tweak_gruvbox_gitgutter_colors()
-    let g:gruvbox_contrast_dark="hard"
-    let g:gitgutter_set_sign_backgrounds=1
-    highlight signcolumn      guibg=NONE    ctermbg=NONE
-    highlight GitGutterAdd    guifg=#009900 ctermfg=2
-    highlight GitGutterChange guifg=#bbbb00 ctermfg=3
-    highlight GitGutterDelete guifg=#ff2222 ctermfg=1
-endfunction
-
-autocmd! ColorSchemePre gruvbox call s:tweak_gruvbox_gitgutter_colors()
+" function! s:tweak_gruvbox_gitgutter_colors()
+"     let g:gruvbox_contrast_dark="hard"
+"     let g:gitgutter_set_sign_backgrounds=1
+"     highlight signcolumn      guibg=NONE    ctermbg=NONE
+"     highlight GitGutterAdd    guifg=#009900 ctermfg=2
+"     highlight GitGutterChange guifg=#bbbb00 ctermfg=3
+"     highlight GitGutterDelete guifg=#ff2222 ctermfg=1
+" endfunction
+" 
+" autocmd! ColorSchemePre gruvbox call s:tweak_gruvbox_gitgutter_colors()
 
 " set custom color scheme
 set background=dark
 try
-    colorscheme gruvbox
+    colorscheme codedark 
 catch
     colorscheme default
 endtry
@@ -110,7 +110,6 @@ command T vertical terminal
 " alias for when you accidentally hold shift
 command W write
 
-
 " PLUGINS =====================================================================
 
 " toggle gitgutter so I can see line numbers again
@@ -146,7 +145,7 @@ function! ZenModeToggle()
         set laststatus=2
         set signcolumn=number
         syntax on
-        colorscheme gruvbox
+        colorscheme codedark
 
         let s:enabled = 0
     else

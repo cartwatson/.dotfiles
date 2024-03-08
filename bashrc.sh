@@ -26,20 +26,9 @@ if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
-# set a fancy prompt (non-color, unless we know we "want" color)
-case "$TERM" in
-    xterm-color|*-256color|xterm) color_prompt=yes;;
-esac
-
-# color support
-if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-        # We have color support; assume it's compliant with Ecma-48 (ISO/IEC-6429).
-        color_prompt=yes
-    else
-        color_prompt=
-    fi
-fi
+# always assume color prompt
+color_prompt=yes
+force_color_prompt=yes
 
 # attempt to source git-prompt.sh if it exists
 if [ -f /usr/share/git-core/contrib/completion/git-prompt.sh ]; then

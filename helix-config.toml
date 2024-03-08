@@ -5,7 +5,7 @@ theme = "dark_plus" # vscode color scheme
 [editor]
 true-color = true
 line-number = "relative"
-# cursorline = true
+cursorline = true
 # cursorcolumn = true
 
 [editor.cursor-shape]
@@ -22,7 +22,7 @@ render = true
 
 [keys.insert]
 "C-c" = ["collapse_selection", "normal_mode"]
-"C-p" = "completion"
+"C-n" = "completion"
 "C-7" = "toggle_comments" # ctrl + /
 "A-h" = "move_char_left"
 "A-j" = "move_visual_line_down"
