@@ -29,11 +29,12 @@ fi
 if [ ! -f ~/.hushlogin ]; then touch ~/.hushlogin; fi
 
 # create backups
-if ask "Create backups and link .bashrc, .bash_aliases, .vimrc, and .gitconfig?"; then
+if ask "Create backups and link .bashrc, .bash_aliases, .vimrc, tmux.conf, and .gitconfig?"; then
     backup bashrc
     backup bash_aliases
     backup vimrc
     backup gitconfig
+    backup tmux.conf
     echo -e "Created backups"
     
     # create symlinks for files
@@ -42,6 +43,7 @@ if ask "Create backups and link .bashrc, .bash_aliases, .vimrc, and .gitconfig?"
     ln -s ~/.dotfiles/aliases.sh         ~/.bash_aliases
     ln -s ~/.dotfiles/vimrc.vim          ~/.vimrc
     ln -s ~/.dotfiles/gitconfig-personal ~/.gitconfig
+    ln -s ~/.dotfiles/tmux.conf          ~/.tmux.conf
     # don't create symlink here so this file can be edited
     ln    ~/.dotfiles/gitconfig-personal ~/work/.gitconfig
 fi
