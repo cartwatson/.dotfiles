@@ -48,12 +48,14 @@ if ask "Create backups and link .bashrc, .bash_aliases, .vimrc, tmux.conf, and .
     ln    ~/.dotfiles/gitconfig-personal ~/work/.gitconfig
 fi
 
-if ask "Will you be using helix?"; then
+if command -v helix &> /dev/null || ask "Will you be using helix?"; then
+    echo -e "Installing helix config"
     create_dir .config/helix
     ln -s ~/.dotfiles/helix-config.toml ~/.config/helix/config.toml
 fi
 
-if ask "Install vim plugins?"; then
+if command -v vim &> /dev/null || sk "Install vim plugins?"; then
+    echo -e "Installing vim plugins & colorschemes"
     create_dir .vim/colors
     # clone down the repos for plugins
     curl "https://raw.githubusercontent.com/aditya-azad/candle-grey/master/colors/candle-grey.vim" > ~/.vim/colors/candle-grey.vim
@@ -68,8 +70,10 @@ fi
 
 # dynamically create machine specific aliases
 if ask "Create machine aliases file?"; then
-    backup bash_machine_aliases.sh
-    cp ./machine_aliases.sh ~/.bash_machine_aliases.sh
+    # only create new file if file doesn't exist yet
+    if [ ! -f ~/.bash_machine_aliases.sh ]; then
+        cp ./machine_aliases.sh ~/.bash_machine_aliases.sh
+    fi
 
     code_extensions=( 
                     "ritwickdey.liveserver"        # live server
