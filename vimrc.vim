@@ -41,21 +41,21 @@ set smartcase
 set linebreak 
 
 " remove background from gitgutter signs
-" function! s:tweak_gruvbox_gitgutter_colors()
-"     let g:gruvbox_contrast_dark="hard"
+function! s:tweak_gruvbox_gitgutter_colors()
+    let g:gruvbox_contrast_dark="hard"
 "     let g:gitgutter_set_sign_backgrounds=1
 "     highlight signcolumn      guibg=NONE    ctermbg=NONE
 "     highlight GitGutterAdd    guifg=#009900 ctermfg=2
 "     highlight GitGutterChange guifg=#bbbb00 ctermfg=3
-"     highlight GitGutterDelete guifg=#ff2222 ctermfg=1
-" endfunction
+"     highlight GitGutterDelete guifg=#ff0000 ctermfg=1
+endfunction
 " 
-" autocmd! ColorSchemePre gruvbox call s:tweak_gruvbox_gitgutter_colors()
+autocmd! ColorSchemePre gruvbox call s:tweak_gruvbox_gitgutter_colors()
 
 " set custom color scheme
 set background=dark
 try
-    colorscheme codedark 
+    colorscheme gruvbox 
 catch
     colorscheme default
 endtry
@@ -64,7 +64,7 @@ endtry
 set updatetime=100 " ms
 
 " column should only be one width
-set signcolumn=number
+set signcolumn=yes
 
 
 " STATUS LINE =================================================================
@@ -145,7 +145,7 @@ function! ZenModeToggle()
         set laststatus=2
         set signcolumn=number
         syntax on
-        colorscheme codedark
+        colorscheme gruvbox 
 
         let s:enabled = 0
     else
