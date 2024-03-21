@@ -1,4 +1,5 @@
-theme = "gruvbox_dark_hard"
+theme = "gruvbox_bufferline"
+# theme = "gruvbox_dark_hard"
 # theme = "molokai"
 # theme = "dark_plus" # vscode color scheme
 
@@ -10,6 +11,7 @@ cursorline = true
 rulers = [80]
 bufferline = "always"
 insert-final-newline = true
+color-modes = true
 
 [editor.cursor-shape]
 insert = "bar"
@@ -65,3 +67,10 @@ esc = ["collapse_selection", "normal_mode"]
 esc = ["collapse_selection", "keep_primary_selection"]
 "C-c" = ["collapse_selection", "keep_primary_selection"]
 "C-7" = "toggle_comments" # ctrl + /
+
+[editor.soft-wrap]
+enable = false
+wrap-at-text-width = true
+
+[keys.normal.space]
+W = [":toggle soft-wrap.enable", ":redraw"]

@@ -1,0 +1,11 @@
+# Author : Carter Watson <github.com/cartwatson>
+# Author : Sven-Hendrik Haase <svenstaro@gmail.com>
+# Author : Jakub Bartodziej <kubabartodziej@gmail.com>
+# The theme uses the gruvbox dark palette with hard contrast: github.com/morhetz/gruvbox
+
+inherits = "gruvbox_dark_hard"
+
+# custom bufferline
+"ui.bufferline" = { fg = "fg1", bg = "bg1" }
+"ui.bufferline.active" = { fg = "bg0", bg = "yellow0" }
+"ui.bufferline.background" = { bg = "bg2" }
