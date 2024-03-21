@@ -53,7 +53,8 @@ if command -v helix &> /dev/null || ask "Install helix config?"; then
     create_dir .config/helix/themes
     ln -s ~/.dotfiles/helix/config.toml ~/.config/helix/config.toml
     ln -s ~/.dotfiles/helix/languages.toml ~/.config/helix/languages.toml
-    ln -s ~/.dotfiles/helix/gruvbox_bufferline.toml ~/.config/helix/themes/gruvbox_bufferline.toml # remove this after pull request gets merged
+    # remove the following after helix updates from 23.10
+    ln -s ~/.dotfiles/helix/gruvbox_bufferline.toml ~/.config/helix/themes/gruvbox_bufferline.toml
 fi
 
 if command -v vim &> /dev/null || ask "Install vim plugins?"; then
