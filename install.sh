@@ -48,13 +48,15 @@ if ask "Create backups and link .bashrc, .bash_aliases, .vimrc, tmux.conf, and .
     ln    ~/.dotfiles/gitconfig-personal ~/work/.gitconfig
 fi
 
-if command -v helix &> /dev/null || ask "Will you be using helix?"; then
+if command -v helix &> /dev/null || ask "Install helix config?"; then
     echo -e "Installing helix config"
-    create_dir .config/helix
-    ln -s ~/.dotfiles/helix-config.toml ~/.config/helix/config.toml
+    create_dir .config/helix/themes
+    ln -s ~/.dotfiles/helix/config.toml ~/.config/helix/config.toml
+    ln -s ~/.dotfiles/helix/languages.toml ~/.config/helix/languages.toml
+    ln -s ~/.dotfiles/helix/gruvbox_bufferline.toml ~/.config/helix/themes/gruvbox_bufferline.toml # remove this after pull request gets merged
 fi
 
-if command -v vim &> /dev/null || sk "Install vim plugins?"; then
+if command -v vim &> /dev/null || ask "Install vim plugins?"; then
     echo -e "Installing vim plugins & colorschemes"
     create_dir .vim/colors
     # clone down the repos for plugins
