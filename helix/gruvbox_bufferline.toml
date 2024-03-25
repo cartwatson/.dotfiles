@@ -9,3 +9,18 @@ inherits = "gruvbox_dark_hard"
 "ui.bufferline" = { fg = "fg1", bg = "bg1" }
 "ui.bufferline.active" = { fg = "bg0", bg = "yellow0" }
 "ui.bufferline.background" = { bg = "bg2" }
+
+"ui.text.focus" = { fg = "green1" }
+
+# test section
+
+## handles the line below input and above results for picker windows
+# "ui.background.separator" = { fg = "gray0" } #, bg = "" }
+
+## handles all menus
+# "ui.menu"        = { fg = "gray1", bg = "bg0"}
+# "ui.help"        = { fg = "gray1", bg = "bg0"}
+# "ui.popup"       = { fg = "gray1", bg = "bg0"}
+# "ui.popup.info"  = { fg = "gray1", bg = "bg0"}
+
+# "ui.text" = { fg = "aqua0" }

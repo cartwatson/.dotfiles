@@ -114,6 +114,9 @@ bind -s 'set completion-ignore-case on'
 export EDITOR='helix'
 export VISUAL='$EDITOR'
 
+# set terminal to be vim mode
+set -o vi
+
 # start ssh-agent if not already started
 if [ -n $SSH_AGENT_PID ]; then
     eval "$(ssh-agent -s)" > /dev/null;

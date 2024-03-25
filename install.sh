@@ -51,6 +51,7 @@ fi
 if command -v helix &> /dev/null || ask "Install helix config?"; then
     echo -e "Installing helix config"
     create_dir .config/helix/themes
+    # TODO: remove these files if they already exist
     ln -s ~/.dotfiles/helix/config.toml ~/.config/helix/config.toml
     ln -s ~/.dotfiles/helix/languages.toml ~/.config/helix/languages.toml
     # remove the following after helix updates from 23.10
@@ -61,6 +62,7 @@ if command -v vim &> /dev/null || ask "Install vim plugins?"; then
     echo -e "Installing vim plugins & colorschemes"
     create_dir .vim/colors
     # clone down the repos for plugins
+    # TODO: if exists, git pull; else clone
     curl "https://raw.githubusercontent.com/aditya-azad/candle-grey/master/colors/candle-grey.vim" > ~/.vim/colors/candle-grey.vim
     git clone https://github.com/tomasiser/vim-code-dark.git  ~/.vim/pack/cwatson/start/vim-code-dark
     git clone https://github.com/morhetz/gruvbox.git          ~/.vim/pack/cwatson/start/gruvbox
