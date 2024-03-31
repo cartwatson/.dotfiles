@@ -5,7 +5,7 @@ Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
 #>
 #  2. install git with scoop
 #  3. install helix with scoop
-#  4. run this script
+#  4. run this script, from this dir
 <# add the following to ssh config; TODO: replace JWatson
 Host github.com
   IdentityFile C:\Users\JWatson\.ssh\id_ed25519-github
@@ -14,3 +14,4 @@ Host github.com
 cp ~\.dotfiles\helix\config.toml ~\AppData\Roaming\helix\config.toml
 cp ~\.dotfiles\gitconfig-personal ~\gitconfig
 ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519-github
+git remote set-url origin git@github.com:cartwatson/.dotfiles.git
