@@ -37,7 +37,7 @@ if [ -f /usr/share/git-core/contrib/completion/git-prompt.sh ]; then
 else
     # define function to emulate git-prompt.sh
     # credit: unknown, seems to have been pasted everywhere
-    __git_ps1() {
+    function __git_ps1() {
         local branch
         branch=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/')
         if [ "$branch" != "" ]; then
