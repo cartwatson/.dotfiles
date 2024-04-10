@@ -19,8 +19,10 @@ ssh-keygen -q -t ed25519 -f ~/.ssh/"$site" -C "$email" -N "$passphrase" || error
 
 if [ -n $SSH_AGENT_PID ]; then
   eval "$(ssh-agent -s)" > /dev/null || error "starting ssh-agent"
-  ssh-add -q ~/.ssh/"$site" || error "adding key to ssh-agent"
 fi
+
+# always add file to agent
+ssh-add -q ~/.ssh/"$site" || error "adding key to ssh-agent"
 
 echo -e "\nSuccessully created new key and added to ssh-agent"
 echo -e "Add the below to $site.com as user@hostname\n"
