@@ -18,12 +18,16 @@ echo "Created ~/personal and ~/work directories..."
 # ssh-keygen
 if ask "Generate new ssh-key?"; then source ./ssh-key.sh; fi
 
+# TODO: if url isn't already ssh style
 if ask "Convert from https to ssh for this repo?"; then
     git remote set-url origin git@github.com:cartwatson/.dotfiles.git
 fi
 
-if ask "Clone The Index to ~/personal?"; then
-    git clone git@github.com:cartwatson/index ~/personal/index
+# only ask to clone index if it doesn't exist
+if [ ! -d ~/personal/index ]; then
+    if ask "Clone The Index to ~/personal?"; then
+        git clone git@github.com:cartwatson/index ~/personal/index
+    fi
 fi
 
 if [ ! -f ~/.hushlogin ]; then touch ~/.hushlogin; fi
@@ -54,24 +58,23 @@ if command -v helix &> /dev/null || ask "Install helix config?"; then
     # TODO: remove these files if they already exist
     ln -s ~/.dotfiles/helix/config.toml ~/.config/helix/config.toml
     ln -s ~/.dotfiles/helix/languages.toml ~/.config/helix/languages.toml
-    # remove the following after helix updates from 23.10
-    ln -s ~/.dotfiles/helix/gruvbox_bufferline.toml ~/.config/helix/themes/gruvbox_bufferline.toml
+    ln -s ~/.dotfiles/helix/gruvbox_custom.toml ~/.config/helix/themes/gruvbox_custom.toml
 fi
 
-if command -v vim &> /dev/null || ask "Install vim plugins?"; then
-    echo -e "Installing vim plugins & colorschemes"
-    create_dir .vim/colors
-    # clone down the repos for plugins
-    # TODO: if exists, git pull; else clone
-    curl "https://raw.githubusercontent.com/aditya-azad/candle-grey/master/colors/candle-grey.vim" > ~/.vim/colors/candle-grey.vim
-    git clone https://github.com/tomasiser/vim-code-dark.git  ~/.vim/pack/cwatson/start/vim-code-dark
-    git clone https://github.com/morhetz/gruvbox.git          ~/.vim/pack/cwatson/start/gruvbox
-    git clone https://github.com/preservim/nerdtree.git       ~/.vim/pack/cwatson/start/nerdtree
-    git clone https://github.com/airblade/vim-gitgutter.git   ~/.vim/pack/cwatson/start/vim-gitgutter
+# if command -v vim &> /dev/null || ask "Install vim plugins?"; then
+#     echo -e "Installing vim plugins & colorschemes"
+#     create_dir .vim/colors
+#     # clone down the repos for plugins
+#     # TODO: if exists, git pull; else clone
+#     curl "https://raw.githubusercontent.com/aditya-azad/candle-grey/master/colors/candle-grey.vim" > ~/.vim/colors/candle-grey.vim
+#     git clone https://github.com/tomasiser/vim-code-dark.git  ~/.vim/pack/cwatson/start/vim-code-dark
+#     git clone https://github.com/morhetz/gruvbox.git          ~/.vim/pack/cwatson/start/gruvbox
+#     git clone https://github.com/preservim/nerdtree.git       ~/.vim/pack/cwatson/start/nerdtree
+#     git clone https://github.com/airblade/vim-gitgutter.git   ~/.vim/pack/cwatson/start/vim-gitgutter
 
-    # install helptags
-    vim -u NONE -c "helptags ALL" -c q
-fi
+#     # install helptags
+#     vim -u NONE -c "helptags ALL" -c q
+# fi
 
 # dynamically create machine specific aliases
 if ask "Create machine aliases file?"; then
