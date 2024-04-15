@@ -15,5 +15,5 @@ Collection of dotfiles for configs
 
 ## Resources for setup of LSPs for Helix
 
-- [helix wiki](https://github.com/helix-editor/helix/wiki/How-to-install-the-default-language-servers#cc)
+- [helix wiki](https://github.com/helix-editor/helix/wiki/Language-Server-Configurations)
 - [docs](https://docs.helix-editor.com/lang-support.html)
