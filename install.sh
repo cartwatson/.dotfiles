@@ -117,6 +117,9 @@ if command -v helix &> /dev/null || ask "Install helix config?"; then
 
         ~/.dotfiles/helix/gruvbox_custom.toml
         ~/.config/helix/themes/gruvbox_custom.toml
+
+        ~/.dotfiles/helix/ignore
+        ~/.config/helix/ignore
     )
 
     # Loop through the array elements
