@@ -3,3 +3,5 @@
 	name = Carter Watson
 [pull]
 	rebase = false
+[log]
+	date = iso
