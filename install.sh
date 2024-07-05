@@ -13,11 +13,6 @@ print_error() { echo -e "${red_bg}ERROR: $1${reset}"; }
 print_pending() { echo -e "${blue_bg}Pending: $1${reset}"; }
 print_success() { echo -e "${green_bg}Completed: $1${reset}"; }
 
-function ask() {
-    read -p "$1 (Y/n): " resp
-    [ -z "$resp" ] || [ "$resp" = "y" ] || [ "$resp" = "Y" ]
-}
-
 function backup() {
     if [ -f ~/."$1" ]; then
         mv ~/."$1" ~/."$1".old;
@@ -36,22 +31,156 @@ function create_dir() {
     fi
 }
 
-echo -e "Init system configuration\n"
+# installation functions
+function symlink_config {
+    # create backups
+    if [ ! -z "$1" ]; then
+        print_pending "Creating bashrc and gitconfig backups..."
+        backup bashrc
+        backup gitconfig
+        print_success "Created backups"
+    fi
+    
+    # create symlinks for files
+    print_pending "Creating symlinks for bashrc, aliases, vimconfig, gitconfig, and tmuxconfig..."
+    ln -s ~/.dotfiles/bashrc.sh          ~/.bashrc
+    ln -s ~/.dotfiles/aliases.sh         ~/.bash_aliases
+    ln -s ~/.dotfiles/vimrc.vim          ~/.vimrc
+    ln -s ~/.dotfiles/gitconfig-personal ~/.gitconfig
+    ln -s ~/.dotfiles/tmux.conf          ~/.tmux.conf
 
-# create folders
-create_dir personal
-create_dir work
+    if [ ! -f ~/work/.gitconfig ]; then
+        # don't create symlink here so this file can be edited
+        ln ~/.dotfiles/gitconfig-personal ~/work/.gitconfig
+    fi
 
-################################################################################
-# Manaul Section
-################################################################################
+    print_success "Created symlinks!"
+}
 
-# ssh-keygen
-if ask "Generate new ssh-key?"; then source ./ssh-key.sh; fi
+function dotfiles_repo_https_to_ssh {
+    # convert this repo to ssh if https
+    if git remote get-url origin | grep -qc https; then
+        print_pending "Converting from https to ssh..."
+        git remote set-url origin git@github.com:cartwatson/.dotfiles.git
+        if [ $? -eq 0 ]; then
+            print_success "Converted \`~/.dotfiles\` from https to ssh"
+        else
+            print_error "Converting \`~/.dotfiles\` from https to ssh"
+        fi
+    fi
+}
 
-# only ask to clone index if it doesn't exist
-if [ ! -d ~/personal/index ]; then
-    if ask "Clone The Index to ~/personal?"; then
+function reinstall_helix_config {
+    if command -v helix &> /dev/null; then
+        print_pending "Installing helix config..."
+        create_dir .config/helix/themes
+
+        # symlink definition
+        # source
+        # target
+        helix_symlinks=(
+            ~/.dotfiles/helix/config.toml
+            ~/.config/helix/config.toml
+
+            ~/.dotfiles/helix/langauges.toml
+            ~/.config/helix/langauges.toml
+
+            ~/.dotfiles/helix/gruvbox_custom.toml
+            ~/.config/helix/themes/gruvbox_custom.toml
+
+            ~/.dotfiles/helix/ignore
+            ~/.config/helix/ignore
+        )
+
+        # Loop through the array elements
+        failed=0
+        for ((i = 0; i < ${#helix_symlinks[@]}; i += 2)); do
+            source=${helix_symlinks[i]}
+            target=${helix_symlinks[i+1]}
+            # ln -sf $source $target > /dev/null 2>&1 || ((failed++))
+            ln -sf $source $target || ((failed++))
+        done
+
+        if [ "$failed" -eq 0 ]; then
+            print_success "Installed helix config"
+        else
+            print_error "Failed to link $failed aspects of helix config"
+        fi
+    fi
+}
+
+function add_alias_if_not_exists {
+    local alias_file="$HOME/.bash_machine_aliases.sh"
+    local alias_name="$1"
+    local alias_command="$2"
+
+    # Check if the alias already exists in the file
+    if ! grep -q "alias $alias_name=" "$alias_file"; then
+        echo "alias $alias_name='$alias_command'" >> "$alias_file"
+   fi
+}
+
+
+function create_machine_aliases {
+    local alias_file="$HOME/.bash_machine_aliases.sh"
+
+    if [ ! -f "$alias_file" ]; then
+        cat << 'EOF' > "$alias_file"
+###############################################################################
+#
+# File to hold bash aliases specific to the machine
+#
+###############################################################################
+EOF
+
+    fi
+}
+
+function install_vscode_extensions {
+    if command -v code &> /dev/null || command -v codium &> /dev/null; then
+        VSCODE="code"
+        if command -v codium &> /dev/null; then VSCODE="codium"; fi
+
+        # vscode extensions
+        code_extensions=( 
+                        "ritwickdey.liveserver"        # live server
+                        "yzhang.markdown-all-in-one"   # markdown all in one
+                        "pkief.material-icon-theme"    # material icon theme
+                        "jdinhlife.gruvbox"            # gruvbox theme duh
+                        )
+
+        if [ -f "/proc/sys/fs/binfmt_misc/WSLInterop" ]; then
+            code_extensions+=("ms-vscode-remote.remote-wsl");  # wsl extension
+        fi
+
+        # install vscode extensions
+        for extension in "${code_extensions[@]}"; do
+            $VSCODE --force --install-extension $extension
+        done
+
+        add_alias_if_not_exist "c" "$VSCODE ."
+    fi
+}
+
+function wsl_install {
+    # windows/wsl instance specific aliases
+    if [ -f "/proc/sys/fs/binfmt_misc/WSLInterop" ]; then
+        add_alias_if_not_exists e "explorer.exe ."
+    fi
+}
+
+function full_install {
+    # assume this is a brand new machine
+
+    # create folders
+    create_dir personal
+    create_dir work
+
+    # assume this is a new machine and needs ssh-keys
+    source ./ssh-key.sh
+
+    # index if it doesn't exist
+    if [ ! -d ~/personal/index ]; then
         git clone git@github.com:cartwatson/index ~/personal/index
         if [ $? -eq 0 ]; then
             print_success "Cloned index"
@@ -59,144 +188,65 @@ if [ ! -d ~/personal/index ]; then
             print_error "Couldn't clone index over ssh"
         fi
     fi
-fi
 
-# create backups
-if ask "Create backups and link .bashrc, .bash_aliases, .vimrc, tmux.conf, and .gitconfig?"; then
-    backup bashrc
-    backup bash_aliases
-    backup vimrc
-    backup gitconfig
-    backup tmux.conf
-    print_success "Created backups"
-    
-    # create symlinks for files
-    print_pending "Creating symlinks for bashrc, aliases, vimconfig, and gitconfig..."
-    ln -s ~/.dotfiles/bashrc.sh          ~/.bashrc
-    ln -s ~/.dotfiles/aliases.sh         ~/.bash_aliases
-    ln -s ~/.dotfiles/vimrc.vim          ~/.vimrc
-    ln -s ~/.dotfiles/gitconfig-personal ~/.gitconfig
-    ln -s ~/.dotfiles/tmux.conf          ~/.tmux.conf
-    # don't create symlink here so this file can be edited
-    ln    ~/.dotfiles/gitconfig-personal ~/work/.gitconfig
+    symlink_config
+    dotfiles_repo_https_to_ssh
 
-    # TODO: no measurement of success yet
-fi
+    if [ ! -f ~/.hushlogin ]; then touch ~/.hushlogin; fi
 
-################################################################################
-# Auto/Semi-Auto Section
-################################################################################
+    reinstall_helix_config
 
-# convert this repo to ssh if https
-if git remote get-url origin | grep -qc https; then
-    print_pending "Converting from https to ssh..."
-    git remote set-url origin git@github.com:cartwatson/.dotfiles.git
-    # TODO: actually test ability to connect here
-    if [ $? -eq 0 ]; then
-        print_success "Converted \`~/.dotfiles\` from https to ssh"
-    else
-        print_error "Converting \`~/.dotfiles\` from https to ssh"
-    fi
-fi
+    install_vscode_extensions
 
-if [ ! -f ~/.hushlogin ]; then touch ~/.hushlogin; fi
+    wsl_install
+}
 
-if command -v helix &> /dev/null || ask "Install helix config?"; then
-    print_pending "Installing helix config..."
-    create_dir .config/helix/themes
+function reinstall {
+    # don't overwrite `.old` files (provide 1 argument)
+    symlink_config dontbackup
 
-    # symlink definition
-    # source
-    # target
-    helix_config=(
-        ~/.dotfiles/helix/config.toml
-        ~/.config/helix/config.toml
+    # never hurts to redo this part
+    reinstall_helix_config
+}
 
-        ~/.dotfiles/helix/langauges.toml
-        ~/.config/helix/langauges.toml
+function welcome_menu {
+    # \\ is required at end of second line because it will escape the newline otherwise
+    echo "
+     _       __________   __________  __  _________
+    | |     / / ____/ /  / ____/ __ \/  |/  / ____/
+    | | /| / / __/ / /  / /   / / / / /|_/ / __/   
+    | |/ |/ / /___/ /__/ /___/ /_/ / /  / / /___   
+    |__/|__/_____/_____\____/\____/_/  /_/_____/   
+       _________    ____ ________________ 
+      / ____/   |  / __ /_  __/ ____/ __ \\
+     / /   / /| | / /_/ // / / __/ / /_/ /
+    / /___/ ___ |/ _, _// / / /___/ _, _/ 
+    \____/_/  |_/_/ |_|/_/ /_____/_/ |_|  
+    "
 
-        ~/.dotfiles/helix/gruvbox_custom.toml
-        ~/.config/helix/themes/gruvbox_custom.toml
+    # actually start menu
+    echo
+    echo "Select an option:"
+    echo "    1) Full install"
+    echo "    2) Reinstall"
+    echo "    3) Helix config"
+    echo "    4) VSCod(e/ium) extensions"
+    echo "    5) Generate new SSH key"
+    echo "Enter) Full install"
+    echo
+    local choice
+    read -p "Make your selection [1-3]: " choice
 
-        ~/.dotfiles/helix/ignore
-        ~/.config/helix/ignore
-    )
+    case $choice in
+        1|"") full_install  ;; # full install
+        2) reinstall ;;
+        3) reinstall_helix_config ;;
+        4) install_vscode_extensions ;;
+        5) source ./ssh-key.sh ;;
+        *) echo "Invalid option. Defaulting to full install." ;;
+    esac
+}
 
-    # Loop through the array elements
-    failed=0
-    for ((i = 0; i < ${#helix_config[@]}; i += 2)); do
-        source=${helix_config[i]}
-        target=${helix_config[i+1]}
-        # ln -sf $source $target > /dev/null 2>&1 || ((failed++))
-        ln -sf $source $target || ((failed++))
-    done
+welcome_menu
 
-    if [ "$failed" -eq 0 ]; then
-        print_success "Installed helix config"
-    else
-        print_error "Failed to link $failed aspects of helix config"
-    fi
-fi
-
-# Keep vim vanilla
-# if command -v vim &> /dev/null || ask "Install vim plugins?"; then
-#     echo -e "Installing vim plugins & colorschemes"
-#     create_dir .vim/colors
-#     # clone down the repos for plugins
-#     # TODO: if exists, git pull; else clone
-#     curl "https://raw.githubusercontent.com/aditya-azad/candle-grey/master/colors/candle-grey.vim" > ~/.vim/colors/candle-grey.vim
-#     git clone https://github.com/tomasiser/vim-code-dark.git  ~/.vim/pack/cwatson/start/vim-code-dark
-#     git clone https://github.com/morhetz/gruvbox.git          ~/.vim/pack/cwatson/start/gruvbox
-#     git clone https://github.com/preservim/nerdtree.git       ~/.vim/pack/cwatson/start/nerdtree
-#     git clone https://github.com/airblade/vim-gitgutter.git   ~/.vim/pack/cwatson/start/vim-gitgutter
-
-#     # install helptags
-#     vim -u NONE -c "helptags ALL" -c q
-# fi
-
-# dynamically create machine specific aliases
-if [ ! -f ~/.bash_machine_aliases.sh ] || ask "Create machine aliases file?"; then
-    cp ./machine_aliases.sh ~/.bash_machine_aliases.sh
-
-    code_extensions=( 
-                    "ritwickdey.liveserver"        # live server
-                    "yzhang.markdown-all-in-one"   # markdown all in one
-                    "pkief.material-icon-theme"    # material icon theme
-                    "jdinhlife.gruvbox"            # gruvbox theme duh
-                    )
-
-    # windows/wsl instance specific aliases
-    if [ -f "/proc/sys/fs/binfmt_misc/WSLInterop" ]; then
-        print_pending "Installing WSL specific files and aliases..."
-
-        code_extensions+=("ms-vscode-remote.remote-wsl");  # wsl extension
-        echo 'alias e="explorer.exe ." # open windows explorer in current directory' >> ~/.bash_machine_aliases.sh
-
-        if [ $? -eq 0 ]; then
-            print_success "WSL files and aliases created"
-        else
-            print_error "Couldn't create WSL aliases"
-        fi
-    fi
-
-    # TODO: move this section out of here
-    if command -v code &> /dev/null || command -v codium &> /dev/null || ask "Are you using vscode/vscodium?"; then
-        VSCODE="code"
-        if command -v codium &> /dev/null; then VSCODE="codium"; fi
-
-        # now loop through the above array
-        for extension in "${code_extensions[@]}"; do
-            $VSCODE --force --install-extension $extension
-        done
-
-        # create alias
-        echo -e "alias c=\"""$VSCODE"" .\" # open vscode/vscodium in current directory" >> ~/.bash_machine_aliases.sh
-    fi
-fi
-
-echo
-print_success "Machine Initialization!\n"
-
-# finalize
 if [ -f ~/.bashrc ]; then source ~/.bashrc; fi
-
