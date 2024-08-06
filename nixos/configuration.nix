@@ -7,7 +7,7 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+      /etc/nixos/hardware-configuration.nix
     ];
 
   # Bootloader.
@@ -49,10 +49,26 @@
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
 
+  # Disable gnome default apps
+  environment.gnome.excludePackages = with pkgs; [
+    gnome.epiphany             # Web browser
+    gnome.geary                 # Email client
+    gnome.seahorse              # Password manager
+    gnome.gnome-contacts
+    gnome.gnome-maps
+    gnome.gnome-weather
+    gnome.gnome-clocks
+    gnome.gnome-calendar
+    simple-scan
+    gnome-tour
+    # keep for now
+    # gnome.gnome-music           # Music player
+  ];
+
   # Configure keymap in X11
-  services.xserver = {
+  services.xserver.xkb = {
     layout = "us";
-    xkbVariant = "";
+    variant = "";
   };
 
   # Enable CUPS to print documents.
@@ -77,15 +93,12 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  # Define a user account
   users.users.cwatson = {
     isNormalUser = true;
     description = "Carter Watson";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-      helix
-      vscodium
-    ];
+    packages = with pkgs; [ ];
   };
 
   # Install firefox.
@@ -94,15 +107,40 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  # Docker
+  virtualisation.docker.enable = true;
+  virtualisation.docker.rootless = {
+    enable = true;
+    setSocketVariable = true;
+  };
+  users.extraGroups.docker.members = [ "cwatson" ];
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    # The Nano editor is also installed by default.
+    # editors
+    # Nano installed by default
     vim
-    wget
-    git
+    helix
+    vscodium
+
+    # languages
     python3
+
+    # LSPs
+    bash-language-server
+    marksman
+    python312Packages.python-lsp-server
+
+    # dev tools
     tmux
+    git
+    docker-client
+    docker
+
+    # misc tools
+    wget
+    htop
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
