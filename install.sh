@@ -12,6 +12,7 @@ reset="\033[0m"       # Reset formatting
 print_error() { echo -e "${red_bg}ERROR: $1${reset}"; }
 print_pending() { echo -e "${blue_bg}Pending: $1${reset}"; }
 print_success() { echo -e "${green_bg}Completed: $1${reset}"; }
+print_info() { echo -e "${blue_bg}Info: $1${reset}"; }
 
 function backup() {
     if [ -f ~/."$1" ]; then
@@ -34,6 +35,7 @@ function create_dir() {
 # installation functions
 function symlink_config {
     # create backups
+    # TODO: if "these aren't symlinks" then backup
     if [ ! -z "$1" ]; then
         print_pending "Creating bashrc and gitconfig backups..."
         backup bashrc
@@ -71,41 +73,39 @@ function dotfiles_repo_https_to_ssh {
 }
 
 function reinstall_helix_config {
-    if command -v helix &> /dev/null; then
-        print_pending "Installing helix config..."
-        create_dir .config/helix/themes
+    print_pending "Installing helix config..."
+    create_dir .config/helix/themes
 
-        # symlink definition
-        # source
-        # target
-        helix_symlinks=(
-            ~/.dotfiles/helix/config.toml
-            ~/.config/helix/config.toml
+    # symlink definition
+    # source
+    # target
+    helix_symlinks=(
+        ~/.dotfiles/helix/config.toml
+        ~/.config/helix/config.toml
 
-            ~/.dotfiles/helix/langauges.toml
-            ~/.config/helix/langauges.toml
+        ~/.dotfiles/helix/langauges.toml
+        ~/.config/helix/langauges.toml
 
-            ~/.dotfiles/helix/gruvbox_custom.toml
-            ~/.config/helix/themes/gruvbox_custom.toml
+        ~/.dotfiles/helix/gruvbox_custom.toml
+        ~/.config/helix/themes/gruvbox_custom.toml
 
-            ~/.dotfiles/helix/ignore
-            ~/.config/helix/ignore
-        )
+        ~/.dotfiles/helix/ignore
+        ~/.config/helix/ignore
+    )
 
-        # Loop through the array elements
-        failed=0
-        for ((i = 0; i < ${#helix_symlinks[@]}; i += 2)); do
-            source=${helix_symlinks[i]}
-            target=${helix_symlinks[i+1]}
-            # ln -sf $source $target > /dev/null 2>&1 || ((failed++))
-            ln -sf $source $target || ((failed++))
-        done
+    # Loop through the array elements
+    failed=0
+    for ((i = 0; i < ${#helix_symlinks[@]}; i += 2)); do
+        source=${helix_symlinks[i]}
+        target=${helix_symlinks[i+1]}
+        # ln -sf $source $target > /dev/null 2>&1 || ((failed++))
+        ln -sf $source $target || ((failed++))
+    done
 
-        if [ "$failed" -eq 0 ]; then
-            print_success "Installed helix config"
-        else
-            print_error "Failed to link $failed aspects of helix config"
-        fi
+    if [ "$failed" -eq 0 ]; then
+        print_success "Installed helix config"
+    else
+        print_error "Failed to link $failed aspects of helix config"
     fi
 }
 
@@ -158,7 +158,7 @@ function install_vscode_extensions {
             $VSCODE --force --install-extension $extension
         done
 
-        add_alias_if_not_exist "c" "$VSCODE ."
+        add_alias_if_not_exists "c" "$VSCODE ."
     fi
 }
 
@@ -169,6 +169,11 @@ function wsl_install {
     fi
 }
 
+function nixos_install {
+    # link config
+    ln -s ~/.dotfiles/nixos/configuration.nix /etc/nixos
+}
+
 function full_install {
     # assume this is a brand new machine
 
@@ -176,8 +181,13 @@ function full_install {
     create_dir personal
     create_dir work
 
+    # create file for holding machine specific aliases
+    create_machine_aliases
+
     # assume this is a new machine and needs ssh-keys
+    print_info Create new SSH key for personal github
     source ./ssh-key.sh
+    read -p "Upload key to appropriate site, then press enter" _
 
     # index if it doesn't exist
     if [ ! -d ~/personal/index ]; then
@@ -194,11 +204,17 @@ function full_install {
 
     if [ ! -f ~/.hushlogin ]; then touch ~/.hushlogin; fi
 
-    reinstall_helix_config
+    if command -v helix &> /dev/null; then
+        reinstall_helix_config
+    fi
 
     install_vscode_extensions
 
     wsl_install
+
+    if [ -d /etc/nixos ]; then
+        nixos_install
+    fi
 }
 
 function reinstall {
@@ -235,15 +251,15 @@ function welcome_menu {
     echo "Enter) Full install"
     echo
     local choice
-    read -p "Make your selection [1-3]: " choice
+    read -p "Make your selection [1-5]: " choice
 
     case $choice in
-        1|"") full_install  ;; # full install
+        1) full_install ;;
         2) reinstall ;;
         3) reinstall_helix_config ;;
         4) install_vscode_extensions ;;
         5) source ./ssh-key.sh ;;
-        *) echo "Invalid option. Defaulting to full install." ;;
+        *|"") echo "Invalid option. Defaulting to full install." ;;
     esac
 }
 
