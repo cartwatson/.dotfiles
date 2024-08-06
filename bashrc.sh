@@ -121,7 +121,7 @@ set -o vi
 if [ -n $SSH_AGENT_PID ]; then
     eval "$(ssh-agent -s)" > /dev/null;
     # add all private keys to ssh-agent
-    find ~/.ssh -type f -regextype egrep -regex '.*/id_[^.]+$' | xargs ssh-add -q
+    find ~/.ssh -type f -regex '.*[a-zA-Z]+@[a-zA-Z]+[^.]*' | xargs ssh-add -q
 fi
 
 # home for one off commands
