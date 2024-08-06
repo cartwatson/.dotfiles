@@ -105,7 +105,14 @@
   programs.firefox.enable = true;
 
   # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs = {
+    config = {
+      allowUnfree = true;
+      packageOverrides = pkgs: {
+        unstable = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz") {};
+      };
+    };
+  };
 
   # Docker
   virtualisation.docker.enable = true;
@@ -128,7 +135,7 @@
     python3
 
     # LSPs
-    bash-language-server
+    unstable.bash-language-server
     marksman
     python312Packages.python-lsp-server
 
