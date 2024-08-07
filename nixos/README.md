@@ -2,7 +2,8 @@
 
 ## Instructions
 
-- rebuild: `sudo nixos-rebuild switch --flake /etc/nixos/#<hostname>`
+- ALWAYS `git add` (this will break the build if not done and I have not a clue why (and the error won't tell you that))
+- rebuild: `sudo nixos-rebuild switch --flake ~/.dotfiles/nixos/#<hostname>`
 
 ## References
 
