@@ -2,19 +2,20 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   imports =
     [ # Include the results of the hardware scan.
-      /etc/nixos/hardware-configuration.nix
+      ./hardware-configuration.nix
+      inputs.home-manager.nixosModules.default
     ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "jupiter-nixos"; # Define your hostname.
+  networking.hostName = "jupiter"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -49,22 +50,6 @@
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
 
-  # Disable gnome default apps
-  environment.gnome.excludePackages = with pkgs; [
-    gnome.epiphany             # Web browser
-    gnome.geary                 # Email client
-    gnome.seahorse              # Password manager
-    gnome.gnome-contacts
-    gnome.gnome-maps
-    gnome.gnome-weather
-    gnome.gnome-clocks
-    gnome.gnome-calendar
-    simple-scan
-    gnome-tour
-    # keep for now
-    # gnome.gnome-music           # Music player
-  ];
-
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
@@ -93,6 +78,9 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
+  # Enable flakes and nix-command
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
   # Define a user account
   users.users.cwatson = {
     isNormalUser = true;
@@ -101,6 +89,15 @@
     packages = with pkgs; [ ];
   };
 
+  # Configure home-manager
+  home-manager = {
+    extraSpecialArgs = { inherit inputs; };
+    users = {
+      "cwatson" = import ./home.nix;
+    };
+  };
+
+# PACKAGES --------------------------------------------------------------------
   # Install firefox.
   programs.firefox.enable = true;
 
@@ -108,9 +105,9 @@
   nixpkgs = {
     config = {
       allowUnfree = true;
-      packageOverrides = pkgs: {
-        unstable = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz") {};
-      };
+      # packageOverrides = pkgs: {
+      #   unstable = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz") {};
+      # };
     };
   };
 
@@ -124,7 +121,7 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = (with pkgs; [
     # editors
     # Nano installed by default
     vim
@@ -135,28 +132,54 @@
     python3
 
     # LSPs
-    unstable.bash-language-server
+    # unstable.bash-language-server
     marksman
     python312Packages.python-lsp-server
 
     # dev tools
     tmux
     git
-    docker-client
     docker
+    docker-client # CLI client
+    python312Packages.pip
 
     # misc tools
     wget
     htop
+    protonvpn-gui
 
     # personal util
     spotify
     discord
     slack
+    dropbox    
+    dropbox-cli
     
     # desktop/ricing
-    gnome.gnome-tweaks
-  ];
+    gnome-tweaks
+  ]) ++ (with pkgs.gnomeExtensions; [
+    # gnome extensions
+    blur-my-shell
+  ]);
+
+  # Disable gnome default apps
+  environment.gnome.excludePackages = (with pkgs; [
+    epiphany              # Web browser
+    geary                 # Email client
+    seahorse              # Password manager
+    gnome-calendar
+    simple-scan
+    gnome-tour
+    gnome-connections
+    # keep for now
+    # gnome-music           # Music player
+  ]) ++ (with pkgs.gnome; [
+    gnome-contacts
+    gnome-maps
+    gnome-weather
+    gnome-clocks
+  ]);
+# END PACKAGES ----------------------------------------------------------------
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
