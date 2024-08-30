@@ -18,8 +18,9 @@ read -p "If you would like a passphrase, enter it: " passphrase
 # get input for file_name
 read -p "Is the key for Work or Personal (w/p): " input
 case "$input" in
-  w) type_of_key="work" ;;
-  p|"") type_of_key="personal" ;;
+  w|"work") type_of_key="work" ;;
+  p|"personal"|"") type_of_key="personal" ;;
+  *) type_of_key=$input
 esac
 
 file_name="$site@$type_of_key"
@@ -32,7 +33,7 @@ fi
 # always add file to agent
 ssh-add -q ~/.ssh/"$file_name" || error "adding key to ssh-agent"
 
-echo -e "\nSuccessully created new key and added to ssh-agent"
+echo -e "\nSuccessully created new key $file_name and added to ssh-agent"
 echo -e "Add the below to $site.com as user@hostname\n"
 cat ~/.ssh/"$file_name".pub
 echo
