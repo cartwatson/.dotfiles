@@ -225,6 +225,21 @@ function reinstall {
     reinstall_helix_config
 }
 
+function remote_machine_install {
+    if [ ! -f ~/.hushlogin ]; then touch ~/.hushlogin; fi
+
+    # install bashrc bash_aliases etc
+    create_machine_aliases
+    symlink_config
+
+    # install helix config if found
+    reinstall_helix_config
+
+    if [ ! -d ~/.ssh ]; then
+        mkdir ~/.ssh;
+    fi
+}
+
 function welcome_menu {
     # \\ is required at end of second line because it will escape the newline otherwise
     echo "
@@ -245,9 +260,10 @@ function welcome_menu {
     echo "Select an option:"
     echo "    1) Full install"
     echo "    2) Reinstall"
-    echo "    3) Helix config"
-    echo "    4) VSCod(e/ium) extensions"
-    echo "    5) Generate new SSH key"
+    echo "    3) Remote Machine Install"
+    echo "    4) Helix config"
+    echo "    5) VSCod(e/ium) extensions"
+    echo "    6) Generate new SSH key"
     echo "Enter) Full install"
     echo
     local choice
@@ -256,9 +272,10 @@ function welcome_menu {
     case $choice in
         1) full_install ;;
         2) reinstall ;;
-        3) reinstall_helix_config ;;
-        4) install_vscode_extensions ;;
-        5) source ./ssh-key.sh ;;
+        3) remote_machine_install ;;
+        4) reinstall_helix_config ;;
+        5) install_vscode_extensions ;;
+        6) source ./ssh-key.sh ;;
         *|"") echo "Invalid option. Defaulting to full install." ;;
     esac
 }
