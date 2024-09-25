@@ -3,35 +3,41 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = { self, nixpkgs, ... }@inputs:
     let
-      system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
-    in
-    {
-      nixosConfigurations = {
-        jupiter = nixpkgs.lib.nixosSystem {
-          specialArgs = {inherit inputs;};
-          modules = [
-           ./hosts/jupiter/configuration.nix
-           inputs.home-manager.nixosModules.default
-          ];
-        };
-        # # template for new machines
-        # hostname = nixpkgs.lib.nixosSystem {
-        #   specialArgs = {inherit inputs;};
-        #   modules = [
-        #    ./hosts/hostname/configuration.nix
-        #    inputs.home-manager.nixosModules.default
-        #   ];
-        # };
-      };
+      inherit (nixpkgs) lib;
+
+      forEverySystem = lib.genAttrs lib.systems.flakeExposed;
+      forEachSystem = lib.genAttrs [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
+      # system = "x86_64-linux";
+      # pkgs = nixpkgs.legacyPackages.${system};
+    in {
+
+      # https://github.com/Electrostasy/dots/blob/0eb9d91d517d74b7f0891bff5992b17eb50f207c/flake.nix#L102-L121
+      nixosConfigurations = lib.pipe ./hosts [
+        # List all the defined hosts.
+        builtins.readDir
+
+        # Filter specifically for directories in case there are single files.
+        (lib.filterAttrs (name: value: value == "directory"))
+
+        # Define the NixOS configurations.
+        (lib.mapAttrs (name: value:
+          lib.nixosSystem {
+            # Inject this flake into the module system.
+            specialArgs = { inherit self; };
+
+            modules = [
+              { networking.hostName = name; }
+              ./hosts/${name}
+              # ./profiles/common
+            ];
+          }))
+      ];
     };
 }

@@ -8,10 +8,11 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      inputs.home-manager.nixosModules.default
+      ../../profiles/gnome
+      ./gaming.nix
     ];
 
-  # Bootloader.
+  # Bootloader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
@@ -21,6 +22,11 @@
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+
+  # manage hosts file
+  networking.hosts = {
+    "192.168.1.209" = ["kuiper"];
+  };
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -89,14 +95,6 @@
     packages = with pkgs; [ ];
   };
 
-  # Configure home-manager
-  home-manager = {
-    extraSpecialArgs = { inherit inputs; };
-    users = {
-      "cwatson" = import ./home.nix;
-    };
-  };
-
 # PACKAGES --------------------------------------------------------------------
   # Install firefox.
   programs.firefox.enable = true;
@@ -105,9 +103,6 @@
   nixpkgs = {
     config = {
       allowUnfree = true;
-      # packageOverrides = pkgs: {
-      #   unstable = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz") {};
-      # };
     };
   };
 
@@ -139,6 +134,7 @@
     # dev tools
     tmux
     git
+    libgcc
     docker
     docker-client # CLI client
     python312Packages.pip
@@ -147,38 +143,20 @@
     wget
     htop
     protonvpn-gui
+    caligula
 
     # personal util
     spotify
     discord
     slack
-    dropbox    
+    dropbox
     dropbox-cli
-    
-    # desktop/ricing
-    gnome-tweaks
-  ]) ++ (with pkgs.gnomeExtensions; [
-    # gnome extensions
-    blur-my-shell
+
+    # hobbies
+    krita
+
   ]);
 
-  # Disable gnome default apps
-  environment.gnome.excludePackages = (with pkgs; [
-    epiphany              # Web browser
-    geary                 # Email client
-    seahorse              # Password manager
-    gnome-calendar
-    simple-scan
-    gnome-tour
-    gnome-connections
-    # keep for now
-    # gnome-music           # Music player
-  ]) ++ (with pkgs.gnome; [
-    gnome-contacts
-    gnome-maps
-    gnome-weather
-    gnome-clocks
-  ]);
 # END PACKAGES ----------------------------------------------------------------
 
   # Some programs need SUID wrappers, can be configured further or are
