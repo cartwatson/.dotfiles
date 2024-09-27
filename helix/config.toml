@@ -19,6 +19,7 @@ insert = "bar"
 
 [editor.file-picker]
 hidden = false
+deduplicate-links = false
 
 [editor.statusline]
 right = ["version-control", "diagnostics", "register", "position", "file-encoding"]
