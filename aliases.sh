@@ -15,6 +15,17 @@ alias ll="ls -AlvhG"
 alias mkdir="mkdir -p"
 alias sbr="source ~/.bashrc"
 
+# --tmux
+alias tp="~/.dotfiles/tmux_scripts/personal.sh"
+alias tw="~/.dotfiles/tmux_scripts/work.sh"
+alias tls="tmux list-sessions"
+function tas() {
+    if [ -z "$TMUX" ]; then
+        tmux attach-session -t "$1";
+    fi
+    tmux switch -t "$1";
+}
+
 # --git
 alias gs="git status -sb"
 alias ga="git add"
