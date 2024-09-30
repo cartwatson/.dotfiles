@@ -19,6 +19,21 @@ alias sbr="source ~/.bashrc"
 alias tp="~/.dotfiles/tmux_scripts/personal.sh"
 alias tw="~/.dotfiles/tmux_scripts/work.sh"
 alias tls="tmux list-sessions"
+function tks() {
+    if [ -n "$1" ]; then
+        # provided name
+        tmux kill-session -t "$1"
+        return "$?"
+    fi
+
+    if [ -n "$TMUX" ]; then
+        current_session=$(tmux display-message -p '#S')
+        tmux kill-session -t "$current_session"
+    else
+        # not in tmux
+        return 1
+    fi
+}
 function tas() {
     if [ -z "$TMUX" ]; then
         tmux attach-session -t "$1";
