@@ -5,3 +5,5 @@
 	rebase = false
 [log]
 	date = iso
+[init]
+	defaultBranch = main
