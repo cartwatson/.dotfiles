@@ -69,4 +69,5 @@ function cd() {
 # --misc
 alias v="vim"
 alias h="helix"
+alias unzip="tar -xvzf"
 
