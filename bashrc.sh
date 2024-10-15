@@ -93,6 +93,11 @@ if [ -f ~/.bash_aliases ]; then
     source ~/.bash_aliases
 fi
 
+# machine bashrc functions
+if [ -f ~/.bash_machine_rc.sh ]; then
+    source ~/.bash_machine_rc.sh
+fi
+
 # machine specific aliases
 if [ -f ~/.bash_machine_aliases.sh ]; then
     source ~/.bash_machine_aliases.sh
