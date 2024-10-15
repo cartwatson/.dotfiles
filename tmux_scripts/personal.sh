@@ -10,7 +10,7 @@ function open_tabs() {
   tmux send-keys -t "$SESH":dotfiles "cdd" C-m
 
   tmux new-window -t "$SESH" -n "proxmox"
-  tmux send-keys -t "$SESH":temp "cd ~/personal/proxmox; gsll" C-m
+  tmux send-keys -t "$SESH":proxmox "cd ~/personal/proxmox; gsll" C-m
 
   tmux new-window -t "$SESH" -n "temp"
   tmux send-keys -t "$SESH":temp "cdm" C-m

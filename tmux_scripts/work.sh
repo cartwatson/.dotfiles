@@ -8,10 +8,13 @@ tmux has-session -t "$SESH" 2>/dev/null
 if [ $? != 0 ]; then
   tmux new-session -d -s "$SESH" -n "idx-work"
   # tmux new-window -t "$SESH" -n "idx"
-  tmux send-keys -t "$SESH":idx-work "cd ~/personal/index/work/logs/anduril; gsll" C-m
+  tmux send-keys -t "$SESH":idx-work "cd ~/work/personal-logs; ll" C-m
 
-  tmux new-window -t "$SESH" -n "proj"
-  tmux send-keys -t "$SESH":proj "cdw" C-m
+  tmux new-window -t "$SESH" -n "apps"
+  tmux send-keys -t "$SESH":apps "cdh" C-m
+
+  tmux new-window -t "$SESH" -n "bash"
+  tmux send-keys -t "$SESH":bash "cdw" C-m
 fi
 
 # attempt to switch clients, if fails attach
