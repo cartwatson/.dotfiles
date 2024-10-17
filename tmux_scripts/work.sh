@@ -6,12 +6,21 @@ SESH="work"
 tmux has-session -t "$SESH" 2>/dev/null
 
 if [ $? != 0 ]; then
-  tmux new-session -d -s "$SESH" -n "idx-work"
+  window="idx-work"
+  tmux new-session -d -s "$SESH" -n "$window"
   # tmux new-window -t "$SESH" -n "idx"
-  tmux send-keys -t "$SESH":idx-work "cd ~/work/personal-logs" C-m
+  tmux send-keys -t "$SESH":"$window" "cd ~/work/personal-logs" C-m
+  tmux split-window -h
+  tmux send-keys -t "$SESH":"$window".1 "hx daily-log.md" C-m
+  tmux select-pane-t "$SESH":"$window".1
+  tmux split-window -v
+  tmux send-keys -t "$SESH":"$window".2 "cdw" C-m
+  tmux send-keys -t "$SESH":"$window".3 "cd ~/work/personal-logs/notes; hx ." C-m
+  tmux select-pane -t "$SESH":"$window".1
 
-  tmux new-window -t "$SESH" -n "apps"
-  tmux send-keys -t "$SESH":apps "cdh" C-m
+  window="apps"
+  tmux new-window -t "$SESH" -n "$window"
+  tmux send-keys -t "$SESH":"$window" "cdh" C-m
 
   tmux new-window -t "$SESH" -n "bash"
   tmux send-keys -t "$SESH":bash "cdw" C-m
