@@ -116,7 +116,7 @@ fi
 bind -s 'set completion-ignore-case on'
 
 # set default editor
-export EDITOR='helix'
+export EDITOR='hx'
 export VISUAL='$EDITOR'
 
 # set terminal to be vim mode
