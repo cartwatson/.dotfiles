@@ -40,33 +40,6 @@ set smartcase
 " don't wrap in the middle of a word
 set linebreak 
 
-" remove background from gitgutter signs
-function! s:tweak_gruvbox_gitgutter_colors()
-    let g:gruvbox_contrast_dark="hard"
-"     let g:gitgutter_set_sign_backgrounds=1
-"     highlight signcolumn      guibg=NONE    ctermbg=NONE
-"     highlight GitGutterAdd    guifg=#009900 ctermfg=2
-"     highlight GitGutterChange guifg=#bbbb00 ctermfg=3
-"     highlight GitGutterDelete guifg=#ff0000 ctermfg=1
-endfunction
-" 
-autocmd! ColorSchemePre gruvbox call s:tweak_gruvbox_gitgutter_colors()
-
-" set custom color scheme
-set background=dark
-try
-    colorscheme gruvbox 
-catch
-    colorscheme default
-endtry
-
-" update refresh time for git-gutter and speed
-set updatetime=100 " ms
-
-" column should only be one width
-set signcolumn=yes
-
-
 " STATUS LINE =================================================================
 
 " Clear status line when vimrc is reloaded.
@@ -109,57 +82,4 @@ command T vertical terminal
 
 " alias for when you accidentally hold shift
 command W write
-
-" PLUGINS =====================================================================
-
-" toggle gitgutter so I can see line numbers again
-nnoremap <C-g> :GitGutterToggle<CR>
-
-" nerdtree shortcuts
-nnoremap <C-i> :NERDTreeToggle<CR>
-nnoremap <C-f> :NERDTreeFocus<CR>
-
-" show hidden files by default
-let g:NERDTreeShowHidden = 1
-
-" group hidden files at top
-let g:NERDTreeSortOrder = ['\.$', '\/$', '*' ]
-
-" remove bookmarks and help prompt
-let g:NERDTreeMinimalUI = 1
-
-" great example of good variable naming
-let g:NERDTreeQuitOnOpen = 3
-
-" Start NERDTree when Vim is started without file arguments.
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists('s:std_in') | NERDTree | endif
-
-" vim command to set nonumber norelativenumber laststatus=0 syntax=off
-let s:enabled = 0
-
-function! ZenModeToggle()
-    if s:enabled
-        set number
-        set relativenumber
-        set laststatus=2
-        set signcolumn=number
-        syntax on
-        colorscheme gruvbox 
-
-        let s:enabled = 0
-    else
-        set nonumber
-        set norelativenumber
-        set laststatus=0
-        set signcolumn=no
-        syntax off
-        colorscheme candle-grey
-
-        let s:enabled = 1
-    endif
-endfunction
-
-command ZenToggle call ZenModeToggle()
-nnoremap <C-z> :ZenToggle<CR>
 
