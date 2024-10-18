@@ -9,8 +9,10 @@ function open_tabs() {
   tmux new-window -t "$SESH" -n "dotfiles"
   tmux send-keys -t "$SESH":dotfiles "cdd" C-m
 
-  tmux new-window -t "$SESH" -n "proxmox"
-  tmux send-keys -t "$SESH":proxmox "cd ~/personal/proxmox; gsll" C-m
+  if [[ ! $(hostname) =~ "watson" ]]; then
+    tmux new-window -t "$SESH" -n "proxmox"
+    tmux send-keys -t "$SESH":proxmox "cd ~/personal/proxmox; gsll" C-m
+  fi
 
   tmux new-window -t "$SESH" -n "temp"
   tmux send-keys -t "$SESH":temp "cdm" C-m
