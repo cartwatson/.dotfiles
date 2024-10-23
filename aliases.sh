@@ -67,8 +67,5 @@ function cd() {
 }
 
 # --misc
-function unzip() {
-    tar -xvzf "$1";
-}
-# alias unzip="tar -xvzf"
+alias unzip="tar -xvzf"
 
