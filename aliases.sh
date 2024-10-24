@@ -27,8 +27,9 @@ function tks() {
     fi
 
     if [ -n "$TMUX" ]; then
-        current_session=$(tmux display-message -p '#S')
-        tmux kill-session -t "$current_session"
+        session_to_kill=$(tmux display-message -p '#S')
+        tmux switch-client -l
+        tmux kill-session -t "$session_to_kill"
     else
         # not in tmux
         return 1
