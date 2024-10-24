@@ -4,7 +4,16 @@
 SESH="personal"
 
 function open_tabs() {
-  tmux send-keys -t "$SESH":idx "cds" C-m
+  window="idx"
+  tmux new-session -d -s "$SESH" -n "$window"
+  tmux send-keys -t "$SESH":"$window" "cd ~/personal/index" C-m
+  tmux split-window -t "$SESH":"$window".1 -h
+  tmux send-keys -t "$SESH":"$window".1 "hx TODO.md" C-m
+  tmux select-pane -t "$SESH":"$window".1
+  tmux split-window -t "$SESH":"$window".1 -v
+  tmux send-keys -t "$SESH":"$window".2 "cds" C-m
+  tmux send-keys -t "$SESH":"$window".3 "cd ~/personal/index/scratch; hx ." C-m
+  tmux select-pane -t "$SESH":"$window".1
 
   tmux new-window -t "$SESH" -n "dotfiles"
   tmux send-keys -t "$SESH":dotfiles "cdd" C-m
