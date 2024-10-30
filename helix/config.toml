@@ -20,6 +20,7 @@ insert = "bar"
 [editor.file-picker]
 hidden = false
 deduplicate-links = false
+# TODO: Ctrl+j && Ctrl+k to move up and down
 
 [editor.statusline]
 right = ["version-control", "diagnostics", "register", "position", "file-encoding"]
@@ -28,7 +29,7 @@ right = ["version-control", "diagnostics", "register", "position", "file-encodin
 # render = true
 
 [editor.whitespace.render]
-# space = "all"
+space = "all"
 
 [keys.insert]
 "C-c" = ["collapse_selection", "normal_mode"]
