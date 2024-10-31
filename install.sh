@@ -49,7 +49,7 @@ function symlink_config {
     ln -s ~/.dotfiles/aliases.sh         ~/.bash_aliases
     ln -s ~/.dotfiles/vimrc.vim          ~/.vimrc
     ln -s ~/.dotfiles/gitconfig-personal ~/.gitconfig
-    ln -s ~/.dotfiles/tmux.conf          ~/.tmux.conf
+    ln -s ~/.dotfiles/tmux/tmux.conf     ~/.tmux.conf
 
     if [ ! -f ~/work/.gitconfig ]; then
         # don't create symlink here so this file can be edited
