@@ -58,6 +58,7 @@ esc = ["collapse_selection", "normal_mode"]
 "$" = "goto_line_end"
 "^" = "goto_first_nonwhitespace"
 "0" = "goto_line_start"
+"y" = "yank_main_selection_to_clipboard" # yank selection to main keyboard instead of register
 
 [keys.select.g]
 "G" = "goto_file_end"
