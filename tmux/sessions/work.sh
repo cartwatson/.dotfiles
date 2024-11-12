@@ -17,7 +17,7 @@ if [ $? != 0 ]; then
 
   window="apps"
   tmux new-window   -t "$SESH" -n "$window"
-  tmux send-keys    -t "$SESH":"$window" "cdh" C-m
+  tmux send-keys    -t "$SESH":"$window" "cdw" C-m
 
   tmux new-window   -t "$SESH"
   tmux send-keys    -t "$SESH":3 "cdw" C-m
