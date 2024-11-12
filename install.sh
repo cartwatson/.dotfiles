@@ -264,7 +264,7 @@ function welcome_menu {
     echo "    4) Helix config"
     echo "    5) VSCod(e/ium) extensions"
     echo "    6) Generate new SSH key"
-    echo "Enter) Full install"
+    echo "    q) Exit script"
     echo
     local choice
     read -p "Make your selection [1-5]: " choice
@@ -276,7 +276,7 @@ function welcome_menu {
         4) reinstall_helix_config ;;
         5) install_vscode_extensions ;;
         6) source ./ssh-key.sh ;;
-        *|"") echo "Invalid option. Defaulting to full install." ;;
+        *|"") echo "Exiting script" ;;
     esac
 }
 
