@@ -13,6 +13,7 @@ if [ $? != 0 ]; then
   tmux send-keys    -t "$SESH":"$window".1 "cd ~/work/personal-logs; hx daily-log.md" C-m
   tmux send-keys    -t "$SESH":"$window".2 "cd ~/work/personal-logs; gsll" C-m
   tmux send-keys    -t "$SESH":"$window".3 "cd ~/work/personal-logs/notes; hx ." C-m
+  tmux resize-pane  -t "$SESH":"$window".1 -y "66%"
   tmux select-pane  -t "$SESH":"$window".1
 
   window="apps"
