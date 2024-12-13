@@ -8,3 +8,5 @@
 ## References
 
 - [Vimjoyers Nix/Flakes/HomeManger Guide](https://www.youtube.com/watch?v=a67Sv4Mbxmc)
+- [Dan Baker Dotfiles](https://github.com/djacu/dotfiles-tweag/tree/main)
+
