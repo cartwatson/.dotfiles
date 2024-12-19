@@ -18,7 +18,7 @@ if [ $? != 0 ]; then
 
   window="apps"
   tmux new-window   -t "$SESH" -n "$window"
-  tmux send-keys    -t "$SESH":"$window" "cdw; ./apt+snap-update-upgrade.sh" C-m
+  tmux send-keys    -t "$SESH":"$window" "cdw; sudo ./apt+snap-update-upgrade.sh" C-m
 
   tmux new-window   -t "$SESH"
   tmux send-keys    -t "$SESH":3 "cdw" C-m
