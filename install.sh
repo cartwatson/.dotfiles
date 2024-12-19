@@ -15,8 +15,8 @@ print_success() { echo -e "${green_bg}Completed: $1${reset}"; }
 print_info() { echo -e "${blue_bg}Info: $1${reset}"; }
 
 function backup() {
-    if [ -f ~/."$1" ]; then
-        mv ~/."$1" ~/."$1".old;
+    if [ -f ~/"$1" ]; then
+        mv ~/"$1" ~/"$1".old;
     fi
 }
 
@@ -38,8 +38,8 @@ function symlink_config {
     # TODO: if "these aren't symlinks" then backup
     if [ ! -z "$1" ]; then
         print_pending "Creating bashrc and gitconfig backups..."
-        backup bashrc
-        backup gitconfig
+        backup ".bashrc"
+        backup ".gitconfig"
         print_success "Created backups"
     fi
     
@@ -221,7 +221,7 @@ function reinstall {
     # don't overwrite `.old` files (provide 1 argument)
     symlink_config dontbackup
 
-    # never hurts to redo this part
+    # never hurts to redo these parts
     reinstall_helix_config
 }
 
