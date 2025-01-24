@@ -91,6 +91,9 @@ function reinstall_helix_config {
 
         ~/.dotfiles/helix/ignore
         ~/.config/helix/ignore
+
+        ~/.dotfiles/helix/themes
+        ~/.config/helix/themes
     )
 
     # Loop through the array elements

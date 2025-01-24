@@ -1,8 +1,9 @@
-# theme = "gruvbox_custom"
+theme = "darkplus_transparent"
+# theme = "dark_plus" # vscode color scheme
+# theme = "gruvbox_transparent"
 # theme = "gruvbox_dark_hard"
 # theme = "papercolor-light" # fav light theme
 # theme = "molokai"
-theme = "dark_plus" # vscode color scheme
 
 [editor]
 true-color = true
@@ -80,6 +81,10 @@ esc = ["collapse_selection", "keep_primary_selection"]
 "C-t" = [":new"]
 # yank selection to main clipboard and register
 "y" = ["yank_main_selection_to_clipboard", "yank"]
+
+[keys.normal.space.t]
+1 = [":theme dark_plus"]
+2 = [":theme darkplus_transparent"]
 
 [editor.soft-wrap]
 enable = false

@@ -6,8 +6,9 @@
 inherits = "gruvbox_dark_hard"
 
 "ui.text.focus" = { fg = "green1" }
+"ui.background" = {}
 
-"string" = "blue0"
+# "string" = "blue0"
 
 # test section
 
