@@ -9,7 +9,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../../profiles/gnome
-      ./gaming.nix
+      ../../modules/gaming.nix
     ];
 
   # Bootloader
