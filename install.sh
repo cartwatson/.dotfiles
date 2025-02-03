@@ -47,6 +47,7 @@ function symlink_config {
     print_pending "Creating symlinks for bashrc, aliases, vimconfig, gitconfig, and tmuxconfig..."
     ln -s ~/.dotfiles/bashrc.sh          ~/.bashrc
     ln -s ~/.dotfiles/aliases.sh         ~/.bash_aliases
+    ln -s ~/.dotfiles/profile.sh         ~/.profile
     ln -s ~/.dotfiles/vimrc.vim          ~/.vimrc
     ln -s ~/.dotfiles/gitconfig-personal ~/.gitconfig
     ln -s ~/.dotfiles/tmux/tmux.conf     ~/.tmux.conf
