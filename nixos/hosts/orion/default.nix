@@ -2,12 +2,13 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ../../profiles/gnome
     ];
 
   # Bootloader.
@@ -78,13 +79,11 @@
   services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.cartwatson = {
-    isNormalUser = true;
-    description = "cartwatson";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-    #  thunderbird
-    ];
+  users.users.cwatson = {
+      isNormalUser = true;
+      description = "Carter Watson";
+      extraGroups = [ "necartwatson tworkmanager" "wheel" ];
+      uid = 1000;
   };
 
   # Allow unfree packages
