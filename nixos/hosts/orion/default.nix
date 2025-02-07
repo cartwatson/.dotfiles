@@ -131,4 +131,8 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.05"; # Did you read the comment?
 
+  # auto updating can be done with these commands
+  # https://nixos.org/manual/nixos/stable/index.html#sec-upgrading-automatic
+  system.autoUpgrade.enable = true;
+  system.autoUpgrade.allowReboot = true;
 }
