@@ -11,6 +11,13 @@
 
   programs.dconf.profiles.user.databases = [{
     settings = lib.fix (self: with lib.gvariant; {
+      # TODO: IMPLEMENT
+      # "org/gnome/shell".enabled-extensions = [
+        # "blur-my-shell@aunetx"
+        # "just-perfection@"
+        # "panel-date-format@smspillaz"
+      # ];
+
       # EXTENSION SPECIFIC SETTINGS
       "org/gnome/shell/extensions/panel-date-format".format = "%Y-%m-%d %H:%M";
 
