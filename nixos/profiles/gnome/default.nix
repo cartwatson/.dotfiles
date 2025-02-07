@@ -7,7 +7,7 @@
 
   # Remove gnome default apps
   environment.gnome.excludePackages = (with pkgs; [
-    # epiphany              # Web browser
+    epiphany              # Web browser
     geary                 # Email client
     seahorse              # Password manager
     gnome-calendar
@@ -32,7 +32,7 @@
           "org/gnome/desktop/interface" = {
             color-scheme = "prefer-dark";
             gtk-enable-primary-paste = false;
-            # show-battery-percentage = true;
+            show-battery-percentage = true;
           };
 
           # NIGHT SHIFT
