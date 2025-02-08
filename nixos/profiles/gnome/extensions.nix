@@ -16,7 +16,7 @@
           builtins.map
             (lib.getAttr "extensionUuid")
             (lib.filter (lib.hasAttr "extensionUuid") config.environment.systemPackages);
-      }
+      };
 
       # EXTENSION SPECIFIC SETTINGS
       "org/gnome/shell/extensions/panel-date-format".format = "%Y-%m-%d %H:%M";
