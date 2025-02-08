@@ -46,12 +46,12 @@
           # KEYBINDINGS
           "org/gnome/settings-daemon/plugins/media-keys" = {
               custom-keybindings = ["/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"];
-              control-center = "<Super>i";
-              screensaver = "<Super>l";
+              control-center = ["<Super>i"];
+              screensaver = ["<Super>l"];
           };
 
           "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
-            binding = "<Super>e";
+            binding = ["<Super>e"];
             command = "/usr/bin/env nautilus";
             name = "File Manager";
           };
@@ -76,11 +76,11 @@
 
           "org/gnome/shell/keybindings" = {
             show-screenshot-ui = [ "<Shift><Super>s" ];
-            # switch-to-application-1 = [];
-            # switch-to-application-2 = [];
-            # switch-to-application-3 = [];
-            # switch-to-application-4 = [];
-            # switch-to-application-5 = [];
+            switch-to-application-1 = mkEmptyArray type.string;
+            switch-to-application-2 = mkEmptyArray type.string;
+            switch-to-application-3 = mkEmptyArray type.string;
+            switch-to-application-4 = mkEmptyArray type.string;
+            switch-to-application-5 = mkEmptyArray type.string;
           };
         });
       }
