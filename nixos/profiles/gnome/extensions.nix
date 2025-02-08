@@ -17,12 +17,6 @@
             (lib.getAttr "extensionUuid")
             (lib.filter (lib.hasAttr "extensionUuid") config.environment.systemPackages);
       }
-      # TODO: IMPLEMENT
-      # "org/gnome/shell".enabled-extensions = [
-        # "blur-my-shell@aunetx"
-        # "just-perfection@"
-        # "panel-date-format@smspillaz"
-      # ];
 
       # EXTENSION SPECIFIC SETTINGS
       "org/gnome/shell/extensions/panel-date-format".format = "%Y-%m-%d %H:%M";
