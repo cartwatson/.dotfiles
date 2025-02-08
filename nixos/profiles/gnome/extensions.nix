@@ -11,6 +11,12 @@
 
   programs.dconf.profiles.user.databases = [{
     settings = lib.fix (self: with lib.gvariant; {
+      "org/gnome/shell" = {
+        enabled-extensions =
+          builtins.map
+            (lib.getAttr "extensionUuid")
+            (lib.filter (lib.hasAttr "extensionUuid") config.environment.systemPackages);
+      }
       # TODO: IMPLEMENT
       # "org/gnome/shell".enabled-extensions = [
         # "blur-my-shell@aunetx"
