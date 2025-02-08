@@ -10,6 +10,7 @@
       ./hardware-configuration.nix
       ../../profiles/gnome
       ../../modules/gaming.nix
+      ../../modules/docker.nix
     ];
 
   # Bootloader
@@ -106,14 +107,6 @@
     };
   };
 
-  # Docker
-  virtualisation.docker.enable = true;
-  virtualisation.docker.rootless = {
-    enable = true;
-    setSocketVariable = true;
-  };
-  users.extraGroups.docker.members = [ "cwatson" ];
-
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = (with pkgs; [
@@ -136,8 +129,6 @@
     git
     libgcc
     arduino
-    docker
-    docker-client # CLI client
     python312Packages.pip
 
     # misc tools
