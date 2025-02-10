@@ -5,6 +5,7 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ../../profiles/common/gui.nix
     ../../profiles/gnome/default.nix
     ../../modules/gaming.nix
     ../../modules/docker.nix
@@ -45,7 +46,7 @@
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -74,10 +75,6 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = (with pkgs; [
-    # editors
-    # Nano installed by default
-    vscodium
-
     # languages
     python3
 
@@ -93,16 +90,11 @@
 
     # misc tools
     wget
-    htop
     protonvpn-gui
     caligula
 
     # personal util
     chromium
-    firefox
-    spotify
-    discord
-    slack
 
     # hobbies
     # krita
