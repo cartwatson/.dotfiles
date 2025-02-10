@@ -32,6 +32,7 @@
     helix
     tmux
     xclip
+    htop
   ]);
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
