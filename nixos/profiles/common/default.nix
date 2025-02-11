@@ -50,4 +50,10 @@
   # https://nixos.org/manual/nixos/stable/index.html#sec-upgrading-automatic
   system.autoUpgrade.enable = true;
   system.autoUpgrade.allowReboot = true;
+
+  # garbage collect everything older two weeks
+  nix.gc.automatic = true;
+  nix.gc.dates = "weekly";
+  nix.gc.options = "--delete-older-than 14d";
+  nix.settings.auto-optimise-store = true;
 }
