@@ -173,8 +173,28 @@ function wsl_install {
 }
 
 function nixos_install {
-    # link config
-    ln -s ~/.dotfiles/nixos/configuration.nix /etc/nixos
+    NIX_DIR = "~/.dotfiles/nixos/hosts/$HOSTNAME"
+
+    if [ ! -d "$NIX_DIR" ]; then
+        # if brand new machine
+        mkdir -p "$NIX_DIR"
+
+        # copy new configs to new dir
+        sudo mv /etc/nixos/configuration.nix "$NIX_DIR"/default.nix
+        sudo mv /etc/nixos/hardware-configuration.nix "$NIX_DIR"
+    else
+        # if restoring machine
+        # clear /etc/nixos
+        sudo rm /etc/nixos/configuration.nix
+        sudo mv /etc/nixos/hardware-configuration.nix "$NIX_DIR"
+    fi
+
+    # link configs
+    ln -s "$NIX_DIR"/default.nix /etc/nixos/configuration.nix
+    ln -s "$NIX_DIR"/hardware-configuration.nix /etc/nixos/hardware-configuration.nix
+
+    # rebuild
+    ~/.dotfiles/nixos/rebuild.sh
 }
 
 function full_install {
@@ -244,7 +264,7 @@ function remote_machine_install {
 }
 
 function welcome_menu {
-    # \\ is required at end of second line because it will escape the newline otherwise
+    # \\ is required at end of top line in "Carter" because it will escape the newline otherwise
     echo "
      _       __________   __________  __  _________
     | |     / / ____/ /  / ____/ __ \/  |/  / ____/
@@ -258,7 +278,6 @@ function welcome_menu {
     \____/_/  |_/_/ |_|/_/ /_____/_/ |_|  
     "
 
-    # actually start menu
     echo
     echo "Select an option:"
     echo "    1) Full install"
