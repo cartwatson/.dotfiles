@@ -7,10 +7,8 @@ function open_tabs() {
   window="idx"
   tmux new-session -d -s "$SESH" -n "$window"
   tmux split-window -t "$SESH":"$window".1 -h
-  tmux split-window -t "$SESH":"$window".1 -v
-  tmux send-keys -t "$SESH":"$window".1 "cd ~/personal/index; hx TODO.md" C-m
+  tmux send-keys -t "$SESH":"$window".1 "cds; hx" C-m
   tmux send-keys -t "$SESH":"$window".2 "cds" C-m
-  tmux send-keys -t "$SESH":"$window".3 "cd ~/personal/index/scratch; hx ." C-m
   tmux select-pane -t "$SESH":"$window".1
 
   tmux new-window -t "$SESH" -n "dotfiles"
