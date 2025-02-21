@@ -29,8 +29,8 @@ right = ["version-control", "diagnostics", "register", "position", "file-encodin
 # [editor.indent-guides]
 # render = true
 
-# [editor.whitespace.render]
-# space = "all"
+[editor.whitespace.render]
+space = "all"
 
 [keys.insert]
 "C-s" = "no_op" # don't interfere with tmux
