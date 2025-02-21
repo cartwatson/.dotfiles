@@ -1,7 +1,7 @@
-{ pkgs, lib, ... }
+{ pkgs, lib, ... }:
 
 {
-  systemPackages = with pkgs; [
+  environment.systemPackages = with pkgs; [
     tailscale
   ];
 
