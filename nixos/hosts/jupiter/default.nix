@@ -7,6 +7,7 @@
     ./hardware-configuration.nix
     ../../profiles/common/gui.nix
     ../../profiles/gnome/default.nix
+    ../../modules/tailscale.nix
     ../../modules/gaming.nix
     ../../modules/docker.nix
   ];
@@ -20,11 +21,6 @@
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # manage hosts file
-  networking.hosts = {
-    "192.168.1.209" = ["kuiper"];
-  };
 
   # Enable networking
   networking.networkmanager.enable = true;
