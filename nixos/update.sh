@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-nix flake update "$@"
-./rebuild.sh
+sudo nix flake update "$@"
+ . ./rebuild.sh
