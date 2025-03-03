@@ -37,7 +37,8 @@
               ./hosts/${name}
               ./profiles/common
             ];
-          }))
+          }
+        ))
       ];
     };
 }
