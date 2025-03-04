@@ -17,11 +17,3 @@ Collection of dotfiles for configs
 
 - [helix wiki](https://github.com/helix-editor/helix/wiki/Language-Server-Configurations)
 - [docs](https://docs.helix-editor.com/lang-support.html)
-
-## Old vim plugins
-
-- [vscode theme](https://github.com/tomasiser/vim-code-dark.git)
-- [gruvbox](https://github.com/morhetz/gruvbox.git)
-- [nerdtree](https://github.com/preservim/nerdtree.git)
-- [gitgutter](https://github.com/airblade/vim-gitgutter.git)
-
