@@ -18,6 +18,7 @@ alias sbr="source ~/.bashrc"
 # --tmux
 alias tp="~/.dotfiles/tmux/sessions/personal.sh"
 alias tw="~/.dotfiles/tmux/sessions/work.sh"
+alias ide="~/.dotfiles/tmux/sessions/windows/ide.sh"
 alias tls="tmux list-sessions"
 function tks() {
     if [ -n "$1" ]; then
