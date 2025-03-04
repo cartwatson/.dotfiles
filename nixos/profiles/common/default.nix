@@ -34,6 +34,7 @@
     xclip
     htop
     pciutils
+    fastfetch
   ]);
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
