@@ -16,6 +16,8 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.timeout = null;
+  boot.initrd.kernelModules = [ "amdgpu" ];
+  hardware.opengl.enable = true;
 
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -25,7 +27,6 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
-  services.xserver.videoDrivers = [ "amdgpu" ];
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
