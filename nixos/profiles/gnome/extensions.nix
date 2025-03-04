@@ -3,10 +3,12 @@
 {
   environment.systemPackages = (with pkgs; [
     gnome-tweaks
+    gtop # needed for astra-monitor GPU
   ]) ++ (with pkgs.gnomeExtensions; [
     blur-my-shell
     just-perfection
     panel-date-format
+    astra-monitor
   ]);
 
   programs.dconf.profiles.user.databases = [{
