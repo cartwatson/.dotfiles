@@ -1,6 +1,6 @@
 # Help is available in the configuration.nix(5) man page and in the NixOS manual (Run ‘nixos-help’).
 
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, unstable, inputs, ... }:
 
 {
   imports = [
@@ -11,6 +11,10 @@
     ../../modules/gaming.nix
     ../../modules/docker.nix
   ];
+
+  environment.systemPackages = (with pkgs; [
+    chromium
+  ]);
 
   # Bootloader
   boot.loader.systemd-boot.enable = true;
@@ -62,40 +66,6 @@
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
-
-# PACKAGES --------------------------------------------------------------------
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = (with pkgs; [
-    # languages
-    python3
-
-    # LSPs
-    # unstable.bash-language-server
-    marksman
-    python312Packages.python-lsp-server
-
-    # dev tools
-    libgcc
-    arduino
-    python312Packages.pip
-
-    # misc tools
-    wget
-    protonvpn-gui
-    caligula
-
-    # personal util
-    chromium
-
-    # hobbies
-    # krita
-  ]);
-
-# END PACKAGES ----------------------------------------------------------------
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

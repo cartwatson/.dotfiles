@@ -1,9 +1,10 @@
 # IMPORTANT: Included pkgs & settings for **ALL** configurations
 
-{ config, pkgs, lib, self, ... }:
+{ config, pkgs, unstable, lib, self, ... }:
 
 {
   imports = [
+    ../../modules/helix.nix
   ];
 
   # Set your time zone.
@@ -24,17 +25,15 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = (with pkgs; [
+  # List packages installed in system profile. To search, run: $ nix search wget
+  environment.systemPackages = with pkgs; [
     git
     vim
-    helix
     tmux
-    xclip
+    xclip # needed for tmux->system_clipboard functionality
     htop
-    pciutils
-    fastfetch
+    fastfetch # new neofetch
+    caligula # ISO Burner - [git](https://github.com/ifd3f/caligula/tree/main)
   ]);
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -44,6 +43,9 @@
       extraGroups = [ "networkmanager" "wheel" ];
       uid = 1000;
   };
+
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
 
   # Enable flakes and nix-command
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
