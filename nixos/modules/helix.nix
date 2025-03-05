@@ -1,14 +1,11 @@
-{ pkgs, unstable, lib, ... }:
+{ pkgs, lib, ... }:
 
 {
-  environment.systemPackages = with unstable; [
-    helix
-  ];
-
   environment.systemPackages = (with pkgs; [
+    helix
     # LSPs for helix
     marksman
-    unstable.bash-language-server
+    bash-language-server
     python312Packages.python-lsp-server
   ]);
 }

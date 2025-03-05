@@ -2,11 +2,10 @@
   description = "Nixos config flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
   };
 
-  outputs = { self, nixpkgs, unstable, ... }@inputs:
+  outputs = inputs@{ self, nixpkgs, ... }:
     let
       inherit (nixpkgs) lib;
 
@@ -15,12 +14,6 @@
         "x86_64-linux"
         "aarch64-linux"
       ];
-
-      # Create pkgs instances for each system
-      pkgsForSystem = system: {
-        pkgs = mkPkgs nixpkgs system;
-        unstable = mkPkgs nixpkgs-unstable system;
-      };
 
     in {
 
@@ -36,10 +29,7 @@
         (lib.mapAttrs (name: value:
           lib.nixosSystem {
             # Inject this flake into the module system.
-            specialArgs = {
-              inherit self;
-              pkgsFor = pkgsForSystem;
-            };
+            specialArgs = { inherit self; };
 
             modules = [
               { networking.hostName = name; }
