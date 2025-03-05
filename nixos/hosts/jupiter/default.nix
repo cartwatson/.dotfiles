@@ -13,7 +13,6 @@
   ];
 
   environment.systemPackages = (with pkgs; [
-    chromium
   ]);
 
   # Bootloader
@@ -21,7 +20,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.timeout = null;
   boot.initrd.kernelModules = [ "amdgpu" ];
-  hardware.opengl.enable = true;
+  hardware.graphics.enable = true;
 
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
