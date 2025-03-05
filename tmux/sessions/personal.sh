@@ -3,7 +3,9 @@
 
 SESH="personal"
 
-function open_tabs() {
+tmux has-session -t "$SESH" 2>/dev/null
+
+if [ $? != 0 ]; then
   window="idx"
   tmux new-session -d -s "$SESH" -n "$window"
   tmux split-window -t "$SESH":"$window".1 -h
@@ -22,14 +24,6 @@ function open_tabs() {
 
   tmux new-window -t "$SESH" -n "temp"
   tmux send-keys -t "$SESH":temp "cdm" C-m
-}
-
-tmux has-session -t "$SESH" 2>/dev/null
-
-if [ $? != 0 ]; then
-  # session doesn't exist
-  tmux new-session -d -s "$SESH" -n "idx"
-  open_tabs
 fi
 
 # attempt to switch clients, if fails attach
