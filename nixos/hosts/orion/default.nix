@@ -1,6 +1,6 @@
 # Help is available in the configuration.nix(5) man page and in the NixOS manual (Run ‘nixos-help’).
 
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, unstable, inputs, ... }:
 
 {
   imports = [
@@ -10,6 +10,10 @@
     ../../profiles/gnome/default.nix
     ../../modules/tailscale.nix
   ];
+
+  environment.systemPackages = (with pkgs; [
+    firefox
+  ]);
 
   # bootloader
   boot.loader.systemd-boot.enable = true;
@@ -56,17 +60,8 @@
     #media-session.enable = true;
   };
 
-  # Enable touchpad support (enabled default in most desktopManager).
+  # Enable touchpad support (enabled by default in most desktopManager).
   services.libinput.enable = true;
-
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = (with pkgs; [
-    firefox
-  ]);
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
