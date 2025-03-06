@@ -34,6 +34,7 @@ space = "all"
 
 [keys.insert]
 "C-s" = "no_op" # don't interfere with tmux
+"C-r" = "reload-all" # don't interfere with tmux
 "C-c" = ["collapse_selection", "normal_mode"]
 "C-n" = "completion"
 "C-7" = "toggle_comments" # ctrl + / # only available in linux
