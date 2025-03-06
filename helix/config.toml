@@ -34,7 +34,6 @@ space = "all"
 
 [keys.insert]
 "C-s" = "no_op" # don't interfere with tmux
-"C-r" = ":reload-all"
 "C-c" = ["collapse_selection", "normal_mode"]
 "C-n" = "completion"
 "C-7" = "toggle_comments" # ctrl + / # only available in linux
@@ -71,6 +70,7 @@ esc = ["collapse_selection", "normal_mode"]
 [keys.normal]
 "C-s" = "no_op" # don't interfere with tmux
 # "C-." = "code_action"
+"C-r" = ":reload-all"
 "$" = "goto_line_end"
 "G" = "goto_file_end"
 "^" = "goto_first_nonwhitespace"
