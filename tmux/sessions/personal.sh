@@ -17,7 +17,7 @@ if [ $? != 0 ]; then
   tmux send-keys -t "$SESH":dotfiles "cdd" C-m
 
   # NOTE: this assumes that the machine this is running on is a nix machine but lucky for me I only run nix machines :)
-  if [[ -d ~/.dotfiles/nixos/hosts/$(HOSTNAME) ]]; then
+  if [[ -d ~/.dotfiles/nixos/hosts/$HOSTNAME ]]; then
     tmux new-window -t "$SESH" -n "proxmox"
     tmux send-keys -t "$SESH":proxmox "cd ~/personal/proxmox; gsll" C-m
   fi
