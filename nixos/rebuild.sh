@@ -12,7 +12,7 @@ while [[ $# -gt 0 ]]; do
       shift # past argument
       ;;
     --update-hw | -e)
-      UPDATE_HW=false
+      UPDATE_HW=true
       shift # past argument
       ;;
     --help | -h)
@@ -30,25 +30,24 @@ while [[ $# -gt 0 ]]; do
       POSITIONAL_ARGS+=("$1") # save positional arg
       echo "erm what the sigma is $1, exiting"
       exit 1
-      shift # past argument
       ;;
   esac
 done
 
-if [[ UPDATE ]]; then
+if [[ $UPDATE ]]; then
   # update flake.lock
   sudo nix flake update
 fi
 
-if [[ UDPATE_HW ]]; then
+if [[ $UPDATE_HW ]]; then
   # regenerate HW config and template config, rm template config
-  sudo nixos-generate-config --dir ~/.dotfiles/nixos/hosts/$HOSTNAME
-  rm ~/.dotfiles/nixos/hosts/$HOSTNAME/configuration.nix
+  sudo nixos-generate-config --dir "$HOME/.dotfiles/nixos/hosts/$HOSTNAME"
+  rm "$HOME/.dotfiles/nixos/hosts/$HOSTNAME/configuration.nix"
 fi
 
-if [[ REBUILD ]]; then
+if [[ $REBUILD ]]; then
   # basic rebuild
   # `#$HOSTNAME` will return "#orion" which is intended
-  sudo nixos-rebuild switch --flake ~/.dotfiles/nixos/#$HOSTNAME
+  sudo nixos-rebuild switch --flake "$HOME/.dotfiles/nixos/#$HOSTNAME"
 fi
 
