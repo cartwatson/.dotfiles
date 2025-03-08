@@ -1,6 +1,6 @@
 # IMPORTANT: Included pkgs & settings for **ALL** configurations
 
-{ pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports = [
