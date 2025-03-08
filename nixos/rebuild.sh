@@ -34,18 +34,18 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-if [[ $UPDATE ]]; then
+if [[ "$UPDATE" == "true" ]]; then
   # update flake.lock
   sudo nix flake update
 fi
 
-if [[ $UPDATE_HW ]]; then
+if [[ "$UPDATE_HW" == "true" ]]; then
   # regenerate HW config and template config, rm template config
   sudo nixos-generate-config --dir "$HOME/.dotfiles/nixos/hosts/$HOSTNAME"
   rm "$HOME/.dotfiles/nixos/hosts/$HOSTNAME/configuration.nix"
 fi
 
-if [[ $REBUILD ]]; then
+if [[ "$REBUILD" == "true" ]]; then
   # basic rebuild
   # `#$HOSTNAME` will return "#orion" which is intended
   sudo nixos-rebuild switch --flake "$HOME/.dotfiles/nixos/#$HOSTNAME"
