@@ -68,6 +68,8 @@ function cd() {
     fi
 }
 
+alias clear="clear -x" # don't clear scroll
+
 # --misc
 alias untar="tar -xvzf"
 
