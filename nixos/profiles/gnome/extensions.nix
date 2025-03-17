@@ -21,7 +21,7 @@
       };
 
       # EXTENSION SPECIFIC SETTINGS
-      "org/gnome/shell/extensions/panel-date-format".format = "%Y-%m-%d %H:%M";
+      "org/gnome/shell/extensions/panel-date-format".format = "%Y-%m-%d %H:%M W%V-%u";
 
       "org/gnome/shell/extensions/just-perfection" = {
         accessibility-menu = true;
