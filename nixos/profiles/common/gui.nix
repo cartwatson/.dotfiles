@@ -13,6 +13,7 @@
     spotify
     discord
     slack
+    bitwarden-desktop
 
     kdePackages.kolourpaint
   ]);
