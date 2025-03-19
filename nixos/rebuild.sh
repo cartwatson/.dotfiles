@@ -7,6 +7,14 @@ REBUILD=true
 
 while [[ $# -gt 0 ]]; do
   case $1 in
+    --help | -h)
+      echo -e "Script to auto rebuild NixOS system\n"
+      echo -e "-n, --no-rebuild\n\tDon't rebuild system"
+      echo -e "-u, --update\n\tUpdate flake.lock"
+      echo -e "-e, --update-hw\n\tUpdate hardware-configuration.nix"
+      echo -e "    --hostname\n\tHostname to use for rebuild"
+      exit 0
+      ;;
     --update | -u)
       UPDATE=true
       shift # past argument
@@ -15,16 +23,14 @@ while [[ $# -gt 0 ]]; do
       UPDATE_HW=true
       shift # past argument
       ;;
-    --help | -h)
-      echo -e "Script to auto rebuild NixOS system\n"
-      echo -e "-n, --no-rebuild\n\tDon't rebuild system"
-      echo -e "-u, --update\n\tUpdate flake.lock"
-      echo -e "-e, --update-hw\n\tUpdate hardware-configuration.nix"
-      exit 0
-      ;;
     --no-rebuild | -n)
       REBUILD=false
       shift # past argument
+      ;;
+    --hostname)
+      shift # past argument
+      HOSTNAME="$1"
+      shift
       ;;
     *)
       POSITIONAL_ARGS+=("$1") # save positional arg

@@ -23,8 +23,7 @@ function backup() {
 function create_dir() {
     if [ ! -d ~/"$1" ]; then
         print_pending "Creating $1..."
-        mkdir -p ~/"$1";
-        if [ $? -eq 0 ]; then
+        if mkdir -p ~/"$1"; then
             print_success "Created $1"
         else
             print_error "Creating $1"
@@ -64,8 +63,7 @@ function dotfiles_repo_https_to_ssh {
     # convert this repo to ssh if https
     if git remote get-url origin | grep -qc https; then
         print_pending "Converting from https to ssh..."
-        git remote set-url origin git@github.com:cartwatson/.dotfiles.git
-        if [ $? -eq 0 ]; then
+        if git remote set-url origin git@github.com:cartwatson/.dotfiles.git; then
             print_success "Converted \`~/.dotfiles\` from https to ssh"
         else
             print_error "Converting \`~/.dotfiles\` from https to ssh"
@@ -103,7 +101,7 @@ function reinstall_helix_config {
         source=${helix_symlinks[i]}
         target=${helix_symlinks[i+1]}
         # ln -sf $source $target > /dev/null 2>&1 || ((failed++))
-        ln -sf $source $target || ((failed++))
+        ln -sf "$source" "$target" || ((failed++))
     done
 
     if [ "$failed" -eq 0 ]; then
@@ -158,7 +156,7 @@ function install_vscode_extensions {
 
         # install vscode extensions
         for extension in "${code_extensions[@]}"; do
-            $VSCODE --force --install-extension $extension
+            $VSCODE --force --install-extension "$extension"
         done
 
         add_alias_if_not_exists "c" "$VSCODE ."
@@ -173,15 +171,20 @@ function wsl_install {
 }
 
 function nixos_install {
-    NIX_DIR = "~/.dotfiles/nixos/hosts/$HOSTNAME"
+    NIX_DIR = "$HOME/.dotfiles/nixos/hosts/$HOSTNAME"
 
-    if [ ! -d "$NIX_DIR" ]; then
+    if [ "$HOSTNAME" == "nixos" ]; then
         # if brand new machine
+        read -p "New hostname: " host
+        NIX_DIR+="$host"
+        HOSTNAME="$host"
         mkdir -p "$NIX_DIR"
 
         # copy new configs to new dir
         sudo mv /etc/nixos/configuration.nix "$NIX_DIR"/default.nix
         sudo mv /etc/nixos/hardware-configuration.nix "$NIX_DIR"
+
+        sudo chown cwatson:users "$NIX_DIR"/default.nix
     else
         # if restoring machine
         # clear /etc/nixos
@@ -189,12 +192,14 @@ function nixos_install {
         sudo mv /etc/nixos/hardware-configuration.nix "$NIX_DIR"
     fi
 
+    sudo chown cwatson:users "$NIX_DIR"/hardware-configuration.nix
+
     # link configs
-    ln -s "$NIX_DIR"/default.nix /etc/nixos/configuration.nix
-    ln -s "$NIX_DIR"/hardware-configuration.nix /etc/nixos/hardware-configuration.nix
+    sudo ln -s "$NIX_DIR"/default.nix /etc/nixos/configuration.nix
+    sudo ln -s "$NIX_DIR"/hardware-configuration.nix /etc/nixos/
 
     # rebuild
-    ~/.dotfiles/nixos/rebuild.sh
+    ~/.dotfiles/nixos/rebuild.sh --hostname "$HOSTNAME"
 }
 
 function full_install {
@@ -214,8 +219,7 @@ function full_install {
 
     # index if it doesn't exist
     if [ ! -d ~/personal/index ]; then
-        git clone git@github.com:cartwatson/index ~/personal/index
-        if [ $? -eq 0 ]; then
+        if git clone git@github.com:cartwatson/index ~/personal/index; then
             print_success "Cloned index"
         else
             print_error "Couldn't clone index over ssh"
@@ -286,10 +290,11 @@ function welcome_menu {
     echo "    4) Helix config"
     echo "    5) VSCod(e/ium) extensions"
     echo "    6) Generate new SSH key"
+    echo "    7) NixOS Install"
     echo "    q) Exit script"
     echo
     local choice
-    read -p "Make your selection [1-5]: " choice
+    read -p "Make your selection [1-7]: " choice
 
     case $choice in
         1) full_install ;;
@@ -298,7 +303,8 @@ function welcome_menu {
         4) reinstall_helix_config ;;
         5) install_vscode_extensions ;;
         6) source ./ssh-key.sh ;;
-        *|"") echo "Exiting script" ;;
+        7) nixos_install ;;
+        *) echo "Exiting script" ;;
     esac
 }
 
