@@ -1,6 +1,6 @@
 # Help is available in the configuration.nix(5) man page and in the NixOS manual (Run ‘nixos-help’).
 
-{ config, pkgs, pkgs-unstable, inputs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   imports = [
