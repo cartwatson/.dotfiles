@@ -34,7 +34,7 @@
             modules = [
               { networking.hostName = name; }
               ./hosts/${name}
-              ./profiles/common
+              ./profiles/common/default.nix
             ];
           }
         ))
