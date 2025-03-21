@@ -6,7 +6,7 @@
     ../../profiles/common/gui.nix
     ../../profiles/gnome/default.nix
     ../../modules/tailscale.nix
-    ../../modules/gaming.nix
+    ../../modules/gaming/default.nix
     ../../modules/docker.nix
   ];
 
