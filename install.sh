@@ -171,7 +171,7 @@ function wsl_install {
 }
 
 function nixos_install {
-    NIX_DIR = "$HOME/.dotfiles/nixos/hosts/$HOSTNAME"
+    NIX_DIR="$HOME/.dotfiles/nixos/hosts/$HOSTNAME"
 
     if [ "$HOSTNAME" == "nixos" ]; then
         # if brand new machine
@@ -183,8 +183,6 @@ function nixos_install {
         # copy new configs to new dir
         sudo mv /etc/nixos/configuration.nix "$NIX_DIR"/default.nix
         sudo mv /etc/nixos/hardware-configuration.nix "$NIX_DIR"
-
-        sudo chown cwatson:users "$NIX_DIR"/default.nix
     else
         # if restoring machine
         # clear /etc/nixos
@@ -192,13 +190,17 @@ function nixos_install {
         sudo mv /etc/nixos/hardware-configuration.nix "$NIX_DIR"
     fi
 
-    sudo chown cwatson:users "$NIX_DIR"/hardware-configuration.nix
+    sudo chown -R cwatson:users "$NIX_DIR"
 
     # link configs
     sudo ln -s "$NIX_DIR"/default.nix /etc/nixos/configuration.nix
     sudo ln -s "$NIX_DIR"/hardware-configuration.nix /etc/nixos/
 
     # rebuild
+    if git add nixos/hosts/"$HOSTNAME"; then
+        echo "\`git add\` failed! This will break NixOS build process"
+        exit 1
+    fi
     ~/.dotfiles/nixos/rebuild.sh --hostname "$HOSTNAME"
 }
 
