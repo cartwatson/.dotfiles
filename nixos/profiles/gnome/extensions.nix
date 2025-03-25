@@ -14,10 +14,13 @@
   programs.dconf.profiles.user.databases = [{
     settings = lib.fix (self: with lib.gvariant; {
       "org/gnome/shell" = {
-        enabled-extensions =
-          builtins.map
-            (lib.getAttr "extensionUuid")
-            (lib.filter (lib.hasAttr "extensionUuid") config.environment.systemPackages);
+        enabled-extensions =[
+          pkgs.gnomeExtensions.blur-my-shell.extensionUuid
+          pkgs.gnomeExtensions.just-perfection.extensionUuid
+          pkgs.gnomeExtensions.panel-date-format.extensionUuid
+          pkgs.gnomeExtensions.astra-monitor.extensionUuid
+          pkgs.gnomeExtensions.auto-move-windows.extensionUuid
+        ];
       };
 
       # EXTENSION SPECIFIC SETTINGS
