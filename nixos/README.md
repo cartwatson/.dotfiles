@@ -8,8 +8,12 @@
 ## Setup
 
 - install NixOS
-- mv default config and hardware config to `~/.dotfiles/nixos/hosts`
-- symbolic link both files back to `/etc/nixos/`
+- run `./install.sh`
+  - if install failes (it shouldn't)
+  - mv default config and hardware config to `~/.dotfiles/nixos/hosts`
+  - symbolic link both files back to `/etc/nixos/`
+  - `git add` new files for host
+  - rebuild (see above)
 
 ## References
 
