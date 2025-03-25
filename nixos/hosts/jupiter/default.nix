@@ -7,6 +7,7 @@
     ../../profiles/gnome/default.nix
     ../../modules/tailscale.nix
     ../../modules/gaming/default.nix
+    ../../modules/gaming/sunshine.nix
     ../../modules/docker.nix
   ];
 
