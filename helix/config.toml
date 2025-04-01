@@ -26,8 +26,8 @@ deduplicate-links = false
 [editor.statusline]
 right = ["version-control", "diagnostics", "register", "position", "file-encoding"]
 
-# [editor.indent-guides]
-# render = true
+[editor.indent-guides]
+render = true
 
 [editor.whitespace.render]
 space = "all"
