@@ -9,15 +9,17 @@ green_bg="\033[42m"   # Green background
 reset="\033[0m"       # Reset formatting
 
 # fun functions for creating distinct visuals
-print_error() { echo -e "${red_bg}ERROR: $1${reset}"; }
-print_pending() { echo -e "${blue_bg}Pending: $1${reset}"; }
-print_success() { echo -e "${green_bg}Completed: $1${reset}"; }
-print_info() { echo -e "${blue_bg}Info: $1${reset}"; }
+function print_error() { echo -e "${red_bg}ERROR: $1${reset}"; }
+function print_pending() { echo -e "${blue_bg}Pending: $1${reset}"; }
+function print_success() { echo -e "${green_bg}Completed: $1${reset}"; }
+function print_info() { echo -e "${blue_bg}Info: $1${reset}"; }
 
-function backup() {
-    if [ -f ~/"$1" ]; then
-        mv ~/"$1" ~/"$1".old;
-    fi
+function backup_files() {
+    for file in "$@"; do
+        if [ ! -L "$file" ]; then # if not symlink
+            mv "$file" "$file.old"
+        fi
+    done
 }
 
 function create_dir() {
@@ -34,13 +36,7 @@ function create_dir() {
 # installation functions
 function symlink_config {
     # create backups
-    # TODO: if "these aren't symlinks" then backup
-    if [ ! -z "$1" ]; then
-        print_pending "Creating bashrc and gitconfig backups..."
-        backup ".bashrc"
-        backup ".gitconfig"
-        print_success "Created backups"
-    fi
+    backup "$HOME/.bashrc" "$HOME/.gitconfig"
     
     # create symlinks for files
     print_pending "Creating symlinks for bashrc, aliases, vimconfig, gitconfig, and tmuxconfig..."
@@ -122,7 +118,6 @@ function add_alias_if_not_exists {
    fi
 }
 
-
 function create_machine_aliases {
     local alias_file="$HOME/.bash_machine_aliases.sh"
 
@@ -134,32 +129,6 @@ function create_machine_aliases {
 #
 ###############################################################################
 EOF
-    fi
-}
-
-function install_vscode_extensions {
-    if command -v code &> /dev/null || command -v codium &> /dev/null; then
-        VSCODE="code"
-        if command -v codium &> /dev/null; then VSCODE="codium"; fi
-
-        # vscode extensions
-        code_extensions=( 
-                        "ritwickdey.liveserver"        # live server
-                        "yzhang.markdown-all-in-one"   # markdown all in one
-                        "pkief.material-icon-theme"    # material icon theme
-                        "jdinhlife.gruvbox"            # gruvbox theme duh
-                        )
-
-        if [ -f "/proc/sys/fs/binfmt_misc/WSLInterop" ]; then
-            code_extensions+=("ms-vscode-remote.remote-wsl");  # wsl extension
-        fi
-
-        # install vscode extensions
-        for extension in "${code_extensions[@]}"; do
-            $VSCODE --force --install-extension "$extension"
-        done
-
-        add_alias_if_not_exists "c" "$VSCODE ."
     fi
 }
 
@@ -215,8 +184,8 @@ function full_install {
     create_machine_aliases
 
     # assume this is a new machine and needs ssh-keys
-    print_info Create new SSH key for personal github
-    source ./ssh-key.sh
+    print_info "Create new SSH key for PERSONAL github"
+    ./ssh-key.sh
     read -p "Upload key to appropriate site, then press enter" _
 
     # index if it doesn't exist
@@ -237,8 +206,6 @@ function full_install {
         reinstall_helix_config
     fi
 
-    install_vscode_extensions
-
     wsl_install
 
     if [ -d /etc/nixos ]; then
@@ -247,8 +214,7 @@ function full_install {
 }
 
 function reinstall {
-    # don't overwrite `.old` files (provide 1 argument)
-    symlink_config dontbackup
+    symlink_config
 
     # never hurts to redo these parts
     reinstall_helix_config
@@ -290,23 +256,20 @@ function welcome_menu {
     echo "    2) Reinstall"
     echo "    3) Remote Machine Install"
     echo "    4) Helix config"
-    echo "    5) VSCod(e/ium) extensions"
-    echo "    6) Generate new SSH key"
-    echo "    7) NixOS Install"
+    echo "    5) Generate new SSH key"
+    echo "    6) NixOS Install"
     echo "    q) Exit script"
     echo
-    local choice
-    read -p "Make your selection [1-7]: " choice
+    read -p "Make your selection [1-6]: " choice
 
     case $choice in
         1) full_install ;;
         2) reinstall ;;
         3) remote_machine_install ;;
         4) reinstall_helix_config ;;
-        5) install_vscode_extensions ;;
-        6) source ./ssh-key.sh ;;
-        7) nixos_install ;;
-        *) echo "Exiting script" ;;
+        5) ./ssh-key.sh ;;
+        6) nixos_install ;;
+        *) echo "Exiting script"; exit 0 ;;
     esac
 }
 
