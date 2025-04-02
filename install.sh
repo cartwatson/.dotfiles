@@ -140,25 +140,24 @@ function wsl_install {
 }
 
 function nixos_install {
-    NIX_DIR="$HOME/.dotfiles/nixos/hosts/$HOSTNAME"
+    NIX_DIR="$HOME/.dotfiles/nixos/hosts/"
 
     if [ "$HOSTNAME" == "nixos" ]; then
         # if brand new machine
-        read -p "New hostname: " host
-        NIX_DIR+="$host"
-        HOSTNAME="$host"
+        read -p "New hostname: " HOSTNAME
+        NIX_DIR+="$HOSTNAME"
         mkdir -p "$NIX_DIR"
 
         # copy new configs to new dir
         sudo mv /etc/nixos/configuration.nix "$NIX_DIR"/default.nix
-        sudo mv /etc/nixos/hardware-configuration.nix "$NIX_DIR"
     else
         # if restoring machine
+        NIX_DIR+="$HOSTNAME"
         # clear /etc/nixos
         sudo rm /etc/nixos/configuration.nix
-        sudo mv /etc/nixos/hardware-configuration.nix "$NIX_DIR"
     fi
 
+    sudo mv /etc/nixos/hardware-configuration.nix "$NIX_DIR"
     sudo chown -R cwatson:users "$NIX_DIR"
 
     # link configs
