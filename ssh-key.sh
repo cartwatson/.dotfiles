@@ -83,7 +83,7 @@ cat ~/.ssh/"$file_name".pub
 
 # add to config 
 echo -e "Host $site\n  IdentityFile ~/.ssh/$file_name\n" >> "$HOME/.ssh/config"
-if [ $? ]; then error "Unable to add key+site combo to ~/.ssh/config"; fi
+if [ ! $? ]; then error "Unable to add key+site combo to ~/.ssh/config"; fi
 
 echo
 
