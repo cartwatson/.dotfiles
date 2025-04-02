@@ -65,12 +65,9 @@ if [ -z "$type_of_key" ]; then
     *) type_of_key=$input
   esac
 fi
-# NOTE: not a CLI option for security
-read -p "Passphrase for ssh-key, if not desired press enter: " passphrase
-
 
 file_name="$site@$type_of_key"
-ssh-keygen -q -t ed25519 -f ~/.ssh/"$file_name" -C "$email" -N "$passphrase" || error "generating key"
+ssh-keygen -q -t ed25519 -f "$HOME/.ssh/$file_name" -C "$email" -N "$(read -sp "Passphrase for ssh-key (press enter for no passphrase): ")" && echo
 
 if [ -n $SSH_AGENT_PID ]; then
   eval "$(ssh-agent -s)" > /dev/null || error "starting ssh-agent"
