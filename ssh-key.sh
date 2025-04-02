@@ -8,10 +8,12 @@ function error() {
 }
 
 function read_if_unset() {
-  if [ -z "$1" ]; then
-    read -p "$2" $1
+  local var=$1
+  local prompt=$2
+  if [ -z "$var" ]; then
+    read -p "$prompt" var
   fi
-  echo "$1"
+  echo "$var"
 }
 
 site=""
@@ -43,7 +45,6 @@ while [[ $# -gt 0 ]]; do
       shift # past argument
       ;;
     *)
-      POSITIONAL_ARGS+=("$1") # save positional arg
       echo "erm what the sigma is $1, exiting"
       exit 1
       ;;
@@ -58,10 +59,10 @@ site=$(read_if_unset "$site" "What site is the key for? ")
 email=$(read_if_unset "$email" "What is your email? ")
 # get input for file_name
 if [ -z "$type_of_key" ]; then
-  input=$(read_if_unset "$type_of_key" "Is the key for Work or Personal (w/p): ")
+  read -p "Is the key for Work or Personal (w/p): " input
   case "$input" in
     w|"work") type_of_key="work" ;;
-    p|"personal"|"") type_of_key="personal" ;;
+    p|"personal") type_of_key="personal" ;;
     *) type_of_key=$input
   esac
 fi
