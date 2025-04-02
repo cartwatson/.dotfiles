@@ -36,7 +36,7 @@ function create_dir() {
 # installation functions
 function symlink_config {
     # create backups
-    backup "$HOME/.bashrc" "$HOME/.gitconfig"
+    backup_files "$HOME/.bashrc" "$HOME/.gitconfig"
     
     # create symlinks for files
     print_pending "Creating symlinks for bashrc, aliases, vimconfig, gitconfig, and tmuxconfig..."
