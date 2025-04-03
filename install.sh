@@ -108,6 +108,7 @@ function reinstall_helix_config {
 }
 
 function add_alias_if_not_exists {
+    create_machine_aliases
     local alias_file="$HOME/.bash_machine_aliases.sh"
     local alias_name="$1"
     local alias_command="$2"
