@@ -2,3 +2,12 @@
 !.env
 !.gitignore
 !.gitattributes
+
+# ignore binary file types
+## images
+*.png
+*.jpg
+*.jpeg
+## documents
+*.pdf
+

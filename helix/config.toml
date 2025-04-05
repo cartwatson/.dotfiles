@@ -9,7 +9,6 @@ theme = "dark_plus" # vscode color scheme
 true-color = true
 line-number = "relative"
 cursorline = true
-# cursorcolumn = true
 rulers = [80]
 bufferline = "always"
 insert-final-newline = true
@@ -21,29 +20,23 @@ insert = "bar"
 [editor.file-picker]
 hidden = false
 deduplicate-links = false
-# TODO: Ctrl+j && Ctrl+k to move up and down
 
 [editor.statusline]
 right = ["version-control", "diagnostics", "register", "position", "file-encoding"]
 
-# [editor.indent-guides]
-# render = true
+[editor.indent-guides]
+render = true
 
 [editor.whitespace.render]
 space = "all"
 
 [keys.insert]
+# defaults
 "C-s" = "no_op" # don't interfere with tmux
+esc = ["collapse_selection", "normal_mode"]
 "C-c" = ["collapse_selection", "normal_mode"]
-"C-n" = "completion"
 "C-7" = "toggle_comments" # ctrl + / # only available in linux
-"A-h" = "move_char_left"
-"A-j" = "move_visual_line_down"
-"A-k" = "move_visual_line_up"
-"A-l" = "move_char_right"
-"C-l" = "delete_char_forward"
-"A-w" = ["move_next_word_start", "collapse_selection"]
-"A-b" = ["move_prev_word_start", "collapse_selection"]
+# no cheating
 up = "no_op"
 down = "no_op"
 left = "no_op"
@@ -52,40 +45,38 @@ pageup = "no_op"
 pagedown = "no_op"
 home = "no_op"
 end = "no_op"
+# misc
+"C-n" = "completion"
 
 [keys.select]
+# defaults
 "C-s" = "no_op" # don't interfere with tmux
-"C-c" = ["collapse_selection", "normal_mode"]
 esc = ["collapse_selection", "normal_mode"]
+"C-c" = ["collapse_selection", "normal_mode"]
 "C-7" = "toggle_comments" # ctrl + / # only available in linux
+# vim continuity
 "$" = "goto_line_end"
 "^" = "goto_first_nonwhitespace"
 "0" = "goto_line_start"
-# yank selection to main clipboard and register
-"y" = ["yank_main_selection_to_clipboard", "yank"] 
-
-[keys.select.g]
-"G" = "goto_file_end"
+# misc
+"y" = ["yank_main_selection_to_clipboard", "yank"] # yank selection to main clipboard and register
 
 [keys.normal]
+# defaults
 "C-s" = "no_op" # don't interfere with tmux
-# "C-." = "code_action"
-"C-r" = ":reload-all"
-"$" = "goto_line_end"
-"G" = "goto_file_end"
-"^" = "goto_first_nonwhitespace"
-"0" = "goto_line_start"
-# C = ["extend_to_line_end", "yank_main_selection_to_clipboard", "delete_selection", "insert_mode"]
 esc = ["collapse_selection", "keep_primary_selection"]
 "C-c" = ["collapse_selection", "keep_primary_selection"]
 "C-7" = "toggle_comments" # ctrl + / # only available in linux
-"C-t" = [":new"]
-# yank selection to main clipboard and register
-"y" = ["yank_main_selection_to_clipboard", "yank"]
-
-[keys.normal.space.t]
-1 = [":theme dark_plus"]
-2 = [":theme darkplus_transparent"]
+# vim continuity
+"$" = "goto_line_end"
+"^" = "goto_first_nonwhitespace"
+"0" = "goto_line_start"
+# misc
+"C-t" = ":new"
+"C-r" = ":reload-all"
+"y" = ["yank_main_selection_to_clipboard", "yank"] # yank selection to main clipboard and register
+# TODO: make this work but with diff shortcut/alias
+# C = ["extend_to_line_end", "yank_main_selection_to_clipboard", "delete_selection", "insert_mode"]
 
 [editor.soft-wrap]
 enable = false
