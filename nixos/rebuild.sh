@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-POSITIONAL_ARGS=()
 UPDATE=false
 UPDATE_HW=false
 REBUILD=true
@@ -33,7 +32,6 @@ while [[ $# -gt 0 ]]; do
       shift
       ;;
     *)
-      POSITIONAL_ARGS+=("$1") # save positional arg
       echo "erm what the sigma is $1, exiting"
       exit 1
       ;;
