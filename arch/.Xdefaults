@@ -1,5 +1,0 @@
-xterm*background: black
-xterm*foreground: white
-xterm*ScrollBar: true
-xterm*scrollBar: true
-xterm*rightScrollBar: true
