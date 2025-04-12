@@ -28,7 +28,6 @@ fi
 
 # always assume color prompt
 color_prompt=yes
-force_color_prompt=yes
 
 # attempt to source git-prompt.sh if it exists
 if [ -f /usr/share/git-core/contrib/completion/git-prompt.sh ]; then
@@ -41,7 +40,7 @@ else
         local branch
         branch=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/')
         if [ "$branch" != "" ]; then
-            printf " %s" $branch
+            printf " %s" "$branch"
         fi
     }
 fi
@@ -63,7 +62,7 @@ if [[ "$color_prompt" = yes ]]; then
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h${SESSION_TYPE:+("SSH")}:\w$(__git_ps1)\n\$ '
 fi
-unset color_prompt force_color_prompt
+unset color_prompt
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
@@ -116,14 +115,14 @@ fi
 bind -s 'set completion-ignore-case on'
 
 # set default editor
-export EDITOR='hx'
-export VISUAL='$EDITOR'
+export EDITOR="hx"
+export VISUAL="$EDITOR"
 
 # set terminal to be vim mode
 set -o vi
 
 # start ssh-agent if not already started
-if [ -n $SSH_AGENT_PID ]; then
+if [ -n "$SSH_AGENT_PID" ]; then
     eval "$(ssh-agent -s)" > /dev/null;
     # add all private keys to ssh-agent
     find ~/.ssh -type f -regex '.*[a-zA-Z]+@[a-zA-Z]+[^.]*' | xargs ssh-add -q
