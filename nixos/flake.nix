@@ -14,9 +14,7 @@
         "x86_64-linux"
         "aarch64-linux"
       ];
-
     in {
-
       # https://github.com/Electrostasy/dots/blob/0eb9d91d517d74b7f0891bff5992b17eb50f207c/flake.nix#L102-L121
       nixosConfigurations = lib.pipe ./hosts [
         # List all the defined hosts.
