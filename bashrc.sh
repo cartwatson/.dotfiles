@@ -84,23 +84,14 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-# colored GCC warnings and errors
-#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+function source_if_exists() {
+    for file_path in "$@"; do
+        [ -f "$file_path" ] && source $file_path
+    done
+}
 
 # Alias definitions.
-if [ -f ~/.bash_aliases ]; then
-    source ~/.bash_aliases
-fi
-
-# machine bashrc functions
-if [ -f ~/.bash_machine_rc.sh ]; then
-    source ~/.bash_machine_rc.sh
-fi
-
-# machine specific aliases
-if [ -f ~/.bash_machine_aliases.sh ]; then
-    source ~/.bash_machine_aliases.sh
-fi
+source_if_exists "$HOME/.bash_aliases" "$HOME/.bash_machine.aliases.sh"
 
 # enable programmable completion features
 if ! shopt -oq posix; then
@@ -127,7 +118,4 @@ if [ -n "$SSH_AGENT_PID" ]; then
     # add all private keys to ssh-agent
     find ~/.ssh -type f -regex '.*[a-zA-Z]+@[a-zA-Z]+[^.]*' | xargs ssh-add -q
 fi
-
-# home for one off commands
-if [ -f "$HOME/.cargo/env" ]; then source "$HOME/.cargo/env"; fi
 
