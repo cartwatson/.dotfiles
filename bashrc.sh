@@ -40,29 +40,38 @@ else
         local branch
         branch=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/')
         if [ "$branch" != "" ]; then
-            printf " %s" "$branch"
+            printf "%s" "$branch"
         fi
     }
 fi
 
 # see if terminal is being remoted/ssh into
 if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
-    SESSION_TYPE=remote/ssh
+    session_type=remote/ssh
 else
     case $(ps -o comm= -p $PPID) in
-        sshd|*/sshd) SESSION_TYPE=remote/ssh;;
+        sshd|*/sshd) session_type=remote/ssh;;
     esac
+fi
+
+# check to see if in nix-develop or nix-shell
+shell_level=""
+if [ $SHLVL == 4 ]; then
+    shell_level=" ($name)"
 fi
 
 # create prompt line - example below
 # user@machine(ssh session):working/dir/full/path (git branch)
 # $
 if [[ "$color_prompt" = yes ]]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[0;36m\]${SESSION_TYPE:+("SSH")}\[\033[00m\]:\[\033[01;34m\]\w\[\033[01;31m\]$(__git_ps1)\[\033[00m\]\n\$ '
+    PS1="${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[0;36m\]${session_type:+("SSH")}\[\033[00m\]:\[\033[01;34m\]\w\[\033[01;31m\]$(__git_ps1)\[\033[00m\]\033[01;32m\]${IN_NIX_SHELL:+ ($name)}\[\033[00m\]\n\$ "
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h${SESSION_TYPE:+("SSH")}:\w$(__git_ps1)\n\$ '
+    PS1="${debian_chroot:+($debian_chroot)}\u@\h${session_type:+("SSH")}:\w$(__git_ps1)$shell_level\n\$ "
 fi
 unset color_prompt
+unset session_type
+unset shell_level
+
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
