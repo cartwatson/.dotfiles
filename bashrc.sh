@@ -64,9 +64,9 @@ fi
 # user@machine(ssh session):working/dir/full/path (git branch)
 # $
 if [[ "$color_prompt" = yes ]]; then
-    PS1="${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[0;36m\]${session_type:+("SSH")}\[\033[00m\]:\[\033[01;34m\]\w\[\033[01;31m\]$(__git_ps1)\[\033[00m\]\033[01;32m\]${IN_NIX_SHELL:+ ($name)}\[\033[00m\]\n\$ "
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[0;36m\]${session_type:+("SSH")}\[\033[00m\]:\[\033[01;34m\]\w\[\033[01;31m\]$(__git_ps1)\[\033[00m\]\033[01;32m\]${IN_NIX_SHELL:+ ($name)}\[\033[00m\]\n\$ '
 else
-    PS1="${debian_chroot:+($debian_chroot)}\u@\h${session_type:+("SSH")}:\w$(__git_ps1)$shell_level\n\$ "
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h${session_type:+("SSH")}:\w$(__git_ps1)$shell_level\n\$ '
 fi
 unset color_prompt
 unset session_type
