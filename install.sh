@@ -39,27 +39,34 @@ function symlink_config {
     backup_files "$HOME/.bashrc" "$HOME/.gitconfig"
     
     # create symlinks for files
+    failed=0
     print_pending "Creating symlinks for bashrc, aliases, vimconfig, gitconfig, and tmuxconfig..."
-    ln -s ~/.dotfiles/bashrc.sh          ~/.bashrc
-    ln -s ~/.dotfiles/aliases.sh         ~/.bash_aliases
-    ln -s ~/.dotfiles/profile.sh         ~/.profile
-    ln -s ~/.dotfiles/vimrc.vim          ~/.vimrc
-    ln -s ~/.dotfiles/gitconfig-personal ~/.gitconfig
-    ln -s ~/.dotfiles/tmux/tmux.conf     ~/.tmux.conf
+    ln -s ~/.dotfiles/bashrc.sh          ~/.bashrc          || ((failed++))
+    ln -s ~/.dotfiles/aliases.sh         ~/.bash_aliases    || ((failed++))
+    ln -s ~/.dotfiles/profile.sh         ~/.profile         || ((failed++))
+    ln -s ~/.dotfiles/vimrc.vim          ~/.vimrc           || ((failed++))
+    ln -s ~/.dotfiles/gitconfig-personal ~/.gitconfig       || ((failed++))
+    ln -s ~/.dotfiles/tmux/tmux.conf     ~/.tmux.conf       || ((failed++))
 
     if [ ! -f ~/work/.gitconfig ]; then
         # don't create symlink here so this file can be edited
         ln ~/.dotfiles/gitconfig-personal ~/work/.gitconfig
     fi
 
-    print_success "Created symlinks!"
+    if [ "$failed" -eq 0 ]; then
+        print_success "Created symlinks!"
+    else
+        print_error "Failed to link $failed aspects of bash config"
+    fi
 }
 
 function dotfiles_repo_https_to_ssh {
     # convert this repo to ssh if https
     if git remote get-url origin | grep -qc https; then
         print_pending "Converting from https to ssh..."
-        if git remote set-url origin git@github.com:cartwatson/.dotfiles.git; then
+        git remote set-url origin git@github.com:cartwatson/.dotfiles.git
+
+        if [ "$?" -eq 0 ]; then
             print_success "Converted \`~/.dotfiles\` from https to ssh"
         else
             print_error "Converting \`~/.dotfiles\` from https to ssh"
@@ -69,41 +76,13 @@ function dotfiles_repo_https_to_ssh {
 
 function reinstall_helix_config {
     print_pending "Installing helix config..."
-    create_dir .config/helix/themes
+    create_dir ~/.config
+    ln -s ~/.dotfiles/helix ~/.config/helix
 
-    # symlink definition
-    # source
-    # target
-    helix_symlinks=(
-        ~/.dotfiles/helix/config.toml
-        ~/.config/helix/config.toml
-
-        ~/.dotfiles/helix/langauges.toml
-        ~/.config/helix/langauges.toml
-
-        ~/.dotfiles/helix/gruvbox_custom.toml
-        ~/.config/helix/themes/gruvbox_custom.toml
-
-        ~/.dotfiles/helix/ignore
-        ~/.config/helix/ignore
-
-        ~/.dotfiles/helix/themes
-        ~/.config/helix/themes
-    )
-
-    # Loop through the array elements
-    failed=0
-    for ((i = 0; i < ${#helix_symlinks[@]}; i += 2)); do
-        source=${helix_symlinks[i]}
-        target=${helix_symlinks[i+1]}
-        # ln -sf $source $target > /dev/null 2>&1 || ((failed++))
-        ln -sf "$source" "$target" || ((failed++))
-    done
-
-    if [ "$failed" -eq 0 ]; then
+    if [ "$?" -eq 0 ]; then
         print_success "Installed helix config"
     else
-        print_error "Failed to link $failed aspects of helix config"
+        print_error "Failed to link helix config files"
     fi
 }
 
@@ -239,18 +218,17 @@ function remote_machine_install {
 }
 
 function welcome_menu {
-    # \\ is required at end of top line in "Carter" because it will escape the newline otherwise
     echo "
      _       __________   __________  __  _________
     | |     / / ____/ /  / ____/ __ \/  |/  / ____/
     | | /| / / __/ / /  / /   / / / / /|_/ / __/   
     | |/ |/ / /___/ /__/ /___/ /_/ / /  / / /___   
     |__/|__/_____/_____\____/\____/_/  /_/_____/   
-       _________    ____ ________________ 
-      / ____/   |  / __ /_  __/ ____/ __ \\
-     / /   / /| | / /_/ // / / __/ / /_/ /
-    / /___/ ___ |/ _, _// / / /___/ _, _/ 
-    \____/_/  |_/_/ |_|/_/ /_____/_/ |_|  
+       _________    ____ ________________  
+      / ____/   |  / __ /_  __/ ____/ __ \ 
+     / /   / /| | / /_/ // / / __/ / /_/ / 
+    / /___/ ___ |/ _, _// / / /___/ _, _/  
+    \____/_/  |_/_/ |_|/_/ /_____/_/ |_|   
     "
 
     echo
