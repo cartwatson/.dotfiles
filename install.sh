@@ -109,7 +109,7 @@ function reinstall_helix_config {
 
 function add_alias_if_not_exists {
     create_machine_aliases
-    local alias_file="$HOME/.bash_machine_aliases.sh"
+    local alias_file="$HOME/.bash_aliases_machine.sh"
     local alias_name="$1"
     local alias_command="$2"
 
@@ -119,8 +119,8 @@ function add_alias_if_not_exists {
    fi
 }
 
-function create_machine_aliases {
-    local alias_file="$HOME/.bash_machine_aliases.sh"
+function create_machine_configs {
+    local alias_file="$HOME/.bash_aliases_machine.sh"
 
     if [ ! -f "$alias_file" ]; then
         cat << 'EOF' > "$alias_file"
@@ -131,6 +131,9 @@ function create_machine_aliases {
 ###############################################################################
 EOF
     fi
+
+    local alias_file="$HOME/.bashrc_machine.sh"
+    touch "$alias_file"
 }
 
 function wsl_install {
@@ -181,7 +184,7 @@ function full_install {
     create_dir work
 
     # create file for holding machine specific aliases
-    create_machine_aliases
+    create_machine_configs
 
     # assume this is a new machine and needs ssh-keys
     print_info "Create new SSH key for PERSONAL github"
@@ -224,7 +227,7 @@ function remote_machine_install {
     if [ ! -f ~/.hushlogin ]; then touch ~/.hushlogin; fi
 
     # install bashrc bash_aliases etc
-    create_machine_aliases
+    create_machine_configs
     symlink_config
 
     # install helix config if found

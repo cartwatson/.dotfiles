@@ -91,7 +91,7 @@ function source_if_exists() {
 }
 
 # Alias definitions.
-source_if_exists "$HOME/.bash_aliases" "$HOME/.bash_machine.aliases.sh"
+source_if_exists "$HOME/.bash_aliases" "$HOME/.bash_aliases_machine.sh" "$HOME/.bashrc_machine.sh"
 
 # enable programmable completion features
 if ! shopt -oq posix; then
