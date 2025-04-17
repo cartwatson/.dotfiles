@@ -14,7 +14,12 @@ if [ $? != 0 ]; then
   tmux select-pane -t "$SESH":"$window".1
 
   tmux new-window -t "$SESH" -n "dotfiles"
-  tmux send-keys -t "$SESH":dotfiles "cdd" C-m
+  tmux send-keys -t "$SESH":dotfiles.1 "cd $HOME/.dotfiles" C-m
+  tmux split-window -t "$SESH":dotfiles.1 -h -c "$HOME/.dotfiles"
+  tmux split-window -t "$SESH":dotfiles.1 -v -c "$HOME/.dotfiles"
+  tmux send-keys -t "$SESH":dotfiles.2
+  tmux send-keys -t "$SESH":dotfiles.3 "hx ." C-m
+  tmux select-pane -t "$SESH":"dotfiles".3
 
   # NOTE: this assumes that the machine this is running on is a nix machine but lucky for me I only run nix machines :)
   if [[ -d ~/.dotfiles/nixos/hosts/$HOSTNAME ]]; then
