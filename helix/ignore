@@ -8,6 +8,13 @@
 *.png
 *.jpg
 *.jpeg
+*.gif
 ## documents
 *.pdf
+*.doc
+*.docx
+## Archive
+*.zip
+*.tar
+*.gz
 
