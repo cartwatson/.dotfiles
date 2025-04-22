@@ -24,7 +24,7 @@
       options = [ "fmask=0077" "dmask=0077" ];
     };
 
-  fileSystems."hdd1" =
+  fileSystems."/run/media/cwatson/hdd1" =
     { device = "/dev/disk/by-uuid/7A48D1D448D18F6F";
       fsType = "ext2";
     };
