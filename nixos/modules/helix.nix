@@ -4,11 +4,15 @@
   environment.systemPackages = (with pkgs; [
     helix
     # LSPs for helix
-    nil                                     # nix
-    marksman                                # markdown
+    # languages
     bash-language-server                    # bash... duh
     python312Packages.python-lsp-server     # python
     rust-analyzer                           # rust
     gopls                                   # go
+    # configs
+    nil                                     # nix
+    yaml-language-server                    # yaml
+    # misc
+    marksman                                # markdown
   ]);
 }
