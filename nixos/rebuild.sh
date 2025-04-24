@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
-UPDATE=false
-UPDATE_HW=false
-REBUILD=true
+UPDATE="false"
+UPDATE_HW="false"
+REBUILD="true"
+CLEANUP="false"
 
 while [[ $# -gt 0 ]]; do
   case $1 in
@@ -15,15 +16,19 @@ while [[ $# -gt 0 ]]; do
       exit 0
       ;;
     --update | -u)
-      UPDATE=true
+      UPDATE="true"
       shift # past argument
       ;;
     --update-hw | -e)
-      UPDATE_HW=true
+      UPDATE_HW="true"
       shift # past argument
       ;;
     --no-rebuild | -n)
-      REBUILD=false
+      REBUILD="false"
+      shift # past argument
+      ;;
+    --clean | -c)
+      CLEANUP="true"
       shift # past argument
       ;;
     --hostname)
@@ -42,6 +47,7 @@ if [[ "$UPDATE" == "true" ]]; then
   echo "UPDATING FLAKE..."
   # update flake.lock
   sudo nix flake update
+  echo "DONE UPDATING"
 fi
 
 if [[ "$UPDATE_HW" == "true" ]]; then
@@ -49,6 +55,14 @@ if [[ "$UPDATE_HW" == "true" ]]; then
   # regenerate HW config and template config, rm template config
   sudo nixos-generate-config --dir "$HOME/.dotfiles/nixos/hosts/$HOSTNAME"
   rm "$HOME/.dotfiles/nixos/hosts/$HOSTNAME/configuration.nix"
+  echo "DONE UPDATING HARDWARE CONFIG"
+fi
+
+if [[ "$CLEANUP" == "true" ]]; then
+  echo "CLEANING UP..."
+  nix-store --optimise
+  nix-store --gc --print-dead
+  echo "DONE CLEANING UP"
 fi
 
 if [[ "$REBUILD" == "true" ]]; then
@@ -56,5 +70,6 @@ if [[ "$REBUILD" == "true" ]]; then
   # basic rebuild
   # `#$HOSTNAME` will return "#orion" which is intended
   sudo nixos-rebuild switch --flake "$HOME/.dotfiles/nixos/#$HOSTNAME"
+  echo "DONE REBUILDING"
 fi
 
