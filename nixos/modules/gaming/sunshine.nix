@@ -1,11 +1,11 @@
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, inputs, pkgs-unstable, ... }:
 
 {
   imports =
     [
     ];
 
-  environment.systemPackages = (with pkgs; [
+  environment.systemPackages = (with pkgs-unstable; [
     sunshine
   ]);
 

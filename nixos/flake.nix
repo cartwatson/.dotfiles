@@ -2,32 +2,32 @@
   description = "Nixos config flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
   };
 
-  outputs = inputs@{ self, nixpkgs, ... }:
+  outputs = { self, nixpkgs, nixpkgs-unstable, ... }@inputs:
     let
       inherit (nixpkgs) lib;
-
-      forEverySystem = lib.genAttrs lib.systems.flakeExposed;
-      forEachSystem = lib.genAttrs [
-        "x86_64-linux"
-        "aarch64-linux"
-      ];
+      system = "x86_64-linux";
     in {
       # https://github.com/Electrostasy/dots/blob/0eb9d91d517d74b7f0891bff5992b17eb50f207c/flake.nix#L102-L121
       nixosConfigurations = lib.pipe ./hosts [
         # List all the defined hosts.
         builtins.readDir
 
-        # Filter specifically for directories in case there are single files.
+        # Filter specifically for directories in case there are single files (there aren't)
         (lib.filterAttrs (name: value: value == "directory"))
 
-        # Define the NixOS configurations.
+        # Define the NixOS configurations
         (lib.mapAttrs (name: value:
           lib.nixosSystem {
-            # Inject this flake into the module system.
-            specialArgs = { inherit self; };
+            specialArgs = {
+              pkgs-unstable = import nixpkgs-unstable {
+                config.allowUnfree = true;
+                inherit system;
+              };
+            };
 
             modules = [
               { networking.hostName = name; }

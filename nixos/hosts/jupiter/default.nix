@@ -28,7 +28,7 @@
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  services.pulseaudio.enable = false;
+  # services.pulseaudio.enable = false; # doesn't work on stable, works on unstable 25.05
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
