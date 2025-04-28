@@ -3,6 +3,7 @@
 {
   imports = [
     ./extensions.nix
+    ./terminal.nix
   ];
 
   # Enable the GNOME Desktop Environment.
