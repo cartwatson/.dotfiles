@@ -12,6 +12,7 @@ while [[ $# -gt 0 ]]; do
       echo -e "-n, --no-rebuild\n\tDon't rebuild system"
       echo -e "-u, --update\n\tUpdate flake.lock"
       echo -e "-e, --update-hw\n\tUpdate hardware-configuration.nix"
+      echo -e "-c, --clean\n\tOptimise cache and garbage collect old builds"
       echo -e "    --hostname\n\tHostname to use for rebuild"
       exit 0
       ;;
@@ -58,18 +59,18 @@ if [[ "$UPDATE_HW" == "true" ]]; then
   echo "DONE UPDATING HARDWARE CONFIG"
 fi
 
-if [[ "$CLEANUP" == "true" ]]; then
-  echo "CLEANING UP..."
-  nix-store --optimise
-  nix-store --gc --print-dead
-  echo "DONE CLEANING UP"
-fi
-
 if [[ "$REBUILD" == "true" ]]; then
   echo "REBUILDING..."
   # basic rebuild
   # `#$HOSTNAME` will return "#orion" which is intended
   sudo nixos-rebuild switch --flake "$HOME/.dotfiles/nixos/#$HOSTNAME"
   echo "DONE REBUILDING"
+fi
+
+if [[ "$CLEANUP" == "true" ]]; then
+  echo "CLEANING UP..."
+  nix-store --optimise
+  nix-store --gc --print-dead
+  echo "DONE CLEANING UP"
 fi
 
