@@ -44,6 +44,8 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
+NIXOS_DIRECTORY="$HOME/.dotfiles/nixos"
+
 if [[ "$UPDATE" == "true" ]]; then
   echo "UPDATING FLAKE..."
   # update flake.lock
@@ -54,7 +56,7 @@ fi
 if [[ "$UPDATE_HW" == "true" ]]; then
   echo "UPDATING HARDWARE CONFIG..."
   # regenerate HW config and template config, rm template config
-  sudo nixos-generate-config --dir "$HOME/.dotfiles/nixos/hosts/$HOSTNAME"
+  sudo nixos-generate-config --dir "$NIXOS_DIRECTORY/hosts/$HOSTNAME"
   rm "$HOME/.dotfiles/nixos/hosts/$HOSTNAME/configuration.nix"
   echo "DONE UPDATING HARDWARE CONFIG"
 fi
@@ -63,7 +65,7 @@ if [[ "$REBUILD" == "true" ]]; then
   echo "REBUILDING..."
   # basic rebuild
   # `#$HOSTNAME` will return "#orion" which is intended
-  sudo nixos-rebuild switch --flake "$HOME/.dotfiles/nixos/#$HOSTNAME"
+  sudo nixos-rebuild switch --flake "$NIXOS_DIRECTORY/#$HOSTNAME"
   echo "DONE REBUILDING"
 fi
 

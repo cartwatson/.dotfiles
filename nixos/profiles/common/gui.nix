@@ -15,6 +15,6 @@
     slack
     bitwarden-desktop
 
-    kdePackages.kolourpaint
+    drawing
   ]);
 }
