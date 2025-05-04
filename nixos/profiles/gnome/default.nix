@@ -20,6 +20,8 @@
   };
 
   # Remove gnome default apps
+  services.xserver.excludePackages = [ pkgs.xterm ];
+
   environment.gnome.excludePackages = (with pkgs; [
     epiphany              # Web browser
     geary                 # Email client
