@@ -1,12 +1,12 @@
 # IMPORTANT: Included pkgs & settings for **ALL GUI** configurations
 
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, pkgs-unstable, ... }:
 
 {
   imports = [
   ];
 
-  environment.systemPackages = (with pkgs; [
+  environment.systemPackages = (with pkgs-unstable; [
     vscodium
 
     chromium
@@ -17,4 +17,8 @@
 
     drawing
   ]);
+
+  programs.chromium.extensions = [
+    "nngceckbapebfimnlniiiahkandclblb" # Bitwarden
+  ]
 }
