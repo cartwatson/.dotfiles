@@ -1,13 +1,17 @@
 { config, pkgs, lib, ... }:
 
 {
+  environment.systemPackages = (with pkgs; [
+    gnome-terminal
+  ]);
+
   programs.dconf = {
     enable = true;
     profiles.user.databases = [
       {
         lockAll = true; # prevents overriding
         settings = lib.fix (self: with lib.gvariant; {
-          "org/gnome/terminal/legacy/" = {
+          "org/gnome/terminal/legacy" = {
             theme-variant="system";
           };
 
@@ -31,7 +35,7 @@
 
           "org/gnome/terminal/legacy/profiles:/:3b9fdbfc-015a-4e63-aee1-ee9997c8d62a" = {
             background-color="rgb(29,32,33)";
-            background-transparency-percent=0;
+            background-transparency-percent=0.0;
             bold-color-same-as-fg=true;
             bold-is-bright=true;
             cursor-colors-set=false;

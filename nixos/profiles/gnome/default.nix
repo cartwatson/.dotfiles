@@ -20,6 +20,8 @@
   };
 
   # Remove gnome default apps
+  services.xserver.excludePackages = [ pkgs.xterm ];
+
   environment.gnome.excludePackages = (with pkgs; [
     epiphany              # Web browser
     geary                 # Email client
@@ -32,6 +34,7 @@
     gnome-maps
     gnome-weather
     gnome-clocks
+    gnome-console
     # keep for now
     # gnome-music           # Music player
   ]);
@@ -66,7 +69,7 @@
 
           "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
             binding = ["<Super>e"];
-            command = "/usr/bin/env nautilus";
+            command = "nautilus";
             name = "File Manager";
           };
           
