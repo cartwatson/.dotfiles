@@ -20,5 +20,5 @@
 
   programs.chromium.extensions = [
     "nngceckbapebfimnlniiiahkandclblb" # Bitwarden
-  ]
+  ];
 }
