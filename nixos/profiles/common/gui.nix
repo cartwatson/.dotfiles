@@ -16,6 +16,8 @@
     bitwarden-desktop
 
     drawing
+
+    qbittorrent
   ]);
 
   programs.chromium.extensions = [
