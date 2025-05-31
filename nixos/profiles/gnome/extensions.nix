@@ -9,12 +9,13 @@
     just-perfection
     panel-date-format
     astra-monitor
+    auto-move-windows
   ]);
 
   programs.dconf.profiles.user.databases = [{
     settings = lib.fix (self: with lib.gvariant; {
       "org/gnome/shell" = {
-        enabled-extensions =[
+        enabled-extensions = [
           pkgs.gnomeExtensions.blur-my-shell.extensionUuid
           pkgs.gnomeExtensions.just-perfection.extensionUuid
           pkgs.gnomeExtensions.panel-date-format.extensionUuid
@@ -25,6 +26,17 @@
 
       # EXTENSION SPECIFIC SETTINGS
       "org/gnome/shell/extensions/panel-date-format".format = "%Y-%m-%d %H:%M W%V-%u";
+
+      "org/gnome/shell/extensions/auto-move-windows".application-list = [
+        "spotify.desktop:1"
+        "bitwarden.desktop:2"
+        "org.gnome.Terminal.desktop:3"
+        "chromium-browser.desktop:4"
+        "discord.desktop:5"
+        "org.prismlauncher.PrismLauncher.desktop:6"
+        "steam.desktop:7"
+        "org.gnome.Settings.desktop:9"
+      ];
 
       "org/gnome/shell/extensions/just-perfection" = {
         accessibility-menu = true;
