@@ -6,7 +6,6 @@
 ###############################################################################
 
 ## bash
-alias cdh="clear; cd ~"
 alias cdm="clear; cd ~/personal"
 alias cds="clear; cd ~/personal/index"
 alias cdw="clear; cd ~/work"
