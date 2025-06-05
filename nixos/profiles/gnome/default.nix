@@ -98,6 +98,10 @@
             switch-to-application-3 = mkEmptyArray type.string;
             switch-to-application-4 = mkEmptyArray type.string;
             switch-to-application-5 = mkEmptyArray type.string;
+            switch-to-application-6 = mkEmptyArray type.string;
+            switch-to-application-7 = mkEmptyArray type.string;
+            switch-to-application-8 = mkEmptyArray type.string;
+            switch-to-application-9 = mkEmptyArray type.string;
           };
         });
       }

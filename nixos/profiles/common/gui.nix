@@ -15,7 +15,7 @@
     slack
     bitwarden-desktop
 
-    drawing
+    drawing                            # MS Paint alternative
 
     qbittorrent
   ]);

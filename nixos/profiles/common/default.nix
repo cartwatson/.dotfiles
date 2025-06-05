@@ -31,7 +31,7 @@
     vim
     tmux
     xclip # needed for tmux->system_clipboard functionality
-    htop
+    btop
     fastfetch # new neofetch
     caligula # ISO Burner - [git](https://github.com/ifd3f/caligula/tree/main)
   ]);
