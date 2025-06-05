@@ -25,6 +25,14 @@ if [ $? != 0 ]; then
   tmux new-window   -t "$SESH" -n "$window"
   tmux send-keys    -t "$SESH":"$window" "cdw; sudo ./apt+snap-update-upgrade.sh; ../sources/update_sources.sh" C-m
 
+  window="croc-hc"
+  tmux new-window   -t "$SESH" -n "$window"
+  tmux send-keys    -t "$SESH":"$window" "cdw; ./health-checks/croc.sh" C-m
+
+  window="talos-hc"
+  tmux new-window   -t "$SESH" -n "$window"
+  tmux send-keys    -t "$SESH":"$window" "cdw; ./health-checks/talos.sh" C-m
+
   # new window
   tmux new-window   -t "$SESH"
   tmux send-keys    -t "$SESH":3 "cdw" C-m
