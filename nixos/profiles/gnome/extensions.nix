@@ -8,7 +8,6 @@
     blur-my-shell
     just-perfection
     panel-date-format
-    astra-monitor
     auto-move-windows
   ]);
 
