@@ -1,29 +1,8 @@
 # Author : Carter Watson <github.com/cartwatson>
-# Author : Sven-Hendrik Haase <svenstaro@gmail.com>
-# Author : Jakub Bartodziej <kubabartodziej@gmail.com>
 # The theme uses the gruvbox dark palette with hard contrast: github.com/morhetz/gruvbox
 
 inherits = "gruvbox_dark_hard"
 
 # "ui.text.focus" = { fg = "green1" } # current
-"ui.text.focus" = { fg = "green1", bg="bg1", modifiers = ["italic"] }
-# "ui.text.focus" = { fg = "bg0", bg="blue1", modifiers = ["italic"] }
+"ui.text.focus" = { fg = "green1", bg="bg1" }
 
-# menu is bottom menu
-# "ui.menu" = { fg = "fg1", bg = "red0" }
-# "ui.menu.selected" = { fg = "bg2", bg = "blue1", modifiers = ["bold"] }
-
-# "string" = "blue0"
-
-# test section
-
-## handles the line below input and above results for picker windows
-# "ui.background.separator" = { fg = "gray0" } #, bg = "" }
-
-## handles all menus
-# "ui.menu"        = { fg = "gray1", bg = "bg0"}
-# "ui.help"        = { fg = "gray1", bg = "bg0"}
-# "ui.popup"       = { fg = "gray1", bg = "bg0"}
-# "ui.popup.info"  = { fg = "gray1", bg = "bg0"}
-
-# "ui.text" = { fg = "aqua0" }
