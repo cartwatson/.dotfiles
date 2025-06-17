@@ -1,6 +1,6 @@
 # IMPORTANT: Included pkgs & settings for **ALL GUI** configurations
 
-{ config, pkgs, lib, pkgs-unstable, ... }:
+{ pkgs-unstable, ... }:
 
 {
   imports = [

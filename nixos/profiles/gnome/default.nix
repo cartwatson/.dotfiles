@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, ... }:
 
 {
   imports = [
@@ -45,7 +45,7 @@
     profiles.user.databases = [
       {
         lockAll = true; # prevents overriding
-        settings = lib.fix (self: with lib.gvariant; {
+        settings = lib.fix (_self: with lib.gvariant; {
           "org/gnome/desktop/interface" = {
             color-scheme = "prefer-dark";
             gtk-enable-primary-paste = false;

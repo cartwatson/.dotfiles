@@ -1,6 +1,6 @@
 # IMPORTANT: Included pkgs & settings for **ALL** configurations
 
-{ config, pkgs, lib, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -31,6 +31,7 @@
     vim
     tmux
     xclip # needed for tmux->system_clipboard functionality
+    jq
     btop
     fastfetch # new neofetch
     caligula # ISO Burner - [git](https://github.com/ifd3f/caligula/tree/main)

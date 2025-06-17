@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, ... }:
 
 {
   environment.systemPackages = (with pkgs; [
@@ -12,7 +12,7 @@
   ]);
 
   programs.dconf.profiles.user.databases = [{
-    settings = lib.fix (self: with lib.gvariant; {
+    settings = lib.fix (_self: with lib.gvariant; {
       "org/gnome/shell" = {
         enabled-extensions = [
           pkgs.gnomeExtensions.blur-my-shell.extensionUuid

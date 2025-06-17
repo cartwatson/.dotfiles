@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, ... }:
 
 {
   environment.systemPackages = (with pkgs; [
@@ -10,7 +10,7 @@
     profiles.user.databases = [
       {
         lockAll = true; # prevents overriding
-        settings = lib.fix (self: with lib.gvariant; {
+        settings = lib.fix (_self: with lib.gvariant; {
           "org/gnome/terminal/legacy" = {
             theme-variant="system";
           };

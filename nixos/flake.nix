@@ -6,7 +6,7 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, ... }@inputs:
+  outputs = { nixpkgs, nixpkgs-unstable, ... }:
     let
       inherit (nixpkgs) lib;
       system = "x86_64-linux";
@@ -17,10 +17,10 @@
         builtins.readDir
 
         # Filter specifically for directories in case there are single files (there aren't)
-        (lib.filterAttrs (name: value: value == "directory"))
+        (lib.filterAttrs (_name: value: value == "directory"))
 
         # Define the NixOS configurations
-        (lib.mapAttrs (name: value:
+        (lib.mapAttrs (name: _value:
           lib.nixosSystem {
             specialArgs = {
               pkgs-unstable = import nixpkgs-unstable {
