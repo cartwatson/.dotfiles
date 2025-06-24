@@ -1,9 +1,11 @@
-# theme = "darkplus_transparent"
-# theme = "dark_plus" # vscode color scheme
+# Dark Themes
 theme = "gruvbox_dark_hard_custom"
-# theme = "gruvbox_dark_hard"
-# theme = "papercolor-light" # fav light theme
+# theme = "dark_plus" # vscode color scheme
 # theme = "molokai"
+
+# Light Themes
+# theme = "gruvbox_light_hard_custom"
+# theme = "zed_onelight"
 
 [editor]
 true-color = true
