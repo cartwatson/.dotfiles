@@ -30,7 +30,7 @@
 
           "org/gnome/terminal/legacy/profiles:" = {
             default="3b9fdbfc-015a-4e63-aee1-ee9997c8d62a";
-            list=["3b9fdbfc-015a-4e63-aee1-ee9997c8d62a"];
+            list=["3b9fdbfc-015a-4e63-aee1-ee9997c8d62a" "869345bb-44f7-4591-a4dc-7faaf83458e2"];
           };
 
           "org/gnome/terminal/legacy/profiles:/:3b9fdbfc-015a-4e63-aee1-ee9997c8d62a" = {
@@ -46,6 +46,21 @@
             use-theme-transparency=true;
             use-transparent-background=false;
             visible-name="gruvbox";
+          };
+
+          "org/gnome/terminal/legacy/profiles:/:869345bb-44f7-4591-a4dc-7faaf83458e2" = {
+          background-color="rgb(255,255,221)";
+          background-transparency-percent=0.0;
+          bold-color-same-as-fg=true;
+          bold-is-bright=false;
+          foreground-color="rgb(0,0,0)";
+          login-shell=false;
+          palette=["rgb(46,52,54)" "rgb(204,0,0)" "rgb(78,154,6)" "rgb(196,160,0)" "rgb(52,101,164)" "rgb(117,80,123)" "rgb(6,152,154)" "rgb(211,215,207)" "rgb(85,87,83)" "rgb(239,41,41)" "rgb(138,226,52)" "rgb(252,233,79)" "rgb(114,159,207)" "rgb(173,127,168)" "rgb(52,226,226)" "rgb(238,238,236)"];
+          use-custom-command=false;
+          use-theme-colors=false;
+          use-theme-transparency=false;
+          use-transparent-background=false;
+          visible-name="Outside";
           };
         });
       }

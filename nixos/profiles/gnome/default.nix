@@ -40,6 +40,7 @@
   ]);
 
   # Shell settings
+  # USE `dconf dump / > dconf-backup.txt` [askUbuntu](https://askubuntu.com/questions/522833/how-to-dump-all-dconf-gsettings-so-that-i-can-compare-them-between-two-different)
   programs.dconf = {
     enable = true;
     profiles.user.databases = [
