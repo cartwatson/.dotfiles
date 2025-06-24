@@ -5,6 +5,7 @@
 {
   imports = [
     ../../modules/helix.nix
+    ./fonts.nix
   ];
 
   # Set your time zone.
