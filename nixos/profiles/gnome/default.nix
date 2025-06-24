@@ -47,10 +47,14 @@
       {
         lockAll = true; # prevents overriding
         settings = lib.fix (_self: with lib.gvariant; {
+          # BASIC GNOME SETTINGS
           "org/gnome/desktop/interface" = {
             color-scheme = "prefer-dark";
+            gtk-theme="Yaru-blue-dark";
             gtk-enable-primary-paste = false;
-            show-battery-percentage = true;
+            show-battery-percentage = false;
+            enable-hot-corners=false;
+            monospace-font-name="Miracode 12";
           };
 
           # NIGHT SHIFT
