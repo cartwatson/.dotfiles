@@ -1,10 +1,10 @@
+theme = "gruvbox_dark_hard_custom" # current theme, used for easy toggling
+
 # Dark Themes
-theme = "gruvbox_dark_hard_custom"
 # theme = "dark_plus" # vscode color scheme
 # theme = "molokai"
 
 # Light Themes
-# theme = "gruvbox_light_hard_custom"
 # theme = "zed_onelight"
 
 [editor]
