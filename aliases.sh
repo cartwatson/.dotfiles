@@ -10,7 +10,7 @@ alias cdm="clear; cd ~/personal"
 alias cds="clear; cd ~/personal/index"
 alias cdw="clear; cd ~/work"
 alias cdd="clear; cd ~/.dotfiles"
-alias ll="ls -AlvhG"
+alias ll="ls -AlvhG --group-directories-first"
 alias mkdir="mkdir -p"
 alias sbr="source ~/.bashrc"
 
@@ -70,4 +70,5 @@ alias clear="clear -x" # don't clear scroll
 
 ## misc
 alias untar="tar -xvzf"
+alias update-theme="$HOME/.dotfiles/set-dark-light-mode.sh"
 
