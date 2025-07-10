@@ -40,7 +40,8 @@
   ]);
 
   # Shell settings
-  # USE `dconf dump / > dconf-backup.txt` [askUbuntu](https://askubuntu.com/questions/522833/how-to-dump-all-dconf-gsettings-so-that-i-can-compare-them-between-two-different)
+  # USE `dconf dump / > dconf-backup.txt`
+  # ^ Source [askUbuntu](https://askubuntu.com/questions/522833/how-to-dump-all-dconf-gsettings-so-that-i-can-compare-them-between-two-different)
   programs.dconf = {
     enable = true;
     profiles.user.databases = [
@@ -54,7 +55,12 @@
             gtk-enable-primary-paste = false;
             show-battery-percentage = false;
             enable-hot-corners=false;
+            font-name="Open Sans 11";
+            document-font-name="Open Sans 11";
             monospace-font-name="Miracode 12";
+            # TODO:
+            # create a setting to determine what font to use
+            # monospace-font-name="JetBrains Mono Medium 12";
           };
 
           # NIGHT SHIFT

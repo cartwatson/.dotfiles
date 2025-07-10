@@ -5,6 +5,9 @@
   ];
 
   environment.systemPackages = (with pkgs; [
-    miracode
+    open-sans       # primary font
+
+    miracode        # primary monospace
+    jetbrains-mono  # backup monospace
   ]);
 }
