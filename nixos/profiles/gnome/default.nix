@@ -51,17 +51,21 @@
           # BASIC GNOME SETTINGS
           "org/gnome/desktop/interface" = {
             color-scheme = "prefer-dark";
-            gtk-theme="Yaru-blue-dark";
+            gtk-theme = "Yaru-blue-dark";
             gtk-enable-primary-paste = false;
             show-battery-percentage = false;
-            enable-hot-corners=false;
-            font-name="Open Sans 11";
-            document-font-name="Open Sans 11";
-            monospace-font-name="Miracode 12";
+            enable-hot-corners = false;
+            font-name = "Open Sans 11";
+            document-font-name = "Open Sans 11";
+            monospace-font-name = "Miracode 12";
             # TODO:
             # create a setting to determine what font to use
-            # monospace-font-name="JetBrains Mono Medium 12";
+            # monospace-font-name = "JetBrains Mono Medium 12";
           };
+
+          "org/gnome/desktop/notifications" = {
+            show-in-lock-screen = false;
+          }
 
           # NIGHT SHIFT
           "org/gnome/settings-daemon/plugins/color" = {
