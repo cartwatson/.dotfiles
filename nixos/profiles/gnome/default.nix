@@ -65,7 +65,7 @@
 
           "org/gnome/desktop/notifications" = {
             show-in-lock-screen = false;
-          }
+          };
 
           # NIGHT SHIFT
           "org/gnome/settings-daemon/plugins/color" = {
