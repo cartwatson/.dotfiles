@@ -87,3 +87,9 @@ wrap-at-text-width = true
 [keys.normal.space]
 W = [":toggle soft-wrap.enable", ":redraw"]
 
+# TODOs menu
+[keys.normal.space.t]
+d = "@x0t]<esc>rX:w<ret>0"
+u = "@x0t]<esc>r :w<ret>0"
+n = "@o- [ ] "
+s = "@xmip|sort -r<ret>[p<esc>:w<ret>"
