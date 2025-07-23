@@ -7,10 +7,10 @@ tmux has-session -t "$SESH" 2>/dev/null
 
 if [ $? != 0 ]; then
   window="idx"
-  tmux new-session   -d -s "$SESH" -n "$window"
-  tmux split-window  -t "$SESH:$window".1 -h
-  tmux send-keys     -t "$SESH:$window".1 "cd ~/work/idx; hx daily-log.md notes/personal-meeting-notes.md" C-m
-  tmux send-keys     -t "$SESH:$window".2 "cd ~/work/idx/notes; hx useful_commands.md reference.md" C-m
+  tmux new-session   -d -s "$SESH" -n "$window" -c "$HOME/work/idx"
+  tmux split-window  -t "$SESH:$window".1 -h    -c "$HOME/work/idx/notes"
+  tmux send-keys     -t "$SESH:$window".1 "hx daily-log.md notes/personal-meeting-notes.md" C-m
+  tmux send-keys     -t "$SESH:$window".2 "hx useful_commands.md reference.md" C-m
 
   window="btop"
   tmux new-window    -t "$SESH" -n "$window"
@@ -18,16 +18,23 @@ if [ $? != 0 ]; then
   tmux send-keys     -t "$SESH:$window" "btop" C-m
 
   window="apps"
-  tmux new-window    -t "$SESH" -n "$window"
-  tmux send-keys     -t "$SESH:$window" "cdw; sudo ./apt+snap-update-upgrade.sh; ../sources/update_sources.sh" C-m
+  tmux new-window    -t "$SESH" -n "$window" -c "$HOME/work"
+  tmux send-keys     -t "$SESH:$window" "./apt+snap-update-upgrade.sh" C-m
 
   window="croc-hc"
-  tmux new-window    -t "$SESH" -n "$window"
-  tmux send-keys     -t "$SESH:$window" "cd $HOME/work/scripts/health-checks; ./crocodile-health-check.sh" C-m
+  tmux new-window    -t "$SESH" -n "$window" -c "$HOME/work/scripts/health-checks"
+  tmux send-keys     -t "$SESH:$window" "./crocodile-health-check.sh" C-m
 
   window="talos-hc"
-  tmux new-window    -t "$SESH" -n "$window"
-  tmux send-keys     -t "$SESH:$window" "cd $HOME/work/scripts/health-checks; ./talos-health-check.sh" C-m
+  tmux new-window    -t "$SESH" -n "$window" -c "$HOME/work/scripts/health-checks"
+  tmux send-keys     -t "$SESH:$window" "./talos-health-check.sh" C-m
+
+  window="sentry-docs"
+  tmux new-window    -t "$SESH" -n "$window" -c "$HOME/work/sentry-docs"
+  tmux split-window  -t "$SESH:$window".1 -v -c "$HOME/work/sentry-docs"
+  tmux split-window  -t "$SESH:$window".1 -h -c "$HOME/work/sentry-docs" -f -l 65%
+  tmux send-keys     -t "$SESH:$window".1  "./scripts/deploy.sh" C-m
+  tmux send-keys     -t "$SESH:$window".3  "hx ." C-m
 
   # new window
   tmux new-window    -t "$SESH"
