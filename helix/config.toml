@@ -7,6 +7,9 @@ theme = "gruvbox_dark_hard_custom" # current theme, used for easy toggling
 # Light Themes
 # theme = "zed_onelight"
 
+# TODO
+# create macro to add debug comment to end of line, language agnostic???
+
 [editor]
 true-color = true
 line-number = "relative"
@@ -55,7 +58,7 @@ end = "no_op"
 "C-s" = "no_op" # don't interfere with tmux
 esc = ["collapse_selection", "normal_mode"]
 "C-c" = ["collapse_selection", "normal_mode"]
-"C-7" = "toggle_comments" # ctrl + / # only available in linux
+"C-7" = "toggle_comments" # ctrl + /
 # vim continuity
 "$" = "goto_line_end"
 "^" = "goto_first_nonwhitespace"
@@ -89,7 +92,6 @@ W = [":toggle soft-wrap.enable", ":redraw"]
 
 # TODOs menu
 [keys.normal.space.t]
-d = "@x0t]<esc>rX:w<ret>0"
-u = "@x0t]<esc>r :w<ret>0"
+d = "@0t]<esc>rX:w<ret>0"
+u = "@0t]<esc>r :w<ret>0"
 n = "@o- [ ] "
-s = "@xmip|sort -r<ret>[p<esc>:w<ret>"
