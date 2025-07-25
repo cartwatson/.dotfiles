@@ -3,6 +3,6 @@
 
 inherits = "gruvbox_dark_hard"
 
-# "ui.text.focus" = { fg = "green1" } # current
 "ui.text.focus" = { fg = "green1", bg="bg1" }
+"ui.menu.selected" = { fg = "green1", bg = "bg1", modifiers = ["bold"] }
 
