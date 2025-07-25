@@ -95,3 +95,18 @@ W = [":toggle soft-wrap.enable", ":redraw"]
 d = "@0t]<esc>rX:w<ret>0"
 u = "@0t]<esc>r :w<ret>0"
 n = "@o- [ ] "
+# sort todos by status
+s = [
+  "goto_prev_paragraph",
+  "collapse_selection",
+  "select_mode",
+  "goto_next_paragraph",
+  "extend_line_up",
+  "extend_to_line_bounds",
+  "split_selection_on_newline",
+  ":sort --insensitive",
+  "exit_select_mode",
+  "goto_prev_paragraph",
+  "collapse_selection",
+  ":write"
+  ]
