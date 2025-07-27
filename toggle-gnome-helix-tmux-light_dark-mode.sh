@@ -8,7 +8,10 @@ if [[ "$THEME" == "'prefer-dark'" ]]; then # currently dark mode
   echo "Setting Light Mode"
 
   echo "Setting gnome..."
-  gsettings set org.gnome.desktop.interface color-scheme prefer-light
+  if ! gsettings set org.gnome.desktop.interface color-scheme prefer-light; then
+    echo "Exiting..."
+    exit
+  fi
 
   echo "Setting Helix..."
   sed -i 's#theme = "gruvbox_dark_hard_custom"#theme = "gruvbox_light_hard_custom"#g' ~/.dotfiles/helix/config.toml
@@ -23,7 +26,10 @@ else # currently light mode
   echo "Setting Dark Mode"
 
   echo "Setting gnome..."
-  gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+  if ! gsettings set org.gnome.desktop.interface color-scheme prefer-dark; then
+    echo "Exiting..."
+    exit
+  fi
 
   echo "Setting Helix..."
   sed -i 's#theme = "gruvbox_light_hard_custom"#theme = "gruvbox_dark_hard_custom"#g' ~/.dotfiles/helix/config.toml
