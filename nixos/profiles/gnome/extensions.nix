@@ -5,7 +5,6 @@
     gnome-tweaks
     gtop # needed for astra-monitor GPU
   ]) ++ (with pkgs.gnomeExtensions; [
-    blur-my-shell
     just-perfection
     panel-date-format
     auto-move-windows
@@ -15,7 +14,6 @@
     settings = lib.fix (_self: with lib.gvariant; {
       "org/gnome/shell" = {
         enabled-extensions = [
-          pkgs.gnomeExtensions.blur-my-shell.extensionUuid
           pkgs.gnomeExtensions.just-perfection.extensionUuid
           pkgs.gnomeExtensions.panel-date-format.extensionUuid
           pkgs.gnomeExtensions.astra-monitor.extensionUuid
