@@ -171,8 +171,8 @@ function full_install {
     read -p "Upload key to appropriate site, then press enter" _
 
     # index if it doesn't exist
-    if [ ! -d ~/personal/index ]; then
-        if git clone git@github.com:cartwatson/index ~/personal/index; then
+    if [ ! -d "$HOME/personal/idx" ]; then
+        if git clone git@github.com:cartwatson/idx "$HOME/personal/idx"; then
             print_success "Cloned index"
         else
             print_error "Couldn't clone index over ssh"

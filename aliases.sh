@@ -7,7 +7,7 @@
 
 ## bash
 alias cdm="clear; cd ~/personal"
-alias cds="clear; cd ~/personal/index"
+alias cds="clear; cd ~/personal/idx"
 alias cdw="clear; cd ~/work"
 alias cdd="clear; cd ~/.dotfiles"
 alias ll="ls -AlvhG --group-directories-first"
