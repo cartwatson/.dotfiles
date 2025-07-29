@@ -76,10 +76,11 @@ function dotfiles_repo_https_to_ssh {
 
 function reinstall_helix_config {
     print_pending "Installing helix config..."
-    create_dir ~/.config
-    ln -s ~/.dotfiles/helix ~/.config/helix
+    create_dir "$HOME/.config"
+    rm -rf "$HOME/.config/helix"
+    ln -s "$HOME/.dotfiles/helix" "$HOME/.config/helix"
 
-    if [ "$?" -eq 0 ]; then
+    if ln -s "$HOME/.dotfiles/helix" "$HOME/.config/helix"; then
         print_success "Installed helix config"
     else
         print_error "Failed to link helix config files"
