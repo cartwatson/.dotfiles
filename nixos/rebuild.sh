@@ -67,6 +67,10 @@ if [[ "$REBUILD" == "true" ]]; then
   # `#$HOSTNAME` will return "#orion" which is intended
   sudo nixos-rebuild switch --flake "$NIXOS_DIRECTORY/#$HOSTNAME"
   echo "DONE REBUILDING"
+else
+  echo "DRY RUN BUILD..."
+  sudo nixos-rebuild dry-build --flake "$NIXOS_DIRECTORY/#$HOSTNAME"
+  echo "DONE WITH DRY BUILD"
 fi
 
 if [[ "$CLEANUP" == "true" ]]; then
