@@ -1,8 +1,8 @@
+[includeIf "gitdir:~/work/"]
+    path = ~/work/.gitconfig
 [user]
     email = 54688033+cartwatson@users.noreply.github.com
     name = Carter Watson
-[includeIf "gitdir:~/work/"]
-    path = ~/work/.gitconfig
 [pull]
     rebase = false
 [log]
