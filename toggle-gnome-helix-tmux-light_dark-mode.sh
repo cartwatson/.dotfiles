@@ -1,45 +1,50 @@
 #!/usr/bin/env bash
-# sets helix and tmux theme based on current gnome theme selection
-# TODO: toggle theme from gsettings directly
+# sets gnome, helix, and tmux theme based on current gnome theme selection
 
-THEME=$(gsettings get org.gnome.desktop.interface color-scheme)
+set -e
 
-if [[ "$THEME" == "'prefer-dark'" ]]; then # currently dark mode
-  echo "Setting Light Mode"
+function set_gnome() {
+  swapto=$1
 
   echo "Setting gnome..."
-  if ! gsettings set org.gnome.desktop.interface color-scheme prefer-light; then
-    echo "Exiting..."
-    exit
+  if ! gsettings set org.gnome.desktop.interface color-scheme "$swapto"; then
+    echo "Unable to set gnome mode to $swapto\nExiting..."
+    return 1
   fi
+}
+
+function set_helix() {
+  current=$1
+  swapto=$2
 
   echo "Setting Helix..."
-  sed -i 's#theme = "gruvbox_dark_hard_custom"#theme = "gruvbox_light_hard_custom"#g' ~/.dotfiles/helix/config.toml
+  sed -i "s#$current#$swapto#g" "$HOME/.dotfiles/helix/config.toml"
+
   # reload helix
   pkill -USR1 hx
+}
+
+function set_tmux() {
+  current=$1
+  swapto=$2
 
   echo "Setting Tmux..."
-  sed -i 's#source-file ~/.dotfiles/tmux/themes/gruvbox-dark-tmux.conf#source-file ~/.dotfiles/tmux/themes/gruvbox-light-tmux.conf#g' ~/.dotfiles/tmux/tmux.conf
+  sed -i "s#$current#$swapto#g" "$HOME/.dotfiles/tmux/tmux.conf"
+
   # reload tmux
-  tmux source ~/.dotfiles/tmux/tmux.conf
+  tmux source "$HOME/.dotfiles/tmux/tmux.conf"
+}
+
+if [[ "$(gsettings get org.gnome.desktop.interface color-scheme)" == "'prefer-dark'" ]]; then
+  echo "Setting Light Mode"
+  set_gnome prefer-light
+  set_helix gruvbox_dark_hard_custom gruvbox_light_hard_custom
+  set_tmux gruvbox-dark-tmux.conf gruvbox-light-tmux.conf
 else # currently light mode
   echo "Setting Dark Mode"
-
-  echo "Setting gnome..."
-  if ! gsettings set org.gnome.desktop.interface color-scheme prefer-dark; then
-    echo "Exiting..."
-    exit
-  fi
-
-  echo "Setting Helix..."
-  sed -i 's#theme = "gruvbox_light_hard_custom"#theme = "gruvbox_dark_hard_custom"#g' ~/.dotfiles/helix/config.toml
-  # reload helix
-  pkill -USR1 hx
-
-  echo "Setting Tmux..."
-  sed -i 's#source-file ~/.dotfiles/tmux/themes/gruvbox-light-tmux.conf#source-file ~/.dotfiles/tmux/themes/gruvbox-dark-tmux.conf#g' ~/.dotfiles/tmux/tmux.conf
-  # reload tmux
-  tmux source ~/.dotfiles/tmux/tmux.conf
+  set_gnome prefer-dark
+  set_helix gruvbox_light_hard_custom gruvbox_dark_hard_custom
+  set_tmux gruvbox-light-tmux.conf gruvbox-dark-tmux.conf
 fi
 
 echo "All done"
