@@ -11,7 +11,7 @@ function open_ide() {
   window=$(echo "$file_path" | awk -F / '{print $NF}' | sed 's/\.//')
 
   # exit if session already exists
-  if [ $(tmux list-windows -F "#{window_name}" | grep -xc "$window") -gt 0 ]; then
+  if [ "$(tmux list-windows -F "#{window_name}" | grep -xc "$window")" -gt 0 ]; then
     tmux switch -t "$SESH":"$window"
     exit
   fi
@@ -30,20 +30,16 @@ function open_ide() {
   tmux send-keys -t "$SESH":"$window".3 "hx ." C-m
 
   # configure + move panes & windows
-  tmux resize-pane -t "$SESH:$window".3 -x 65%
-  tmux select-pane -t "$SESH:$window".3
-
   shuffle_number=99
   tmux move-window -s "$SESH:$curr_window_num" -t "$SESH:$shuffle_number"
   tmux move-window -s "$SESH:$window" -t "$SESH:$curr_window_num"
   tmux kill-window -t "$SESH:$shuffle_number" # NOTE: THIS KILLS THE SCRIPT
 }
 
-if [ -z $TMUX ]; then
+if [ -z "$TMUX" ]; then
   # not in session
   echo "bro get in a session"
   exit 1
 fi
 
 open_ide
-
