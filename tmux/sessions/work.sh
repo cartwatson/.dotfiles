@@ -7,7 +7,8 @@ tmux has-session -t "$SESH" 2>/dev/null
 
 if [ $? != 0 ]; then
   window="idx"
-  tmux new-session   -d -s "$SESH" -n "$window" -c "$HOME/work/idx"
+  tmux new-session   -d -s "$SESH" -n "$window"
+  tmux send-keys     -t "$SESH:$window".1 "cd $HOME/work/idx" C-m
   tmux split-window  -t "$SESH:$window".1 -h    -c "$HOME/work/idx/notes"
   tmux send-keys     -t "$SESH:$window".1 "hx daily-log.md notes/personal-meeting-notes.md" C-m
   tmux send-keys     -t "$SESH:$window".2 "hx useful_commands.md reference.md" C-m
