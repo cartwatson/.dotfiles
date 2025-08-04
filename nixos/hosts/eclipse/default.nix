@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -7,6 +7,10 @@
     ../../profiles/gnome/default.nix
     ../../modules/tailscale.nix
     ];
+
+  environment.systemPackages = (with pkgs; [
+    firefox
+  ]);
 
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
