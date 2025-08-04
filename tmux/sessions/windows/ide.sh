@@ -28,11 +28,13 @@ function open_ide() {
   fi
   tmux send-keys -t "$SESH":"$window".2 "clear; gs" C-m
   tmux send-keys -t "$SESH":"$window".3 "hx ." C-m
+  tmux resize-pane -x 65% -t "$SESH":"$window".3
 
   # configure + move panes & windows
   shuffle_number=99
   tmux move-window -s "$SESH:$curr_window_num" -t "$SESH:$shuffle_number"
   tmux move-window -s "$SESH:$window" -t "$SESH:$curr_window_num"
+  tmux select-pane -t "$SESH:$window".3
   tmux kill-window -t "$SESH:$shuffle_number" # NOTE: THIS KILLS THE SCRIPT
 }
 

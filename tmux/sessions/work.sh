@@ -9,7 +9,7 @@ if [ $? != 0 ]; then
   window="idx"
   tmux new-session   -d -s "$SESH" -n "$window"
   tmux send-keys     -t "$SESH:$window".1 "cd $HOME/work/idx" C-m
-  tmux split-window  -t "$SESH:$window".1 -h    -c "$HOME/work/idx/notes"
+  tmux split-window  -t "$SESH:$window".1 -h -c "$HOME/work/idx/notes"
   tmux send-keys     -t "$SESH:$window".1 "hx daily-log.md notes/personal-meeting-notes.md" C-m
   tmux send-keys     -t "$SESH:$window".2 "hx useful_commands.md reference.md" C-m
 
@@ -24,7 +24,7 @@ if [ $? != 0 ]; then
 
   window="croc-hc"
   tmux new-window    -t "$SESH" -n "$window" -c "$HOME/work/scripts/health-checks"
-  tmux send-keys     -t "$SESH:$window" "./crocodile-health-check.sh" C-m
+  tmux send-keys     -t "$SESH:$window" "./crocodile-darwin-health-check.sh" C-m
 
   window="talos-hc"
   tmux new-window    -t "$SESH" -n "$window" -c "$HOME/work/scripts/health-checks"

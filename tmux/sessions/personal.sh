@@ -9,7 +9,7 @@ if [ $? != 0 ]; then
   window="idx"
   tmux new-session   -d -s "$SESH" -n "$window"
   tmux send-keys     -t "$SESH:$window".1 "cd $HOME/personal/idx" C-m
-  tmux split-window  -t "$SESH:$window".1 -h    -c "$HOME/personal/idx"
+  tmux split-window  -t "$SESH:$window".1 -h -c "$HOME/personal/idx"
   tmux send-keys     -t "$SESH:$window".1 "hx TODO.md" C-m
   tmux send-keys     -t "$SESH:$window".2 "hx ." C-m
 
