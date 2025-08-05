@@ -43,7 +43,7 @@ function tas() {
 }
 
 ## git
-alias gs="git status -sb"
+alias gs="git status --short --branch"
 alias ga="git add"
 alias gl="git log --oneline --graph --decorate"
 alias gc="git commit -m"
