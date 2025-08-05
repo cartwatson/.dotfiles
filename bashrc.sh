@@ -71,7 +71,7 @@ esac
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    test -r $HOME/.dircolors && eval "$(dircolors -b $HOME/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
     alias vdir='vdir --color=auto'
 
@@ -112,6 +112,6 @@ set -o vi
 if [ -n "$SSH_AGENT_PID" ]; then
     eval "$(ssh-agent -s)" > /dev/null;
     # add all private keys to ssh-agent
-    find ~/.ssh -type f -regex '.*[a-zA-Z]+@[a-zA-Z]+[^.]*' | xargs ssh-add -q
+    find $HOME/.ssh -type f -regex '.*[a-zA-Z]+@[a-zA-Z]+[^.]*' | xargs ssh-add -q
 fi
 
