@@ -26,9 +26,10 @@ function open_ide() {
   if [ -f ./shell.nix ]; then
     tmux send-keys -t "$SESH":"$window".1 "nix develop" C-m
   fi
-  tmux send-keys -t "$SESH":"$window".2 "clear; gs" C-m
-  tmux send-keys -t "$SESH":"$window".3 "hx ." C-m
-  tmux resize-pane -x 65% -t "$SESH":"$window".3
+  tmux send-keys   -t "$SESH:$window".2 "clear; gs" C-m
+  tmux send-keys   -t "$SESH:$window".3 "hx ." C-m
+  tmux resize-pane -t "$SESH:$window".3 -x 65%
+  tmux select-pane -t "$SESH:$window".3
 
   # configure + move panes & windows
   shuffle_number=99
