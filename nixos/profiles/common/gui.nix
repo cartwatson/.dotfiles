@@ -16,8 +16,6 @@
     bitwarden-desktop
 
     drawing                            # MS Paint alternative
-
-    qbittorrent
   ]);
 
   programs.chromium.extensions = [
