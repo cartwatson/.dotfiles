@@ -30,6 +30,7 @@
         "org.gnome.Terminal.desktop:3"
         "chromium-browser.desktop:4"
         "discord.desktop:5"
+        "element-desktop.desktop:5"
         "org.prismlauncher.PrismLauncher.desktop:6"
         "steam.desktop:7"
         "org.gnome.Settings.desktop:9"
