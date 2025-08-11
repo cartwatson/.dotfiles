@@ -10,6 +10,7 @@
 
   environment.systemPackages = (with pkgs; [
     firefox
+    qutebrowser
   ]);
 
   # Use the GRUB 2 boot loader.

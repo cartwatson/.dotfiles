@@ -14,10 +14,9 @@
     discord
     slack
     bitwarden-desktop
+    element-desktop
 
     drawing                            # MS Paint alternative
-
-    qbittorrent
   ]);
 
   programs.chromium.extensions = [

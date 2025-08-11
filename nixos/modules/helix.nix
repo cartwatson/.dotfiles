@@ -1,8 +1,9 @@
-{ pkgs, ... }:
+{ pkgs, pkgs-unstable, ... }:
 
 {
-  environment.systemPackages = (with pkgs; [
+  environment.systemPackages = with pkgs-unstable; [
     helix
+  ] ++  (with pkgs; [
     # LSPs for helix
     # languages
     bash-language-server                    # bash... duh
