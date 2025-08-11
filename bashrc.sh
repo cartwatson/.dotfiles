@@ -69,15 +69,11 @@ case "$TERM" in
         ;;
 esac
 
-# enable color support of ls and also add handy aliases
+# enable color support
 if [ -x /usr/bin/dircolors ]; then
-    test -r $HOME/.dircolors && eval "$(dircolors -b $HOME/.dircolors)" || eval "$(dircolors -b)"
+    [ -r $HOME/.dircolors ] && eval "$(dircolors -b $HOME/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
-    alias vdir='vdir --color=auto'
-
     alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
 fi
 
 function source_if_exists() {
@@ -91,11 +87,7 @@ source_if_exists "$HOME/.bash_aliases" "$HOME/.bash_aliases_machine.sh" "$HOME/.
 
 # enable programmable completion features
 if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    source /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    source /etc/bash_completion
-  fi
+    source_if_exists /usr/share/bash-completion/bash_completion /etc/bash_completion
 fi
 
 # case insensitive tab completion
@@ -115,3 +107,5 @@ if [ -n "$SSH_AGENT_PID" ]; then
     find $HOME/.ssh -type f -regex '.*[a-zA-Z]+@[a-zA-Z]+[^.]*' | xargs ssh-add -q
 fi
 
+
+unset source_if_exists
