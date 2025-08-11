@@ -24,11 +24,11 @@ if [ $? != 0 ]; then
 
   window="croc-hc"
   tmux new-window    -t "$SESH" -n "$window" -c "$HOME/work/scripts/health-checks"
-  tmux send-keys     -t "$SESH:$window" "./crocodile-darwin-health-check.sh" C-m
+  tmux send-keys     -t "$SESH:$window" "./guided-health-check.sh" C-m
 
   window="talos-hc"
   tmux new-window    -t "$SESH" -n "$window" -c "$HOME/work/scripts/health-checks"
-  tmux send-keys     -t "$SESH:$window" "./talos-health-check.sh" C-m
+  tmux send-keys     -t "$SESH:$window" "./guided-health-check.sh" C-m
 
   window="sentry-docs"
   tmux new-window    -t "$SESH" -n "$window" -c "$HOME/work/sentry-docs"
