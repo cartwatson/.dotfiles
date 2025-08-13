@@ -24,6 +24,9 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
+  # battery life
+  services.tlp.enable = true;
+
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;

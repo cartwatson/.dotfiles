@@ -21,6 +21,9 @@
   # Define on which hard drive you want to install Grub.
   boot.loader.grub.device = "/dev/sda"; # or "nodev" for efi only
 
+  # battery life
+  services.tlp.enable = true;
+
   networking.hostName = "eclipse"; # Define your hostname.
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
 
