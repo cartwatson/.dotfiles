@@ -10,7 +10,6 @@
 
   environment.systemPackages = (with pkgs; [
     firefox
-    qutebrowser
   ]);
 
   # Use the GRUB 2 boot loader.
@@ -20,9 +19,6 @@
   # boot.loader.efi.efiSysMountPoint = "/boot/efi";
   # Define on which hard drive you want to install Grub.
   boot.loader.grub.device = "/dev/sda"; # or "nodev" for efi only
-
-  # battery life
-  services.tlp.enable = true;
 
   networking.hostName = "eclipse"; # Define your hostname.
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
@@ -40,6 +36,8 @@
 
   # Enable touchpad support (enabled default in most desktopManager).
   services.libinput.enable = true;
+
+  nix.settings.download-buffer-size = 524288000; # 500MB
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
