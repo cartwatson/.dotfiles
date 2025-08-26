@@ -6,13 +6,16 @@
     ../../profiles/common/gui.nix
     ../../profiles/gnome/default.nix
     ../../modules/tailscale.nix
-    ../../modules/gaming/default.nix
-    ../../modules/gaming/sunshine.nix
-    ../../modules/docker.nix
   ];
 
-  environment.systemPackages = (with pkgs; [
-  ]);
+  custom = {
+    services.docker.enable = true;
+    services.gaming = {
+      enable = true;
+      minecraft = true;
+      sunshine = true;
+    };
+  };
 
   # Bootloader
   boot.loader.systemd-boot.enable = true;

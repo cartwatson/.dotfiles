@@ -3,7 +3,7 @@
 {
   environment.systemPackages = (with pkgs; [
     gnome-tweaks
-    gtop # needed for astra-monitor GPU
+    gtop # needed for astra-monitor GPU # TODO: REMOVE THIS
   ]) ++ (with pkgs.gnomeExtensions; [
     just-perfection
     panel-date-format
