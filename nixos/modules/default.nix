@@ -1,0 +1,5 @@
+{ ... }:
+
+{
+  # empty default module
+}
