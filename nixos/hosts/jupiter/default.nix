@@ -4,11 +4,11 @@
   imports = [
     ./hardware-configuration.nix
     ../../profiles/common/gui.nix
-    ../../profiles/gnome/default.nix
     ../../modules/tailscale.nix
   ];
 
   custom = {
+    services.gnome.enable = true;
     services.docker.enable = true;
     services.gaming = {
       enable = true;
