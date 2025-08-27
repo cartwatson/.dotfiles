@@ -53,15 +53,15 @@ in
   options.custom.services.gaming = {
     enable = lib.mkEnableOption "Enable Gaming.";
     steam = lib.mkOption {
-      type = lib.types.boolean;
+      type = lib.types.bool;
       default = true;
     };
     minecraft = lib.mkOption {
-      type = lib.types.boolean;
+      type = lib.types.bool;
       default = false;
     };
     sunshine = lib.mkOption {
-      type = lib.types.boolean;
+      type = lib.types.bool;
       default = false;
     };
   };
