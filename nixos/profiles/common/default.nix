@@ -35,7 +35,6 @@
     vim
     tmux
     xclip # needed for tmux->system_clipboard functionality
-    caligula # ISO Burner - [git](https://github.com/ifd3f/caligula/tree/main)
 
     # utilities
     jq

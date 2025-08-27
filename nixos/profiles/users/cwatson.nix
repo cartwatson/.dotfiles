@@ -8,23 +8,25 @@
   config = lib.mkIf config.users.cwatson.enable {
     # Define a user account. Don't forget to set a password with ‘passwd’.
     users.users.cwatson = {
-        isNormalUser = true;
-        description = "Carter Watson";
-        initialPassword = "test";
-        extraGroups = [
-          "wheel"
-          # Do not add this group if <blank> is not enabled
-          (lib.mkIf config.networking.networkmanager.enable "networkmanager")
-          (lib.optional config.virtualisation.docker.enable "docker")
-        ];
-        uid = 1000;
-        packages = (with pkgs; [
-          element-desktop
-          discord
-          slack
-          drawing # MS Paint alternative
-        ]) ++ (with pkgs-unstable; [
-        ]);
+      uid = 1000;
+      isNormalUser = true;
+      description = "Carter Watson";
+      initialPassword = "test";
+      extraGroups = [
+        "wheel"
+        # Do not add this group if <blank> is not enabled
+        (lib.mkIf config.networking.networkmanager.enable "networkmanager")
+        (lib.optional config.virtualisation.docker.enable "docker")
+      ];
+      packages = (with pkgs; [
+        caligula # ISO Burner
+      ]  ++ (lib.lists.optionals config.custom.services.gnome.enable [ # only add GUI apps if using gnome
+        element-desktop
+        discord
+        slack
+        drawing # MS Paint alternative
+      ])) ++ (with pkgs-unstable; [
+      ]);
     };
   };
 }
