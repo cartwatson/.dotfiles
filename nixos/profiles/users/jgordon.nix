@@ -5,7 +5,7 @@
     enable = lib.mkEnableOption "Create user 'jgordon'";
   };
 
-  config = lib.mkIf config.users.jgordon.enable {
+  config = lib.mkIf config.custom.users.jgordon.enable {
     # Define a user account. Don't forget to set a password with ‘passwd’.
     users.users.jgordon = {
       uid = 1001;
