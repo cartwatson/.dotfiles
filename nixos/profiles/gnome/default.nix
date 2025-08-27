@@ -9,7 +9,7 @@
     };
   };
 
-  imports = lib.mkIf config.custom.services.gnome.enable [
+  imports = lib.optional config.custom.services.gnome.enable [
     ./terminal.nix
     (lib.mkIf config.custom.services.gnome.extensions ./extensions.nix)
   ];
