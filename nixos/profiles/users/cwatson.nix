@@ -11,7 +11,6 @@
       uid = 1000;
       isNormalUser = true;
       description = "Carter Watson";
-      # initialPassword = "test";
       extraGroups = [
         "wheel"
         # Do not add this group if <blank> is not enabled
