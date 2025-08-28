@@ -1,25 +1,16 @@
 # IMPORTANT: Included pkgs & settings for **ALL GUI** configurations
 
-{ pkgs-unstable, ... }:
+{ config, lib, pkgs, pkgs-unstable, ... }:
 
 {
-  imports = [
-  ];
-
   environment.systemPackages = (with pkgs-unstable; [
     vscodium
-
     chromium
     spotify
-    discord
-    slack
     bitwarden-desktop
-    element-desktop
-
-    drawing                            # MS Paint alternative
   ]);
 
   programs.chromium.extensions = [
-    "nngceckbapebfimnlniiiahkandclblb" # Bitwarden
+    "nngceckbapebfimnlniiiahkandclblb" # bitwarden
   ];
 }

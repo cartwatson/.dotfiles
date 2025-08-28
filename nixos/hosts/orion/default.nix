@@ -5,9 +5,12 @@
     ./hardware-configuration.nix
     ./nvidia.nix
     ../../profiles/common/gui.nix
-    ../../profiles/gnome/default.nix
     ../../modules/tailscale.nix
   ];
+
+  custom = {
+    services.gnome.enable = true;
+  };
 
   environment.systemPackages = (with pkgs; [
     firefox
