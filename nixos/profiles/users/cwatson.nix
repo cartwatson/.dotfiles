@@ -11,12 +11,12 @@
       uid = 1000;
       isNormalUser = true;
       description = "Carter Watson";
-      initialPassword = "test";
+      # initialPassword = "test";
       extraGroups = [
         "wheel"
         # Do not add this group if <blank> is not enabled
         (lib.mkIf config.networking.networkmanager.enable "networkmanager")
-        (lib.optional config.virtualisation.docker.enable "docker")
+        # (lib.optional config.virtualisation.docker.enable "docker")
       ];
       packages = (with pkgs; [
         caligula # ISO Burner

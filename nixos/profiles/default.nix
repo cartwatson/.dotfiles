@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./common
     ./common/fonts.nix
     ./common/gui.nix
     ./gnome

@@ -66,6 +66,7 @@ in
     };
   };
 
+
   config = lib.mkMerge [
     steamConfig
     minecraftConfig

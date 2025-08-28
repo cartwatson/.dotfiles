@@ -8,7 +8,7 @@
     services.fonts.enable = true;
 
     users.cwatson.enable = true;
-    users.jgordon.enable = true;
+    # users.jgordon.enable = true;
   };
 
   # Set your time zone.
