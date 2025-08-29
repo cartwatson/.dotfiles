@@ -17,6 +17,10 @@
     };
   };
 
+  environment.systemPackages = (with pkgs; [
+    golden-cheetah-bin
+  ]);
+
   # Bootloader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
