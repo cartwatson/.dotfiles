@@ -1,5 +1,5 @@
 {
-  description = "Nixos config flake";
+  description = "NixOS config flake";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
@@ -32,7 +32,8 @@
             modules = [
               { networking.hostName = name; }
               ./hosts/${name}
-              ./profiles/common/default.nix
+              ./modules
+              ./profiles
             ];
           }
         ))

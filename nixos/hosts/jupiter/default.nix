@@ -4,14 +4,21 @@
   imports = [
     ./hardware-configuration.nix
     ../../profiles/common/gui.nix
-    ../../profiles/gnome/default.nix
     ../../modules/tailscale.nix
-    ../../modules/gaming/default.nix
-    ../../modules/gaming/sunshine.nix
-    ../../modules/docker.nix
   ];
 
+  custom = {
+    services.gnome.enable = true;
+    services.docker.enable = true;
+    services.gaming = {
+      enable = true;
+      minecraft = true;
+      sunshine = true;
+    };
+  };
+
   environment.systemPackages = (with pkgs; [
+    golden-cheetah-bin
   ]);
 
   # Bootloader

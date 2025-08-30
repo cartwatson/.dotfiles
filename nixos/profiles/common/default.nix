@@ -1,19 +1,21 @@
 # IMPORTANT: Included pkgs & settings for **ALL** configurations
 
-{ pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
-  imports = [
-    ../../modules/helix.nix
-    ./fonts.nix
-  ];
+  custom = {
+    services.helix.enable = true;
+    services.fonts.enable = true;
+
+    users.cwatson.enable = true;
+    users.jgordon.enable = false;
+  };
 
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
-
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "en_US.UTF-8";
     LC_IDENTIFICATION = "en_US.UTF-8";
@@ -33,7 +35,6 @@
     vim
     tmux
     xclip # needed for tmux->system_clipboard functionality
-    caligula # ISO Burner - [git](https://github.com/ifd3f/caligula/tree/main)
 
     # utilities
     jq
@@ -41,24 +42,11 @@
     tree
   ]);
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.cwatson = {
-      isNormalUser = true;
-      description = "Carter Watson";
-      extraGroups = [ "networkmanager" "wheel" ];
-      uid = 1000;
-  };
-
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
   # Enable flakes and nix-command
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-  # auto updating can be done with these commands
-  # https://nixos.org/manual/nixos/stable/index.html#sec-upgrading-automatic
-  system.autoUpgrade.enable = true;
-  system.autoUpgrade.allowReboot = true;
 
   # garbage collect everything older two weeks
   nix.gc.automatic = true;
