@@ -50,8 +50,15 @@ alias gc="git commit -m"
 alias gd="git diff --minimal"
 alias gp="git push"
 alias gpl="git pull"
-alias gco="git checkout"
 alias gsll="clear; ll; gs"
+function gco () {
+    current_branch=$(git branch --show-current --no-color);
+    if [[ ! "$current_branch" == "main" && ! "$current_branch" == "master" ]]; then
+        git checkout $(git config init.defaultBranch);
+    else
+        git checkout "$@"
+    fi
+}
 function gac() { git add "$1" && git commit -m "$2"; }
 function gcp() { git commit -m "$@" && git push; }
 function gacp() { git add "$1" && git commit -m "$2" && git push; }
