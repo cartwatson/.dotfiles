@@ -68,8 +68,8 @@ in
 
 
   config = lib.mkMerge [
-    steamConfig
-    minecraftConfig
-    sunshineConfig
+    (lib.mkIf config.custom.services.gaming.steam     steamConfig)
+    (lib.mkIf config.custom.services.gaming.minecraft minecraftConfig)
+    (lib.mkIf config.custom.services.gaming.sunshine  sunshineConfig)
   ];
 }
