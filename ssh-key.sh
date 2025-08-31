@@ -81,7 +81,8 @@ echo -e "\nSuccessully created new key $file_name and added to ssh-agent"
 echo -e "Add the below to $site as user@hostname\n"
 cat ~/.ssh/"$file_name".pub
 
-# add to config 
+# add to config
+# BUG: This doesn't work if the site is not a full domain (eg missing ".com")
 echo -e "Host $site\n  IdentityFile ~/.ssh/$file_name\n" >> "$HOME/.ssh/config"
 if [ ! $? ]; then error "Unable to add key+site combo to ~/.ssh/config"; fi
 
