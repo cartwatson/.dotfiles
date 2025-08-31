@@ -7,6 +7,7 @@
     ];
 
   custom = {
+    services.ssh.enable = true;
   };
 
   # Bootloader.

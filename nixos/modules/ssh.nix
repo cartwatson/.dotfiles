@@ -6,7 +6,7 @@ let
       enable = true;
       ports = [ config.custom.services.ssh.port ];
       settings = {
-        PasswordAuthentication = true;
+        PasswordAuthentication = false;
         KbdInteractiveAuthentication = false;
         AllowUsers = null;  # Allows all users unless specified
         UseDns = true;
