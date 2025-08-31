@@ -6,5 +6,6 @@
     ./gaming.nix
     ./helix.nix
     ./tailscale.nix
+    ./ssh.nix
   ];
 }
