@@ -46,6 +46,11 @@ done
 
 NIXOS_DIRECTORY="$HOME/.dotfiles/nixos"
 
+if [[ "$HOSTNAME" == "nixos" ]]; then
+  echo "use './rebuild --hostname XXXX' to correctly init system"
+  exit
+fi
+
 if [[ "$UPDATE" == "true" ]]; then
   echo "UPDATING FLAKE..."
   # update flake.lock
