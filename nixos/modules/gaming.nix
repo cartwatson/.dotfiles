@@ -1,7 +1,7 @@
 { config, lib, pkgs, pkgs-unstable, ... }:
 
 let
-  steamConfig = lib.mkIf config.custom.services.gaming.steam {
+  steamConfig = {
     environment.systemPackages = (with pkgs-unstable; [
       steam
       protontricks
@@ -17,15 +17,14 @@ let
     };
   };
 
-  minecraftConfig = lib.mkIf config.custom.services.gaming.steam {
+  minecraftConfig = {
     environment.systemPackages = (with pkgs-unstable; [
       prismlauncher # minecraft launcher
       jdk17
-      jdk8 # Tekkit Classic
     ]);
   };
 
-  sunshineConfig = lib.mkIf config.custom.services.gaming.sunshine {
+  sunshineConfig = {
     environment.systemPackages = (with pkgs-unstable; [
       sunshine
     ]);
