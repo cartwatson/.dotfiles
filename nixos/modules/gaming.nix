@@ -19,8 +19,13 @@ let
 
   minecraftConfig = {
     environment.systemPackages = (with pkgs-unstable; [
-      prismlauncher # minecraft launcher
-      jdk17
+      # https://wiki.nixos.org/wiki/Prism_Launcher
+      (prismlauncher.override {
+        # Change Java runtimes available to Prism Launcher
+        jdks = [
+          jdk17
+        ];
+      })
     ]);
   };
 
