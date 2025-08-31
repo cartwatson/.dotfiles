@@ -6,7 +6,14 @@
   ];
 
   custom = {
-    services.ssh.enable = true;
+    services.ssh = {
+      enable = true;
+      port = 22;
+    };
+    services.glance = {
+      enable = true;
+      port = 8001;
+    };
   };
 
   # Bootloader.

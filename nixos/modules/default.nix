@@ -7,5 +7,6 @@
     ./helix.nix
     ./tailscale.nix
     ./ssh.nix
+    ./glance.nix
   ];
 }
