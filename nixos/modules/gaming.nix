@@ -67,9 +67,11 @@ in
   };
 
 
-  config = lib.mkMerge [
-    (lib.mkIf config.custom.services.gaming.steam     steamConfig)
-    (lib.mkIf config.custom.services.gaming.minecraft minecraftConfig)
-    (lib.mkIf config.custom.services.gaming.sunshine  sunshineConfig)
-  ];
+  config = lib.mkIf config.custom.services.gaming.enable (
+    lib.mkMerge [
+      (lib.mkIf config.custom.services.gaming.steam     steamConfig)
+      (lib.mkIf config.custom.services.gaming.minecraft minecraftConfig)
+      (lib.mkIf config.custom.services.gaming.sunshine  sunshineConfig)
+    ]
+  );
 }
