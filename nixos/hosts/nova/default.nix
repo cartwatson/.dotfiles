@@ -1,10 +1,9 @@
 { config, lib, pkgs, pkgs-unstable, ... }:
 
 {
-  imports =
-    [
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    ./hardware-configuration.nix
+  ];
 
   custom = {
     services.ssh.enable = true;
