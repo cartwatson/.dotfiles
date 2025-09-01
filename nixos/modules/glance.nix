@@ -14,14 +14,12 @@
   };
 
   config = lib.mkIf config.custom.services.glance.enable {
-    environment.systemPackages = [
-      pkgs.glance
-    ];
-
     services.glance = {
+      enable = true;
       openFirewall = true; # DEBUG
       settings = {
         server.port = config.custom.services.glance.port;
+        server.host = "0.0.0.0";
     #     pages = {};
       };
     };
