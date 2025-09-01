@@ -55,7 +55,7 @@ if [ ! -d ~/.ssh ]; then
   mkdir -p ~/.ssh;
 fi
 
-site=$(read_if_unset "$site" "What site is the key for? ")
+site=$(read_if_unset "$site" "What site is the key for (should be a FQDN (eg github.com))? ")
 email=$(read_if_unset "$email" "What is your email? ")
 # get input for file_name
 if [ -z "$type_of_key" ]; then
@@ -67,7 +67,7 @@ if [ -z "$type_of_key" ]; then
   esac
 fi
 
-file_name="$site@$type_of_key"
+file_name="$type_of_key@$site"
 ssh-keygen -q -t ed25519 -f "$HOME/.ssh/$file_name" -C "$email" -N "$(read -sp "Passphrase for ssh-key (press enter for no passphrase): ")" && echo
 
 if [ -n $SSH_AGENT_PID ]; then
@@ -82,9 +82,14 @@ echo -e "Add the below to $site as user@hostname\n"
 cat ~/.ssh/"$file_name".pub
 
 # add to config
-# BUG: This doesn't work if the site is not a full domain (eg missing ".com")
-echo -e "Host $site\n  IdentityFile ~/.ssh/$file_name\n" >> "$HOME/.ssh/config"
-if [ ! $? ]; then error "Unable to add key+site combo to ~/.ssh/config"; fi
+read -p "Add $site to ~/.ssh/config (y/n): " input
+case "$input" in
+  y|"yes")
+    echo -e "Host $site\n  IdentityFile ~/.ssh/$file_name\n" >> "$HOME/.ssh/config"
+    if [ ! $? ]; then error "Unable to add key+site combo to ~/.ssh/config"; fi
+  ;;
+  *) ;;
+esac
 
 echo
 
