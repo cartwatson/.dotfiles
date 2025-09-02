@@ -10,12 +10,13 @@
       enable = true;
       port = 22;
     };
+    services.caddy = {
+      enable = true;
+      domain = "jjwatson.dev";
+    };
     services.glance = {
       enable = true;
       port = 8001;
-    };
-    services.caddy = {
-      enable = true;
     };
   };
 
