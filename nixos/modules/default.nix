@@ -8,5 +8,6 @@
     ./tailscale.nix
     ./ssh.nix
     ./glance.nix
+    ./caddy.nix
   ];
 }
