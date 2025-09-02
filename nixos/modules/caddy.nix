@@ -8,7 +8,7 @@
   config = lib.mkIf config.custom.services.caddy.enable {
     services.caddy = {
       enable = true;
-      virtualHosts."jjwatson.dev".extraConfig = ''
+      virtualHosts."glance.jjwatson.dev".extraConfig = ''
         reverse_proxy :8001
       '';
     };
