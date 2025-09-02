@@ -4,7 +4,10 @@ let
   virtualHost = cfg:
     lib.mkIf cfg.enable {
       "${cfg.subdomain}.${config.custom.services.caddy.domain}".extraConfig = ''
-        reverse_proxy :${toString cfg.port}
+        reverse_proxy :${toString cfg.port} {
+          header_down X-Real-IP {http.request.remote}
+          header_down X-Forwarded-For {http.request.remote}
+        }
       '';
     };
 in
