@@ -117,7 +117,8 @@ in
           {
             publicKey = server.publickey;
             allowedIPs = [ "0.0.0.0/0" ]; # push all traffic out
-            endpoint = "${toString cfg.serverEndpoint}:${toString cfg.port}";
+            # endpoint = "${toString cfg.serverEndpoint}:${toString cfg.port}";
+            endpoint = "${toString cfg.serverEndpoint}";
             persistentKeepalive = 25;
           }
         ];
