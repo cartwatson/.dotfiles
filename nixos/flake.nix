@@ -10,6 +10,7 @@
     let
       inherit (nixpkgs) lib;
       system = "x86_64-linux";
+      settings = import ./profiles/server-settings.nix;
     in {
       # https://github.com/Electrostasy/dots/blob/0eb9d91d517d74b7f0891bff5992b17eb50f207c/flake.nix#L102-L121
       nixosConfigurations = lib.pipe ./hosts [
@@ -23,6 +24,7 @@
         (lib.mapAttrs (name: _value:
           lib.nixosSystem {
             specialArgs = {
+              inherit settings;
               pkgs-unstable = import nixpkgs-unstable {
                 config.allowUnfree = true;
                 inherit system;

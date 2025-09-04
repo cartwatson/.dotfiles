@@ -1,4 +1,4 @@
-{ config, lib, pkgs, pkgs-unstable, ... }:
+{ config, lib, pkgs, pkgs-unstable, settings, ... }:
 
 {
   imports = [
@@ -10,19 +10,13 @@
       enable = true;
       port = 22;
     };
-    services.caddy = {
-      enable = true;
-      domain = "jjwatson.dev";
-    };
+    services.caddy.enable = true;
     services.wireguard = {
       enable = true;
       server = true;
       interfaceExternal = "eno0";
     };
-    services.glance = {
-      enable = true;
-      port = 8001;
-    };
+    services.glance.enable = true;
   };
 
   # Bootloader.

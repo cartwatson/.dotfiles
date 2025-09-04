@@ -2,7 +2,6 @@
 
 {
   imports = [
-    # TODO: import everything
     ./docker.nix
     ./gaming.nix
     ./helix.nix

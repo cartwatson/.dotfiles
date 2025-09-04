@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, pkgs-unstable, settings, ... }:
 
 let
   hostIPs = [
@@ -49,7 +49,7 @@ in
     };
     serverEndpoint = lib.mkOption {
       type = lib.types.str;
-      default = "${cfg.subdomain}.${config.custom.services.caddy.domain}";
+      default = "${cfg.subdomain}.${settings.domainName}";
       description = "Public IP or hostname of the WireGuard server. (client only)";
     };
     clientIP = lib.mkOption {
@@ -117,8 +117,7 @@ in
           {
             publicKey = server.publickey;
             allowedIPs = [ "0.0.0.0/0" ]; # push all traffic out
-            # endpoint = "${toString cfg.serverEndpoint}:${toString cfg.port}";
-            endpoint = "${toString cfg.serverEndpoint}";
+            endpoint = "${toString cfg.serverEndpoint}:${toString cfg.port}";
             persistentKeepalive = 25;
           }
         ];

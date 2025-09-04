@@ -1,4 +1,4 @@
-{ config, lib, pkgs, pkgs-unstable, ... }:
+{ config, lib, pkgs, pkgs-unstable, settings, ... }:
 
 let
   virtualHost = cfg:
@@ -17,7 +17,7 @@ in
     enable = lib.mkEnableOption "Enable Caddy.";
     domain = lib.mkOption {
       type = lib.types.str;
-      default = "example.org";
+      default = settings.domainName;
       description = "Base domain used for subdomains of services.";
     };
   };

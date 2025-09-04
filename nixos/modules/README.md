@@ -6,7 +6,7 @@ Folder containing custom nix modules
 
 ### Add host
 
-Add hostname (arbitrary), allowedIPs (increment from previous definition), and generate a public key (follow [nixos wiki instructions](https://wiki.nixos.org/wiki/WireGuard#Generate_keypair)) and add to the top of the [wireguard.nix](wireguard.nix) file
+Add hostname (arbitrary), allowedIPs (increment from previous definition), and generate a private/public key pair at `/etc/wireguard/private.key` (follow [nixos wiki instructions](https://wiki.nixos.org/wiki/WireGuard#Generate_keypair)) and add to the top of the [wireguard.nix](wireguard.nix) file
 
 ## Caddy
 
