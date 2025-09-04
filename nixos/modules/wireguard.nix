@@ -4,7 +4,7 @@ let
   hostIPs = [
     {
       name = "jupiter";
-      publicKey = "";
+      publicKey = "0nQwEvjz/QhP6vf2mVSc4v5MTAgwc5RsBulbAbIPviM=";
       allowedIPs = [ "10.100.0.2/32" ];
     }
     {
@@ -24,7 +24,7 @@ let
     }
   ];
   server = {
-    publickey = "";
+    publickey = "TXILf6l6hY6Y/UugxgwW8PSurv1HxOP/Gnql6desb0k=";
     ip = "10.100.0.1";
   };
   cfg = config.custom.services.wireguard;
@@ -64,7 +64,7 @@ in
     };
     privateKey = lib.mkOption {
       type = lib.types.str;
-      default = "/private/wireguard-key";
+      default = "/etc/wireguard/private.key";
       description = "The path to the private key Wireguard will use. (server only)";
     };
     subdomain = lib.mkOption {
