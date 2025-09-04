@@ -1,9 +1,10 @@
-{ config, lib, pkgs, pkgs-unstable, ... }:
+{ config, lib, pkgs, pkgs-unstable, settings, ... }:
 
 let
   virtualHost = cfg:
     lib.mkIf cfg.enable {
       "${cfg.subdomain}.${config.custom.services.caddy.domain}".extraConfig = ''
+        encode
         reverse_proxy :${toString cfg.port} {
           header_down X-Real-IP {http.request.remote}
           header_down X-Forwarded-For {http.request.remote}
@@ -16,7 +17,7 @@ in
     enable = lib.mkEnableOption "Enable Caddy.";
     domain = lib.mkOption {
       type = lib.types.str;
-      default = "example.org";
+      default = settings.domainName;
       description = "Base domain used for subdomains of services.";
     };
   };
@@ -26,7 +27,7 @@ in
       enable = true;
       virtualHosts = lib.mkMerge [
         (virtualHost config.custom.services.glance)
-        # (virtualHost config.custom.services.glance)
+        (virtualHost config.custom.services.wireguard)
       ];
     };
 

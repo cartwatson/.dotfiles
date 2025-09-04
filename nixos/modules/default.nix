@@ -9,5 +9,6 @@
     ./ssh.nix
     ./glance.nix
     ./caddy.nix
+    ./wireguard.nix
   ];
 }
