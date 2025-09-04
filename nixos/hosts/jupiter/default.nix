@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   imports = [
@@ -9,6 +9,7 @@
 
   custom = {
     services.gnome.enable = true;
+    services.wireguard.enable = true;
     services.docker.enable = true;
     services.gaming = {
       enable = true;

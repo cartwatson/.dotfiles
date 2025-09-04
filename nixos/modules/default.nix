@@ -2,6 +2,7 @@
 
 {
   imports = [
+    # TODO: import everything
     ./docker.nix
     ./gaming.nix
     ./helix.nix
@@ -9,5 +10,6 @@
     ./ssh.nix
     ./glance.nix
     ./caddy.nix
+    ./wireguard.nix
   ];
 }

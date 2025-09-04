@@ -14,6 +14,11 @@
       enable = true;
       domain = "jjwatson.dev";
     };
+    services.wireguard = {
+      enable = true;
+      server = true;
+      interfaceExternal = "eno0";
+    };
     services.glance = {
       enable = true;
       port = 8001;

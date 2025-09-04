@@ -2,9 +2,15 @@
 
 Folder containing custom nix modules
 
+## Wireguard
+
+### Add host
+
+Add hostname (arbitrary), allowedIPs (increment from previous definition), and generate a public key (follow [nixos wiki instructions](https://wiki.nixos.org/wiki/WireGuard#Generate_keypair)) and add to the top of the [wireguard.nix](wireguard.nix) file
+
 ## Caddy
 
-To add new subdomains/services to caddy's proxying, add `(virtualHost config.custom.services.example0)` (where `example0` is the name of the service) to the following
+To add new subdomains/services to caddy's reverse proxy list, add `(virtualHost config.custom.services.example0)` (where `example0` is the name of the service) to the following
 
 ```nix
 virtualHosts = lib.mkMerge [
