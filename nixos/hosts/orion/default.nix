@@ -4,12 +4,15 @@
   imports = [
     ./hardware-configuration.nix
     ./nvidia.nix
-    ../../profiles/common/gui.nix
-    ../../modules/tailscale.nix
   ];
 
   custom = {
     services.gnome.enable = true;
+    services.tailscale.enable = true;
+    services.gaming = {
+      enable = true;
+      minecraft = true;
+    };
   };
 
   environment.systemPackages = (with pkgs; [

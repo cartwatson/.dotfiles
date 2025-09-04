@@ -10,6 +10,7 @@
   custom = {
     services.gnome.enable = true;
     services.docker.enable = true;
+    services.tailscale.enable = true;
     services.gaming = {
       enable = true;
       minecraft = true;

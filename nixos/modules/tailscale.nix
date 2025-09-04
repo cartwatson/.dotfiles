@@ -1,9 +1,17 @@
-{ pkgs-unstable, ... }:
+{ config, lib, pkgs, pkgs-unstable, ... }:
 
 {
-  environment.systemPackages = (with pkgs-unstable; [
-    tailscale
-  ]);
+  options.custom.services.tailscale = {
+    enable = lib.mkEnableOption "Enable tailscale.";
+  };
 
-  services.tailscale.enable = true;
+  config = lib.mkIf config.custom.services.tailscale.enable {
+    # allow users to use `tailscale` command
+    environment.systemPackages = (with pkgs-unstable; [
+      tailscale
+    ]);
+
+    # enable systemd service
+    services.tailscale.enable = true;
+  };
 }

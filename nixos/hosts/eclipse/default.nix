@@ -3,12 +3,11 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../profiles/common/gui.nix
-    ../../modules/tailscale.nix
   ];
 
   custom = {
     services.gnome.enable = true;
+    services.tailscale.enable = true;
   };
 
   environment.systemPackages = (with pkgs; [
