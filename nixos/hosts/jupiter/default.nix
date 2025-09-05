@@ -9,7 +9,6 @@
 
   custom = {
     services.gnome.enable = true;
-    services.wireguard.enable = true;
     services.docker.enable = true;
     services.tailscale.enable = true;
     services.gaming = {

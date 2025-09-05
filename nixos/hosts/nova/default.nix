@@ -11,12 +11,11 @@
       port = 22;
     };
     services.caddy.enable = true;
-    services.wireguard = {
-      enable = true;
-      server = true;
-      interfaceExternal = "eno0";
-    };
     services.glance.enable = true;
+    services.tailscale = {
+      enable = false;
+      server = true;
+    };
   };
 
   # Bootloader.

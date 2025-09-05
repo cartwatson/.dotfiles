@@ -27,7 +27,7 @@ in
       enable = true;
       virtualHosts = lib.mkMerge [
         (virtualHost config.custom.services.glance)
-        (virtualHost config.custom.services.wireguard)
+        (virtualHost config.custom.services.tailscale)
       ];
     };
 
