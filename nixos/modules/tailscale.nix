@@ -24,33 +24,35 @@ in
   };
 
   config = (lib.mkMerge [
-    lib.mkIf cfg.enable {
-      # allow users to use `tailscale` command
-      environment.systemPackages = (with pkgs-unstable; [
-        tailscale
-      ]);
+    {
+      environment.systemPackages = (
+        lib.optionals cfg.enable (with pkgs-unstable; [ tailscale ])
+        ++ lib.optionals cfg.server (with pkgs; [ headscale ])
+      );
+    }
 
+    (lib.mkIf cfg.enable {
       # enable systemd service
       services.tailscale = {
         enable = true;
         interfaceName = "headscale0";
       };
-
       networking.firewall.allowedUDPPorts = [ cfg.port ];
-    }
+    })
 
-    lib.mkIf cfg.server {
-      headscale = {
+    (lib.mkIf cfg.server {
+      services.headscale = {
         enable = true;
         address = "0.0.0.0";
         port = cfg.port;
-        server_url = "https://${cfg.subdomain}.${settings.domainName}:${cfg.port}";
-        dns.base_domain = "${cfg.subdomain}.${settings.domainName}";
+        settings = {
+          server_url = "https://${cfg.subdomain}.${settings.domainName}:${toString cfg.port}";
+          dns = {
+            magic_dns = true;
+            base_domain = "${cfg.subdomain}.${settings.domainName}";
+          };
+        };
       };
-
-      environment.systemPackages = (with pkgs; [
-        headscale
-      ]);
-    }
+    })
   ]);
 }
