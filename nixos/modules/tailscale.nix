@@ -29,16 +29,15 @@ in
         lib.optionals cfg.enable (with pkgs; [ tailscale ])
         ++ lib.optionals cfg.server (with pkgs; [ headscale ])
       );
-    }
 
-    (lib.mkIf (!cfg.server) {
       # enable systemd service
       services.tailscale = {
         enable = true;
         interfaceName = "headscale0";
+        port = cfg.port;
+        openFirewall = true;
       };
-      networking.firewall.allowedUDPPorts = [ cfg.port ];
-    })
+    }
 
     (lib.mkIf cfg.server {
       services.headscale = {
