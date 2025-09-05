@@ -26,7 +26,7 @@ in
   config = (lib.mkMerge [
     {
       environment.systemPackages = (
-        lib.optionals cfg.enable (with pkgs-unstable; [ tailscale ])
+        lib.optionals cfg.enable (with pkgs; [ tailscale ])
         ++ lib.optionals cfg.server (with pkgs; [ headscale ])
       );
     }
@@ -51,6 +51,9 @@ in
             magic_dns = true;
             base_domain = "${cfg.subdomain}.${settings.domainName}";
           };
+          # disable headscale tls, use caddy
+          tls_cert_path = null;
+          tls_key_path = null;
         };
       };
     })
