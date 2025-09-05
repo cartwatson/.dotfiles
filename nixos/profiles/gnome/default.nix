@@ -8,6 +8,8 @@
   imports = [
     ./terminal.nix
     ./extensions.nix
+
+    ../common/gui.nix
   ];
 
   config = lib.mkIf config.custom.services.gnome.enable {
