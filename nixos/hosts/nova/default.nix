@@ -13,7 +13,7 @@
     services.caddy.enable = true;
     services.glance.enable = true;
     services.tailscale = {
-      enable = false;
+      enable = true;
       server = true;
     };
   };

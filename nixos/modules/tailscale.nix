@@ -31,7 +31,7 @@ in
       );
     }
 
-    (lib.mkIf cfg.enable {
+    (lib.mkIf (!cfg.server) {
       # enable systemd service
       services.tailscale = {
         enable = true;
