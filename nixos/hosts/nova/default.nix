@@ -1,4 +1,4 @@
-{ config, lib, pkgs, pkgs-unstable, settings, ... }:
+{ config, lib, pkgs, pkgs-unstable, settings, nix-minecraft, ... }:
 
 {
   imports = [
@@ -12,6 +12,7 @@
     };
     services.caddy.enable = true;
     services.glance.enable = true;
+    services.minecraftServer.enable = true;
     services.tailscale = {
       enable = true;
       server = true;

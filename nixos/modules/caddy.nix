@@ -26,8 +26,11 @@ in
     services.caddy = {
       enable = true;
       virtualHosts = lib.mkMerge [
+        # TODO: pull enabled services from config.custom
+        # this could cause issuse wtih multiple minecraft servers though...
         (virtualHost config.custom.services.glance)
         (virtualHost config.custom.services.tailscale)
+        (virtualHost config.custom.services.minecraftServer)
       ];
     };
 

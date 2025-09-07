@@ -1,4 +1,4 @@
-{ config, lib, pkgs, pkgs-unstable, ... }:
+{ ... }:
 
 {
   imports = [
@@ -9,5 +9,6 @@
     ./ssh.nix
     ./glance.nix
     ./caddy.nix
+    ./minecraft
   ];
 }

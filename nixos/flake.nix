@@ -4,9 +4,11 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+
+    nix-minecraft.url = "github:Infinidoge/nix-minecraft";
   };
 
-  outputs = { nixpkgs, nixpkgs-unstable, ... }:
+  outputs = { nixpkgs, nixpkgs-unstable, nix-minecraft, ... }:
     let
       inherit (nixpkgs) lib;
       system = "x86_64-linux";
@@ -25,6 +27,7 @@
           lib.nixosSystem {
             specialArgs = {
               inherit settings;
+              inherit nix-minecraft;
               pkgs-unstable = import nixpkgs-unstable {
                 config.allowUnfree = true;
                 inherit system;
