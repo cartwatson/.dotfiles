@@ -16,7 +16,7 @@
     };
 
     whitelist = {
-      # `curl -s "https://api.mojang.com/users/profiles/minecraft/$username" | jq -r '.id'`
+      # `curl -s "https://api.mojang.com/users/profiles/minecraft/<USERNAME>" | jq -r '.id'`
       garamond = "fde452b2-e48c-4f3d-bc5c-eca2ecbbe55d";
       TheFreakBob = "39b7674e-445f-4f76-82b5-ef8c8f925f53";
       awashingmachine = "bf80d49b-8791-4c16-962b-901bf7bc38d6";
