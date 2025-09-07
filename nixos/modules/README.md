@@ -2,11 +2,15 @@
 
 Folder containing custom nix modules
 
-## Wireguard
+## Headscale
 
 ### Add host
 
-Add hostname (arbitrary), allowedIPs (increment from previous definition), and generate a private/public key pair at `/etc/wireguard/private.key` (follow [nixos wiki instructions](https://wiki.nixos.org/wiki/WireGuard#Generate_keypair)) and add to the top of the [wireguard.nix](wireguard.nix) file
+1. Enable custom tailscale module
+1. On new client run `sudo tailscale up --login-server "https://ts.jjwatson.dev"`
+   - on mobile make sure to use chrome instead of safari
+1. Copy the last section of the url
+1. Run `sudo headscale nodes register --user <user> --key <copied section of url>`
 
 ## Caddy
 
