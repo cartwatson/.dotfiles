@@ -10,6 +10,7 @@
       server-port = 5003;
       max-players = 20;
       white-list = true;
+      enable-query = true;
       difficulty = "hard";
       gamemode = "survival";
       motd = "§9Kuiper§r: §kCustom§r §kminecraft§r §kserver\n§fHosted by garamond";
