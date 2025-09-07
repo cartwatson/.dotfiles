@@ -14,7 +14,7 @@
       sync-chunk-writes = false;
       difficulty = "hard";
       gamemode = "survival";
-      motd = "<gradient:#0040FF:#00FBFF>KUIPER</gradient>: Hosted by garamond";
+      motd = "§9Kuiper§r: Hosted by garamond";
     };
 
     whitelist = {
