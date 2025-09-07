@@ -42,6 +42,10 @@
           url = "https://cdn.modrinth.com/data/gvQqBUqZ/versions/pDfTqezk/lithium-fabric-0.18.0%2Bmc1.21.8.jar";
           sha512 = "07i11gq0yhdmv19ky4gp4181c7c5089ac110acpx1jbcq6kvisviw16vzgpl3a7d8mh16zdnlxg16mm548fcwaq1j7zi3plc03rasbc";
         };
+        distant-horizons = pkgs.fetchurl {
+          url = "https://cdn.modrinth.com/data/uCdwusMi/versions/9yaYzpcr/DistantHorizons-2.3.4-b-1.21.8-fabric-neoforge.jar";
+          sha512 = "1008chyz2xia4dydh8hga29p0c15lqrf1mzwd06lbmvdqh30kqa11dx4zs4g0qfnp0jai437q259a97br8fkb3mn9g3in8p76q1cfsr";
+        };
       });
 
       # ICON: /meta/server-icon.png
