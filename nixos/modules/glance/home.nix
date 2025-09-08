@@ -84,6 +84,8 @@
                     { title = "Advice that actually worked for me"; url = "https://nabeelqu.substack.com/p/advice?r=hheyu&selection=f0b1192c-03c6-4fc0-97a8-39476c2b3157&utm_campaign=post-share-selection&utm_medium=web&triedRedirect=true#:~:text=Get%20in%20the%20habit%20of%20Fermi%20estimation%2C%20looking%20up%20key%20quantities%2C%20and%20using%20upper%20and%20lower%20bounds" ; }
                     { title = "Thoughts on thinking"; url = "https://dcurt.is/thinking" ; }
                     { title = "The Promised LAN"; url = "https://notes.pault.ag/tpl/" ; }
+                    { title = "12 Steps To Better Code"; url = "https://www.joelonsoftware.com/2000/08/09/the-joel-test-12-steps-to-better-code/" ; }
+                    { title = "Writing Functional Specs"; url = "https://www.joelonsoftware.com/2000/10/02/painless-functional-specifications-part-1-why-bother/" ; }
                   ];
                 }
               ];
