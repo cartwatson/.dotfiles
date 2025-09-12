@@ -1,5 +1,5 @@
 {
-  name = "Nova";
+  name = "Dashboard";
   columns = [
     {
       size = "small";

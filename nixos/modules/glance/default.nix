@@ -22,7 +22,7 @@ in
     services.glance = {
       enable = true;
       openFirewall = false;
-      environmentFile = ""; # TODO: ADD FILE
+      # environmentFile = ""; # TODO: ADD FILE
       settings = {
         theme = {
           background-color    = "\${GRUVBOX_BG}";
@@ -41,8 +41,8 @@ in
           host = "127.0.0.1";
         };
         pages = [
-          import ./home.nix
-          import ./nova.nix
+          (import ./home.nix)
+          (import ./nova.nix)
         ];
       };
     };
