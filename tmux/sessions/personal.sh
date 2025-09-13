@@ -25,13 +25,6 @@ if [ $? != 0 ]; then
   tmux send-keys     -t "$SESH:$window".3 "hx ." C-m
   tmux select-pane   -t "$SESH:$window".3
 
-  # NOTE: this assumes that the machine this is running on is a nix machine but lucky for me I only run nix machines :)
-  if [[ -d ~/.dotfiles/nixos/hosts/$HOSTNAME ]]; then
-    window="proxmox"
-    tmux new-window  -t "$SESH" -n "$window"
-    tmux send-keys   -t "$SESH:$window" "cd ~/personal/proxmox; gsll" C-m
-  fi
-
   # new window
   tmux new-window -t "$SESH"
 fi
