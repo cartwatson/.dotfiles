@@ -198,12 +198,12 @@
     {
       size = "small";
       widgets = [
-        {
-          type = "weather";
-          location = { _secret = "\${LOCATION}"; };
-          units = "imperial";
-          "hour-format" = "24h";
-        }
+        # {
+        #   type = "weather";
+        #   location = { _secret = "\${LOCATION}"; };
+        #   units = "imperial";
+        #   "hour-format" = "24h";
+        # }
         {
           type = "search";
           title = "Wikipedia Search";
@@ -218,8 +218,9 @@
         }
         {
           type = "releases";
+          title = "tools";
           cache = "1d";
-          token = { _secret = "\${GITHUB_READONLY_TOKEN}"; };
+          # token = { _secret = "\${GITHUB_READONLY_TOKEN}"; };
           repositories = [
             "helix-editor/helix"
             "ifd3f/caligula"
@@ -229,7 +230,7 @@
           type = "releases";
           title = "3DS releases";
           cache = "1d";
-          token = { _secret = "\${GITHUB_READONLY_TOKEN}"; };
+          # token = { _secret = "\${GITHUB_READONLY_TOKEN}"; };
           repositories = [
             "DS-Homebrew/nds-bootstrap"
             "LumaTeam/Luma3DS"

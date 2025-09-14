@@ -7,7 +7,7 @@
         {
           type = "releases";
           cache = "1d";
-          token = { _secret = "/var/lib/secrets/glance/GITHUB_READONLY_TOKEN"; };
+          # token = { _secret = "\${GITHUB_READONLY_TOKEN}"; };
           repositories = [
             "juanfont/headscale"
             "glanceapp/glance"
@@ -26,12 +26,12 @@
               type = "local";
               name = "Local";
             }
-            {
-              # TODO: https://github.com/glanceapp/glance/blob/main/docs/configuration.md#properties-for-remote-servers
-              type = "remote";
-              name = "Remote";
-              url = "https://cartwatson.com";
-            }
+            # {
+            #   # TODO: https://github.com/glanceapp/glance/blob/main/docs/configuration.md#properties-for-remote-servers
+            #   type = "remote";
+            #   name = "Remote";
+            #   url = "https://cartwatson.com";
+            # }
           ];
         }
         {
@@ -196,7 +196,7 @@
         {
           type = "custom-api";
           title = "Minecraft";
-          url = "https://api.mcstatus.io/v2/status/java/\${MC_SERVER_URL}";
+          url = "https://api.mcstatus.io/v2/status/java/playmc.jjwatson.dev";
           cache = "01m";
           template = ''
             <div style="display:flex; align-items:center; gap:12px;">

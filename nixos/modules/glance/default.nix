@@ -4,6 +4,10 @@ let
   cfg = config.custom.services.glance;
 in
 {
+  # NOTE: needed until 25.11 for `environmnetFile` option
+  disabledModules = ["services/web-apps/glance.nix"];
+  imports = ["${pkgs-unstable.path}/nixos/modules/services/web-apps/glance.nix"];
+
   options.custom.services.glance = {
     enable = lib.mkEnableOption "Enable Glance.";
     port = lib.mkOption {
@@ -21,8 +25,9 @@ in
   config = lib.mkIf cfg.enable {
     services.glance = {
       enable = true;
+      package = pkgs-unstable.glance;
       openFirewall = false;
-      # environmentFile = ""; # TODO: ADD FILE
+      environmentFile = "/var/lib/secrets/glance/env";
       settings = {
         theme = {
           background-color    = "\${GRUVBOX_BG}";
