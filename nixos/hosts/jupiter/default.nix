@@ -3,7 +3,6 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../profiles/common/gui.nix
   ];
 
   custom = {
