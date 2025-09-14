@@ -4,7 +4,6 @@
   imports = [
     ./hardware-configuration.nix
     ../../profiles/common/gui.nix
-    ../../modules/tailscale.nix
   ];
 
   custom = {

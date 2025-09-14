@@ -5,13 +5,18 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-minecraft = {
       url = "github:Infinidoge/nix-minecraft";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
   };
 
-  outputs = { nixpkgs, nixpkgs-unstable, nix-minecraft, ... }:
+  outputs = { self, nixpkgs, nixpkgs-unstable, sops-nix, nix-minecraft, ... }:
     let
       inherit (nixpkgs) lib;
       system = "x86_64-linux";
@@ -39,6 +44,8 @@
 
             modules = [
               { networking.hostName = name; }
+              sops-nix.nixosModules.sops
+
               ./hosts/${name}
               ./modules
               ./profiles

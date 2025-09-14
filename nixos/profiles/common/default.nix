@@ -35,6 +35,7 @@
     vim
     tmux
     xclip # needed for tmux->system_clipboard functionality
+    sops
 
     # utilities
     jq

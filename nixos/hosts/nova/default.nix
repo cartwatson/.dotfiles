@@ -5,6 +5,11 @@
     ./hardware-configuration.nix
   ];
 
+  sops.secrets = {
+    "api_tokens/github_readonly" = {};
+    "glance/location" = {};
+  };
+
   custom = {
     services.ssh = {
       enable = true;

@@ -2,6 +2,8 @@
 
 {
   imports = [
+    ./sops.nix
+
     ./docker.nix
     ./gaming.nix
     ./helix.nix
