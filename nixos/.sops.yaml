@@ -2,8 +2,10 @@
 
 keys:
   - &jupiter_cwatson age1j93ahd5wrea7hwp5nrvg6qd0m06kzq4h45lmhjm6mk42xmtm556qra73ad
+  - &nova_cwatson age1arp89zedg00jeas2fzeq7szcpldwnslpp24ew3mr4tnfur0q8qrsh97muh
 creation_rules:
   - path_regex: secrets/secrets.yaml
     key_groups:
     - age:
       - *jupiter_cwatson
+      - *nova_cwatson
