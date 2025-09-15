@@ -1,11 +1,15 @@
 { config, lib, pkgs, ... }:
 
+let
+  baseCfg = config.custom.services;
+  cfg = baseCfg.docker;
+in
 {
   options.custom.services.docker = {
     enable = lib.mkEnableOption "Enable Docker.";
   };
 
-  config = lib.mkIf config.custom.services.docker.enable {
+  config = lib.mkIf cfg.enable {
     # install docker
     environment.systemPackages = (with pkgs; [
       docker

@@ -1,7 +1,8 @@
 { config, lib, pkgs, pkgs-unstable, ... }:
 
 let
-  cfg = config.custom.services.ssh;
+  baseCfg = config.custom.services;
+  cfg = baseCfg.ssh;
 in
 {
   options.custom.services.ssh = {
@@ -30,7 +31,7 @@ in
     (lib.mkIf cfg.enable  {
       services.openssh = {
         enable = true;
-        ports = [ config.custom.services.ssh.port ];
+        ports = [ cfg.port ];
         settings = {
           PasswordAuthentication = false;
           KbdInteractiveAuthentication = false;
@@ -47,7 +48,7 @@ in
         enable = true;
         jails.sshd = ''
           enabled = true
-          port = ${toString config.custom.services.ssh.port}
+          port = ${toString cfg.port}
           filter = sshd
           logpath = /var/log/auth.log
           maxretry = 3
@@ -58,7 +59,7 @@ in
     (lib.mkIf cfg.endlessh {
       services.endlessh = {
         enable = true;
-        port = config.custom.services.ssh.port;
+        port = cfg.port;
         openFirewall = true;
       };
     })

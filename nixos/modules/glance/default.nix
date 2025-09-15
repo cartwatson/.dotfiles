@@ -1,7 +1,8 @@
 { config, lib, pkgs, pkgs-unstable, ... }:
 
 let
-  cfg = config.custom.services.glance;
+  baseCfg = config.custom.services;
+  cfg = baseCfg.glance;
 in
 {
   # NOTE: needed until 25.11 for `environmnetFile` option

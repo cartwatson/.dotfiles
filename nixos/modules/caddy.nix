@@ -1,10 +1,20 @@
 { config, lib, pkgs, pkgs-unstable, settings, ... }:
 
 let
-  virtualHost = cfg:
-    lib.mkIf cfg.enable {
-      "${cfg.subdomain}.${config.custom.services.caddy.domain}".extraConfig = ''
-        reverse_proxy :${toString cfg.port}
+  baseCfg = config.custom.services;
+  cfg = baseCfg.caddy;
+
+  externalVirtualHost = serviceCfg:
+    lib.mkIf serviceCfg.enable {
+      "${serviceCfg.subdomain}.${cfg.domain}".extraConfig = ''
+        reverse_proxy :${toString serviceCfg.port}
+      '';
+    };
+
+  internalVirtualHost = serviceCfg:
+    lib.mkIf serviceCfg.enable {
+      "${serviceCfg.subdomain}.${config.custom.services.tailscale.subdomain}.${cfg.domain}".extraConfig = ''
+        reverse_proxy localhost:${toString serviceCfg.port}
       '';
     };
 in
@@ -13,19 +23,19 @@ in
     enable = lib.mkEnableOption "Enable Caddy.";
     domain = lib.mkOption {
       type = lib.types.str;
-      default = settings.domainName;
+      default = "example.com";
       description = "Base domain used for subdomains of services.";
     };
   };
 
-  config = lib.mkIf config.custom.services.caddy.enable {
+  config = lib.mkIf cfg.enable {
     services.caddy = {
       enable = true;
       virtualHosts = lib.mkMerge [
         # TODO: pull enabled services from config.custom
         # this could cause issuse wtih multiple minecraft servers though...
-        (virtualHost config.custom.services.glance)
-        (virtualHost config.custom.services.tailscale)
+        (externalVirtualHost baseCfg.glance)
+        (externalVirtualHost baseCfg.tailscale)
       ];
     };
 

@@ -13,9 +13,12 @@
   custom = {
     services.ssh = {
       enable = true;
-      port = 22;
+      port = 9999;
     };
-    services.caddy.enable = true;
+    services.caddy = {
+      enable = true;
+      domain = settings.domainName;
+    };
     services.glance.enable = true;
     services.minecraftServer.enable = true;
     services.tailscale = {

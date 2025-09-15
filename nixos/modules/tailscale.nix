@@ -1,7 +1,8 @@
 { config, lib, pkgs, pkgs-unstable, settings, ... }:
 
 let
-  cfg = config.custom.services.tailscale;
+  baseCfg = config.custom.services;
+  cfg = baseCfg.tailscale;
 in
 {
   options.custom.services.tailscale = {
@@ -29,15 +30,18 @@ in
         lib.optionals cfg.enable (with pkgs; [ tailscale ])
         ++ lib.optionals cfg.server (with pkgs; [ headscale ])
       );
+    }
 
+    (lib.mkIf cfg.enable {
       # enable systemd service
       services.tailscale = {
         enable = true;
         interfaceName = "headscale0";
         port = cfg.port;
         openFirewall = true;
+        permitCertUid = if baseCfg.caddy.enable then "caddy" else null;
       };
-    }
+    })
 
     (lib.mkIf cfg.server {
       services.headscale = {
@@ -45,7 +49,7 @@ in
         address = "0.0.0.0";
         port = cfg.port;
         settings = {
-          server_url = "https://${cfg.subdomain}.${settings.domainName}:${toString cfg.port}";
+          server_url = "https://${cfg.subdomain}.${settings.domainName}:443"; # 443 as this is for client auth
           dns = {
             magic_dns = true;
             base_domain = "${cfg.subdomain}.${settings.domainName}";
