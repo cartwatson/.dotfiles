@@ -12,7 +12,7 @@
 
   custom = {
     services.ssh = {
-      enable = false;
+      enable = true;
       port = 22;
     };
     services.caddy.enable = true;
