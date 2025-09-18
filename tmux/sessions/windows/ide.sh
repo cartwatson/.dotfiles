@@ -12,19 +12,20 @@ function open_ide() {
 
   # exit if session already exists
   if [ "$(tmux list-windows -F "#{window_name}" | grep -xc "$window")" -gt 0 ]; then
-    tmux switch -t "$SESH":"$window"
+    tmux switch -t "$SESH:$window"
     exit
   fi
 
   # create new window + panes
   tmux new-window -n "$window"
-  tmux split-window -t "$SESH":"$window".1 -h
-  tmux split-window -t "$SESH":"$window".1 -v
+  tmux split-window -t "$SESH:$window".1 -h
+  tmux split-window -t "$SESH:$window".1 -v
 
   # init panes with default commands
   # auto open `nix develop` if available
-  if [ -f ./shell.nix ]; then
-    tmux send-keys -t "$SESH":"$window".1 "nix develop" C-m
+  if [ -f ./flake.nix ]; then
+    tmux send-keys -t "$SESH:$window".1 "nix develop" C-m
+    tmux send-keys -t "$SESH:$window".3 "nix develop" C-m
   fi
   tmux send-keys   -t "$SESH:$window".2 "clear; gs" C-m
   tmux send-keys   -t "$SESH:$window".3 "hx ." C-m
