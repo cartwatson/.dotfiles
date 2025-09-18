@@ -80,3 +80,4 @@ alias untar="tar -xvzf"
 alias toggle-theme="$HOME/.dotfiles/toggle-gnome-helix-tmux-light_dark-mode.sh"
 alias jfu="journalctl -f -u"
 
+alias rebuild="$HOME/.dotfiles/nixos/rebuild.sh"
