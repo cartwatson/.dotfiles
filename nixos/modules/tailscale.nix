@@ -12,13 +12,13 @@ in
       default = false;
       description = "Setup Tailscale (Headscale) as a server, false (default) is a client setup";
     };
+    port = lib.mkOption {
+      type = lib.types.port;
+      default = 41641;
+      description = "Port for Headscale.";
+    };
     proxy = {
       enable = lib.mkEnableOption "Enable proxy";
-      port = lib.mkOption {
-        type = lib.types.port;
-        default = 41641;
-        description = "Port for Headscale.";
-      };
       subdomain = lib.mkOption {
         type = lib.types.str;
         default = "ts";
@@ -62,10 +62,10 @@ in
         address = "0.0.0.0";
         port = cfg.port;
         settings = {
-          server_url = "https://${cfg.subdomain}.${settings.domainName}:443"; # 443 as this is for client auth
+          server_url = "https://${cfg.proxy.subdomain}.${settings.domainName}:443"; # 443 as this is for client auth
           dns = {
             magic_dns = true;
-            base_domain = "${cfg.subdomain}.${settings.domainName}";
+            base_domain = "${cfg.proxy.subdomain}.${settings.domainName}";
           };
           # disable headscale tls, use caddy
           tls_cert_path = null;
