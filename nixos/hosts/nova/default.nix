@@ -19,6 +19,7 @@
       enable = true;
       domain = settings.domainName;
     };
+    services.ddclient.enable = true;
     services.glance = {
       enable = true;
       proxy = {
@@ -26,7 +27,7 @@
         subdomain = "dashboard";
         internal = false;
         auth = false;
-      }
+      };
     };
     services.minecraftServer.enable = true;
     services.tailscale = {
