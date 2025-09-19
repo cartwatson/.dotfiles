@@ -16,10 +16,23 @@ in
       default = 8001;
       description = "Port for the glance server.";
     };
-    subdomain = lib.mkOption {
-      type = lib.types.str;
-      default = "glance";
-      description = "The subdomain Caddy should use to reverse proxy.";
+    proxy = {
+      enable = lib.mkEnableOption "Enable proxy";
+      subdomain = lib.mkOption {
+        type = lib.types.str;
+        default = "glance";
+        description = "The subdomain the proxy should use to reverse proxy.";
+      };
+      internal = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        description = "Should the proxy host this service internally or externally.";
+      };
+      auth = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        description = "Should the proxy require auth to access this service.";
+      };
     };
   };
 

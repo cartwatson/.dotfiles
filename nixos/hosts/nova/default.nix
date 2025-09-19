@@ -19,11 +19,23 @@
       enable = true;
       domain = settings.domainName;
     };
-    services.glance.enable = true;
+    services.glance = {
+      enable = true;
+      proxy = {
+        enable = true;
+        subdomain = "dashboard";
+        internal = false;
+        auth = false;
+      }
+    };
     services.minecraftServer.enable = true;
     services.tailscale = {
       enable = true;
       server = true;
+      proxy = {
+        enable = true;
+        internal = false;
+      };
     };
   };
 

@@ -4,18 +4,12 @@ let
   baseCfg = config.custom.services;
   cfg = baseCfg.caddy;
 
-  externalVirtualHost = serviceCfg:
-    lib.mkIf serviceCfg.enable {
-      "${serviceCfg.subdomain}.${cfg.domain}".extraConfig = ''
-        reverse_proxy :${toString serviceCfg.port}
-      '';
-    };
-
-  internalVirtualHost = serviceCfg:
-    lib.mkIf serviceCfg.enable {
-      "${serviceCfg.subdomain}.${config.custom.services.tailscale.subdomain}.${cfg.domain}".extraConfig = ''
-        reverse_proxy localhost:${toString serviceCfg.port}
-      '';
+  virtualHost = serviceCfg:
+    lib.mkIf serviceCfg.proxy.enable {
+      "${serviceCfg.proxy.subdomain}${if serviceCfg.proxy.internal then "." + baseCfg.tailscale.proxy.subdomain else ""}.${settings.domainName}".extraConfig =
+        ''
+          reverse_proxy localhost:${toString serviceCfg.port}
+        '';
     };
 in
 {
@@ -24,7 +18,7 @@ in
     domain = lib.mkOption {
       type = lib.types.str;
       default = "example.com";
-      description = "Base domain used for subdomains of services.";
+      description = "Base domain used for proxying";
     };
   };
 
@@ -33,13 +27,11 @@ in
       enable = true;
       virtualHosts = lib.mkMerge [
         # TODO: pull enabled services from config.custom
-        # this could cause issuse wtih multiple minecraft servers though...
-        (externalVirtualHost baseCfg.glance)
-        (externalVirtualHost baseCfg.tailscale)
+        (virtualHost baseCfg.glance)
+        (virtualHost baseCfg.tailscale)
       ];
     };
 
     networking.firewall.allowedTCPPorts = [ 80 443 ];
   };
 }
-

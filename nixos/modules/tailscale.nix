@@ -12,15 +12,28 @@ in
       default = false;
       description = "Setup Tailscale (Headscale) as a server, false (default) is a client setup";
     };
-    port = lib.mkOption {
-      type = lib.types.port;
-      default = 41641;
-      description = "Port for Headscale.";
-    };
-    subdomain = lib.mkOption {
-      type = lib.types.str;
-      default = "ts";
-      description = "The subdomain Caddy should use to reverse proxy.";
+    proxy = {
+      enable = lib.mkEnableOption "Enable proxy";
+      port = lib.mkOption {
+        type = lib.types.port;
+        default = 41641;
+        description = "Port for Headscale.";
+      };
+      subdomain = lib.mkOption {
+        type = lib.types.str;
+        default = "ts";
+        description = "The subdomain Caddy should use to reverse proxy.";
+      };
+      internal = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+        description = "Should the proxy host this service internally or externally.";
+      };
+      auth = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+        description = "Should the proxy require auth to access this service.";
+      };
     };
   };
 
