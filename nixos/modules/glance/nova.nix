@@ -41,14 +41,19 @@
           sites = [
             # TODO: fill in urls
             {
-              title = "cartwatson.com";
-              url = "https://cartwatson.com";
-              icon = "si:github";
-            }
-            {
               title = "Caddy";
               url = "";
-              icon = "si:nginx";
+              icon = "si:caddy";
+            }
+            {
+              title = "authelia";
+              url = "";
+              icon = "si:googleauthenticator";
+            }
+            {
+              title = "grafana";
+              url = "";
+              icon = "si:grafana";
             }
             {
               title = "Jellyfin";
@@ -76,19 +81,24 @@
               icon = "si:immich";
             }
             {
-              title = "authelia";
-              url = "";
-              icon = "si:googleauthenticator";
-            }
-            {
-              title = "grafana";
-              url = "";
-              icon = "si:grafana";
-            }
-            {
               title = "Nix Cache";
               url = "";
               icon = "si:nixos";
+            }
+            {
+              title = "Stats for Strava";
+              url = "";
+              icon = "si:strava";
+            }
+            {
+              title = "ddclient";
+              url = "";
+              icon = "si:cloudflare";
+            }
+            {
+              title = "cartwatson.com";
+              url = "https://cartwatson.com";
+              icon = "si:github";
             }
           ];
         }
