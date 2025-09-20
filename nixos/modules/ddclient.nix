@@ -7,6 +7,11 @@ in
 {
   options.custom.services.ddclient = {
     enable = lib.mkEnableOption "Enable ddclient.";
+    cloudfareApiKeyPath = lib.mkOption {
+      type = lib.types.str;
+      default = "";
+      description = "Cloudflare API token file location";
+    };
   };
 
   # DOCS: https://github.com/ddclient/ddclient/blob/50e8d2ed0072462dd1a00268593242d7ae809531/ddclient.in#L5846-L5888
@@ -17,7 +22,7 @@ in
       interval = "5min";
       protocol = "cloudflare";
       username = "token";
-      # password = config.sops.secrets.cloudflare_api; # NOTE: add to sops
+      passwordFile = cfg.cloudfareApiKeyPath;
       domains = [ settings.domainName ];
       zone = settings.domainName;
       ssl = true;
