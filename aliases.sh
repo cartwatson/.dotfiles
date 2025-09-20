@@ -54,7 +54,7 @@ alias gsll="clear; ll; gs"
 function gco () {
     current_branch=$(git branch --show-current --no-color);
     if [[ ! "$current_branch" == "main" && ! "$current_branch" == "master" ]]; then
-        git checkout $(git config init.defaultBranch);
+        git checkout "$(git config init.defaultBranch)";
     else
         git checkout "$@"
     fi
@@ -62,7 +62,7 @@ function gco () {
 function gac() { git add "$1" && git commit -m "$2"; }
 function gcp() { git commit -m "$@" && git push; }
 function gacp() { git add "$1" && git commit -m "$2" && git push; }
-function gpsu() { git push --set-upstream origin $(git branch --show-current); }
+function gpsu() { git push --set-upstream origin "$(git branch --show-current)"; }
 
 ## override builtins
 function cd() {
@@ -78,6 +78,6 @@ alias clear="clear -x" # don't clear scroll
 ## misc
 alias untar="tar -xvzf"
 alias toggle-theme="$HOME/.dotfiles/toggle-gnome-helix-tmux-light_dark-mode.sh"
-alias jfu="journalctl -f -u"
+alias jfu="journalctl --output=short-iso --follow --unit"
 
 alias rebuild="$HOME/.dotfiles/nixos/rebuild.sh"
