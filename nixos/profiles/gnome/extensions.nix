@@ -8,17 +8,18 @@
     just-perfection
     panel-date-format
     auto-move-windows
+    user-themes
   ]);
 
   programs.dconf.profiles.user.databases = [{
     settings = lib.fix (_self: with lib.gvariant; {
       "org/gnome/shell" = {
-        enabled-extensions = [
-          pkgs.gnomeExtensions.just-perfection.extensionUuid
-          pkgs.gnomeExtensions.panel-date-format.extensionUuid
-          pkgs.gnomeExtensions.astra-monitor.extensionUuid
-          pkgs.gnomeExtensions.auto-move-windows.extensionUuid
-        ];
+        enabled-extensions = (with pkgs.gnomeExtensions; [
+          just-perfection.extensionUuid
+          panel-date-format.extensionUuid
+          auto-move-windows.extensionUuid
+          user-themes.extensionUuid
+        ]);
       };
 
       # EXTENSION SPECIFIC SETTINGS
