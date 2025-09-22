@@ -29,6 +29,7 @@ in
         # TODO: pull enabled services from config.custom
         (virtualHost baseCfg.glance)
         (virtualHost baseCfg.tailscale)
+        ({"caddy.${settings.domainName}".extraConfig = '' respond "Caddy Up!" '';}) # test caddy for glance dash
       ];
     };
 

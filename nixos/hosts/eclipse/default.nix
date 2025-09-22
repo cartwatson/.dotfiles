@@ -6,7 +6,10 @@
   ];
 
   custom = {
-    services.gnome.enable = true;
+    services.gnome = {
+      enable = true;
+      num-workspaces = 3;
+    };
     services.tailscale.enable = true;
   };
 

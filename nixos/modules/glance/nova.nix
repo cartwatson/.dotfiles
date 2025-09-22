@@ -42,7 +42,7 @@
             # TODO: fill in urls
             {
               title = "Caddy";
-              url = "";
+              url = "https://caddy.jjwatson.dev";
               icon = "si:caddy";
             }
             {

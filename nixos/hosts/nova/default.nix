@@ -7,6 +7,7 @@
 
   sops.secrets = {
     "api_tokens/github_readonly" = {};
+    "api_tokens/cloudflare" = {};
     "glance/location" = {};
   };
 
@@ -19,7 +20,10 @@
       enable = true;
       domain = settings.domainName;
     };
-    services.ddclient.enable = true;
+    services.ddclient = {
+      enable = true;
+      cloudfareApiKeyPath = "/run/secrets/api_tokens/cloudflare";
+    };
     services.glance = {
       enable = true;
       proxy = {

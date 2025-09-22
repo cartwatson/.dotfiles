@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-bleedingedge.url = "github:nixos/nixpkgs/master";
 
     sops-nix = {
       url = "github:Mic92/sops-nix";
@@ -16,7 +17,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, sops-nix, nix-minecraft, ... }:
+  outputs = { self, nixpkgs, nixpkgs-unstable, nixpkgs-bleedingedge, sops-nix, nix-minecraft, ... }:
     let
       inherit (nixpkgs) lib;
       system = "x86_64-linux";
@@ -37,6 +38,10 @@
               inherit settings;
               inherit nix-minecraft;
               pkgs-unstable = import nixpkgs-unstable {
+                config.allowUnfree = true;
+                inherit system;
+              };
+              pkgs-bleedingedge = import nixpkgs-bleedingedge {
                 config.allowUnfree = true;
                 inherit system;
               };
