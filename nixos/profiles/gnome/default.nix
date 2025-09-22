@@ -122,7 +122,7 @@ in
 
               "org/gnome/desktop/wm/preferences" = {
                 focus-mode="sloppy";
-                num-workspaces=cfg.num-workspaces;
+                num-workspaces=lib.gvariant.mkInt32 cfg.num-workspaces;
               };
 
               "org/gnome/shell/app-switcher".current-workspace-only = true;
