@@ -11,20 +11,21 @@
     "glance/location" = {};
   };
 
-  custom = {
-    services.ssh = {
+  custom.services = {
+    ssh = {
       enable = true;
       port = 9999;
     };
-    services.caddy = {
+    caddy = {
       enable = true;
       domain = settings.domainName;
     };
-    services.ddclient = {
+
+    ddclient = {
       enable = true;
       cloudfareApiKeyPath = "/run/secrets/api_tokens/cloudflare";
     };
-    services.glance = {
+    glance = {
       enable = true;
       proxy = {
         enable = true;
@@ -33,8 +34,8 @@
         auth = false;
       };
     };
-    services.minecraftServer.enable = true;
-    services.tailscale = {
+    minecraftServer.enable = true;
+    tailscale = {
       enable = true;
       server = true;
       proxy = {

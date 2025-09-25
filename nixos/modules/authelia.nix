@@ -35,7 +35,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    services.authelia."${settings.domainName}" = {
+    services.authelia.instances.jjwatson = {
       enable = true;
       settings = {
         theme = "auto";
