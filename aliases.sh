@@ -46,6 +46,7 @@ function tas() {
 alias gs="git status --short --branch"
 alias ga="git add"
 alias gl="git log --oneline --graph --decorate"
+alias glf="git log --oneline --patch --follow"
 alias gc="git commit -m"
 alias gd="git diff --minimal"
 alias gp="git push"
@@ -53,7 +54,7 @@ alias gpl="git pull"
 alias gsll="clear; ll; gs"
 function gco () {
     current_branch=$(git branch --show-current --no-color);
-    if [[ ! "$current_branch" == "main" && ! "$current_branch" == "master" ]]; then
+    if [[ ! "$current_branch" == "$(git config init.defaultBranch)" ]]; then
         git checkout "$(git config init.defaultBranch)";
     else
         git checkout "$@"
