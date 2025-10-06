@@ -28,10 +28,6 @@ fi
 PS1='\[\033[01;32m\]\u@\h\[\033[0;36m\]${SESSION_TYPE:+("SSH")}\[\033[00m\]:\[\033[01;34m\]\w\[\033[01;31m\]$GIT_BRANCH\[\033[00m\]\033[01;32m\]${IN_NIX_SHELL:+ ($name)}${VIRTUAL_ENV:+ (venv)}\[\033[00m\]\n\$ '
 # PS1='\u@\h${SESSION_TYPE:+("SSH")}:\w$GIT_BRANCH${IN_NIX_SHELL:+ ($name)}${VIRTUAL_ENV:+ (venv)}\n\$ ' # legacy, only used if color prompt not available
 
-unset GIT_BRANCH
-unset SESSION_TYPE
-unset __git_branch_ps1
-
 # ---COMPLETION+ALIASES---------------------------------------------------------
 
 function __source_if_exists() {
@@ -50,8 +46,6 @@ fi
 
 # case insensitive tab completion
 bind -s 'set completion-ignore-case on'
-
-unset __source_if_exists
 
 # ---MISC-----------------------------------------------------------------------
 
