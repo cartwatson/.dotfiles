@@ -4,6 +4,7 @@
 [[ $- != *i* ]] && return
 
 # ---PROMPT---------------------------------------------------------------------
+
 # get current branch
 function __git_branch_ps1() {
     BRANCH=$(git branch --show-current --no-color 2> /dev/null)
@@ -21,6 +22,8 @@ else
         sshd|*/sshd) SESSION_TYPE=remote/ssh;;
     esac
 fi
+
+PROMPT_COMMAND='GIT_BRANCH=$(__git_branch_ps1);'
 
 # create prompt line - example below
 # user@machine(ssh session):working/dir/full/path (git branch)
