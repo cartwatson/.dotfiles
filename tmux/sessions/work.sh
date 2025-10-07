@@ -34,7 +34,7 @@ if [ $? != 0 ]; then
   tmux new-window    -t "$SESH" -n "$window" -c "$HOME/work/sentry-docs"
   tmux split-window  -t "$SESH:$window".1 -v -c "$HOME/work/sentry-docs"
   tmux split-window  -t "$SESH:$window".1 -h -c "$HOME/work/sentry-docs" -f -l 65%
-  tmux send-keys     -t "$SESH:$window".1  "./scripts/deploy.sh" C-m
+  tmux send-keys     -t "$SESH:$window".1  "nix develop .#serve" C-m
   tmux send-keys     -t "$SESH:$window".3  "hx ." C-m
 
   # new window
