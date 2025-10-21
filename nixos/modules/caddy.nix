@@ -7,9 +7,20 @@ let
   virtualHost = serviceCfg:
     lib.mkIf serviceCfg.proxy.enable {
       "${serviceCfg.proxy.subdomain}${if serviceCfg.proxy.internal then "." + baseCfg.tailscale.proxy.subdomain else ""}.${settings.domainName}".extraConfig =
+      if serviceCfg.proxy.auth then
         ''
-          reverse_proxy localhost:${toString serviceCfg.port}
-        '';
+          forward_auth :${config.custom.services.authelia.port} {
+            uri /api/authz/forward-auth
+            copy_headers Remote-User Remote-Groups Remote-Email Remote-Name
+          }
+
+          reverse_proxy :${toString serviceCfg.port}
+        ''
+      else
+        ''
+          reverse_proxy :${toString serviceCfg.port}
+        ''
+      ;
     };
 in
 {
@@ -29,7 +40,7 @@ in
         # TODO: pull enabled services from config.custom
         (virtualHost baseCfg.glance)
         (virtualHost baseCfg.tailscale)
-        ({"caddy.${settings.domainName}".extraConfig = '' respond "Caddy Up!" '';}) # test caddy for glance dash
+        ({"caddy.${cfg.domain}".extraConfig = '' respond "Caddy Up!" '';}) # test caddy for glance dash
       ];
     };
 
