@@ -9,6 +9,8 @@
     chromium
     spotify
     bitwarden-desktop
+
+    flameshot # TODO: find a way to deterministically config this
   ]);
 
   programs.chromium.extensions = [

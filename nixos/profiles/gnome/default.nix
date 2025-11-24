@@ -104,6 +104,12 @@ in
                 name = "File Manager";
               };
 
+              "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
+                binding=["<Shift><Super>s"];
+                command="flameshot gui";
+                name="Screenshot Flameshot";
+              };
+
               "org/gnome/desktop/wm/keybindings" = {
                 move-to-workspace-left = ["<Control><Alt><Shift>Left" "<Control><Alt><Shift>h" "<Super><Shift>h"];
                 move-to-workspace-right = ["<Control><Alt><Shift>Right" "<Control><Alt><Shift>l" "<Super><Shift>l"];
@@ -128,7 +134,6 @@ in
               "org/gnome/shell/app-switcher".current-workspace-only = true;
 
               "org/gnome/shell/keybindings" = {
-                show-screenshot-ui = [ "<Shift><Super>s" ];
                 switch-to-application-1 = mkEmptyArray type.string;
                 switch-to-application-2 = mkEmptyArray type.string;
                 switch-to-application-3 = mkEmptyArray type.string;
