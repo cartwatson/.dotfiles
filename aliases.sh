@@ -6,18 +6,18 @@
 ###############################################################################
 
 ## bash
-alias cdm="clear; cd ~/personal"
-alias cds="clear; cd ~/personal/idx"
-alias cdw="clear; cd ~/work"
-alias cdd="clear; cd ~/.dotfiles"
+alias cdm="clear; cd $HOME/personal"
+alias cds="clear; cd $HOME/personal/idx"
+alias cdw="clear; cd $HOME/work"
+alias cdd="clear; cd $HOME/.dotfiles"
 alias ll="ls -AlvhG --group-directories-first"
 alias mkdir="mkdir -p"
-alias sbr="source ~/.bashrc"
+alias sbr="source $HOME/.bashrc"
 
 ## tmux
-alias tp="~/.dotfiles/tmux/sessions/personal.sh"
-alias tw="~/.dotfiles/tmux/sessions/work.sh"
-alias ide="~/.dotfiles/tmux/sessions/windows/ide.sh"
+alias tp="$HOME/.dotfiles/tmux/sessions/personal.sh"
+alias tw="$HOME/.dotfiles/tmux/sessions/work.sh"
+alias ide="$HOME/.dotfiles/tmux/sessions/windows/ide.sh"
 alias tls="tmux list-sessions"
 function tks() {
     if [ -n "$1" ]; then
