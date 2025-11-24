@@ -78,17 +78,24 @@ fi
 ssh-add -q ~/.ssh/"$file_name" || error "adding key to ssh-agent"
 
 echo -e "\nSuccessully created new key $file_name and added to ssh-agent"
-echo -e "Add the below to $site as user@hostname\n"
+echo -e "Add the below line to $site as $USER@$HOSTNAME"
 cat ~/.ssh/"$file_name".pub
 
 # add to config
 read -p "Add $site to ~/.ssh/config (y/n): " input
 case "$input" in
   y|"yes")
-    echo -e "Host $site\n  IdentityFile ~/.ssh/$file_name\n" >> "$HOME/.ssh/config"
-    if [ ! $? ]; then error "Unable to add key+site combo to ~/.ssh/config"; fi
+    # see if it's already been added to ssh/config and bail if it has
+    if [ cat "$HOME/.ssh/config" | grep -c "$site" != 0 ]; then
+      echo -e "Host $site\n  IdentityFile ~/.ssh/$file_name\n" >> "$HOME/.ssh/config"
+      if [ ! $? ]; then
+        error "Unable to add key+site combo to ~/.ssh/config";
+      fi
+    fi
   ;;
-  *) ;;
+  *)
+    echo "View your `~/.ssh/config` file and ensure it's correct"
+  ;;
 esac
 
 echo
