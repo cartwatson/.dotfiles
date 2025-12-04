@@ -42,6 +42,7 @@
                     { title = "YouTube"; url = "https://youtube.com/" ; }
                     { title = "Instagram"; url = "https://instagram.com/" ; }
                     { title = "Twitter"; url = "https://twitter.com/" ; }
+                    { title = "MC Wordle"; url = "https://www.mcdle.net/" ; }
                   ];
                 }
                 {
