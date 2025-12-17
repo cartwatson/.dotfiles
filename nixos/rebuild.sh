@@ -50,11 +50,6 @@ done
 
 NIXOS_DIRECTORY="$HOME/.dotfiles/nixos"
 
-if [[ "$HOSTNAME" == "nixos" ]]; then
-  echo "use './rebuild --hostname XXXX' to correctly init system"
-  exit
-fi
-
 if [[ "$ISO" == "true" ]]; then
   # attempt to build, if successful, attempt to burn to disk
   NIX_ISO_PATH=$(nix build .#nixosConfigurations.live-iso.config.system.build.isoImage)
@@ -65,6 +60,11 @@ if [[ "$ISO" == "true" ]]; then
     echo "ISO Build failed." >&2
     exit
   fi
+fi
+
+if [[ "$HOSTNAME" == "nixos" ]]; then
+  echo "use './rebuild --hostname XXXX' to correctly init system"
+  exit
 fi
 
 if [[ "$UPDATE" == "true" ]]; then
