@@ -52,19 +52,15 @@ bind -s 'set completion-ignore-case on'
 
 # ---MISC-----------------------------------------------------------------------
 
-# don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
-HISTCONTROL=ignoreboth
+# history file (`man bash` for more info)
+HISTCONTROL=ignoreboth # ignore duplicate lines or lines starting with space
+HISTSIZE=-1            # no limit
+HISTFILESIZE=20000     # 20k lines
 
 # append to the history file, don't overwrite it
 shopt -s histappend
 
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
-
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
+# check the window size after each command and, if necessary, update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
 # make less more friendly for non-text input files, see lesspipe(1)
