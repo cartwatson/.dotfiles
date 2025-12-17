@@ -32,6 +32,10 @@ while [[ $# -gt 0 ]]; do
       CLEANUP="true"
       shift # past argument
       ;;
+    --iso | -i)
+      ISO="true"
+      shift # past argument
+      ;;
     --hostname)
       shift # past argument
       HOSTNAME="$1"
@@ -51,9 +55,20 @@ if [[ "$HOSTNAME" == "nixos" ]]; then
   exit
 fi
 
+if [[ "$ISO" == "true" ]]; then
+  # attempt to build, if successful, attempt to burn to disk
+  NIX_ISO_PATH=$(nix build .#nixosConfigurations.live-iso.config.system.build.isoImage)
+  if [ $? -eq 0 ]; then
+    caligula burn $NIX_ISO_PATH
+    exit ?
+  else
+    echo "ISO Build failed." >&2
+    exit
+  fi
+fi
+
 if [[ "$UPDATE" == "true" ]]; then
   echo "UPDATING FLAKE..."
-  # update flake.lock
   sudo nix flake update
   echo "DONE UPDATING"
 fi

@@ -3,6 +3,11 @@
 { config, lib, pkgs, ... }:
 
 {
+  import = [
+    ./fonts.nix
+    ./gui.nix
+  ];
+
   custom = {
     services.helix.enable = true;
     services.fonts.enable = true;
