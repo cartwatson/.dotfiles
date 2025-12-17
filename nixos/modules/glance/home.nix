@@ -87,6 +87,7 @@
                     { title = "The Promised LAN"; url = "https://notes.pault.ag/tpl/" ; }
                     { title = "12 Steps To Better Code"; url = "https://www.joelonsoftware.com/2000/08/09/the-joel-test-12-steps-to-better-code/" ; }
                     { title = "Writing Functional Specs"; url = "https://www.joelonsoftware.com/2000/10/02/painless-functional-specifications-part-1-why-bother/" ; }
+                    { title = "Thin Desires Are Eating Your Life"; url = "https://www.joanwestenberg.com/thin-desires-are-eating-your-life/" ; }
                   ];
                 }
               ];
