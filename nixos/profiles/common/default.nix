@@ -3,9 +3,8 @@
 { config, lib, pkgs, ... }:
 
 {
-  import = [
+  imports = [
     ./fonts.nix
-    ./gui.nix
   ];
 
   custom = {
@@ -40,7 +39,10 @@
     vim
     tmux
     xclip # needed for tmux->system_clipboard functionality
+
+    # secrets
     sops
+    age
 
     # utilities
     jq
