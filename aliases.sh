@@ -47,7 +47,7 @@ alias gs="git status --short --branch"
 alias ga="git add"
 alias gl="git log --oneline --graph --decorate"
 alias glf="git log --oneline --patch --follow"
-alias gc="git commit -m"
+alias gc="git commit -S -m"
 alias gd="git diff --minimal"
 alias gp="git push"
 alias gpl="git pull"
@@ -60,9 +60,9 @@ function gco () {
         git checkout "$@"
     fi
 }
-function gac() { git add "$1" && git commit -m "$2"; }
-function gcp() { git commit -m "$@" && git push; }
-function gacp() { git add "$1" && git commit -m "$2" && git push; }
+function gac() { git add "$1" && git commit -S -m "$2"; }
+function gcp() { git commit -S -m "$@" && git push; }
+function gacp() { git add "$1" && git commit -S -m "$2" && git push; }
 function gpsu() { git push --set-upstream origin "$(git branch --show-current)"; }
 
 ## override builtins
