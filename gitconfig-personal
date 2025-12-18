@@ -7,10 +7,6 @@
     date = iso-strict
 [init]
     defaultBranch = main
-[gpg]
-	format = ssh
-[gpg "ssh"]
-	defaultKeyCommand = ssh-add -L
 
 # This must be at the end of the file to overwrite settings above
 [includeIf "gitdir:~/work/"]
