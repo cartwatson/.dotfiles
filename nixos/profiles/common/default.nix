@@ -32,6 +32,12 @@
     LC_TIME = "en_US.UTF-8";
   };
 
+  # Configure keymap in X11
+  services.xserver.xkb = {
+    layout = "us";
+    variant = "";
+  };
+
   # List packages installed in system profile. To search, run: $ nix search wget
   environment.systemPackages = (with pkgs; [
     # tools
