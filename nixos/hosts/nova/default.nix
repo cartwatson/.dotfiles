@@ -36,7 +36,6 @@
     services.minecraftServer.enable = true;
     services.tailscale = {
       enable = true;
-      server = true;
       proxy = {
         enable = true;
         internal = false;
