@@ -5,6 +5,12 @@
     ./hardware-configuration.nix
   ];
 
+  custom = {
+    services.plasma = {
+      enable = true;
+    };
+  };
+
   nix.settings.download-buffer-size = 524288000; # 500MB
 
   environment.systemPackages = (with pkgs; [
@@ -22,16 +28,6 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
-
-  # --- PLASMA -----------------------------------------------------------------
-  # Enable the X11 windowing system.
-  # You can disable this if you're only using the Wayland session.
-  services.xserver.enable = true;
-
-  # Enable the KDE Plasma Desktop Environment.
-  services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
-  # --- PLASMA -----------------------------------------------------------------
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
