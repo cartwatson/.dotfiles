@@ -23,6 +23,7 @@
     services.ddclient = {
       enable = true;
       cloudfareApiKeyPath = "/run/secrets/api_tokens/cloudflare";
+      domainName = settings.domainName;
     };
     services.glance = {
       enable = true;

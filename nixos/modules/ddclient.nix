@@ -12,6 +12,11 @@ in
       default = "";
       description = "Cloudflare API token file location";
     };
+    domainName = lib.mkOption {
+      type = lib.types.str;
+      default = "";
+      description = "Domain & Zone name";
+    };
   };
 
   # DOCS: https://github.com/ddclient/ddclient/blob/50e8d2ed0072462dd1a00268593242d7ae809531/ddclient.in#L5846-L5888
@@ -23,10 +28,9 @@ in
       protocol = "cloudflare";
       username = "token";
       passwordFile = cfg.cloudfareApiKeyPath;
-      domains = [ settings.domainName ];
-      zone = settings.domainName;
-      ssl = true;
-      verbose = true; # DEBUG
+      domains = [ cfg.domainName ];
+      zone = cfg.domainName;
+      verbose = true;
     };
   };
 }

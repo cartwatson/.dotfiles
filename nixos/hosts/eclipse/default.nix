@@ -6,8 +6,9 @@
   ];
 
   custom = {
-    services.plasma = {
+    services.gnome = {
       enable = true;
+      numWorkspaces = 3;
     };
   };
 

@@ -6,7 +6,7 @@ in
 {
   options.custom.services.gnome = {
     enable = lib.mkEnableOption "Setup Gnome";
-    num-workspaces = lib.mkOption {
+    numWorkspaces = lib.mkOption {
       type = lib.types.int;
       default = 7;
       description = "Number of Gnome workspaces";
@@ -128,7 +128,7 @@ in
 
               "org/gnome/desktop/wm/preferences" = {
                 focus-mode="sloppy";
-                num-workspaces=lib.gvariant.mkInt32 cfg.num-workspaces;
+                num-workspaces=lib.gvariant.mkInt32 cfg.numWorkspaces;
               };
 
               "org/gnome/shell/app-switcher".current-workspace-only = true;

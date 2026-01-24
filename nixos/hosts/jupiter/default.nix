@@ -8,7 +8,7 @@
   custom = {
     services.gnome = {
       enable = true;
-      num-workspaces = 9;
+      numWorkspaces = 9;
     };
     services.docker.enable = true;
     services.tailscale.enable = true;
