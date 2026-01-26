@@ -61,12 +61,10 @@ in
                 gtk-enable-primary-paste = false;
                 show-battery-percentage = false;
                 enable-hot-corners = false;
-                font-name = if baseCfg.fonts.enable then "Open Sans 11" else null;
-                document-font-name = if baseCfg.fonts.enable then "Open Sans 11" else null;
-                monospace-font-name = if baseCfg.fonts.enable then "Miracode 12" else null;
-                # TODO:
-                # create a setting to determine what font to use
-                # monospace-font-name = "JetBrains Mono Medium 12";
+              } // lib.optionalAttrs baseCfg.fonts.enable {
+                font-name = "Open Sans 11";
+                document-font-name = "Open Sans 11";
+                monospace-font-name = "Miracode 12";
               };
 
               "org/gnome/desktop/notifications" = {
