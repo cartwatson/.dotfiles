@@ -8,6 +8,7 @@
 
   custom = {
     services.gnome.enable = true;
+    services.timezone.automatic = true;
     services.tailscale.enable = true;
     services.gaming = {
       enable = true;

@@ -12,6 +12,7 @@
   };
 
   custom = {
+    secrets.enable = true;
     services.ssh = {
       enable = true;
       port = 9999;
@@ -37,6 +38,7 @@
     services.minecraftServer.enable = true;
     services.tailscale = {
       enable = true;
+      enableSSH = true;
       proxy = {
         enable = true;
         internal = false;

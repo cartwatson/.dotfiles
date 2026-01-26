@@ -6,6 +6,7 @@
   ];
 
   custom = {
+    secrets.enable = true;
     services.gnome = {
       enable = true;
       numWorkspaces = 9;

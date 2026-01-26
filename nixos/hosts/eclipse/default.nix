@@ -6,6 +6,8 @@
   ];
 
   custom = {
+    services.timezone.automatic = true;
+    services.tailscale.enable = true;
     services.gnome = {
       enable = true;
       numWorkspaces = 3;

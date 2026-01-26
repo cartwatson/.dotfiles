@@ -1,11 +1,13 @@
 { config, lib, pkgs, pkgs-bleedingedge, ... }:
 
 let
-  cfg = config.custom.services.gnome;
+  baseCfg = config.custom.services;
+  cfg = baseCfg.gnome;
 in
 {
   options.custom.services.gnome = {
     enable = lib.mkEnableOption "Setup Gnome";
+    allowOverride = lib.mkEnableOption "Allow overriding dconf settings";
     numWorkspaces = lib.mkOption {
       type = lib.types.int;
       default = 7;
@@ -25,18 +27,6 @@ in
       # Enable the GNOME Desktop Environment.
       services.displayManager.gdm.enable = true;
       services.desktopManager.gnome.enable = true;
-
-      # # Enable the X11 windowing system.
-      # services.xserver.enable = true;
-
-      # Configure keymap in X11
-      # services.xserver.xkb = {
-      #   layout = "us";
-      #   variant = "";
-      # };
-
-      # Remove gnome default apps
-      # services.xserver.excludePackages = [ pkgs.xterm ];
 
       environment.gnome.excludePackages = (with pkgs; [
         epiphany              # Web browser
@@ -62,7 +52,7 @@ in
         enable = true;
         profiles.user.databases = [
           {
-            lockAll = true; # prevents overriding
+            lockAll = (!cfg.allowOverride);
             settings = lib.fix (_self: with lib.gvariant; {
               # BASIC GNOME SETTINGS
               "org/gnome/desktop/interface" = {
@@ -71,9 +61,9 @@ in
                 gtk-enable-primary-paste = false;
                 show-battery-percentage = false;
                 enable-hot-corners = false;
-                font-name = "Open Sans 11";
-                document-font-name = "Open Sans 11";
-                monospace-font-name = "Miracode 12";
+                font-name = if baseCfg.fonts.enable then "Open Sans 11" else null;
+                document-font-name = if baseCfg.fonts.enable then "Open Sans 11" else null;
+                monospace-font-name = if baseCfg.fonts.enable then "Miracode 12" else null;
                 # TODO:
                 # create a setting to determine what font to use
                 # monospace-font-name = "JetBrains Mono Medium 12";

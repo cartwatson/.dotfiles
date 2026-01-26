@@ -7,6 +7,7 @@ in
 {
   options.custom.services.tailscale = {
     enable = lib.mkEnableOption "Enable tailscale.";
+    enableSSH = lib.mkEnableOption "Enable ssh over tailscale.";
     server = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -53,6 +54,7 @@ in
         port = cfg.port;
         openFirewall = true;
         permitCertUid = if baseCfg.caddy.enable then "caddy" else null;
+        extraUpFlags = if cfg.enableSSH then [ "--ssh" ] else [ ];
       };
     })
 
