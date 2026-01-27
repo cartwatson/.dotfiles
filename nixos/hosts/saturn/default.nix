@@ -26,6 +26,7 @@
   };
 
   environment.systemPackages = (with pkgs; [
+    godot
   ]);
 
   ##### TODO Copy in the following #####
