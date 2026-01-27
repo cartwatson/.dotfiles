@@ -54,8 +54,8 @@ if [[ "$ISO" == "true" ]]; then
   # attempt to build, if successful, attempt to burn to disk
   NIX_ISO_PATH=$(nix build .#nixosConfigurations.live-iso.config.system.build.isoImage)
   if [ $? -eq 0 ]; then
-    caligula burn $NIX_ISO_PATH
-    exit ?
+    caligula burn "$NIX_ISO_PATH"
+    exit $?
   else
     echo "ISO Build failed." >&2
     exit
@@ -77,7 +77,7 @@ if [[ "$UPDATE_HW" == "true" ]]; then
   echo "UPDATING HARDWARE CONFIG..."
   # regenerate HW config and template config, rm template config
   sudo nixos-generate-config --dir "$NIXOS_DIRECTORY/hosts/$HOSTNAME"
-  rm "$HOME/.dotfiles/nixos/hosts/$HOSTNAME/configuration.nix"
+  sudo rm "$HOME/.dotfiles/nixos/hosts/$HOSTNAME/configuration.nix"
   echo "DONE UPDATING HARDWARE CONFIG"
 fi
 
