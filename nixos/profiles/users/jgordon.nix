@@ -17,6 +17,7 @@
         (lib.mkIf config.networking.networkmanager.enable "networkmanager")
         (lib.optional config.virtualisation.docker.enable "docker")
       ];
+
       packages = (with pkgs; [
       ]) ++ (with pkgs-unstable; [
       ]);

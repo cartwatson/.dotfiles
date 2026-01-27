@@ -5,12 +5,10 @@
 
 {
   environment.systemPackages = (with pkgs-unstable; [
-    vscodium
     chromium
+    vscodium
     spotify
     bitwarden-desktop
-
-    flameshot # TODO: find a way to deterministically config this
   ]);
 
   programs.chromium.extensions = [

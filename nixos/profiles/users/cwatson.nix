@@ -17,6 +17,7 @@
         (lib.mkIf config.networking.networkmanager.enable "networkmanager")
         # (lib.optional config.virtualisation.docker.enable "docker")
       ];
+
       packages = (with pkgs; [
         caligula # ISO Burner
         speedtest-go
@@ -25,6 +26,7 @@
         discord
         slack
         drawing # MS Paint alternative
+        flameshot # TODO: find a way to deterministically config this
       ])) ++ (with pkgs-unstable; [
       ]);
     };

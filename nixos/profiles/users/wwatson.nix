@@ -16,6 +16,7 @@
         # Do not add this group if <blank> is not enabled
         (lib.mkIf config.networking.networkmanager.enable "networkmanager")
       ];
+
       packages = (with pkgs; [
       ] ++ (lib.lists.optionals config.custom.services.gnome.enable [ # only add GUI apps if using gnome
         discord
