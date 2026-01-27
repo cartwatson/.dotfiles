@@ -25,11 +25,9 @@
     in {
       # https://github.com/Electrostasy/dots/blob/0eb9d91d517d74b7f0891bff5992b17eb50f207c/flake.nix#L102-L121
       nixosConfigurations = lib.pipe ./hosts [
-        # List all the defined hosts.
         builtins.readDir
 
-        # Filter specifically for directories in case there are single files (there aren't)
-        (lib.filterAttrs (_name: value: value == "directory"))
+        (lib.filterAttrs (name: _value: name != "hardware")) # don't try to build hw folder
 
         # Define the NixOS configurations
         (lib.mapAttrs (name: _value:

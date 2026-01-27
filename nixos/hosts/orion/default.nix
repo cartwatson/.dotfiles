@@ -3,7 +3,7 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ./nvidia.nix
+    ../hardware/nvidia.nix
   ];
 
   custom = {
