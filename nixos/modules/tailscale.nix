@@ -7,7 +7,7 @@ in
 {
   options.custom.services.tailscale = {
     enable = lib.mkEnableOption "Enable tailscale.";
-    enableSSH = lib.mkEnableOption "Enable ssh over tailscale.";
+    ssh.enable = lib.mkEnableOption "Enable ssh over tailscale.";
     server = lib.mkOption {
       type = lib.types.bool;
       default = false;

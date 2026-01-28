@@ -28,7 +28,7 @@
     };
     services.tailscale = {
       enable = true;
-      enableSSH = true;
+      ssh.enable = true;
     };
   };
 
