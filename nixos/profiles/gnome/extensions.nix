@@ -3,7 +3,6 @@
 {
   environment.systemPackages = (with pkgs; [
     gnome-tweaks
-    gtop # needed for astra-monitor GPU # TODO: REMOVE THIS
   ]) ++ (with pkgs.gnomeExtensions; [
     just-perfection
     panel-date-format
@@ -23,7 +22,7 @@
       };
 
       # EXTENSION SPECIFIC SETTINGS
-      "org/gnome/shell/extensions/panel-date-format".format = "%Y-%m-%d %H:%M W%V-%u";
+      "org/gnome/shell/extensions/panel-date-format".format = "%Y-%m-%d %H:%M";
 
       "org/gnome/shell/extensions/auto-move-windows".application-list = [
         "spotify.desktop:1"

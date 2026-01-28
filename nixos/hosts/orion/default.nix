@@ -3,11 +3,12 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ./nvidia.nix
+    ../hardware/nvidia.nix
   ];
 
   custom = {
     services.gnome.enable = true;
+    services.timezone.automatic = true;
     services.tailscale.enable = true;
     services.gaming = {
       enable = true;
