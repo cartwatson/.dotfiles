@@ -31,11 +31,3 @@ packages = (with pkgs; [
   package6
 ]);
 ```
-
-## TODO Saturn
-
-minimize, maximize
-12 hour time
-dock
-sleep
-change colors in terminal
