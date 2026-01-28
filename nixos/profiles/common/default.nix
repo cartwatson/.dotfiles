@@ -18,6 +18,9 @@
     users.jgordon.enable = lib.mkDefault false;
   };
 
+  # Enable firmware updates
+  hardware.enableRedistributableFirmware = true;
+
   # Enable networking
   networking.networkmanager.enable = lib.mkDefault true;
 
