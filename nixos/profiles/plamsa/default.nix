@@ -9,7 +9,6 @@ in
   };
 
   imports = [
-    ../common/gui.nix
   ];
 
   config = lib.mkMerge [
@@ -18,6 +17,7 @@ in
         enable = true;
         wayland.enable = true;
       };
+
       services.desktopManager.plasma6.enable = true;
 
       environment.plasma6.excludePackages = with pkgs.kdePackages; [

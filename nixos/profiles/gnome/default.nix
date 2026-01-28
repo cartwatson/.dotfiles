@@ -35,8 +35,6 @@ in
   imports = [
     ./terminal.nix
     ./extensions.nix
-
-    ../common/gui.nix
   ];
 
   config = lib.mkMerge [
