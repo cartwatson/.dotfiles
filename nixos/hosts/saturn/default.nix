@@ -14,6 +14,12 @@
       enable = true;
       numWorkspaces = 1;
       allowOverride = true;
+      terminal.enable = false;
+      extensions.listOfExtensions = (with pkgs.gnomeExtensions; [
+        just-perfection
+        user-themes
+        # dash-to-dock # TODO: figure out if this is still getting updates or find a diff one
+      ]);
     };
     services.gaming = {
       enable = true;

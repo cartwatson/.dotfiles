@@ -13,6 +13,23 @@ in
       default = 7;
       description = "Number of Gnome workspaces";
     };
+    terminal = {
+      enable = lib.mkEnableOption "Setup Gnome Terminal" // { default = true; };
+      customize = lib.mkEnableOption "Customize Gnome Terminal (only used if terminal is enabled)" // { default = true; };
+    };
+    extensions = {
+      enable = lib.mkEnableOption "Enable Gnome Extensions" // { default = true; };
+      listOfExtensions = lib.mkOption {
+        type = lib.types.listOf lib.types.package;
+        default = (with pkgs.gnomeExtensions; [
+          just-perfection
+          panel-date-format
+          auto-move-windows
+          user-themes
+        ]);
+        description = "List of Gnome extension packages to install";
+      };
+    };
   };
 
   imports = [
@@ -40,7 +57,6 @@ in
         gnome-maps
         gnome-weather
         gnome-clocks
-        gnome-console
         # keep for now
         # gnome-music           # Music player
       ]);
