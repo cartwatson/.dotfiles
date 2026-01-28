@@ -5,18 +5,17 @@
 {
   imports = [
     ./fonts.nix
+    ./timezone.nix # always enabled
   ];
 
   custom = {
-    services.helix.enable = true;
-    services.fonts.enable = true;
+    services.helix.enable = lib.mkDefault true;
+    services.fonts.enable = lib.mkDefault true;
 
-    users.cwatson.enable = true;
-    users.jgordon.enable = false;
+    users.cwatson.enable = lib.mkDefault true;
+    users.wwatson.enable = lib.mkDefault false;
+    users.jgordon.enable = lib.mkDefault false;
   };
-
-  # Set your time zone.
-  time.timeZone = "America/Los_Angeles";
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
@@ -32,12 +31,6 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-  };
-
   # List packages installed in system profile. To search, run: $ nix search wget
   environment.systemPackages = (with pkgs; [
     # tools
@@ -45,10 +38,6 @@
     vim
     tmux
     xclip # needed for tmux->system_clipboard functionality
-
-    # secrets
-    sops
-    age
 
     # utilities
     jq
