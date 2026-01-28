@@ -18,8 +18,9 @@
       extensions.listOfExtensions = (with pkgs.gnomeExtensions; [
         just-perfection
         user-themes
-        # dash-to-dock # TODO: figure out if this is still getting updates or find a diff one
-      ]);
+      ]) ++ [
+        pkgs.gnome49Extensions."dash-to-dock@micxgx.gmail.com"
+      ];
     };
     services.gaming = {
       enable = true;

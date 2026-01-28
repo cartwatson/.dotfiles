@@ -6,7 +6,7 @@ in
 {
   config = lib.mkIf cfg.terminal.enable {
     environment.gnome.excludePackages = (with pkgs; [
-        gnome-console
+      gnome-console
     ]);
 
     environment.systemPackages = (with pkgs; [
