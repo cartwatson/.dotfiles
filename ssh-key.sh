@@ -86,6 +86,8 @@ read -p "Add $site to ~/.ssh/config (y/n): " input
 case "$input" in
   y|"yes")
     # see if it's already been added to ssh/config and bail if it has
+    mkdir -p "$HOME/.ssh"
+    touch "$HOME/.ssh/config"
     if [ cat "$HOME/.ssh/config" | grep -c "$site" != 0 ]; then
       echo -e "Host $site\n  IdentityFile ~/.ssh/$file_name\n" >> "$HOME/.ssh/config"
       if [ ! $? ]; then
