@@ -10,7 +10,7 @@ alias cdm="clear; cd $HOME/personal"
 alias cds="clear; cd $HOME/personal/idx"
 alias cdw="clear; cd $HOME/work"
 alias cdd="clear; cd $HOME/.dotfiles"
-alias ll="ls -AlvhG --group-directories-first"
+alias ll="ls -AlvhG --group-directories-first --color=always"
 alias mkdir="mkdir -p"
 alias sbr="source $HOME/.bashrc"
 

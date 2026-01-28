@@ -2,6 +2,7 @@
 
 {
   imports = [
+    # TODO: change to gnome installer
     "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
   ];
 
