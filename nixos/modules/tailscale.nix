@@ -6,8 +6,14 @@ let
 in
 {
   options.custom.services.tailscale = {
-    enable = lib.mkEnableOption "Enable tailscale.";
-    ssh.enable = lib.mkEnableOption "Enable ssh over tailscale.";
+    enable = lib.mkEnableOption "Enable tailscale";
+    ssh.enable = lib.mkEnableOption "Enable ssh over tailscale (requires authKeyFile to be set)";
+    exit-node.enable = lib.mkEnableOption "Advertise machine as exit node";
+    authKeyFile = lib.mkOption {
+      type = lib.types.nullOr lib.types.path;
+      default = null;
+      description = "Path to auth file";
+    };
     server = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -54,7 +60,10 @@ in
         port = cfg.port;
         openFirewall = true;
         permitCertUid = if baseCfg.caddy.enable then "caddy" else null;
-        extraUpFlags = if cfg.enableSSH then [ "--ssh" ] else [ ];
+        authKeyFile = cfg.authKeyFile;
+        # only works if authkeyfile is provided
+        extraUpFlags = if (cfg.authKeyFile != null && cfg.ssh.enable) then [ "--ssh" ] else [ ];
+        extraSetFlags = if cfg.exit-node.enable then [ "--advertise-exit-node" ] else [ ];
       };
     })
 

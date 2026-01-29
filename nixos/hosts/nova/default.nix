@@ -8,6 +8,7 @@
   sops.secrets = {
     "api_tokens/github_readonly" = {};
     "api_tokens/cloudflare" = {};
+    # "tailscale/auth_key" = {}; # TODO: find this
     "glance/location" = {};
   };
 
@@ -39,10 +40,12 @@
     services.tailscale = {
       enable = true;
       ssh.enable = true;
-      proxy = {
-        enable = true;
-        internal = false;
-      };
+      exit-node.enable = true;
+      # authKeyFile = "/run/secrets/tailscale/auth_key"
+      # proxy = {
+      #   enable = true;
+      #   internal = false;
+      # };
     };
   };
 
