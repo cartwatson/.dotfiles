@@ -39,16 +39,15 @@
   };
 
   environment.systemPackages = (with pkgs; [
-    # tools
+    # cli tools + utilities
     git
     vim
     tmux
-    xclip # needed for tmux->system_clipboard functionality
-
-    # utilities
+    xclip # needed for tmux + helix gh system_clipboard functionality
     jq
     btop
     tree
+    gh
   ]);
 
   # Allow unfree packages
