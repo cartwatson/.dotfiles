@@ -2,6 +2,9 @@
 # Author: github.com/cartwatson
 # Desc: Init new systems with config files
 
+# Working Dir
+WORKING_DIR=$(pwd)
+
 # Define ANSI escape codes
 red_bg="\033[41m"     # Red background
 blue_bg="\033[44m"    # Blue background
@@ -23,9 +26,9 @@ function backup_files() {
 }
 
 function create_dir() {
-    if [ ! -d ~/"$1" ]; then
+    if [ ! -d "$HOME/$1" ]; then
         print_pending "Creating $1..."
-        if mkdir -p ~/"$1"; then
+        if mkdir -p "$HOME/$1"; then
             print_success "Created $1"
         else
             print_error "Creating $1"
@@ -37,20 +40,20 @@ function create_dir() {
 function symlink_config {
     # create backups
     backup_files "$HOME/.bashrc" "$HOME/.gitconfig"
-    
+
     # create symlinks for files
     failed=0
     print_pending "Creating symlinks for bashrc, aliases, vimconfig, gitconfig, and tmuxconfig..."
-    ln -s ~/.dotfiles/bashrc.sh          ~/.bashrc          || ((failed++))
-    ln -s ~/.dotfiles/aliases.sh         ~/.bash_aliases    || ((failed++))
-    ln -s ~/.dotfiles/profile.sh         ~/.profile         || ((failed++))
-    ln -s ~/.dotfiles/vimrc.vim          ~/.vimrc           || ((failed++))
-    ln -s ~/.dotfiles/gitconfig-personal ~/.gitconfig       || ((failed++))
-    ln -s ~/.dotfiles/tmux/tmux.conf     ~/.tmux.conf       || ((failed++))
+    ln -s "$WORKING_DIR"/bashrc.sh          "$HOME"/.bashrc          || ((failed++))
+    ln -s "$WORKING_DIR"/aliases.sh         "$HOME"/.bash_aliases    || ((failed++))
+    ln -s "$WORKING_DIR"/profile.sh         "$HOME"/.profile         || ((failed++))
+    ln -s "$WORKING_DIR"/vimrc.vim          "$HOME"/.vimrc           || ((failed++))
+    ln -s "$WORKING_DIR"/gitconfig-personal "$HOME"/.gitconfig       || ((failed++))
+    ln -s "$WORKING_DIR"/tmux/tmux.conf     "$HOME"/.tmux.conf       || ((failed++))
 
     if [ ! -f ~/work/.gitconfig ]; then
         # don't create symlink here so this file can be edited
-        ln ~/.dotfiles/gitconfig-personal ~/work/.gitconfig
+        ln "$WORKING_DIR"/gitconfig-personal "$HOME"/work/.gitconfig
     fi
 
     if [ "$failed" -eq 0 ]; then
@@ -124,7 +127,7 @@ function wsl_install {
 }
 
 function nixos_install {
-    NIX_DIR="$HOME/.dotfiles/nixos/hosts/"
+    NIX_DIR="$WORKING_DIR/nixos/hosts/"
 
     if [ "$HOSTNAME" == "nixos" ]; then
         # if brand new machine
@@ -142,18 +145,19 @@ function nixos_install {
     fi
 
     sudo mv /etc/nixos/hardware-configuration.nix "$NIX_DIR"
-    sudo chown -R cwatson:users "$NIX_DIR"
+    sudo chown -R "$USER":users "$NIX_DIR"
 
     # link configs
+    # TODO: don't think this is actually necessary tbh
     sudo ln -s "$NIX_DIR"/default.nix /etc/nixos/configuration.nix
     sudo ln -s "$NIX_DIR"/hardware-configuration.nix /etc/nixos/
 
     # rebuild
     if git add nixos/hosts/"$HOSTNAME"; then
-        echo "\`git add\` failed! This will break NixOS build process"
+        echo -e "\`git add\` failed! This will break NixOS build process.\nMake sure you're in $HOME/.dotfiles"
         exit 1
     fi
-    ~/.dotfiles/nixos/rebuild.sh --hostname "$HOSTNAME"
+    "$WORKING_DIR"/nixos/rebuild.sh --hostname "$HOSTNAME"
 }
 
 function full_install {
@@ -220,16 +224,16 @@ function remote_machine_install {
 
 function welcome_menu {
     echo "
-     _       __________   __________  __  _________
-    | |     / / ____/ /  / ____/ __ \/  |/  / ____/
-    | | /| / / __/ / /  / /   / / / / /|_/ / __/   
-    | |/ |/ / /___/ /__/ /___/ /_/ / /  / / /___   
-    |__/|__/_____/_____\____/\____/_/  /_/_____/   
-       _________    ____ ________________  
-      / ____/   |  / __ /_  __/ ____/ __ \ 
-     / /   / /| | / /_/ // / / __/ / /_/ / 
-    / /___/ ___ |/ _, _// / / /___/ _, _/  
-    \____/_/  |_/_/ |_|/_/ /_____/_/ |_|   
+ _       __________   __________  __  _________
+| |     / / ____/ /  / ____/ __ \/  |/  / ____/
+| | /| / / __/ / /  / /   / / / / /|_/ / __/
+| |/ |/ / /___/ /__/ /___/ /_/ / /  / / /___
+|__/|__/_____/_____\____/\____/_/  /_/_____/
+   _________    ____ ________________
+  / ____/   |  / __ /_  __/ ____/ __ \\
+ / /   / /| | / /_/ // / / __/ / /_/ /
+/ /___/ ___ |/ _, _// / / /___/ _, _/
+\____/_/  |_/_/ |_|/_/ /_____/_/ |_|
     "
 
     echo
