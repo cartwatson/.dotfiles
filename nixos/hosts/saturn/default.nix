@@ -33,8 +33,11 @@
   };
 
   environment.systemPackages = (with pkgs; [
-    godot
     firefox
+
+    # GAME DEV
+    godot
+    godot-export-templates-bin
   ]);
 
   # Bootloader.
