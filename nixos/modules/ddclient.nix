@@ -28,7 +28,11 @@ in
       protocol = "cloudflare";
       username = "token";
       passwordFile = cfg.cloudfareApiKeyPath;
-      domains = [ cfg.domainName ];
+      domains = [
+        cfg.domainName
+        ("*." + cfg.domainName)
+        ("playmc." + cfg.domainName)
+      ];
       zone = cfg.domainName;
       verbose = true;
     };
