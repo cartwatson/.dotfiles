@@ -48,6 +48,7 @@
     btop
     tree
     gh
+    radeontop # should be dynamic but I don't have many nvidia cards
   ]);
 
   # Allow unfree packages
