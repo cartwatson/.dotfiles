@@ -14,6 +14,7 @@
 
   custom = {
     secrets.enable = true;
+    services.timezone.tz = "Etc/Zulu";
     services.ssh = {
       enable = true;
       port = 9999;
