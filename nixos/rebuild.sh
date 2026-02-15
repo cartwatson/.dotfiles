@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+SHB_RELEASE=0.7.3
+
 UPDATE="false"
 UPDATE_HW="false"
 REBUILD="true"
@@ -69,7 +71,9 @@ fi
 
 if [[ "$UPDATE" == "true" ]]; then
   echo "UPDATING FLAKE..."
-  sudo nix flake update
+  sudo nix flake update \
+    --override-input selfhostblocks github:ibizaman/selfhostblocks/$SHB_RELEASE \
+    selfhostblocks
   echo "DONE UPDATING"
 fi
 

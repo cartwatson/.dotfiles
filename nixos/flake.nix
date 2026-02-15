@@ -15,13 +15,26 @@
       url = "github:Infinidoge/nix-minecraft";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+
+    selfhostblocks.url = "github:ibizaman/selfhostblocks";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, nixpkgs-bleedingedge, sops-nix, nix-minecraft, ... }:
+  outputs = {
+    self,
+    nixpkgs,
+    nixpkgs-unstable,
+    nixpkgs-bleedingedge,
+    sops-nix,
+    nix-minecraft,
+    selfhostblocks,
+    ...
+  }:
     let
       inherit (nixpkgs) lib;
       system = "x86_64-linux";
       settings = import ./profiles/server-settings.nix;
+      nixpkgsPatchedSHB = selfhostblocks.lib.${system}.patchedNixpkgs;
+      hostsUsingSHB = [ "nova" ];
     in {
       # https://github.com/Electrostasy/dots/blob/0eb9d91d517d74b7f0891bff5992b17eb50f207c/flake.nix#L102-L121
       nixosConfigurations = lib.pipe ./hosts [
@@ -31,7 +44,14 @@
 
         # Define the NixOS configurations
         (lib.mapAttrs (name: _value:
-          lib.nixosSystem {
+          # conditionally include SHB for servers only
+          # attempting to avoid any issues with using the patched nixpkgs
+          let
+            usesSHB = builtins.elem name hostsUsingSHB;
+            nixpkgsToUse = if usesSHB then nixpkgsPatchedSHB else nixpkgs.lib;
+            shbModules = if usesSHB then [ selfhostblocks.nixosModules.default ] else [];
+          in
+          nixpkgsToUse.nixosSystem {
             specialArgs = {
               inherit settings;
               inherit nix-minecraft;
@@ -52,7 +72,7 @@
               ./hosts/${name}
               ./modules
               ./profiles
-            ];
+            ] ++ shbModules;
           }
         ))
       ];
