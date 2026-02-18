@@ -24,17 +24,6 @@
                   ];
                 }
                 {
-                  title = "NPR";
-                  color = "\${GRUVBOX_AQUA}";
-                  links = [
-                    { title = "World News"; url = "https://text.npr.org/1004" ; }
-                    { title = "Science"; url = "https://text.npr.org/1007" ; }
-                    { title = "Culture"; url = "https://text.npr.org/1008" ; }
-                    { title = "Space"; url = "https://text.npr.org/1026" ; }
-                    { title = "Mental Health"; url = "https://text.npr.org/1029" ; }
-                  ];
-                }
-                {
                   title = "Social";
                   color = "\${GRUVBOX_PURPLE}";
                   links = [
@@ -128,12 +117,46 @@
             }
             {
               type = "rss";
-              title = "RSS";
+              title = "selfhst";
               style = "vertical-list";
               feeds = [
                 {
                   url = "https://selfh.st/rss";
                   title = "selfh.st";
+                }
+              ];
+            }
+            {
+              type = "rss";
+              title = "Bitwarden";
+              style = "vertical-list";
+              feeds = [
+                {
+                  url = "https://bitwarden.com/blog/feed.xml";
+                  title = "Bitwarden";
+                }
+              ];
+            }
+            {
+              type = "rss";
+              title = "NPR";
+              style = "vertical-list";
+              feeds = [
+                {
+                  url = "https://feeds.npr.org/1004/rss.xml";
+                  title = "World News";
+                }
+                {
+                  url = "https://feeds.npr.org/1007/rss.xml";
+                  title = "Science";
+                }
+                {
+                  url = "https://feeds.npr.org/1008/rss.xml";
+                  title = "Culture";
+                }
+                {
+                  url = "https://feeds.npr.org/1026/rss.xml";
+                  title = "Space";
                 }
               ];
             }
