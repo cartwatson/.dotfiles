@@ -139,6 +139,17 @@
             }
             {
               type = "rss";
+              title = "Cons";
+              style = "vertical-list";
+              feeds = [
+                {
+                  url = "https://defcon.org/html/links/defconrss.xml";
+                  title = "DefCon";
+                }
+              ];
+            }
+            {
+              type = "rss";
               title = "NPR";
               style = "vertical-list";
               feeds = [
