@@ -44,6 +44,7 @@
     vim
     tmux
     xclip # needed for tmux + helix gh system_clipboard functionality
+    fzf
     jq
     btop
     tree

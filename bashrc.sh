@@ -50,6 +50,9 @@ fi
 # case insensitive tab completion
 bind -s 'set completion-ignore-case on'
 
+# ctrl+R fzf
+eval "$(fzf --bash)"
+
 # ---MISC-----------------------------------------------------------------------
 
 # history file (`man bash` for more info)
