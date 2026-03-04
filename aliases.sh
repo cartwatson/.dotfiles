@@ -77,6 +77,7 @@ function cd() {
 alias clear="clear -x" # don't clear scroll
 
 ## misc
+alias zip="tar -czf"
 alias untar="tar -xvzf"
 alias toggle-theme="$HOME/.dotfiles/toggle-gnome-helix-tmux-light_dark-mode.sh"
 alias jfu="journalctl --output=short-iso --follow --unit"
