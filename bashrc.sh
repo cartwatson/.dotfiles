@@ -48,7 +48,7 @@ if ! shopt -oq posix; then
 fi
 
 # case insensitive tab completion
-bind -s 'set completion-ignore-case on'
+bind 'set completion-ignore-case on'
 
 # ctrl+R fzf
 eval "$(fzf --bash)"
