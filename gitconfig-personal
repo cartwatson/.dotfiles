@@ -7,6 +7,8 @@
     date = iso-strict
 [init]
     defaultBranch = main
+[alias]
+    delete-local-merged = "!git fetch --prune && git branch -vv | grep ': gone]' && awk '{print $1}' | xargs git branch -D"
 
 # This must be at the end of the file to overwrite settings above
 [includeIf "gitdir:~/work/"]
