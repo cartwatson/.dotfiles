@@ -21,6 +21,7 @@ trim-trailing-whitespace = true
 color-modes = true
 completion-timeout = 5
 completion-replace = true
+end-of-line-diagnostics = "error"
 
 [editor.cursor-shape]
 insert = "bar"

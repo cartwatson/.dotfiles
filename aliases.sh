@@ -53,12 +53,7 @@ alias gp="git push"
 alias gpl="git pull"
 alias gsll="clear; ll; gs"
 function gco () {
-    current_branch=$(git branch --show-current --no-color);
-    if [[ ! "$current_branch" == "$(git config init.defaultBranch)" ]]; then
-        git checkout "$(git config init.defaultBranch)";
-    else
-        git checkout "$@"
-    fi
+    git checkout "$(git config init.defaultBranch)";
 }
 function gac() { git add "$1" && git commit -m "$2"; }
 function gcp() { git commit -m "$@" && git push; }
