@@ -14,5 +14,6 @@
 
     ./minecraft
     ./glance
+    ./openttd
   ];
 }

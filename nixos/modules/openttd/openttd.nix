@@ -12,6 +12,10 @@ let
     server_advertise = ${lib.boolToString cfg.advertise}
     pause_on_join = true
     min_active_clients = 1
+    reload_cfg = true
+
+    [ai]
+    ai_in_multiplayer = false
 
     [gui]
     autosave = 2
