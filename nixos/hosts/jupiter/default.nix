@@ -17,6 +17,7 @@
       enable = true;
       minecraft = true;
       sunshine = true;
+      openttd = true;
     };
   };
 

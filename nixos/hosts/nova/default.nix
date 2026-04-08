@@ -48,6 +48,13 @@
       #   internal = false;
       # };
     };
+    services.openttd.server = {
+      enable = true;
+      serverName = "watson";
+      serverPassword = ""; # TODO: hide this lol
+      advertise = true;
+      savegame = "/var/lib/openttd/worlds/watson.sav"; # TODO: do something here
+    };
   };
 
   # Bootloader.

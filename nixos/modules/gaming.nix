@@ -7,18 +7,10 @@ in
 {
   options.custom.services.gaming = {
     enable = lib.mkEnableOption "Enable Gaming.";
-    steam = lib.mkOption {
-      type = lib.types.bool;
-      default = true;
-    };
-    minecraft = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-    };
-    sunshine = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-    };
+    steam = lib.mkEnableOption "Install Steam";
+    minecraft = lib.mkOption "Install PrismLauncher for Minecraft";
+    sunshine = lib.mkEnableOption "Install & enable Sunshine game streaming";
+    openttd = lib.mkEnableOption "Install OpenTTD";
   };
 
   config = lib.mkIf cfg.enable (
@@ -74,6 +66,12 @@ in
             { from = 8000; to = 8010; }
           ];
         };
+      })
+
+      (lib.mkIf cfg.openttd {
+        environment.systemPackages = [
+          openttd
+        ];
       })
     ]
   );
