@@ -25,6 +25,7 @@
     services.gaming = {
       enable = true;
       minecraft = true;
+      openttd = true;
     };
     services.tailscale = {
       enable = true;
