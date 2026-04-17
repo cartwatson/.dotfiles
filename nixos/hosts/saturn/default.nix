@@ -24,6 +24,7 @@
     };
     services.gaming = {
       enable = true;
+      steam = true;
       minecraft = true;
       openttd = true;
     };
