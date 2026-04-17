@@ -69,7 +69,7 @@ in
       })
 
       (lib.mkIf cfg.openttd {
-        environment.systemPackages = (with pkgs; [
+        environment.systemPackages = (with pkgs-unstable; [
           openttd
         ]);
       })
