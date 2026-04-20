@@ -57,7 +57,7 @@ function gco () {
 }
 function gac() { git add "$1" && git commit -m "$2"; }
 function gcp() { git commit -m "$@" && git push; }
-function gacp() { git add "$1" && git commit -m "$2" && git push; }
+function gacp() { git add "${@:1:$#-1}" && git commit -m "${@: -1}" && git push; }
 function gpsu() { git push --set-upstream origin "$(git branch --show-current)"; }
 
 ## override builtins
@@ -78,3 +78,25 @@ alias toggle-theme="$HOME/.dotfiles/toggle-gnome-helix-tmux-light_dark-mode.sh"
 alias jfu="journalctl --output=short-iso --follow --unit"
 
 alias rebuild="$HOME/.dotfiles/nixos/rebuild.sh"
+
+function git-custom-init-status() {
+    echo "Who built this?"
+    git shortlog -sn --no-merges | head -5
+    read
+
+    echo "What files change often?"
+    git log --format=format: --name-only --since="1 year ago" | sort | uniq -c | sort -nr | head -20
+    read
+
+    echo "What files are getting fixes?"
+    git log -i -E --grep="fix|bug|broken" --name-only --format='' | sort | uniq -c | sort -nr | head -20
+    read
+
+    echo "Commit count per month"
+    git log --format='%ad' --date=format:'%Y-%m' | sort | uniq -c
+    read
+
+    echo "How often are reverts/hotfixes needed?"
+    git log --oneline --since="1 year ago" | grep -iE 'revert|hotfix|emergency|rollback'
+    read
+}
