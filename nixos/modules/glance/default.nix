@@ -5,10 +5,6 @@ let
   cfg = baseCfg.glance;
 in
 {
-  # NOTE: needed until 25.11 for `environmnetFile` option
-  disabledModules = ["services/web-apps/glance.nix"];
-  imports = ["${pkgs-unstable.path}/nixos/modules/services/web-apps/glance.nix"];
-
   options.custom.services.glance = {
     enable = lib.mkEnableOption "Enable Glance.";
     port = lib.mkOption {
