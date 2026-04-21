@@ -10,6 +10,17 @@
     services.gnome = {
       enable = true;
       numWorkspaces = 9;
+      extensions.automoveWindows = [
+        "spotify.desktop:1"
+        "bitwarden.desktop:2"
+        "org.gnome.Terminal.desktop:3"
+        "chromium-browser.desktop:4"
+        "org.prismlauncher.PrismLauncher.desktop:5"
+        "steam.desktop:5"
+        "discord.desktop:6"
+        "element-desktop.desktop:6"
+        "org.gnome.Settings.desktop:7"
+      ];
     };
     services.docker.enable = true;
     services.tailscale.enable = true;

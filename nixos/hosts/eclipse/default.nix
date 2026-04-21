@@ -11,6 +11,15 @@
     services.gnome = {
       enable = true;
       numWorkspaces = 3;
+      extensions.automoveWindows = [
+        "org.gnome.Terminal.desktop:1"
+        "firefox.desktop:2"
+        "org.gnome.Settings.desktop:3"
+      ];
+    };
+    services.gaming = {
+      enable = true;
+      openttd = true;
     };
   };
 

@@ -1,32 +1,22 @@
 { config, pkgs, lib, ... }:
 
 let
-  cfg = config.custom.services.gnome;
+  cfg = config.custom.services.gnome.extensions;
 in
 {
-  config = lib.mkIf cfg.extensions.enable {
-    environment.systemPackages = [ pkgs.gnome-tweaks ] ++ cfg.extensions.listOfExtensions;
+  config = lib.mkIf cfg.enable {
+    environment.systemPackages = [ pkgs.gnome-tweaks ] ++ cfg.listOfExtensions;
 
     programs.dconf.profiles.user.databases = [{
       settings = lib.fix (_self: with lib.gvariant; {
         "org/gnome/shell" = {
-          enabled-extensions = map (ext: ext.extensionUuid) cfg.extensions.listOfExtensions;
+          enabled-extensions = map (ext: ext.extensionUuid) cfg.listOfExtensions;
         };
 
         # EXTENSION SPECIFIC SETTINGS
         "org/gnome/shell/extensions/panel-date-format".format = "%Y-%m-%d %H:%M";
 
-        "org/gnome/shell/extensions/auto-move-windows".application-list = [
-          "spotify.desktop:1"
-          "bitwarden.desktop:2"
-          "org.gnome.Terminal.desktop:3"
-          "chromium-browser.desktop:4"
-          "discord.desktop:5"
-          "element-desktop.desktop:5"
-          "org.prismlauncher.PrismLauncher.desktop:6"
-          "steam.desktop:7"
-          "org.gnome.Settings.desktop:9"
-        ];
+        "org/gnome/shell/extensions/auto-move-windows".application-list = cfg.automoveWindows;
 
         "org/gnome/shell/extensions/just-perfection" = {
           accessibility-menu = true;
