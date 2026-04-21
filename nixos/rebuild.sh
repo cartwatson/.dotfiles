@@ -52,9 +52,9 @@ NIXOS_DIRECTORY="$HOME/.dotfiles/nixos"
 
 if [[ "$ISO" == "true" ]]; then
   # attempt to build, if successful, attempt to burn to disk
-  NIX_ISO_PATH=$(nix build .#nixosConfigurations.live-iso.config.system.build.isoImage)
+  nix build .#nixosConfigurations.live-iso.config.system.build.isoImage --out-link nix-iso
   if [ $? -eq 0 ]; then
-    caligula burn "$NIX_ISO_PATH"
+    caligula burn --compression none --hash skip nix-iso/iso/*.iso
     exit $?
   else
     echo "ISO Build failed." >&2
