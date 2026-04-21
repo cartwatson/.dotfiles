@@ -30,8 +30,9 @@ in
         description = "List of Gnome extension packages to install";
       };
       automoveWindows = lib.mkOption {
-        type = lib.types.listOf lib.types.str;
-        default = [];
+        type = lib.gvariant.type.arrayOf lib.gvariant.type.string;
+        default = lib.gvariant.mkEmptyArray (lib.gvariant.type.string);
+        # default = [];
         description = "List of window movements";
       };
     };

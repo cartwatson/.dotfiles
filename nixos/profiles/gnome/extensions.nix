@@ -5,10 +5,19 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
+    # ADD EXTENSIONS + MANAGER
     environment.systemPackages = [ pkgs.gnome-tweaks ] ++ cfg.listOfExtensions;
+
+    # CLEAR EXISTING CONFIGURED SETTINGS
+    # NOTE: if any other extensions end up configurable then we need to nuke
+    # their settings on rebuild as well
+    system.activationScripts.resetDconf = {
+      text = ''${pkgs.dconf}/bin/dconf reset -f /org/gnome/shell/extensions/auto-move-windows'';
+    };
 
     programs.dconf.profiles.user.databases = [{
       settings = lib.fix (_self: with lib.gvariant; {
+        # enable all installed extensions
         "org/gnome/shell" = {
           enabled-extensions = map (ext: ext.extensionUuid) cfg.listOfExtensions;
         };
@@ -16,11 +25,6 @@ in
         # EXTENSION SPECIFIC SETTINGS
         "org/gnome/shell/extensions/panel-date-format".format = "%Y-%m-%d %H:%M";
 
-        # NOTE: if any other extensions end up configurable then we need to nuke
-        # their settings on rebuild as well
-        system.activationScripts.resetDconf = {
-          text = "${pkgs.dconf}/bin/dconf reset -f /org/gnome/shell/extensions/auto-move-windows";
-        };
         "org/gnome/shell/extensions/auto-move-windows".application-list = cfg.automoveWindows;
 
         "org/gnome/shell/extensions/just-perfection" = {
