@@ -16,6 +16,11 @@ in
         # EXTENSION SPECIFIC SETTINGS
         "org/gnome/shell/extensions/panel-date-format".format = "%Y-%m-%d %H:%M";
 
+        # NOTE: if any other extensions end up configurable then we need to nuke
+        # their settings on rebuild as well
+        system.activationScripts.resetDconf = {
+          text = "${pkgs.dconf}/bin/dconf reset -f /org/gnome/shell/extensions/auto-move-windows";
+        };
         "org/gnome/shell/extensions/auto-move-windows".application-list = cfg.automoveWindows;
 
         "org/gnome/shell/extensions/just-perfection" = {
