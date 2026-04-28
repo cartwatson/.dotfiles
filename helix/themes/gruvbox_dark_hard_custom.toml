@@ -3,5 +3,6 @@
 
 inherits = "gruvbox_dark_hard"
 
+# "ui.background" = {} # uncomment for transparent background
 "ui.text.focus" = { fg = "green1", bg="bg1" }
 "ui.menu.selected" = { fg = "green1", bg = "bg1", modifiers = ["bold"] }
