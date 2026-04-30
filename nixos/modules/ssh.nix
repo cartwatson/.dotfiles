@@ -1,8 +1,7 @@
-{ config, lib, pkgs, pkgs-unstable, ... }:
+{ config, lib, ... }:
 
 let
-  baseCfg = config.custom.services;
-  cfg = baseCfg.ssh;
+  cfg = config.custom.services.ssh;
 in
 {
   options.custom.services.ssh = {

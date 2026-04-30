@@ -1,8 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  baseCfg = config.custom.services;
-  cfg = baseCfg.docker;
+  cfg = config.custom.services.docker;
 in
 {
   options.custom.services.docker = {

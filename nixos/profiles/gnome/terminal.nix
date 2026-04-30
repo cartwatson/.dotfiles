@@ -18,7 +18,7 @@ in
       profiles.user.databases = [
         {
           lockAll = true; # prevents overriding
-          settings = lib.fix (_self: with lib.gvariant; {
+          settings = with lib.gvariant; {
             "org/gnome/terminal/legacy" = {
               theme-variant="system";
             };
@@ -70,7 +70,7 @@ in
               use-transparent-background=false;
               visible-name="Outside";
             };
-          });
+          };
         }
       ];
     };

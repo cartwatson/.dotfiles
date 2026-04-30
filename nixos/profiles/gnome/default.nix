@@ -1,4 +1,4 @@
-{ config, lib, pkgs, pkgs-bleedingedge, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   baseCfg = config.custom.services;
@@ -72,7 +72,7 @@ in
         profiles.user.databases = [
           {
             lockAll = (!cfg.allowOverride);
-            settings = lib.fix (_self: with lib.gvariant; {
+            settings = with lib.gvariant; {
               # BASIC GNOME SETTINGS
               "org/gnome/desktop/interface" = {
                 color-scheme = "prefer-dark";
@@ -151,7 +151,7 @@ in
                 switch-to-application-8 = mkEmptyArray type.string;
                 switch-to-application-9 = mkEmptyArray type.string;
               };
-            });
+            };
           }
         ];
       };

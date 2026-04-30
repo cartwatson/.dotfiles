@@ -5,24 +5,27 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
-    # ADD EXTENSIONS + MANAGER
+    # add extensions + manager
     environment.systemPackages = [ pkgs.gnome-tweaks ] ++ cfg.listOfExtensions;
 
-    # CLEAR EXISTING CONFIGURED SETTINGS
-    # NOTE: if any other extensions end up configurable then we need to nuke
-    # their settings on rebuild as well
+    # clear existing configured settings
+    # FUTURE: When other extensions gain configuration then we need to nuke their settings on rebuild as well
     system.activationScripts.resetDconf = {
-      text = ''${pkgs.dconf}/bin/dconf reset -f /org/gnome/shell/extensions/auto-move-windows'';
+      text = ''
+        ${pkgs.dconf}/bin/dconf reset -f /org/gnome/shell/extensions/auto-move-windows;
+        ${pkgs.dconf}/bin/dconf reset -f /org/gnome/shell/extensions/panel-date-format;
+        ${pkgs.dconf}/bin/dconf reset -f /org/gnome/shell/extensions/just-perfection;
+      '';
     };
 
     programs.dconf.profiles.user.databases = [{
-      settings = lib.fix (_self: with lib.gvariant; {
+      settings = with lib.gvariant; {
         # enable all installed extensions
         "org/gnome/shell" = {
           enabled-extensions = map (ext: ext.extensionUuid) cfg.listOfExtensions;
         };
 
-        # EXTENSION SPECIFIC SETTINGS
+        # extension specific settings
         "org/gnome/shell/extensions/panel-date-format".format = "%Y-%m-%d %H:%M";
 
         "org/gnome/shell/extensions/auto-move-windows".application-list = cfg.automoveWindows;
@@ -74,7 +77,7 @@ in
           workspaces-in-app-grid = true;
           world-clock = true;
         };
-      });
+      };
     }];
   };
 }

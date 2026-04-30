@@ -1,4 +1,4 @@
-{ config, lib, pkgs, pkgs-unstable, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   options.custom.users.cwatson = {
@@ -13,10 +13,7 @@
       description = "Carter Watson";
       extraGroups = [
         "wheel"
-        # Do not add this group if <blank> is not enabled
-        (lib.mkIf config.networking.networkmanager.enable "networkmanager")
-        # (lib.optional config.virtualisation.docker.enable "docker")
-      ];
+      ] ++ (lib.optional config.networking.networkmanager.enable "networkmanager");
 
       packages = (with pkgs; [
         caligula # ISO Burner
@@ -27,8 +24,7 @@
         slack
         drawing # MS Paint alternative
         flameshot # TODO: find a way to deterministically config this
-      ])) ++ (with pkgs-unstable; [
-      ]);
+      ]));
     };
   };
 }

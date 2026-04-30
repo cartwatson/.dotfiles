@@ -1,4 +1,4 @@
-{ config, lib, pkgs, pkgs-unstable, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   options.custom.users.jgordon = {
@@ -13,14 +13,10 @@
       description = "Jess Gordon";
       extraGroups = [
         "wheel"
-        # Do not add this group if <blank> is not enabled
-        (lib.mkIf config.networking.networkmanager.enable "networkmanager")
-        (lib.optional config.virtualisation.docker.enable "docker")
-      ];
+      ] ++ (lib.optional config.networking.networkmanager.enable "networkmanager")
+        ++ (lib.optional config.virtualisation.docker.enable "docker");
 
-      packages = (with pkgs; [
-      ]) ++ (with pkgs-unstable; [
-      ]);
+      packages = [];
     };
   };
 }

@@ -1,8 +1,7 @@
 { config, lib, settings, ... }:
 
 let
-  baseCfg = config.custom.services;
-  cfg = baseCfg.ddclient;
+  cfg = config.custom.services.ddclient;
 in
 {
   options.custom.services.ddclient = {
