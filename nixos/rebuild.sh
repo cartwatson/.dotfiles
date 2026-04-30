@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# exit if any command fails
+set -eo pipefail
+
+ISO="false"
 UPDATE="false"
 UPDATE_HW="false"
 REBUILD="true"
@@ -48,28 +52,24 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
+# catch unset hostname
+if [[ -z "$HOSTNAME" || "$HOSTNAME" == "nixos" ]]; then
+  echo "HOSTNAME unset or 'nixos', use --hostname <host>"
+  exit 1
+fi
+
 NIXOS_DIRECTORY="$HOME/.dotfiles/nixos"
 
 if [[ "$ISO" == "true" ]]; then
   # attempt to build, if successful, attempt to burn to disk
   nix build .#nixosConfigurations.live-iso.config.system.build.isoImage --out-link nix-iso
-  if [ $? -eq 0 ]; then
-    caligula burn --compression none --hash skip nix-iso/iso/*.iso
-    exit $?
-  else
-    echo "ISO Build failed." >&2
-    exit
-  fi
-fi
-
-if [[ "$HOSTNAME" == "nixos" ]]; then
-  echo "use './rebuild --hostname XXXX' to correctly init system"
-  exit
+  caligula burn --compression none --hash skip nix-iso/iso/*.iso
+  exit 0
 fi
 
 if [[ "$UPDATE" == "true" ]]; then
   echo "UPDATING FLAKE..."
-  sudo nix flake update
+  nix flake update
   echo "DONE UPDATING"
 fi
 
