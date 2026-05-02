@@ -8,15 +8,14 @@ in
     # add extensions + manager
     environment.systemPackages = [ pkgs.gnome-tweaks ] ++ cfg.listOfExtensions;
 
+    # TODO: fix this :/
     # clear existing configured settings
     # FUTURE: When other extensions gain configuration then we need to nuke their settings on rebuild as well
-    system.activationScripts.resetDconf = {
-      text = ''
-        ${pkgs.dconf}/bin/dconf reset -f /org/gnome/shell/extensions/auto-move-windows;
-        ${pkgs.dconf}/bin/dconf reset -f /org/gnome/shell/extensions/panel-date-format;
-        ${pkgs.dconf}/bin/dconf reset -f /org/gnome/shell/extensions/just-perfection;
-      '';
-    };
+    # system.activationScripts.resetDconf = {
+    #   text = ''
+    #     ${pkgs.dconf}/bin/dconf reset -f /org/gnome/shell/extensions/auto-move-windows;
+    #    '';
+    # };
 
     programs.dconf.profiles.user.databases = [{
       settings = with lib.gvariant; {
