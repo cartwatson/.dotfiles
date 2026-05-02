@@ -49,6 +49,9 @@ in
           # get private key
           privateKeyFile = cfg.oort.privateKeyFile;
 
+          # hardcoded port
+          listenPort = 51820;
+
           # dynamic list of peers for all hosts
           # generated from ./oort-peers.nix
           # NOTE: do not include self
