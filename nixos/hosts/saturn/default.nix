@@ -5,7 +5,12 @@
     ./hardware-configuration.nix
   ];
 
+  sops.secrets = {
+    "wireguard/oort/saturn" = {};
+  };
+
   custom = {
+    secrets.enable = true;
     users.wwatson.enable = true;
     services.timezone.tz = "America/Denver";
     services.helix.enable = false;
@@ -28,9 +33,12 @@
       minecraft = true;
       openttd = true;
     };
-    services.tailscale = {
+    services.wireguard = {
       enable = true;
-      ssh.enable = true;
+      oort =  {
+        enable = true;
+        privateKeyFile = "/run/secrets/wireguard/oort/saturn";
+      };
     };
   };
 

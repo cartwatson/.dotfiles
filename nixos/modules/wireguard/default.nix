@@ -1,4 +1,4 @@
-{ config, lib, settings, ... }:
+{ config, lib, pkgs, settings, ... }:
 
 let
   cfg = config.custom.services.wireguard;
@@ -18,6 +18,7 @@ in
       enable = lib.mkEnableOption "Enable OORT network config.";
       privateKeyFile = lib.mkOption {
         type = lib.types.path;
+        # default = "/run/secrets/wireguard/oort/${config.networking.hostName}";
         description = "Filepath of private key";
       };
       hubNode.enable = lib.mkEnableOption "Open Firewall and enable ipv4 forwarding at a kernel level";
@@ -26,6 +27,12 @@ in
 
   config = lib.mkIf cfg.enable (
     lib.mkMerge [
+      ({
+        environment.systemPackages = (with pkgs; [
+          wireguard-tools # needed for keygen
+        ]);
+      })
+
       # OORT -------------------------------------------------------------------
       (lib.mkIf cfg.oort.enable {
         # ----- tests -----

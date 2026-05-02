@@ -10,6 +10,7 @@
     "api_tokens/cloudflare" = {};
     # "tailscale/auth_key" = {}; # TODO: find this
     "glance/location" = {};
+    "wireguard/oort/nova" = {};
   };
 
   custom = {
@@ -38,22 +39,13 @@
       };
     };
     services.minecraftServer.enable = true;
-    services.tailscale = {
+    services.wireguard = {
       enable = true;
-      ssh.enable = true;
-      exit-node.enable = true;
-      # authKeyFile = "/run/secrets/tailscale/auth_key"
-      # proxy = {
-      #   enable = true;
-      #   internal = false;
-      # };
-    };
-    services.openttd.server = {
-      enable = true;
-      serverName = "watson";
-      serverPassword = ""; # TODO: hide this lol
-      advertise = true;
-      savegame = "/var/lib/openttd/worlds/watson.sav"; # TODO: do something here
+      oort =  {
+        enable = true;
+        privateKeyFile = "/run/secrets/oort/nova";
+        hubNode.enable = true;
+      };
     };
   };
 

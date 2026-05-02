@@ -5,6 +5,10 @@
     ./hardware-configuration.nix
   ];
 
+  sops.secrets = {
+    "wireguard/oort/jupiter" = {};
+  };
+
   custom = {
     secrets.enable = true;
     services.gnome = {
@@ -22,8 +26,6 @@
         "org.gnome.Settings.desktop:7"
       ];
     };
-    services.docker.enable = true;
-    services.tailscale.enable = true;
     services.gaming = {
       enable = true;
       steam = true;
@@ -31,10 +33,16 @@
       sunshine = true;
       openttd = true;
     };
+    services.wireguard = {
+      enable = true;
+      oort =  {
+        enable = true;
+        privateKeyFile = "/run/secrets/wireguard/oort/jupiter";
+      };
+    };
   };
 
   environment.systemPackages = (with pkgs; [
-    golden-cheetah-bin
   ]);
 
   # Bootloader

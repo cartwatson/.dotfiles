@@ -35,9 +35,9 @@ custom.services.wireguard.oort.hubNode.enable = true;
 
 ### Add a new host
 
+1. Open shell with `wg`, `nix-shell -p wireguard-tools`
 1. Generate a keypair: `wg genkey | tee /dev/stderr | wg pubkey` (first line is private key, second is public key)
 2. Add the host, its address, and its public key to `./oort-peers.nix`
-3. Put the private key in `~/.dotfiles/nixos/hosts/<name>/secrets/wireguard.yaml`
-4. Encrypt with sops: `sops --encrypt --in-place hosts/<name>/secrets/wireguard.yaml`
+3. Put the private key in `~/.dotfiles/nixos/hosts/secrets/secrets.yaml` under wireguard/networkname
 5. Enable oort in the host config (see above)
 6. Rebuild all hosts so they pick up the new peer
