@@ -15,5 +15,6 @@
     ./minecraft
     ./glance
     ./openttd
+    ./wireguard
   ];
 }
