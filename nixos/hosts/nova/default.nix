@@ -43,7 +43,7 @@
       enable = true;
       oort =  {
         enable = true;
-        privateKeyFile = "/run/secrets/oort/nova";
+        privateKeyFile = "/run/secrets/wireguard/oort/nova";
         hubNode.enable = true;
       };
     };
