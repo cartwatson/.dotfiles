@@ -10,3 +10,4 @@ creation_rules:
     - age:
       - *jupiter_cwatson
       - *nova_cwatson
+      - *eclipse_cwatson
