@@ -22,6 +22,8 @@
       inherit (nixpkgs) lib;
       system = "x86_64-linux";
       settings = import ./profiles/server-settings.nix;
+
+      pkgs = import nixpkgs { inherit system; };
     in {
       # https://github.com/Electrostasy/dots/blob/0eb9d91d517d74b7f0891bff5992b17eb50f207c/flake.nix#L102-L121
       nixosConfigurations = lib.pipe ./hosts [
@@ -56,5 +58,20 @@
           }
         ))
       ];
+
+      devShells.${system}= {
+        network-debug = pkgs.mkShell {
+          packages = with pkgs; [
+            traceroute
+            tcpdump
+            dig
+          ];
+
+          shellHook = ''
+            # hype myself up so I actually want to fix things
+            echo "YUH NETWORKING TIME LFG"
+          '';
+        };
+      };
     };
 }
