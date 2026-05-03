@@ -6,7 +6,9 @@ Folder containing custom nix modules
 
 ## Configure new host
 
-1. Add the public age key that was auto generated into `.sops.yaml`, make sure to add the new name of the token to the `age` schema
+1. Add the public age key that was auto generated into `.sops.yaml`
+   - Make sure to add the new name of the token to the `age` schema
+   - Check `./sops.nix` for key location
 2. Commit and push the changes to `.sops.yaml`
 3. Pull changes to a host with sops already configured
 4. run `sops updatekeys secrets/secrets.yaml` and confirm the addition of the key
