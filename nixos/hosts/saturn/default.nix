@@ -1,16 +1,17 @@
-{ config, lib, pkgs, pkgs-unstable, settings, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
     ./hardware-configuration.nix
   ];
 
-  sops.secrets = {
-    "wireguard/oort/saturn" = {};
-  };
-
   custom = {
     secrets.enable = true;
+    services.tailscale = {
+      enable = true;
+      authKeyFile = "/run/secrets/tailscale/auth_key";
+      ssh.enable = true;
+    };
     users.wwatson.enable = true;
     services.timezone.tz = "America/Denver";
     services.helix.enable = false;
@@ -32,13 +33,6 @@
       steam = true;
       minecraft = true;
       openttd = true;
-    };
-    services.wireguard = {
-      enable = true;
-      oort =  {
-        enable = true;
-        privateKeyFile = "/run/secrets/wireguard/oort/saturn";
-      };
     };
   };
 

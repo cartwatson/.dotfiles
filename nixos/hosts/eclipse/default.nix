@@ -5,10 +5,6 @@
     ./hardware-configuration.nix
   ];
 
-  sops.secrets = {
-    "wireguard/oort/eclipse" = {};
-  };
-
   custom = {
     secrets.enable = true;
     services.timezone.automatic = true;
@@ -25,13 +21,6 @@
     services.gaming = {
       enable = true;
       openttd = true;
-    };
-    services.wireguard = {
-      enable = true;
-      oort =  {
-        enable = true;
-        privateKeyFile = "/run/secrets/wireguard/oort/eclipse";
-      };
     };
   };
 

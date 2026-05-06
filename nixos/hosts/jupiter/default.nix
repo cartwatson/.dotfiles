@@ -5,12 +5,9 @@
     ./hardware-configuration.nix
   ];
 
-  sops.secrets = {
-    "wireguard/oort/jupiter" = {};
-  };
-
   custom = {
     secrets.enable = true;
+    services.tailscale.enable = true;
     services.gnome = {
       enable = true;
       numWorkspaces = 9;
@@ -32,13 +29,6 @@
       minecraft = true;
       sunshine = true;
       openttd = true;
-    };
-    services.wireguard = {
-      enable = true;
-      oort =  {
-        enable = true;
-        privateKeyFile = "/run/secrets/wireguard/oort/jupiter";
-      };
     };
   };
 

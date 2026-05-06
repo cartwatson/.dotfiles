@@ -8,14 +8,19 @@
   sops.secrets = {
     "api_tokens/github_readonly" = {};
     "api_tokens/cloudflare" = {};
-    # "tailscale/auth_key" = {}; # TODO: find this
+    "tailscale/auth_key" = {}; # TODO: find this
     "glance/location" = {};
-    "wireguard/oort/nova" = {};
   };
 
   custom = {
     secrets.enable = true;
     services.timezone.tz = "Etc/Zulu";
+    services.tailscale = {
+      enable = true;
+      authKeyFile = "/run/secrets/tailscale/auth_key";
+      ssh.enable = true;
+      exit-node.enable = true;
+    };
     services.ssh = {
       enable = true;
       port = 9999;
@@ -31,22 +36,17 @@
     };
     services.glance = {
       enable = true;
+      port = 8001;
       proxy = {
         enable = true;
         subdomain = "dashboard";
-        internal = false;
-        auth = false;
       };
+    };
+    services.personal-site = {
+      enable = true;
+      port = 8002;
     };
     services.minecraftServer.enable = true;
-    services.wireguard = {
-      enable = true;
-      oort =  {
-        enable = true;
-        privateKeyFile = "/run/secrets/wireguard/oort/nova";
-        hubNode.enable = true;
-      };
-    };
   };
 
   # Bootloader.

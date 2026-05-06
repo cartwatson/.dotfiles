@@ -1,4 +1,4 @@
-{ config, lib, pkgs, pkgs-unstable, settings, ... }:
+{ config, lib, ... }:
 
 let
   baseCfg = config.custom.services;
@@ -6,21 +6,8 @@ let
 
   virtualHost = serviceCfg:
     lib.mkIf serviceCfg.proxy.enable {
-      "${serviceCfg.proxy.subdomain}${if serviceCfg.proxy.internal then "." + baseCfg.tailscale.proxy.subdomain else ""}.${settings.domainName}".extraConfig =
-      if serviceCfg.proxy.auth then
-        ''
-          forward_auth :${config.custom.services.authelia.port} {
-            uri /api/authz/forward-auth
-            copy_headers Remote-User Remote-Groups Remote-Email Remote-Name
-          }
-
-          reverse_proxy :${toString serviceCfg.port}
-        ''
-      else
-        ''
-          reverse_proxy :${toString serviceCfg.port}
-        ''
-      ;
+      "${serviceCfg.proxy.subdomain}.${cfg.domain}".extraConfig =
+        "reverse_proxy :${toString serviceCfg.port}";
     };
 in
 {
@@ -39,7 +26,7 @@ in
       virtualHosts = lib.mkMerge [
         # TODO: pull enabled services from config.custom
         (virtualHost baseCfg.glance)
-        (virtualHost baseCfg.tailscale)
+        (lib.mkIf baseCfg.personal-site.enable {"cartwatson.com".extraConfig = '' reverse_proxy :${toString baseCfg.personal-site.port} '';})
         ({"caddy.${cfg.domain}".extraConfig = '' respond "Caddy Up!" '';}) # test caddy for glance dash
       ];
     };

@@ -31,3 +31,33 @@ packages = (with pkgs; [
   package6
 ]);
 ```
+
+## Promised LAN
+
+- [why](https://notes.pault.ag/tpl/)
+- [how](https://tpl.house/)
+
+### context
+
+- 3 multi-site homelabs
+- 3 admins, one for each site, but up to 10ish users per site (not likely to hit that high but peak traffic)
+- multi-site each homelab is at a different location
+
+### goals
+
+- file sharing
+- game servers
+- device access
+- no specific performance requirements outside of hosting game servers
+
+### existing hw/conn/etc
+
+- commercial home routers (think NETGEAR AX160)
+- standard personal ISP connections (about 500mbps down and 30-60 up)
+- no existing infrastructure
+
+### constraints
+
+- ideal budget is free or we buy hardware, would like to avoid renting
+- no preferred vendors
+- would like it to be compatible with mulitple HW and SW combinations

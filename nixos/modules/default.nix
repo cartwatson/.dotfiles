@@ -11,6 +11,7 @@
     ./helix.nix
     ./ssh.nix
     ./tailscale.nix
+    ./personal-site.nix
 
     ./minecraft
     ./glance
