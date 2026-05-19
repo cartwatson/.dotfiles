@@ -15,16 +15,6 @@ Folder containing custom nix modules
 5. Commit and push changes to `secrets/secrets.yaml`
 6. Pull changes to `secrets/secrets.yaml` to the new host
 
-## Headscale
-
-### Add host
-
-1. Enable custom tailscale module
-1. On new client run `sudo tailscale up --login-server "https://ts.jjwatson.dev"`
-   - on mobile make sure to use chrome instead of safari
-1. Copy the last section of the url
-1. Run `sudo headscale nodes register --user <user> --key <copied section of url>`
-
 ## Caddy
 
 To add new subdomains/services to caddy's reverse proxy list, add `(virtualHost config.custom.services.example0)` (where `example0` is the name of the service) to the following
@@ -46,10 +36,13 @@ options.custom.services.example = {
     default = 4444;
     description = "Port for the example server.";
   };
-  subdomain = lib.mkOption {
-    type = lib.types.str;
-    default = "example";
-    description = "The subdomain Caddy should use to reverse proxy.";
+  proxy = {
+    enable = lib.mkEnableOption "Enable proxy";
+    subdomain = lib.mkOption {
+      type = lib.types.str;
+      default = "example";
+      description = "The subdomain the proxy should use to reverse proxy.";
+    };
   };
 };
 ```
