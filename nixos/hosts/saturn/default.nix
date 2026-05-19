@@ -5,10 +5,14 @@
     ./hardware-configuration.nix
   ];
 
+  custom.profiles.desktop = {
+    enable = true;
+    desktopEnvironment = "gnome";
+  };
+
   custom = {
     secrets.enable = true;
     services.tailscale = {
-      enable = true;
       authKeyFile = "/run/secrets/tailscale/auth_key";
       ssh.enable = true;
     };

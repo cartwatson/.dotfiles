@@ -21,7 +21,6 @@
     let
       inherit (nixpkgs) lib;
       system = "x86_64-linux";
-      settings = import ./profiles/server-settings.nix;
 
       pkgs = import nixpkgs { inherit system; };
     in {
@@ -29,13 +28,10 @@
       nixosConfigurations = lib.pipe ./hosts [
         builtins.readDir
 
-        (lib.filterAttrs (name: _value: name != "hardware")) # don't try to build hw folder
-
         # Define the NixOS configurations
         (lib.mapAttrs (name: _value:
           lib.nixosSystem {
             specialArgs = {
-              inherit settings;
               inherit nix-minecraft;
               pkgs-unstable = import nixpkgs-unstable {
                 config.allowUnfree = true;

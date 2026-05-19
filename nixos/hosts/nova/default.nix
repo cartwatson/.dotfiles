@@ -1,11 +1,11 @@
-{ settings, ... }:
+{ ... }:
 
 {
   imports = [
     ./hardware-configuration.nix
   ];
 
-  config.custom.profiles.server = {
+  custom.profiles.server = {
     enable = true;
     domainName = "jjwatson.dev";
   };

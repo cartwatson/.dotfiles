@@ -5,7 +5,6 @@
 {
   imports = [
     ./fonts.nix
-    ./gui.nix
   ];
 
   custom = {

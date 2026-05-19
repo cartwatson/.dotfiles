@@ -5,12 +5,15 @@
     ./hardware-configuration.nix
   ];
 
+  custom.profiles.laptop.enable = true;
+  custom.profiles.desktop = {
+    enable = true;
+    desktopEnvironment = "gnome";
+  };
+
   custom = {
     secrets.enable = true;
-    services.timezone.automatic = true;
-    services.tailscale.enable = true;
     services.gnome = {
-      enable = true;
       numWorkspaces = 3;
       extensions.automoveWindows = [
         "org.gnome.Terminal.desktop:1"
@@ -28,7 +31,6 @@
 
   environment.systemPackages = (with pkgs; [
     firefox
-    kdePackages.kate
   ]);
 
   # Bootloader.

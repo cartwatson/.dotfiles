@@ -50,5 +50,10 @@ in
         pulse.enable = true;
       };
     }
+
+    # CUSTOM
+    {
+      services.tailscale.enable = true;
+    }
   ]);
 }

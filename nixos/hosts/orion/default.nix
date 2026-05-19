@@ -3,13 +3,16 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../hardware/nvidia.nix
   ];
 
+  custom.hardware.nvidia.enable = true;
+  custom.profiles.laptop.enable = true;
+  custom.profiles.desktop = {
+    enable = true;
+    desktopEnvironment = "gnome";
+  };
+
   custom = {
-    services.gnome.enable = true;
-    services.timezone.automatic = true;
-    services.tailscale.enable = true;
     services.gaming = {
       enable = true;
       minecraft = true;
