@@ -81,7 +81,6 @@ function reinstall_helix_config {
     print_pending "Installing helix config..."
     create_dir "$HOME/.config"
     rm -rf "$HOME/.config/helix"
-    ln -s "$HOME/.dotfiles/helix" "$HOME/.config/helix"
 
     if ln -s "$HOME/.dotfiles/helix" "$HOME/.config/helix"; then
         print_success "Installed helix config"
@@ -91,7 +90,7 @@ function reinstall_helix_config {
 }
 
 function add_alias_if_not_exists {
-    create_machine_aliases
+    create_machine_configs
     local alias_file="$HOME/.bash_aliases_machine.sh"
     local alias_name="$1"
     local alias_command="$2"
@@ -148,15 +147,16 @@ function nixos_install {
     sudo chown -R "$USER":users "$NIX_DIR"
 
     # link configs
-    # TODO: don't think this is actually necessary tbh
-    sudo ln -s "$NIX_DIR"/default.nix /etc/nixos/configuration.nix
-    sudo ln -s "$NIX_DIR"/hardware-configuration.nix /etc/nixos/
+    # TODO: validate that this isn't necessary
+    # sudo ln -s "$NIX_DIR"/default.nix /etc/nixos/configuration.nix
+    # sudo ln -s "$NIX_DIR"/hardware-configuration.nix /etc/nixos/
 
     # rebuild
-    if git add nixos/hosts/"$HOSTNAME"; then
+    if ! git add nixos/hosts/"$HOSTNAME"; then
         echo -e "\`git add\` failed! This will break NixOS build process.\nMake sure you're in $HOME/.dotfiles"
         exit 1
     fi
+
     "$WORKING_DIR"/nixos/rebuild.sh --hostname "$HOSTNAME"
 }
 
