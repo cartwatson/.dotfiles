@@ -59,14 +59,14 @@
 
       # export modules for others to pull in
       nixosModules = {
-        helix = import ./modules/helix.nix;
+        helix = import ./modules/editors/helix.nix;
         fonts = import ./profiles/common/fonts.nix;
-        gnome = import ./profiles/gnome/default.nix;
-        timezone = import ./profiles/common/timezone.nix;
+        gnome = import ./modules/desktop/gnome/default.nix;
+        timezone = import ./modules/services/timezone.nix;
       };
 
       # export package lists for non-NixOS consumers (e.g. buildEnv)
-      lib.lspPackages = import ./modules/lsp-packages.nix;
+      lib.lspPackages = import ./modules/editors/lsp-packages.nix;
 
       devShells.${system}= {
         network-debug = pkgs.mkShell {
