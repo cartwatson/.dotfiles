@@ -4,7 +4,7 @@ let
   cfg = config.custom.services.gnome;
 in
 {
-  config = lib.mkIf cfg.terminal.enable {
+  config = lib.mkIf (cfg.enable && cfg.terminal.enable) {
     environment.gnome.excludePackages = (with pkgs; [
       gnome-console
     ]);

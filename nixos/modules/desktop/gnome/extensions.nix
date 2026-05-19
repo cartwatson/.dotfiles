@@ -1,10 +1,11 @@
 { config, pkgs, lib, ... }:
 
 let
-  cfg = config.custom.services.gnome.extensions;
+  baseCfg = config.custom.services.gnome;
+  cfg = baseCfg.extensions;
 in
 {
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf (baseCfg.enable && cfg.enable) {
     # add extensions + manager
     environment.systemPackages = [ pkgs.gnome-tweaks ] ++ cfg.listOfExtensions;
 
