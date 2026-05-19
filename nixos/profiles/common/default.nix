@@ -5,13 +5,13 @@
 {
   imports = [
     ./fonts.nix
-    ./timezone.nix # always enabled
     ./gui.nix
   ];
 
   custom = {
     services.helix.enable = lib.mkDefault true;
     services.fonts.enable = lib.mkDefault true;
+    services.timezone.enable = lib.mkDefault true;
 
     users.cwatson.enable = lib.mkDefault true;
     users.wwatson.enable = lib.mkDefault false;

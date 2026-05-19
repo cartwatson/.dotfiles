@@ -3,8 +3,8 @@
 {
   imports = [
     ./common
-    ./gnome
-    ./plamsa
-    ./users
+    ./desktop.nix
+    ./server.nix
+    ./laptop.nix
   ];
 }

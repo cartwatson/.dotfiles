@@ -1,0 +1,9 @@
+{ ... }:
+
+{
+  imports = [
+    ./gaming
+    ./gnome
+    ./plasma
+  ];
+}

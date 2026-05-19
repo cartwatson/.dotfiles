@@ -51,9 +51,11 @@
               { networking.hostName = name; }
               sops-nix.nixosModules.sops
 
+              ./hardware
               ./hosts/${name}
               ./modules
               ./profiles
+              ./users
             ];
           }
         ))
