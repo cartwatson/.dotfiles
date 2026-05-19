@@ -1,9 +1,0 @@
-{ ... }:
-
-{
-  imports = [
-    ./openttd.nix
-  ];
-}
-
-
