@@ -51,6 +51,9 @@
     radeontop # should be dynamic but I don't have many nvidia cards
   ]);
 
+  # Necessary to avoid stupid and annoying conflicts when setting up a system
+  users.enforceIdUniqueness = true;
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 

@@ -8,7 +8,6 @@
   config = lib.mkIf config.custom.users.jgordon.enable {
     # Define a user account. Don't forget to set a password with ‘passwd’.
     users.users.jgordon = {
-      uid = 1001;
       isNormalUser = true;
       description = "Jess Gordon";
       extraGroups = [

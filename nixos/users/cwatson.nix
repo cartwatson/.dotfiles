@@ -8,7 +8,6 @@
   config = lib.mkIf config.custom.users.cwatson.enable {
     # Define a user account. Don't forget to set a password with ‘passwd’.
     users.users.cwatson = {
-      uid = 1000;
       isNormalUser = true;
       description = "Carter Watson";
       extraGroups = [

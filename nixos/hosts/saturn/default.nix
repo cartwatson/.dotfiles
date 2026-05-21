@@ -18,7 +18,6 @@
     };
     users.wwatson.enable = true;
     services.timezone.tz = "America/Denver";
-    services.helix.enable = false;
     services.fonts.enable = false;
     services.gnome = {
       enable = true;
