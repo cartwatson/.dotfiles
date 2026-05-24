@@ -11,19 +11,20 @@
   };
 
   custom = {
-    secrets.enable = true;
+    secrets = {
+      enable = true;
+      keyFile = "/var/lib/custom-sops/keys.txt";
+    };
     services.tailscale = {
       authKeyFile = "/run/secrets/tailscale/auth_key";
       ssh.enable = true;
     };
     users.wwatson.enable = true;
     services.timezone.tz = "America/Denver";
-    services.fonts.enable = false;
     services.gnome = {
       enable = true;
       numWorkspaces = 1;
       allowOverride = true;
-      terminal.enable = false;
       extensions.listOfExtensions = (with pkgs.gnomeExtensions; [
         just-perfection
         user-themes
