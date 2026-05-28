@@ -24,7 +24,7 @@ in
     sops.secrets = {
       "api_tokens/github_readonly" = {};
       "api_tokens/cloudflare" = {};
-      "tailscale/auth_key" = {}; # TODO: find this
+      "tailscale/auth_key" = {};
       "glance/location" = {};
     };
 
