@@ -5,6 +5,7 @@ keys:
   - &nova_cwatson age1arp89zedg00jeas2fzeq7szcpldwnslpp24ew3mr4tnfur0q8qrsh97muh
   - &eclipse_cwatson age19w4rh5lvc4wjnksljvkp733pgnydtm4pk43prwdemklrd4ryxccqrgpj3u
   - &saturn_varlib age1s35qz9phpew20dnesamndxmmxx097gx8rlhwgtarquc59pjfjdjq7sr0e5
+  - &kuiper_varlib age18f6nm2nqs9ntz0c6604pntffcyhpzmsxgn2d2e3f9ay0x3mk8g8s6yrpzg
 creation_rules:
   - path_regex: secrets/secrets.yaml
     key_groups:
@@ -13,3 +14,4 @@ creation_rules:
       - *nova_cwatson
       - *eclipse_cwatson
       - *saturn_varlib
+      - *kuiper_varlib

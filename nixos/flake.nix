@@ -86,6 +86,7 @@
             traceroute
             tcpdump
             dig
+            unixtools.arp
           ];
 
           shellHook = ''
