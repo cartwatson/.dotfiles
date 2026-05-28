@@ -59,10 +59,22 @@
 
       # export modules for others to pull in
       nixosModules = {
-        helix = import ./modules/editors/helix.nix;
-        fonts = import ./profiles/common/fonts.nix;
-        gnome = import ./modules/desktop/gnome/default.nix;
-        timezone = import ./modules/services/timezone.nix;
+        desktop = {
+          imports = [
+            ./modules/desktop
+            ./modules/editors/helix.nix
+            ./modules/networking/tailscale.nix
+            ./modules/services/timezone.nix
+            ./profiles/common/base.nix
+            ./profiles/desktop.nix
+          ];
+        };
+        laptop = {
+          imports = [
+            ./modules/services/timezone.nix
+            ./profiles/laptop.nix
+          ];
+        };
       };
 
       # export package lists for non-NixOS consumers (e.g. buildEnv)

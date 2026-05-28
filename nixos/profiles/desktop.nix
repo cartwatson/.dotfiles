@@ -4,8 +4,13 @@ let
   cfg = config.custom.profiles.desktop;
 in
 {
+  imports = [
+    ./common/base.nix
+  ];
+
   options.custom.profiles.desktop = {
     enable = lib.mkEnableOption "Enable default desktop config.";
+    personal = lib.mkEnableOption "Include personal packages and services" // { default = true; };
     desktopEnvironment = lib.mkOption {
       type = lib.types.enum [
         "gnome"
@@ -19,10 +24,11 @@ in
   config = lib.mkIf cfg.enable {
     custom.services.gnome.enable = (cfg.desktopEnvironment == "gnome");
     custom.services.plasma.enable = (cfg.desktopEnvironment == "plasma");
-    custom.services.tailscale.enable = true;
+    custom.services.tailscale.enable = cfg.personal;
 
     environment.systemPackages = (with pkgs-unstable; [
       chromium
+    ] ++ lib.optionals cfg.personal [
       spotify
     ]);
 
