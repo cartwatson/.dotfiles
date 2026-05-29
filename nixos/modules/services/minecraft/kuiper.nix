@@ -6,7 +6,9 @@ in
 {
   kuiper = {
     enable = true;
-    package = pkgs.fabricServers.fabric-1_21_9;
+    # HACK: IDK why
+    # REF: https://github.com/search?q=fabricServers.fabric-26_1_2&type=code
+    package = pkgs.fabricServers.fabric-26_1_2.override { jre_headless = pkgs.openjdk25_headless; };
     enableReload = true;
 
     serverProperties = {
@@ -34,26 +36,26 @@ in
       "Gagecarling" = "af0b0012-4ad1-4598-8887-b69443c4865d";
     };
 
-    # symlinks = {
-    #   mods = pkgs.linkFarmFromDrvs "mods" (builtins.attrValues {
-    #     # CDN: find link to specific file, and `copy link` from the download button
-    #     # SHA512: `nix-prefetch-url --type sha512 --name <NAME> "<URL>"`
-    #     Fabric-API = pkgs.fetchurl {
-    #       url = "https://cdn.modrinth.com/data/P7dR8mSH/versions/Q8ssLFZp/fabric-api-0.133.0%2B1.21.8.jar";
-    #       sha512 = "1pw4y3lii84c9nll9cl9pgcd8qrlg7bppj791anwqd84b1sq5w6z65vqbpxlx4brakjww9i2n5il7lj509nsrv30yharwqfk392paq4";
-    #     };
-    #     lithium = pkgs.fetchurl {
-    #       url = "https://cdn.modrinth.com/data/gvQqBUqZ/versions/pDfTqezk/lithium-fabric-0.18.0%2Bmc1.21.8.jar";
-    #       sha512 = "07i11gq0yhdmv19ky4gp4181c7c5089ac110acpx1jbcq6kvisviw16vzgpl3a7d8mh16zdnlxg16mm548fcwaq1j7zi3plc03rasbc";
-    #     };
-    #     distant-horizons = pkgs.fetchurl {
-    #       url = "https://cdn.modrinth.com/data/uCdwusMi/versions/9yaYzpcr/DistantHorizons-2.3.4-b-1.21.8-fabric-neoforge.jar";
-    #       sha512 = "1008chyz2xia4dydh8hga29p0c15lqrf1mzwd06lbmvdqh30kqa11dx4zs4g0qfnp0jai437q259a97br8fkb3mn9g3in8p76q1cfsr";
-    #     };
-    #   });
+    symlinks = {
+      mods = pkgs.linkFarmFromDrvs "mods" (builtins.attrValues {
+        # CDN: find link to specific file, and `copy link` from the download button
+        # SHA512: `nix-prefetch-url --type sha512 --name <NAME> "<URL>"`
+        FerriteCore = pkgs.fetchurl {
+          url = "https://cdn.modrinth.com/data/uXXizFIs/versions/d5ddUdiB/ferritecore-9.0.0-fabric.jar?mr_download_reason=standalone&mr_game_version=26.1.2&mr_loader=fabric";
+          sha512 = "22fbjz59a2qh4bynn6rmplbawi36wgddycwsqvz1x5f11l5355khay5m6kf8xx1bzjcx4vivl1pc00xhcrz9hl95za1jk3q25zaj7yq";
+        };
+        Fabric-API = pkgs.fetchurl {
+          url = "https://cdn.modrinth.com/data/P7dR8mSH/versions/E1mjhYMF/fabric-api-0.150.0%2B26.1.2.jar?mr_download_reason=standalone&mr_game_version=26.1.2&mr_loader=fabric";
+          sha512 = "3f22p9dnm9v2mk4djrlkb7zrjmdh3lkbwvamh73gpvvd51r4ynlsaqyj200yrk4139izyxhyy423kqlqy4clkjnbcnivlhff8xpk313";
+        };
+        lithium = pkgs.fetchurl {
+          url = "https://cdn.modrinth.com/data/gvQqBUqZ/versions/rzrH7czY/lithium-fabric-0.24.4%2Bmc26.1.2.jar?mr_download_reason=standalone&mr_game_version=26.1.2&mr_loader=fabric";
+          sha512 = "35bcmy6pyzv9w0zykxxzzfs43p367wqlffaam53ff7ywxqibp5cn6pl4a50gm8gszkdc0h68ry919pg8v77cfralvp6vh4bjrh9chsx";
+        };
+      });
 
-    #   # RCON_CMDS_STARTUP: gamerule playersSleepingPercentage 1
-    # };
+      # RCON_CMDS_STARTUP: gamerule playersSleepingPercentage 1
+    };
   };
 }
 
