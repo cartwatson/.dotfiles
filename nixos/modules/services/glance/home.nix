@@ -139,17 +139,6 @@
             }
             {
               type = "rss";
-              title = "Cons";
-              style = "vertical-list";
-              feeds = [
-                {
-                  url = "https://defcon.org/html/links/defconrss.xml";
-                  title = "DefCon";
-                }
-              ];
-            }
-            {
-              type = "rss";
               title = "NPR";
               style = "vertical-list";
               feeds = [
@@ -157,13 +146,16 @@
                   url = "https://feeds.npr.org/1004/rss.xml";
                   title = "World News";
                 }
+              ];
+            }
+            {
+              type = "rss";
+              title = "NPR-Science";
+              style = "vertical-list";
+              feeds = [
                 {
                   url = "https://feeds.npr.org/1007/rss.xml";
                   title = "Science";
-                }
-                {
-                  url = "https://feeds.npr.org/1008/rss.xml";
-                  title = "Culture";
                 }
                 {
                   url = "https://feeds.npr.org/1026/rss.xml";
@@ -184,9 +176,7 @@
               limit = 5;
               channels = [
                 "UCYO_jab_esuFRV4b17AJtAw"  # 3blue1brown
-                "UCsBjURrPoezykLs9EqgamOA"  # Fireship
                 "UCUMwY9iS8oMyWDYIe6_RmoA"  # NoBoilerplate
-                "UC6biysICWOJ-C3P4Tyeggzg"  # LowLevelLearning
                 "UC5--wS0Ljbin1TjWQX6eafA"  # BigboxSWE
               ];
             }
@@ -198,7 +188,6 @@
               limit = 5;
               channels = [
                 "UC4rqhyiTs7XyuODcECvuiiQ"  # Scott the Woz
-                "UCmm3qhYkdW699stV_28TQpw"  # Scotts Stash
                 "UCsvn_Po0SmunchJYOWpOxMg"  # Dunkey
                 "UC0VVYtw21rg2cokUystu2Dw"  # Smallant
               ];
@@ -222,7 +211,6 @@
               "collapse-after-rows" = 2;
               limit = 5;
               channels = [
-                "UC_mmaVYaFmlfdxuKb6U69Yw"  # speeed
                 "UCtHaxi4GTYDpJgMSGy7AeSw"  # Micheal Reeves
                 "UCUW49KGPezggFi0PGyDvcvg"  # Zack Friedman
               ];
@@ -256,7 +244,6 @@
           type = "releases";
           title = "tools";
           cache = "1d";
-          # token = { _secret = "\${GITHUB_READONLY_TOKEN}"; };
           repositories = [
             "helix-editor/helix"
             "ifd3f/caligula"
@@ -266,7 +253,6 @@
           type = "releases";
           title = "3DS releases";
           cache = "1d";
-          # token = { _secret = "\${GITHUB_READONLY_TOKEN}"; };
           repositories = [
             "DS-Homebrew/nds-bootstrap"
             "LumaTeam/Luma3DS"
