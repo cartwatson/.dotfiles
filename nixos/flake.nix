@@ -11,10 +11,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-minecraft = {
-      url = "github:Infinidoge/nix-minecraft";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
+    nix-minecraft.url = "github:Infinidoge/nix-minecraft";
   };
 
   outputs = { self, nixpkgs, nixpkgs-unstable, nixpkgs-bleedingedge, sops-nix, nix-minecraft, ... }:

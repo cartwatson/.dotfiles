@@ -9,7 +9,9 @@ let
   ];
 in
 {
-  imports = [ nix-minecraft.nixosModules.minecraft-servers ];
+  imports = [
+    nix-minecraft.nixosModules.minecraft-servers
+  ];
 
   options.custom.services.minecraftServer = {
     enable = lib.mkEnableOption "Enable Minecraft Servers.";
