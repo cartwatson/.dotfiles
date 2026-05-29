@@ -14,10 +14,8 @@
     enable = true;
     domainName = "jjwatson.dev";
   };
-  custom.secrets.keyfile = lib.mkForce "/var/lib/custom-sops/keys.txt";
+  custom.secrets.keyFile = lib.mkForce "/var/lib/custom-sops/keys.txt";
   custom.services.personal-site.enable = lib.mkForce false;
-  custom.services.tailscale.ssh.enable = lib.mkForce false;
-  custom.services.tailscale.exit-node.enable = lib.mkForce false;
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

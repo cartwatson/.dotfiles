@@ -37,7 +37,7 @@ in
       enable = true;
       package = pkgs-unstable.glance;
       openFirewall = false;
-      environmentFile = "/var/lib/secrets/glance/env";
+      # environmentFile = "/var/lib/secrets/glance/env";
       settings = {
         theme = {
           background-color    = "\${GRUVBOX_BG}";
