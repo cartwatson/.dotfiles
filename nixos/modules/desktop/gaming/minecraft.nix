@@ -15,7 +15,8 @@ in
         # Change Java runtimes available to Prism Launcher
         jdks = [
           jdk17
-          jdk21
+          jdk21 # 1.1X.X
+          jdk25 # 26.X.X
         ];
       })
     ]);
