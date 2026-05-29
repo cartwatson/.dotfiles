@@ -25,11 +25,13 @@ fi
 
 PROMPT_COMMAND='GIT_BRANCH=$(__git_branch_ps1);'
 
-# create prompt line - example below
-# user@machine(ssh session):working/dir/full/path (git branch)
+# create prompt line - see example
+# (ssh session)user@machine:working/dir/full/path (git branch)
 # $
-PS1='\[\033[01;32m\]\u@\h\[\033[0;36m\]${SESSION_TYPE:+("SSH")}\[\033[00m\]:\[\033[01;34m\]\w\[\033[01;31m\]$GIT_BRANCH\[\033[00m\]\033[01;32m\]${IN_NIX_SHELL:+ ($name)}${VIRTUAL_ENV:+ (venv)}\[\033[00m\]\n\$ '
-# PS1='\u@\h${SESSION_TYPE:+("SSH")}:\w$GIT_BRANCH${IN_NIX_SHELL:+ ($name)}${VIRTUAL_ENV:+ (venv)}\n\$ ' # legacy, only used if color prompt not available
+PS1='\[\033[0;36m\]${SESSION_TYPE:+("SSH") }\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[01;31m\]$GIT_BRANCH\[\033[00m\]\033[01;32m\]${IN_NIX_SHELL:+ ($name)}${VIRTUAL_ENV:+ (venv)}\[\033[00m\]\n\$ '
+
+# below is legacy, only used if color prompt not available
+# PS1='${SESSION_TYPE:+("SSH") }\u@\h:\w$GIT_BRANCH${IN_NIX_SHELL:+ ($name)}${VIRTUAL_ENV:+ (venv)}\n\$ '
 
 # ---COMPLETION+ALIASES---------------------------------------------------------
 
