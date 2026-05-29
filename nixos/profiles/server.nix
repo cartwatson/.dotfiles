@@ -59,7 +59,7 @@ in
         };
       };
       services.personal-site = {
-        enable = true;
+        enable = false; # TODO: FIX: this is broken, needs a diff host
         port = 8002;
       };
       services.minecraftServer.enable = true;
