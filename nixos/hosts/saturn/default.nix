@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   imports = [
@@ -25,6 +25,7 @@
       enable = true;
       numWorkspaces = 1;
       allowOverride = true;
+      terminal.customize = false;
       extensions.listOfExtensions = (with pkgs.gnomeExtensions; [
         just-perfection
         user-themes
@@ -32,6 +33,7 @@
         pkgs.gnome49Extensions."dash-to-dock@micxgx.gmail.com"
       ];
     };
+    services.fonts.enable = lib.mkForce false;
     services.gaming = {
       enable = true;
       steam = true;
