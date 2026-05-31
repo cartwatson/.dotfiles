@@ -6,11 +6,7 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-bleedingedge.url = "github:nixos/nixpkgs/master";
 
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
+    sops-nix.url = "github:Mic92/sops-nix";
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
   };
 
