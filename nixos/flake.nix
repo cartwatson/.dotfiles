@@ -80,9 +80,10 @@
       devShells.${system}= {
         network-debug = pkgs.mkShell {
           packages = with pkgs; [
-            traceroute
-            tcpdump
+            busybox # contains: telnet, traceroute
             dig
+            nmap
+            tcpdump
             unixtools.arp
           ];
 
