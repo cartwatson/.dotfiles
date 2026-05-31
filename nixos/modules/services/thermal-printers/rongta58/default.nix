@@ -1,6 +1,6 @@
 { stdenv, autoPatchelfHook, cups }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "rongta58";
   version = "1.0";
 
