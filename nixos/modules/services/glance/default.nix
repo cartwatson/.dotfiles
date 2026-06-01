@@ -4,7 +4,7 @@ let
   baseCfg = config.custom.services;
   cfg = baseCfg.glance;
 
-  configFile = pkgs.writeText "/var/lib/secrets/glance/env"
+  configFile = pkgs.writeText "glance-env"
     ''
       # Theme - HSL Values
       ## Gruvbox - Dark mode - https://github.com/morhetz/gruvbox?tab=readme-ov-file#palette
@@ -24,7 +24,7 @@ let
       ### bottom values in color chart -- 9-15 + orange
       GRUVBOX_RED="9 96 59"
       GRUVBOX_GREEN="61 66 44"
-      GRUVBOX_YELLOW="61 66 44"
+      GRUVBOX_YELLOW="42 96 58"
       GRUVBOX_BLUE="157 16 58"
       GRUVBOX_PURPLE="344 47 68"
       GRUVBOX_AQUA="104 35 62"

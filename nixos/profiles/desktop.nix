@@ -4,10 +4,6 @@ let
   cfg = config.custom.profiles.desktop;
 in
 {
-  imports = [
-    ./common/base.nix
-  ];
-
   options.custom.profiles.desktop = {
     enable = lib.mkEnableOption "Enable default desktop config.";
     personal = lib.mkEnableOption "Include personal packages and services" // { default = true; };
