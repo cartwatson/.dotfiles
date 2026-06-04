@@ -25,7 +25,7 @@ function backup_files() {
     done
 }
 
-function create_dir() {
+function create_home_dir() {
     if [ ! -d "$HOME/$1" ]; then
         print_pending "Creating $1..."
         if mkdir -p "$HOME/$1"; then
@@ -79,7 +79,7 @@ function dotfiles_repo_https_to_ssh {
 
 function reinstall_helix_config {
     print_pending "Installing helix config..."
-    create_dir "$HOME/.config"
+    create_home_dir ".config"
     rm -rf "$HOME/.config/helix"
 
     if ln -s "$HOME/.dotfiles/helix" "$HOME/.config/helix"; then
@@ -164,8 +164,8 @@ function full_install {
     # assume this is a brand new machine
 
     # create folders
-    create_dir personal
-    create_dir work
+    create_home_dir personal
+    create_home_dir work
 
     # create file for holding machine specific aliases
     create_machine_configs
