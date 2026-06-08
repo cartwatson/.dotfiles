@@ -26,7 +26,7 @@ in
       interval = "5min";
       protocol = "cloudflare";
       username = "token";
-      passwordFile = cfg.cloudfareApiKeyPath;
+      passwordFile = cfg.cloudflareApiKeyPath;
       domains = [
         cfg.domainName
         ("*." + cfg.domainName)
