@@ -64,5 +64,18 @@ in
       };
       services.minecraftServer.enable = true;
     };
+
+    # auto pull down changes nightly
+    system.autoUpgrade = {
+      enable = true;
+      dates = "*-*-* 08:00:00"; # Server is in UTC, 0000 PST
+    flake = "github:cartwatson/.dotfiles?dir=nixos";
+
+      allowReboot = true; # Reboots ONLY if the kernel/boot loader changes
+      rebootWindow = {
+        lower = "08:00";  # Earliest time a reboot can happen (UTC)
+        upper = "09:00";  # Latest time a reboot can happen (UTC)
+      };
+    };
   };
 }
