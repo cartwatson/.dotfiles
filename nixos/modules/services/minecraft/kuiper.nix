@@ -34,6 +34,7 @@ in
       "SweenyBandwagon" = "1563cb25-01a8-4b21-997e-a31a58cac838";
       "CozyCrafts24" = "411c9e58-fbe4-4092-9b92-ef55bffd31da";
       "Gagecarling" = "af0b0012-4ad1-4598-8887-b69443c4865d";
+      "cmcaguilera" = "24504e8e-9216-4861-9d73-db90a16dffca";
     };
 
     symlinks = {
