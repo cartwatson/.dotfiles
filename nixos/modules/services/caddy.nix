@@ -27,7 +27,7 @@ in
         # TODO: pull enabled services from config.custom
         (virtualHost baseCfg.glance)
         (lib.mkIf baseCfg.personal-site.enable {"cartwatson.com".extraConfig = '' reverse_proxy :${toString baseCfg.personal-site.port} '';})
-        ({"caddy.${cfg.domain}".extraConfig = '' respond "Caddy Up!" '';}) # test caddy for glance dash
+        ({"caddy.${cfg.domain}".extraConfig = '' respond "Caddy Up V2!" '';}) # test caddy for glance dash
       ];
     };
 
