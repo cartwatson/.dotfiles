@@ -6,7 +6,7 @@ in
 {
   options.custom.services.ddclient = {
     enable = lib.mkEnableOption "Enable ddclient.";
-    cloudfareApiKeyPath = lib.mkOption {
+    cloudflareApiKeyPath = lib.mkOption {
       type = lib.types.str;
       default = "";
       description = "Cloudflare API token file location";

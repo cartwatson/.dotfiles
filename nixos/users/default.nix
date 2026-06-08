@@ -6,5 +6,7 @@
     ./wwatson.nix
     ./jgordon.nix
   ];
+
+  users.enforceIdUniqueness = true;
 }
 

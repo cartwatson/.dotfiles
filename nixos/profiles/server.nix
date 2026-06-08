@@ -47,7 +47,7 @@ in
       };
       services.ddclient = {
         enable = true;
-        cloudfareApiKeyPath = "/run/secrets/api_tokens/cloudflare";
+        cloudflareApiKeyPath = "/run/secrets/api_tokens/cloudflare";
         domainName = cfg.domainName;
       };
       services.glance = {

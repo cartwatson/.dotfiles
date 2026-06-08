@@ -18,7 +18,7 @@ Folder containing custom nix modules
 
 ### Add secrets
 
-1. edit file via `sops secrets/secrests.yaml`
+1. edit file via `sops secrets/secrets.yaml`
 
 ## Caddy
 

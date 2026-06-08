@@ -73,7 +73,7 @@
       # export package lists for non-NixOS consumers (e.g. buildEnv)
       lib.lspPackages = import ./modules/editors/lsp-packages.nix;
 
-      devShells.${system}= {
+      devShells.${system} = {
         network-debug = pkgs.mkShell {
           packages = with pkgs; [
             busybox # contains: telnet, traceroute
