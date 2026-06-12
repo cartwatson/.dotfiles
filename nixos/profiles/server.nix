@@ -69,7 +69,7 @@ in
     system.autoUpgrade = {
       enable = true;
       dates = "*-*-* 08:00:00"; # Server is in UTC, 0000 PST
-    flake = "github:cartwatson/.dotfiles?dir=nixos";
+      flake = "github:cartwatson/.dotfiles?dir=nixos";
 
       allowReboot = true; # Reboots ONLY if the kernel/boot loader changes
       rebootWindow = {
