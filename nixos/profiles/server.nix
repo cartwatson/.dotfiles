@@ -68,13 +68,13 @@ in
     # auto pull down changes nightly
     system.autoUpgrade = {
       enable = true;
-      dates = "*-*-* 08:00:00"; # Server is in UTC, 0000 PST
+      dates = "*-*-* 10:00:00"; # Server is in UTC, 0300 PST-0700 & 0400 PST-0800
       flake = "github:cartwatson/.dotfiles?dir=nixos";
 
       allowReboot = true; # Reboots ONLY if the kernel/boot loader changes
       rebootWindow = {
-        lower = "08:00";  # Earliest time a reboot can happen (UTC)
-        upper = "09:00";  # Latest time a reboot can happen (UTC)
+        lower = "10:00";  # Earliest time a reboot can happen
+        upper = "11:00";  # Latest time a reboot can happen
       };
     };
   };
