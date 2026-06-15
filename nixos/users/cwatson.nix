@@ -17,7 +17,7 @@
       packages = (with pkgs; [
         caligula # ISO Burner
         speedtest-go
-      ] ++ (lib.lists.optionals config.custom.services.gnome.enable [ # only add GUI apps if using gnome
+      ] ++ (lib.lists.optionals config.custom.profiles.desktop.enable [ # GUI apps
         element-desktop
         discord
         slack

@@ -14,7 +14,7 @@
         "wheel"
       ] ++ (lib.optional config.networking.networkmanager.enable "networkmanager");
 
-      packages = with pkgs; lib.lists.optionals config.custom.services.gnome.enable [
+      packages = with pkgs; lib.lists.optionals config.custom.profiles.desktop.enable [
         discord
       ];
     };
