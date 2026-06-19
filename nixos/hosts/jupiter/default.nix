@@ -13,7 +13,7 @@
   custom = {
     secrets.enable = true;
     services.gnome = {
-      numWorkspaces = 9;
+      numWorkspaces = 7;
       extensions.automoveWindows = [
         "spotify.desktop:1"
         "bitwarden.desktop:2"
