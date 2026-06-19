@@ -28,6 +28,12 @@ in
       ];
     };
 
+    # Add Ghostscript directly to system packages so CUPS can invoke it
+    environment.systemPackages = [
+      rongta58Driver
+      pkgs.ghostscript
+    ];
+
     hardware.printers = {
       ensureDefaultPrinter = cfg.name;
       ensurePrinters = [
@@ -46,9 +52,6 @@ in
         }
       ];
     };
-
-    # Add Ghostscript directly to system packages so CUPS can invoke it
-    environment.systemPackages = [ pkgs.ghostscript ];
 
     # CRITICAL: for text printing install core fonts
     # Without this, text-to-pdf filters will hang indefinitely searching for a font
