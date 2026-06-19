@@ -12,11 +12,12 @@ in
     # TODO: fix this :/
     # clear existing configured settings
     # FUTURE: When other extensions gain configuration then we need to nuke their settings on rebuild as well
-    # system.activationScripts.resetDconf = {
-    #   text = ''
-    #     ${pkgs.dconf}/bin/dconf reset -f /org/gnome/shell/extensions/auto-move-windows;
-    #    '';
-    # };
+    system.activationScripts.resetDconf = {
+      text = ''
+        ${pkgs.dconf}/bin/dconf reset -f /org/gnome/shell/extensions/auto-move-windows/;
+        ${pkgs.dconf}/bin/dconf reset -f /org/gnome/shell/extensions/just-perfection/;
+       '';
+    };
 
     programs.dconf.profiles.user.databases = [{
       settings = with lib.gvariant; {
