@@ -6,11 +6,14 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-bleedingedge.url = "github:nixos/nixpkgs/master";
 
+    disko.url = "github:nix-community/disko";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
+
     sops-nix.url = "github:Mic92/sops-nix";
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, nixpkgs-bleedingedge, sops-nix, nix-minecraft, ... }:
+  outputs = { self, nixpkgs, nixpkgs-unstable, nixpkgs-bleedingedge, disko, sops-nix, nix-minecraft, ... }:
     let
       inherit (nixpkgs) lib;
       system = "x86_64-linux";
@@ -39,6 +42,7 @@
 
             modules = [
               { networking.hostName = name; }
+              disko.nixosModules.disko
               sops-nix.nixosModules.sops
 
               ./hardware

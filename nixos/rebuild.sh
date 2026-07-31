@@ -17,6 +17,7 @@ while [[ $# -gt 0 ]]; do
       echo -e "-u, --update\n\tUpdate flake.lock"
       echo -e "-e, --update-hw\n\tUpdate hardware-configuration.nix"
       echo -e "-c, --clean\n\tOptimise cache and garbage collect old builds"
+      echo -e "-i, --iso\n\tCreate a bootable ISO"
       echo -e "    --hostname\n\tHostname to use for rebuild"
       exit 0
       ;;
@@ -52,18 +53,47 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-# catch unset hostname
-if [[ -z "$HOSTNAME" || "$HOSTNAME" == "nixos" ]]; then
-  echo "HOSTNAME unset or 'nixos', use --hostname <host>"
-  exit 1
-fi
-
 NIXOS_DIRECTORY="$HOME/.dotfiles/nixos"
 
 if [[ "$ISO" == "true" ]]; then
   # attempt to build, if successful, attempt to burn to disk
   nix build .#nixosConfigurations.live-iso.config.system.build.isoImage --out-link nix-iso
+  echo ""
+  echo "=== BURNING ISO ==="
+  echo ""
   caligula burn --compression none --hash skip nix-iso/iso/*.iso
+  echo ""
+  echo "=== BOOT ISO ON DEVICE... ==="
+  read -p "waiting... press enter when complete"
+  echo ""
+
+  # get new host info
+  read -p "New machine's hostname: " TARGET_HOSTNAME
+  read -p "New machine's IP address: " TARGET_IP
+
+  # scaffold host config from template if it doesn't exist
+  if [ ! -d "$NIXOS_DIRECTORY/hosts/$TARGET_HOSTNAME" ]; then
+    echo "Creating host config from template..."
+    mkdir -p "$NIXOS_DIRECTORY/hosts/$TARGET_HOSTNAME"
+    cp "$NIXOS_DIRECTORY/lib/host-template.nix" "$NIXOS_DIRECTORY/hosts/$TARGET_HOSTNAME/default.nix"
+  fi
+
+  # ensure hardware config exists before attempting nixos-anywhere
+  if [ ! -f "$NIXOS_DIRECTORY/hosts/$TARGET_HOSTNAME/hardware-configuration.nix" ]; then
+    echo ""
+    echo "In another terminal:"
+    echo "  1. Get the hardware config from the target:"
+    echo "       ssh root@$TARGET_IP -- nixos-generate-config --show-hardware-config > hosts/$TARGET_HOSTNAME/hardware-configuration.nix"
+    echo "  2. Edit hosts/$TARGET_HOSTNAME/default.nix (set disk, enable profiles)"
+    echo ""
+    read -p "waiting... press enter when complete"
+
+    # strip fileSystems and swapDevices — disko manages those
+    sed -i '/^\s*fileSystems\./,/^\s*};$/d' "$NIXOS_DIRECTORY/hosts/$TARGET_HOSTNAME/hardware-configuration.nix"
+    sed -i '/^\s*swapDevices\s*=/d' "$NIXOS_DIRECTORY/hosts/$TARGET_HOSTNAME/hardware-configuration.nix"
+  fi
+
+  nix run github:nix-community/nixos-anywhere -- --flake "$NIXOS_DIRECTORY"#"$TARGET_HOSTNAME" root@"$TARGET_IP"
   exit 0
 fi
 
@@ -71,6 +101,12 @@ if [[ "$UPDATE" == "true" ]]; then
   echo "UPDATING FLAKE..."
   nix flake update
   echo "DONE UPDATING"
+fi
+
+# catch unset hostname
+if [[ -z "$HOSTNAME" || "$HOSTNAME" == "nixos" ]]; then
+  echo "HOSTNAME unset or 'nixos', use --hostname <host>"
+  exit 1
 fi
 
 if [[ "$UPDATE_HW" == "true" ]]; then

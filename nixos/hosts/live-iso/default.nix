@@ -1,30 +1,29 @@
-{ self, modulesPath, lib, pkgs, ... }:
+{ modulesPath, lib, ... }:
 
 {
   imports = [
-    # TODO: change to gnome installer
     "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
   ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
+  # allow legacy and UEFI booting
+  boot.loader.grub.efiSupport = true;
+  boot.loader.grub.efiInstallAsRemovable = true;
+
+  # SSH access for nixos-anywhere (install media only, not a real system)
+  services.openssh = {
+    enable = true;
+    settings.PermitRootLogin = "yes";
+  };
+  users.users.root.initialHashedPassword = lib.mkForce "nixos";
+
   programs.bash.interactiveShellInit = ''
-    ${builtins.readFile ../../../bashrc.sh}
-    ${builtins.readFile ../../../aliases.sh}
-    alias cdd="clear; cd /etc/dotfiles"
+    echo ""
+    echo "=== cartwatson's NixOS Install ISO ==="
+    echo "  Connect ethernet and note your IP: $(hostname -I)"
+    echo "  Then from your main machine run:"
+    echo "    nix run github:nix-community/nixos-anywhere -- --flake .#<hostname> nixos@<this-ip>"
+    echo ""
   '';
-
-  # Bundle the flake source into the ISO at /etc/dotfiles
-  environment.etc."dotfiles".source = self;
-
-  # available at `ssh nixos@live-iso.local`
-  services.openssh.enable = true;
-  users.users.nixos.openssh.authorizedKeys.keys = [
-    "ssh-ed25519 AHHH... your-public-key" # TODO: put real things here
-  ];
-
-  environment.systemPackages = (with pkgs; [
-    disko
-    parted
-  ]);
 }
