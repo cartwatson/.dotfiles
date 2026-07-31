@@ -1,4 +1,4 @@
-# Portable baseline config - made for exporting as a module
+# Baseline config
 
 { config, lib, pkgs, ... }:
 
@@ -8,10 +8,19 @@
   ];
 
   custom = {
+    services.tmux.enable = lib.mkDefault true;
     services.helix.enable = lib.mkDefault true;
     services.fonts.enable = lib.mkDefault true;
     services.timezone.enable = lib.mkDefault true;
   };
+
+  # TODO: test this out in the future, could be useful for live-iso ssh access/discovery
+  # services.avahi = {
+  #   enable = true;
+  #   nssmdns4 = true;
+  #   publish.enable = true;
+  #   publish.addresses = true;
+  # };
 
   # Enable firmware updates
   hardware.enableRedistributableFirmware = true;
@@ -36,14 +45,11 @@
   environment.systemPackages = (with pkgs; [
     git
     vim
-    tmux
-    xclip
-    fzf
-    jq
-    btop
-    tree
-    gh
-    radeontop
+    fzf       # needed for bashrc
+    jq        # nice to have
+    tree      # nice to have
+    btop      # system monitor
+    radeontop # needed for btop
   ]);
 
   nixpkgs.config.allowUnfree = true;
@@ -52,6 +58,6 @@
 
   nix.gc.automatic = true;
   nix.gc.dates = "weekly";
-  nix.gc.options = "--delete-older-than 14d";
+  nix.gc.options = "--delete-older-than 30d";
   nix.settings.auto-optimise-store = true;
 }

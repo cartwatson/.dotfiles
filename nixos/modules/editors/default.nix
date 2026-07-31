@@ -3,5 +3,6 @@
 {
   imports = [
     ./helix.nix
+    ./tmux
   ];
 }

@@ -43,13 +43,12 @@ function symlink_config {
 
     # create symlinks for files
     failed=0
-    print_pending "Creating symlinks for bashrc, aliases, vimconfig, gitconfig, and tmuxconfig..."
+    print_pending "Creating symlinks for bashrc, aliases, vimconfig, gitconfig..."
     ln -s "$WORKING_DIR"/bashrc.sh          "$HOME"/.bashrc          || ((failed++))
     ln -s "$WORKING_DIR"/aliases.sh         "$HOME"/.bash_aliases    || ((failed++))
     ln -s "$WORKING_DIR"/profile.sh         "$HOME"/.profile         || ((failed++))
     ln -s "$WORKING_DIR"/vimrc.vim          "$HOME"/.vimrc           || ((failed++))
     ln -s "$WORKING_DIR"/gitconfig-personal "$HOME"/.gitconfig       || ((failed++))
-    ln -s "$WORKING_DIR"/tmux/tmux.conf     "$HOME"/.tmux.conf       || ((failed++))
 
     if [ ! -f ~/work/.gitconfig ]; then
         # don't create symlink here so this file can be edited

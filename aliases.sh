@@ -15,9 +15,9 @@ alias mkdir="mkdir -p"
 alias sbr="source $HOME/.bashrc"
 
 ## tmux
-alias tp="$HOME/.dotfiles/tmux/sessions/personal.sh"
-alias tw="$HOME/.dotfiles/tmux/sessions/work.sh"
-alias ide="$HOME/.dotfiles/tmux/sessions/windows/ide.sh"
+alias  tp="$HOME/.dotfiles/nixos/modules/editors/tmux/sessions/personal.sh"
+alias  tw="$HOME/.dotfiles/nixos/modules/editors/tmux/sessions/work.sh"
+alias ide="$HOME/.dotfiles/nixos/modules/editors/tmux/sessions/windows/ide.sh"
 alias tls="tmux list-sessions"
 function tks() {
     if [ -n "$1" ]; then
