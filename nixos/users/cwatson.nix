@@ -9,6 +9,7 @@
     # Define a user account. Don't forget to set a password with ‘passwd’.
     users.users.cwatson = {
       isNormalUser = true;
+      initialPassword = "changeme";
       description = "Carter Watson";
       extraGroups = [
         "wheel"

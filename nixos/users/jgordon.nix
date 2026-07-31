@@ -9,6 +9,7 @@
     # Define a user account. Don't forget to set a password with ‘passwd’.
     users.users.jgordon = {
       isNormalUser = true;
+      initialPassword = "changeme";
       description = "Jess Gordon";
       extraGroups = [
         "wheel"
