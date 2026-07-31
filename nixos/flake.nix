@@ -25,6 +25,7 @@
         (lib.mapAttrs (name: _value:
           lib.nixosSystem {
             specialArgs = {
+              inherit self;
               inherit nix-minecraft;
               pkgs-unstable = import nixpkgs-unstable {
                 config.allowUnfree = true;
@@ -55,6 +56,7 @@
         desktop = {
           imports = [
             ./modules/desktop
+            ./modules/editors/tmux.nix
             ./modules/editors/helix.nix
             ./modules/networking/tailscale.nix
             ./modules/services/timezone.nix
