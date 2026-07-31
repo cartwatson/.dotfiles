@@ -95,7 +95,8 @@ W = [":toggle soft-wrap.enable", ":redraw"]
 [keys.normal.space.t]
 d = "@0t]<esc>rX:w<ret>0"
 u = "@0t]<esc>r :w<ret>0"
-n = "@o- [ ] "
+n = "@o- [ <del>] "
+
 # sort todos by status
 s = [
   "goto_prev_paragraph",

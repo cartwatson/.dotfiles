@@ -13,6 +13,8 @@ in
   config = lib.mkIf cfg.enable {
     environment.systemPackages = (with pkgs-unstable; [
       helix
+    ]) ++ (with pkgs; [
+      gh
     ]) ++ lspPackages;
   };
 }
