@@ -15,6 +15,12 @@
     desktopEnvironment = "gnome";
   };
 
+  custom.services = {
+    rf.enable = true;
+    gaming.enable = true;
+    gaming.openttd = true;
+  };
+
   # Bootloader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
