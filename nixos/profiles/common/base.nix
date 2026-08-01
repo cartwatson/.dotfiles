@@ -11,7 +11,6 @@
     services.tmux.enable = lib.mkDefault true;
     services.helix.enable = lib.mkDefault true;
     services.fonts.enable = lib.mkDefault true;
-    services.timezone.enable = lib.mkDefault true;
   };
 
   # TODO: test this out in the future, could be useful for live-iso ssh access/discovery
