@@ -6,14 +6,31 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-bleedingedge.url = "github:nixos/nixpkgs/master";
 
+    nixos-hardware.url = "github:NixOS/nixos-hardware";
+    nixos-hardware.inputs.nixpkgs.follows = "nixpkgs";
+
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
+
+    defcon-wifi.url = "github:NixVegas/dcwifi/dc34";
+    defcon-wifi.inputs.nixpkgs.follows = "nixpkgs";
 
     sops-nix.url = "github:Mic92/sops-nix";
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, nixpkgs-bleedingedge, disko, sops-nix, nix-minecraft, ... }:
+  outputs = {
+    self,
+    nixpkgs,
+    nixpkgs-unstable,
+    nixpkgs-bleedingedge,
+    nixos-hardware,
+    disko,
+    defcon-wifi,
+    sops-nix,
+    nix-minecraft,
+    ...
+  }:
     let
       inherit (nixpkgs) lib;
       system = "x86_64-linux";
@@ -50,7 +67,11 @@
               ./modules
               ./profiles
               ./users
-            ];
+            # TODO: find a better way here, because this is way too ugly (and WACK)
+            ] ++ (lib.lists.optionals (name == "mercury" || name == "artemis") [
+              defcon-wifi.nixosModules.default
+              nixos-hardware.nixosModules.lenovo-thinkpad-t480s
+            ]);
           }
         ))
       ];

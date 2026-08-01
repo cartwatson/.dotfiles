@@ -1,5 +1,26 @@
 {
   "nodes": {
+    "defcon-wifi": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1785228046,
+        "narHash": "sha256-I/8S2bRfNPSvn5G1Di3Qu7cICmPE/qRIGicB79sMO+Y=",
+        "owner": "NixVegas",
+        "repo": "dcwifi",
+        "rev": "57e84adf92c0eb4eb713e411198a2d2b1c130572",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixVegas",
+        "ref": "dc34",
+        "repo": "dcwifi",
+        "type": "github"
+      }
+    },
     "disko": {
       "inputs": {
         "nixpkgs": [
@@ -53,6 +74,26 @@
       "original": {
         "owner": "Infinidoge",
         "repo": "nix-minecraft",
+        "type": "github"
+      }
+    },
+    "nixos-hardware": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1785232496,
+        "narHash": "sha256-65EQYIRRpTdpH8lUiB6Mvo5uBkG60aBIzAJuALfx+O0=",
+        "owner": "NixOS",
+        "repo": "nixos-hardware",
+        "rev": "2e790b0a6be8ec2b76174ac0931b8ff11919ec98",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixos-hardware",
         "type": "github"
       }
     },
@@ -138,8 +179,10 @@
     },
     "root": {
       "inputs": {
+        "defcon-wifi": "defcon-wifi",
         "disko": "disko",
         "nix-minecraft": "nix-minecraft",
+        "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-bleedingedge": "nixpkgs-bleedingedge",
         "nixpkgs-unstable": "nixpkgs-unstable",
