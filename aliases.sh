@@ -55,7 +55,7 @@ alias gsll="clear; ll; gs"
 function gco () {
     git checkout "$(git config init.defaultBranch)";
 }
-function gac() { git add "$1" && git commit -m "$2"; }
+function gac() { git add "${@:1:$#-1}" && git commit -m "${@: -1}"; }
 function gcp() { git commit -m "$@" && git push; }
 function gacp() { git add "${@:1:$#-1}" && git commit -m "${@: -1}" && git push; }
 function gpsu() { git push --set-upstream origin "$(git branch --show-current)"; }
