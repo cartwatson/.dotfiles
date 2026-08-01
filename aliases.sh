@@ -79,24 +79,24 @@ alias jfu="journalctl --output=short-iso --follow --unit"
 
 alias rebuild="$HOME/.dotfiles/nixos/rebuild.sh"
 
-function git-custom-init-status() {
+function git-init-custom-status() {
     echo "Who built this?"
     git shortlog -sn --no-merges | head -5
-    read
+    read -p "press enter..."
 
     echo "What files change often?"
     git log --format=format: --name-only --since="1 year ago" | sort | uniq -c | sort -nr | head -20
-    read
+    read -p "press enter..."
 
     echo "What files are getting fixes?"
     git log -i -E --grep="fix|bug|broken" --name-only --format='' | sort | uniq -c | sort -nr | head -20
-    read
+    read -p "press enter..."
 
     echo "Commit count per month"
     git log --format='%ad' --date=format:'%Y-%m' | sort | uniq -c
-    read
+    read -p "press enter..."
 
     echo "How often are reverts/hotfixes needed?"
     git log --oneline --since="1 year ago" | grep -iE 'revert|hotfix|emergency|rollback'
-    read
+    read -p "press enter..."
 }
