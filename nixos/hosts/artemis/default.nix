@@ -8,15 +8,13 @@
 
   # set to your target disk (run `lsblk` on the target to find it)
   _module.args.disk = "/dev/sda";
-
-  custom.profiles.laptop.enable = true;
-  custom.profiles.desktop = {
-    enable = true;
-    desktopEnvironment = "gnome";
-  };
-
-  custom.services = {
-    ctf.enable = true;
+  custom = {
+    hardware.thinkpad-T480s.enable = true;
+    profiles = {
+      desktop.enable = true;
+      desktop.desktopEnvironment = "plasma";
+    };
+    services.ctf.enable = true;
   };
 
   # Bootloader

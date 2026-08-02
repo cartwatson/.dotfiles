@@ -84,14 +84,12 @@
             ./modules/editors/tmux.nix
             ./modules/editors/helix.nix
             ./modules/networking/tailscale.nix
-            ./modules/services/timezone.nix
             ./profiles/common/base.nix
             ./profiles/desktop.nix
           ];
         };
         laptop = {
           imports = [
-            ./modules/services/timezone.nix
             ./profiles/laptop.nix
           ];
         };
