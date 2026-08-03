@@ -10,12 +10,12 @@
       ./hardware-configuration.nix
     ];
 
-  custom.profiles.server = {
+  pillar.profiles.server = {
     enable = true;
     domainName = "jjwatson.dev";
   };
-  custom.secrets.keyFile = lib.mkForce "/var/lib/custom-sops/keys.txt";
-  custom.services.personal-site.enable = lib.mkForce false;
+  pillar.secrets.keyFile = lib.mkForce "/var/lib/custom-sops/keys.txt";
+  pillar.services.personal-site.enable = lib.mkForce false;
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

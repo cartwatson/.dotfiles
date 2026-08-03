@@ -1,13 +1,13 @@
 { config, lib, pkgs, ... }:
 
 let
-  cfg = config.custom.services.tmux;
+  cfg = config.pillar.services.tmux;
   plugins = import ./plugins.nix { inherit pkgs; };
   homedir = "/home/${cfg.user}";
   basedir = "${homedir}/.dotfiles";
 in
 {
-  options.custom.services.tmux = {
+  options.pillar.services.tmux = {
     enable = lib.mkEnableOption "Enable tmux and plugins system wide.";
     user = lib.mkOption {
       type = lib.types.str;

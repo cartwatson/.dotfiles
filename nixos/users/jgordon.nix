@@ -1,11 +1,11 @@
 { config, lib, pkgs, ... }:
 
 {
-  options.custom.users.jwatson = {
+  options.pillar.users.jwatson = {
     enable = lib.mkEnableOption "Create user 'jwatson'";
   };
 
-  config = lib.mkIf config.custom.users.jwatson.enable {
+  config = lib.mkIf config.pillar.users.jwatson.enable {
     # Define a user account. Don't forget to set a password with ‘passwd’.
     users.users.jwatson = {
       isNormalUser = true;

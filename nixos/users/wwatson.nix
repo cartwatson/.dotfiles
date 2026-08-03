@@ -1,11 +1,11 @@
 { config, lib, pkgs, ... }:
 
 {
-  options.custom.users.wwatson = {
+  options.pillar.users.wwatson = {
     enable = lib.mkEnableOption "Create user 'wwatson'";
   };
 
-  config = lib.mkIf config.custom.users.wwatson.enable {
+  config = lib.mkIf config.pillar.users.wwatson.enable {
     # Define a user account. Don't forget to set a password with ‘passwd’.
     users.users.wwatson = {
       isNormalUser = true;
@@ -15,7 +15,7 @@
         "wheel"
       ] ++ (lib.optional config.networking.networkmanager.enable "networkmanager");
 
-      packages = with pkgs; lib.lists.optionals config.custom.profiles.desktop.enable [
+      packages = with pkgs; lib.lists.optionals config.pillar.profiles.desktop.enable [
         discord
       ];
     };

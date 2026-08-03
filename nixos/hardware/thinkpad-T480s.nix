@@ -2,10 +2,10 @@
 { lib, config, ... }:
 
 let
-  cfg = config.custom.hardware.thinkpad-T480s;
+  cfg = config.pillar.hardware.thinkpad-T480s;
 in
 {
-  options.custom.hardware.thinkpad-T480s = {
+  options.pillar.hardware.thinkpad-T480s = {
     enable = lib.mkEnableOption "Enable Thinkpad T480s config.";
   };
 

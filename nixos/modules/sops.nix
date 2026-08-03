@@ -1,10 +1,10 @@
 { config, lib, pkgs, ... }:
 
 let
-  cfg = config.custom.secrets;
+  cfg = config.pillar.secrets;
 in
 {
-  options.custom.secrets = {
+  options.pillar.secrets = {
     enable = lib.mkEnableOption "Enable sops/age for secrets management";
     keyFile = lib.mkOption {
       type = lib.types.path;

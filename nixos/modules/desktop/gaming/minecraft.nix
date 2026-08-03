@@ -1,10 +1,10 @@
 { config, lib, pkgs, pkgs-unstable, ... }:
 
 let
-  cfg = config.custom.services.gaming;
+  cfg = config.pillar.services.gaming;
 in
 {
-  options.custom.services.gaming = {
+  options.pillar.services.gaming = {
     minecraft = lib.mkEnableOption "Install PrismLauncher for Minecraft";
   };
 

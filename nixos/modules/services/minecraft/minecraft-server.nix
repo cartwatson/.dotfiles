@@ -1,7 +1,7 @@
 { config, lib, pkgs, pkgs-unstable, nix-minecraft, ... }:
 
 let
-  baseCfg = config.custom.services;
+  baseCfg = config.pillar.services;
   cfg = baseCfg.minecraftServer;
 
   customServers = lib.attrsets.mergeAttrsList [
@@ -13,7 +13,7 @@ in
     nix-minecraft.nixosModules.minecraft-servers
   ];
 
-  options.custom.services.minecraftServer = {
+  options.pillar.services.minecraftServer = {
     enable = lib.mkEnableOption "Enable Minecraft Servers.";
   };
 

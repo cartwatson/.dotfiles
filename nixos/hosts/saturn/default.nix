@@ -5,12 +5,12 @@
     ./hardware-configuration.nix
   ];
 
-  custom.profiles.desktop = {
+  pillar.profiles.desktop = {
     enable = true;
     desktopEnvironment = "gnome";
   };
 
-  custom = {
+  pillar = {
     secrets = {
       enable = true;
       keyFile = "/var/lib/custom-sops/keys.txt";

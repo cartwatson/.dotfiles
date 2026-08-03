@@ -1,10 +1,10 @@
 { config, lib, pkgs, ... }:
 
 let
-  cfg = config.custom.profiles.server;
+  cfg = config.pillar.profiles.server;
 in
 {
-  options.custom.profiles.server = {
+  options.pillar.profiles.server = {
     enable = lib.mkEnableOption "Enable default server config.";
     domainName = lib.mkOption {
       type = lib.types.str;
@@ -28,7 +28,7 @@ in
       "glance/location" = {};
     };
 
-    custom = {
+    pillar = {
       secrets.enable = true;
       services.timezone.tz = "Etc/Zulu";
       services.tailscale = {

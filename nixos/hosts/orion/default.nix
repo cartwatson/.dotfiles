@@ -5,14 +5,14 @@
     ./hardware-configuration.nix
   ];
 
-  custom.hardware.nvidia.enable = true;
-  custom.profiles.laptop.enable = true;
-  custom.profiles.desktop = {
+  pillar.hardware.nvidia.enable = true;
+  pillar.profiles.laptop.enable = true;
+  pillar.profiles.desktop = {
     enable = true;
     desktopEnvironment = "gnome";
   };
 
-  custom = {
+  pillar = {
     services.gaming = {
       enable = true;
       minecraft = true;

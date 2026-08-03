@@ -1,10 +1,10 @@
 { config, lib, ... }:
 
 let
-  cfg = config.custom.services.ssh;
+  cfg = config.pillar.services.ssh;
 in
 {
-  options.custom.services.ssh = {
+  options.pillar.services.ssh = {
     enable = lib.mkEnableOption "Enable ssh access.";
 
     port = lib.mkOption {

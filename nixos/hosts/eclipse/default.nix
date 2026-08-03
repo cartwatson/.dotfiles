@@ -5,13 +5,13 @@
     ./hardware-configuration.nix
   ];
 
-  custom.profiles.laptop.enable = true;
-  custom.profiles.desktop = {
+  pillar.profiles.laptop.enable = true;
+  pillar.profiles.desktop = {
     enable = true;
     desktopEnvironment = "gnome";
   };
 
-  custom = {
+  pillar = {
     secrets.enable = true;
     services.gaming = {
       enable = true;

@@ -1,10 +1,10 @@
 { config, lib, ... }:
 
 let
-  cfg = config.custom.services.timezone;
+  cfg = config.pillar.services.timezone;
 in
 {
-  options.custom.services.timezone = {
+  options.pillar.services.timezone = {
     enable = lib.mkEnableOption "Enable custom timezone service";
     tz = lib.mkOption {
       type = lib.types.str;

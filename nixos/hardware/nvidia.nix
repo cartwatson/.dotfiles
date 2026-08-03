@@ -1,10 +1,10 @@
 { lib, config, ... }:
 
 let
-  cfg = config.custom.hardware.nvidia;
+  cfg = config.pillar.hardware.nvidia;
 in
 {
-  options.custom.hardware.nvidia = {
+  options.pillar.hardware.nvidia = {
     enable = lib.mkEnableOption "Enable nvidia config.";
   };
 

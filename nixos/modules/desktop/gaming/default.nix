@@ -1,7 +1,7 @@
 { config, lib, pkgs, pkgs-unstable, ... }:
 
 let
-  cfg = config.custom.services.gaming;
+  cfg = config.pillar.services.gaming;
 in
 {
   imports = [
@@ -9,7 +9,7 @@ in
     ./minecraft.nix
   ];
 
-  options.custom.services.gaming = {
+  options.pillar.services.gaming = {
     enable = lib.mkEnableOption "Enable Gaming.";
     openttd = lib.mkEnableOption "Install OpenTTD";
   };

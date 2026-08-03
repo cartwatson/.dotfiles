@@ -1,10 +1,10 @@
 { config, lib, pkgs, pkgs-unstable, ... }:
 
 let
-  cfg = config.custom.profiles.desktop;
+  cfg = config.pillar.profiles.desktop;
 in
 {
-  options.custom.profiles.desktop = {
+  options.pillar.profiles.desktop = {
     enable = lib.mkEnableOption "Enable default desktop config.";
     personal = lib.mkEnableOption "Include personal packages and services" // { default = true; };
     desktopEnvironment = lib.mkOption {
@@ -18,9 +18,9 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    custom.services.gnome.enable = (cfg.desktopEnvironment == "gnome");
-    custom.services.plasma.enable = (cfg.desktopEnvironment == "plasma");
-    custom.services.tailscale.enable = cfg.personal;
+    pillar.services.gnome.enable = (cfg.desktopEnvironment == "gnome");
+    pillar.services.plasma.enable = (cfg.desktopEnvironment == "plasma");
+    pillar.services.tailscale.enable = cfg.personal;
 
     environment.systemPackages = (with pkgs-unstable; [
     ] ++ lib.optionals cfg.personal [

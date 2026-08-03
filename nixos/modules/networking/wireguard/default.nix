@@ -1,7 +1,7 @@
 { config, lib, pkgs, settings, ... }:
 
 let
-  cfg = config.custom.services.wireguard;
+  cfg = config.pillar.services.wireguard;
 
   # compute peers
   oort = rec {
@@ -12,7 +12,7 @@ let
   };
 in
 {
-  options.custom.services.wireguard = {
+  options.pillar.services.wireguard = {
     enable = lib.mkEnableOption "Enable WireGuard configurations";
     oort = {
       enable = lib.mkEnableOption "Enable OORT network config.";

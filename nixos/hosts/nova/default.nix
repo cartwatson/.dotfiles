@@ -5,7 +5,7 @@
     ./hardware-configuration.nix
   ];
 
-  custom.profiles.server = {
+  pillar.profiles.server = {
     enable = true;
     domainName = "jjwatson.dev";
   };

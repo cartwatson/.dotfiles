@@ -1,7 +1,7 @@
 { config, lib, pkgs, pkgs-unstable, ... }:
 
 let
-  baseCfg = config.custom.services;
+  baseCfg = config.pillar.services;
   cfg = baseCfg.glance;
 
   configFile = pkgs.writeText "glance-env"
@@ -32,7 +32,7 @@ let
     '';
 in
 {
-  options.custom.services.glance = {
+  options.pillar.services.glance = {
     enable = lib.mkEnableOption "Enable Glance.";
     port = lib.mkOption {
       type = lib.types.port;

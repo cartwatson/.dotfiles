@@ -1,10 +1,10 @@
 { config, lib, pkgs, ... }:
 
 let
-  cfg = config.custom.services.docker;
+  cfg = config.pillar.services.docker;
 in
 {
-  options.custom.services.docker = {
+  options.pillar.services.docker = {
     enable = lib.mkEnableOption "Enable Docker.";
   };
 

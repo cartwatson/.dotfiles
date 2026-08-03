@@ -1,10 +1,10 @@
 { config, lib, pkgs, ... }:
 
 let
-  cfg = config.custom.services.tailscale;
+  cfg = config.pillar.services.tailscale;
 in
 {
-  options.custom.services.tailscale = {
+  options.pillar.services.tailscale = {
     enable = lib.mkEnableOption "Enable tailscale";
     ssh.enable = lib.mkEnableOption "Enable ssh over tailscale (requires authKeyFile to be set)";
     exit-node.enable = lib.mkEnableOption "Advertise machine as exit node (requires authKeyFile to be set)";

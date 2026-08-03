@@ -1,7 +1,7 @@
 { pkgs, lib, config, ... }:
 
 let
-  cfg = config.custom.services.gnome;
+  cfg = config.pillar.services.gnome;
 in
 {
   config = lib.mkIf (cfg.enable && cfg.terminal.enable) {

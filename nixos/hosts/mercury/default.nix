@@ -9,7 +9,7 @@
   # set to your target disk (run `lsblk` on the target to find it)
   _module.args.disk = "/dev/sda";
 
-  custom = {
+  pillar = {
     hardware.thinkpad-T480s.enable = true;
     profiles = {
       laptop.enable = true;

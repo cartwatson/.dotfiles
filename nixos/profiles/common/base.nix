@@ -7,7 +7,7 @@
     ./fonts.nix
   ];
 
-  custom = {
+  pillar = {
     users.cwatson.enable = lib.mkDefault true;
     users.wwatson.enable = lib.mkDefault false;
     users.jwatson.enable = lib.mkDefault false;

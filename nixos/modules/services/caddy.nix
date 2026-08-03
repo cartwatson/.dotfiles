@@ -1,7 +1,7 @@
 { config, lib, ... }:
 
 let
-  baseCfg = config.custom.services;
+  baseCfg = config.pillar.services;
   cfg = baseCfg.caddy;
 
   virtualHost = serviceCfg:
@@ -11,7 +11,7 @@ let
     };
 in
 {
-  options.custom.services.caddy = {
+  options.pillar.services.caddy = {
     enable = lib.mkEnableOption "Enable Caddy.";
     domain = lib.mkOption {
       type = lib.types.str;
@@ -24,7 +24,7 @@ in
     services.caddy = {
       enable = true;
       virtualHosts = lib.mkMerge [
-        # TODO: pull enabled services from config.custom
+        # TODO: pull enabled services from config.pillar
         (virtualHost baseCfg.glance)
         (lib.mkIf baseCfg.personal-site.enable {"cartwatson.com".extraConfig = '' reverse_proxy :${toString baseCfg.personal-site.port} '';})
         ({"caddy.${cfg.domain}".extraConfig = '' respond "Caddy Up V2!" '';}) # test caddy for glance dash

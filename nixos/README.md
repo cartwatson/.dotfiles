@@ -1,4 +1,14 @@
-# NixOS Config
+# Pillar(s of Creation)
+
+![pillars of creation imager from Hubble](https://upload.wikimedia.org/wikipedia/commons/b/b1/New_view_of_the_Pillars_of_Creation_%E2%80%94_infrared_Heic1501b.jpg)
+
+## Description
+
+Repo to contain all config files for my machines, mostly focused on `nixos/`
+which creates all my NixOS machines.
+
+Named `pillar` for the Pillars of Creation, which create celestial objects,
+which all devices are named after.
 
 ## Setup
 
@@ -23,7 +33,7 @@ combine multiple sets of packages from diff sources + only include packages if o
 packages = (with pkgs; [
   package1
   package2
-] ++ (lib.lists.optionals config.custom.services.OPTION.enable [ # only add OPTIONAL enabled
+] ++ (lib.lists.optionals config.pillar.services.OPTION.enable [ # only add OPTIONAL enabled
   package3
   package4
 ])) ++ (with pkgs-unstable; [

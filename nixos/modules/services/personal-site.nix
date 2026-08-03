@@ -1,13 +1,13 @@
 { config, lib, pkgs, ... }:
 
 let
-  cfg = config.custom.services.personal-site;
+  cfg = config.pillar.services.personal-site;
   repo-url = "https://github.com/cartwatson/cartwatson.github.io";
   stateDir = "personal-site";
   dir = "/var/lib/${stateDir}";
 in
 {
-  options.custom.services.personal-site = {
+  options.pillar.services.personal-site = {
     enable = lib.mkEnableOption "Enable hosting personal site";
     port = lib.mkOption {
       type = lib.types.port;

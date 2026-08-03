@@ -1,10 +1,10 @@
 { config, lib, pkgs, pkgs-unstable, ... }:
 
 let
-  cfg = config.custom.services.sunshine;
+  cfg = config.pillar.services.sunshine;
 in
 {
-  options.custom.services.sunshine = {
+  options.pillar.services.sunshine = {
     enable = lib.mkEnableOption "Install & enable Sunshine game streaming";
   };
 

@@ -1,12 +1,12 @@
 { config, lib, pkgs, ... }:
 
 let
-  cfg = config.custom.services.printing;
+  cfg = config.pillar.services.printing;
 
   rongta58Driver = pkgs.callPackage ./rongta58/default.nix {};
 in
 {
-  options.custom.services.printing = {
+  options.pillar.services.printing = {
     enable = lib.mkEnableOption "Enable printing for the Rongta58 Thermal Printer";
     name = lib.mkOption {
       type = lib.types.str;

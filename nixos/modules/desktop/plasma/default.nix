@@ -1,10 +1,10 @@
 { config, lib, pkgs, ... }:
 
 let
-  cfg = config.custom.services.plasma;
+  cfg = config.pillar.services.plasma;
 in
 {
-  options.custom.services.plasma = {
+  options.pillar.services.plasma = {
     enable = lib.mkEnableOption "Setup Plasma";
   };
 

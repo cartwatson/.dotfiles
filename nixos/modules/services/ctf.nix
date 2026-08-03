@@ -1,10 +1,10 @@
 { config, lib, pkgs, ... }:
 
 let
-  cfg = config.custom.services.ctf;
+  cfg = config.pillar.services.ctf;
 in
 {
-  options.custom.services.ctf = {
+  options.pillar.services.ctf = {
     enable = lib.mkEnableOption "CTF tools for reverse engineering, pwn, crypto, and forensics";
   };
 

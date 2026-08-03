@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 
 let
-  baseCfg = config.custom.services.gnome;
+  baseCfg = config.pillar.services.gnome;
   cfg = baseCfg.extensions;
 in
 {

@@ -1,10 +1,10 @@
 { config, lib, pkgs, ... }:
 
 let
-  cfg = config.custom.services.rf;
+  cfg = config.pillar.services.rf;
 in
 {
-  options.custom.services.rf = {
+  options.pillar.services.rf = {
     enable = lib.mkEnableOption "RF/SDR tools for radio experimentation";
   };
 

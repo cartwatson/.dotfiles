@@ -9,13 +9,13 @@
   # set to your target disk (run `lsblk` on the target to find it)
   _module.args.disk = "/dev/sda";
 
-  custom.profiles.desktop = {
+  pillar.profiles.desktop = {
     enable = true;
     desktopEnvironment = "gnome";
   };
 
-  # custom.profiles.laptop.enable = true;
-  # custom.secrets.enable = true;
+  # pillar.profiles.laptop.enable = true;
+  # pillar.secrets.enable = true;
 
   # Bootloader
   boot.loader.systemd-boot.enable = true;

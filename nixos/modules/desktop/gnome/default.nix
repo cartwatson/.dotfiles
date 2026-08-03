@@ -1,11 +1,11 @@
 { config, lib, pkgs, ... }:
 
 let
-  baseCfg = config.custom.services;
+  baseCfg = config.pillar.services;
   cfg = baseCfg.gnome;
 in
 {
-  options.custom.services.gnome = {
+  options.pillar.services.gnome = {
     enable = lib.mkEnableOption "Setup Gnome";
     allowOverride = lib.mkEnableOption "Allow overriding dconf settings";
     numWorkspaces = lib.mkOption {

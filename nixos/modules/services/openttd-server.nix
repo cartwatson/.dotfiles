@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  baseCfg = config.custom.services;
+  baseCfg = config.pillar.services;
   cfg = baseCfg.openttd.server;
   mainDir = "/var/lib/openttd";
   configDir = "${mainDir}/.openttd";
@@ -23,7 +23,7 @@ let
   '';
 in
 {
-  options.custom.services.openttd.server = {
+  options.pillar.services.openttd.server = {
     enable = lib.mkEnableOption "Create an OpenTTD Server";
     port = lib.mkOption {
       type = lib.types.port;

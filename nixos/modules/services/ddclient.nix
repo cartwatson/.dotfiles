@@ -1,10 +1,10 @@
 { config, lib, settings, ... }:
 
 let
-  cfg = config.custom.services.ddclient;
+  cfg = config.pillar.services.ddclient;
 in
 {
-  options.custom.services.ddclient = {
+  options.pillar.services.ddclient = {
     enable = lib.mkEnableOption "Enable ddclient.";
     cloudflareApiKeyPath = lib.mkOption {
       type = lib.types.str;
