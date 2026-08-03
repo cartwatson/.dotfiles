@@ -14,18 +14,11 @@
     profiles = {
       laptop.enable = true;
       desktop.enable = true;
-      desktop.desktopEnvironment = "gnome";
     };
     services = {
       rf.enable = true;
       gaming.enable = true;
       gaming.openttd = true;
-      gnome.numWorkspaces = 3;
-      gnome.extensions.automoveWindows = [
-        "org.gnome.Terminal.desktop:1"
-        "firefox.desktop:2"
-        "org.gnome.Settings.desktop:3"
-      ];
     };
   };
 
