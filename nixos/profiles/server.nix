@@ -68,7 +68,10 @@ in
     # auto pull down changes nightly
     system.autoUpgrade = {
       enable = true;
-      dates = "*-*-* 10:00:00"; # Server is in UTC, 0300 PST-0700 & 0400 PST-0800
+      # Server is in UTC
+      # 0300 PST -> 1000 UTC
+      # 0400 PST -> 1100 UTC
+      dates = "*-*-* 10:00:00";
       flake = "github:cartwatson/.dotfiles?dir=nixos";
 
       allowReboot = true; # Reboots ONLY if the kernel/boot loader changes
