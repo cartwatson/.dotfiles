@@ -10,6 +10,7 @@
   _module.args.disk = "/dev/sda";
 
   custom = {
+    users.jwatson.enable = true;
     hardware.thinkpad-T480s.enable = true;
     profiles = {
       desktop.enable = true;
