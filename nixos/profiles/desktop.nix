@@ -23,12 +23,12 @@ in
     custom.services.tailscale.enable = cfg.personal;
 
     environment.systemPackages = (with pkgs-unstable; [
-      chromium
     ] ++ lib.optionals cfg.personal [
       spotify
     ]);
 
     programs.chromium = {
+      enable = true;
       extensions = [
         "nngceckbapebfimnlniiiahkandclblb" # bitwarden
       ];
