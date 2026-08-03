@@ -9,6 +9,7 @@
     ./minecraft
     ./openttd-server.nix
     ./personal-site.nix
+    ./plymouth.nix
     ./rf.nix
     ./ssh.nix
     ./sunshine.nix

@@ -17,6 +17,8 @@
     };
     services = {
       rf.enable = true;
+      plymouth.enable = true;
+      plymouth.theme = "splash";
       gaming.enable = true;
       gaming.openttd = true;
     };
