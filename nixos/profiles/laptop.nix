@@ -8,18 +8,13 @@ in
     enable = lib.mkEnableOption "Enable default laptop config.";
   };
 
-  config = lib.mkIf cfg.enable (lib.mkMerge [
-    {
-      custom.services.timezone.automatic = true;
-    }
-    lib.mkIf (config.custom.profiles.desktop.desktopEnvironment == "gnome") {
-      custom.services.gnome.numWorkspaces = 3;
-      custom.services.gnome.extensions.automoveWindows = [
-        "org.gnome.Terminal.desktop:1"
-        "firefox.desktop:2"
-        "chromium-browser.desktop:2"
-        "org.gnome.Settings.desktop:3"
-      ];
-    }
-  ]);
+  config = lib.mkIf (cfg.enable && config.custom.profiles.desktop.desktopEnvironment == "gnome") {
+    custom.services.gnome.numWorkspaces = 3;
+    custom.services.gnome.extensions.automoveWindows = [
+      "org.gnome.Terminal.desktop:1"
+      "firefox.desktop:2"
+      "chromium-browser.desktop:2"
+      "org.gnome.Settings.desktop:3"
+    ];
+  };
 }

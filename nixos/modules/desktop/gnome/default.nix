@@ -86,6 +86,10 @@ in
                 monospace-font-name = "Miracode 12";
               };
 
+              "org/gnome/desktop/datetime" = {
+                automatic-timezone = true;
+              };
+
               "org/gnome/desktop/notifications" = {
                 show-in-lock-screen = false;
               };
