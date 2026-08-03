@@ -3,6 +3,7 @@
 {
   imports = [
     ./caddy.nix
+    ./ctf.nix
     ./ddclient.nix
     ./glance
     ./minecraft
