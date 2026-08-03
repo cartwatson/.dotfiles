@@ -23,6 +23,7 @@ in
     pillar.services.tailscale.enable = cfg.personal;
 
     environment.systemPackages = (with pkgs-unstable; [
+      chromium
     ] ++ lib.optionals cfg.personal [
       spotify
     ]);
