@@ -8,9 +8,14 @@
   ];
 
   custom = {
+    users.cwatson.enable = lib.mkDefault true;
+    users.wwatson.enable = lib.mkDefault false;
+    users.jwatson.enable = lib.mkDefault false;
+
     services.tmux.enable = lib.mkDefault true;
     services.helix.enable = lib.mkDefault true;
     services.fonts.enable = lib.mkDefault true;
+    services.timezone.enable = true;
   };
 
   # TODO: test this out in the future, could be useful for live-iso ssh access/discovery
