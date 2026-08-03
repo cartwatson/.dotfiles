@@ -142,6 +142,10 @@ in
                 num-workspaces=lib.gvariant.mkInt32 cfg.numWorkspaces;
               };
 
+              "org/gnome/mutter" = {
+                dynamic-workspaces = false;
+              };
+
               "org/gnome/shell/app-switcher".current-workspace-only = true;
 
               "org/gnome/shell/keybindings" = {
