@@ -24,6 +24,7 @@ in
       ];
     };
 
+    boot.loader.timeout = lib.mkForce 0;
     boot.consoleLogLevel = 0;
     boot.initrd.verbose = false;
     boot.kernelParams = [
