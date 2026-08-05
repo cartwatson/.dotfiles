@@ -17,10 +17,10 @@ in
 
       # Binary exploitation
       gdb
-      gdbserver
+      # gdbserver
       checksec
       patchelf
-      ropper
+      # ropper
       one_gadget
 
       # Symbolic execution / constraint solving

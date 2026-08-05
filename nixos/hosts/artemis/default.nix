@@ -7,7 +7,7 @@
   ];
 
   # set to your target disk (run `lsblk` on the target to find it)
-  _module.args.disk = "/dev/sda";
+  _module.args.disk = "/dev/nvme0n1";
 
   pillar = {
     users.jwatson.enable = true;
