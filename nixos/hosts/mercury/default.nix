@@ -17,6 +17,7 @@
     };
     services = {
       rf.enable = true;
+      ctf.enable = true;
       gaming.enable = true;
       gaming.openttd = true;
     };
