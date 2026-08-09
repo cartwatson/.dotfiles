@@ -32,7 +32,8 @@ in
     };
 
     environment.systemPackages = (with pkgs; [
-      xclip # needed for clipboard functionality
+      xclip # clipboard functionality
+      acpi # battery %
     ]);
   };
 }
