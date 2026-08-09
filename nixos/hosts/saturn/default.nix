@@ -43,8 +43,6 @@
   };
 
   environment.systemPackages = (with pkgs; [
-    firefox
-
     # GAME DEV
     godot
     godot-export-templates-bin

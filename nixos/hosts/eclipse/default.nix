@@ -22,7 +22,6 @@
   nix.settings.download-buffer-size = 524288000; # 500MB
 
   environment.systemPackages = (with pkgs; [
-    firefox
   ]);
 
   # Bootloader.
