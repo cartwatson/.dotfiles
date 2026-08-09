@@ -98,6 +98,7 @@
       # export package lists for non-NixOS consumers (e.g. buildEnv)
       lib.lspPackages = import ./modules/editors/lsp-packages.nix;
 
+      # nix develop .#network-debug
       devShells.${system} = {
         network-debug = pkgs.mkShell {
           packages = with pkgs; [
