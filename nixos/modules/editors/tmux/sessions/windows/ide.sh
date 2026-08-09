@@ -27,7 +27,11 @@ function open_ide() {
     tmux send-keys -t "$SESH:$window".1 "nix develop" C-m
     tmux send-keys -t "$SESH:$window".3 "nix develop" C-m
   fi
-  tmux send-keys   -t "$SESH:$window".2 "clear; gs" C-m
+
+  if [ -d ./.git ]; then
+    tmux send-keys   -t "$SESH:$window".2 "clear; gs" C-m
+  fi
+
   tmux send-keys   -t "$SESH:$window".3 "hx ." C-m
   tmux resize-pane -t "$SESH:$window".3 -x 65%
   tmux select-pane -t "$SESH:$window".3
