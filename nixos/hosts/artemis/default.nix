@@ -1,7 +1,10 @@
-{ ... }:
+{ pkgs, defcon-wifi, nixos-hardware, ... }:
 
 {
   imports = [
+    defcon-wifi.nixosModules.default
+    nixos-hardware.nixosModules.lenovo-thinkpad-t480s
+
     ./hardware-configuration.nix
     ../../lib/disko/simple-disk.nix
   ];
