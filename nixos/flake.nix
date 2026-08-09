@@ -59,7 +59,6 @@
 
             modules = [
               { networking.hostName = name; }
-
               disko.nixosModules.disko
               sops-nix.nixosModules.sops
 
@@ -68,7 +67,11 @@
               ./modules
               ./profiles
               ./users
-            ];
+            # TODO: find a better way here, because this is way too ugly (and WACK)
+            ] ++ (lib.lists.optionals (name == "mercury" || name == "artemis") [
+              defcon-wifi.nixosModules.default
+              nixos-hardware.nixosModules.lenovo-thinkpad-t480s
+            ]);
           }
         ))
       ];
