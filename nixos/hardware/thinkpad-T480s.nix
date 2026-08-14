@@ -22,11 +22,12 @@ in
         settings = {
           # battery thresholds
           START_CHARGE_THRESH_BAT0 = 75;
-          STOP_CHARGE_THRESH_BAT0 = 100;
+          STOP_CHARGE_THRESH_BAT0 = 90;
           # powersave when on BAT, go ham when plugged in
-          # CPU_SCALING_GOVERNOR_ON_AC = "performance";
-          # CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-          # CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+          # NOTE: this is super aggressive throttling but the battery lasts FOREVER (lowkey worth it)
+          CPU_SCALING_GOVERNOR_ON_AC = "performance";
+          CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+          CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
         };
       };
 
