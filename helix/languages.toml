@@ -2,6 +2,22 @@
 command = "harper-ls"
 args = ["--stdio"]
 
+[language-server.harper-ls.config.harper-ls]
+diagnosticSeverity = "hint"
+dialect = "American"
+
+[language-server.harper-ls.config.harper-ls.linters]
+SpellCheck = true
+SpelledNumbers = false
+AnA = true
+SentenceCapitalization = false
+UnclosedQuotes = true
+WrongApostrophe = true
+LongSentences = true
+RepeatedWords = true
+Spaces = true
+CorrectNumberSuffix = true
+
 [[language]]
 name = "markdown"
 language-servers = ["marksman", "harper-ls"]
@@ -13,3 +29,4 @@ language-servers = ["marksman", "harper-ls"]
 '`' = '`'
 '<' = '>'
 '*' = '*'
+'_' = '_'

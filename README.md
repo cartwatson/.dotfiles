@@ -6,7 +6,7 @@ Collection of dotfiles for configs
 
 `install.sh` expects to be run from `~/.dotfiles` it should not be run from any other directory or cloned to a different location
 
-## Setup Github Keys
+## Setup GitHub Keys
 
 1. run `install.sh` and respond `Y` to creating ssh-keys
 1. add to hostsite profile settings
