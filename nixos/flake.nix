@@ -106,7 +106,9 @@
             dig
             nmap
             tcpdump
+            tshark
             unixtools.arp
+            wireshark
           ];
 
           shellHook = ''
