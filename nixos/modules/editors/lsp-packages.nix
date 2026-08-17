@@ -13,5 +13,5 @@ with pkgs; [
   vscode-langservers-extracted
   # misc
   marksman
-  harper # spell check
+  harper # spell check - https://writewithharper.com/
 ]
