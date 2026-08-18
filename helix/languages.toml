@@ -30,3 +30,27 @@ language-servers = ["marksman", "harper-ls"]
 '<' = '>'
 '*' = '*'
 '_' = '_'
+
+[[language]]
+name = "nix"
+language-servers = ["nil", "nixd", "harper-ls"]
+
+[[language]]
+name = "bash"
+language-servers = ["bash-language-server", "harper-ls"]
+
+[[language]]
+name = "python"
+language-servers = ["ty", "ruff", "jedi", "pylsp", "harper-ls"]
+
+[[language]]
+name = "rust"
+language-servers = ["rust-analyzer", "harper-ls"]
+
+[[language]]
+name = "go"
+language-servers = ["gopls", "golangci-lint-lsp", "harper-ls"]
+
+[[language]]
+name = "yaml"
+language-servers = ["yaml-language-server", "ansible-language-server", "harper-ls"]
