@@ -81,7 +81,7 @@
         desktop = {
           imports = [
             ./modules/desktop
-            ./modules/editors/tmux.nix
+            ./modules/editors/tmux
             ./modules/editors/helix.nix
             ./modules/networking/tailscale.nix
             ./profiles/common/base.nix
