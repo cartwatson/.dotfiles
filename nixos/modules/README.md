@@ -22,19 +22,19 @@ Folder containing custom nix modules
 
 ## Caddy
 
-To add new subdomains/services to caddy's reverse proxy list, add `(virtualHost config.custom.services.example0)` (where `example0` is the name of the service) to the following
+To add new subdomains/services to caddy's reverse proxy list, add `(virtualHost config.pillar.services.example0)` (where `example0` is the name of the service) to the following
 
 ```nix
 virtualHosts = lib.mkMerge [
-  (virtualHost config.custom.services.example0)
-  (virtualHost config.custom.services.example1)
+  (virtualHost config.pillar.services.example0)
+  (virtualHost config.pillar.services.example1)
 ];
 ```
 
 Ensure that the module you are adding has the following options defined
 
 ```nix
-options.custom.services.example = {
+options.pillar.services.example = {
   enable = lib.mkEnableOption "Enable example.";
   port = lib.mkOption {
     type = lib.types.port;

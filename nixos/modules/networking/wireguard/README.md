@@ -9,14 +9,14 @@ Traffic between non-hub hosts is relayed through the hub.
 
 ### Enable on a host
 
-Requires `custom.secrets.enable = true` on the host.
+Requires `pillar.secrets.enable = true` on the host.
 
 ```nix
 sops.secrets.wg-private-key = {
   sopsFile = ./secrets/wireguard.yaml;
 };
 
-custom.services.wireguard = {
+pillar.services.wireguard = {
   enable = true;
   oort = {
     enable = true;
@@ -30,7 +30,7 @@ custom.services.wireguard = {
 The hub node needs a port forwarded through the router (`51820`) and IP forwarding enabled.
 
 ```nix
-custom.services.wireguard.oort.hubNode.enable = true;
+pillar.services.wireguard.oort.hubNode.enable = true;
 ```
 
 ### Add a new host
