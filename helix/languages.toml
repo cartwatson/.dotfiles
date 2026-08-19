@@ -1,16 +1,18 @@
-[language-server.harper-ls]
+# --- HARPER FOR DOCS ---
+[language-server.harper-docs]
 command = "harper-ls"
 args = ["--stdio"]
 
-[language-server.harper-ls.config.harper-ls]
+[language-server.harper-docs.config.harper-ls]
 diagnosticSeverity = "hint"
 dialect = "American"
 
-[language-server.harper-ls.config.harper-ls.linters]
+# https://writewithharper.com/docs/rules
+[language-server.harper-docs.config.harper-ls.linters]
 SpellCheck = true
 SpelledNumbers = false
 AnA = true
-SentenceCapitalization = false
+SentenceCapitalization = true
 UnclosedQuotes = true
 WrongApostrophe = true
 LongSentences = true
@@ -18,9 +20,38 @@ RepeatedWords = true
 Spaces = true
 CorrectNumberSuffix = true
 
+# --- HARPER FOR CODE ---
+[language-server.harper-code]
+command = "harper-ls"
+args = ["--stdio"]
+
+[language-server.harper-code.config.harper-ls]
+diagnosticSeverity = "hint"
+dialect = "American"
+
+[language-server.harper-code.config.harper-ls.linters]
+SpellCheck = false
+SpelledNumbers = false
+AnA = true
+SentenceCapitalization = false
+UnclosedQuotes = true
+RepeatedWords = true
+Spaces = true
+ToDoHyphen = false
+ExpandControl = false
+ExpandWith = false
+ExpandWithout = false
+ExpandMinimum = false
+ExpandForward = false
+ExpandPrevious = false
+ExpandThrough = false
+ExpandThough = false
+ExpandPerformance = false
+ExpandBecause = false
+
 [[language]]
 name = "markdown"
-language-servers = ["marksman", "harper-ls"]
+language-servers = ["marksman", "harper-docs"]
 
 [language.auto-pairs]
 '(' = ')'
@@ -33,24 +64,24 @@ language-servers = ["marksman", "harper-ls"]
 
 [[language]]
 name = "nix"
-language-servers = ["nil", "nixd", "harper-ls"]
+language-servers = ["nil", "nixd", "harper-code"]
 
 [[language]]
 name = "bash"
-language-servers = ["bash-language-server", "harper-ls"]
+language-servers = ["bash-language-server", "harper-code"]
 
 [[language]]
 name = "python"
-language-servers = ["ty", "ruff", "jedi", "pylsp", "harper-ls"]
+language-servers = ["ty", "ruff", "jedi", "pylsp", "harper-code"]
 
 [[language]]
 name = "rust"
-language-servers = ["rust-analyzer", "harper-ls"]
+language-servers = ["rust-analyzer", "harper-code"]
 
 [[language]]
 name = "go"
-language-servers = ["gopls", "golangci-lint-lsp", "harper-ls"]
+language-servers = ["gopls", "golangci-lint-lsp", "harper-code"]
 
 [[language]]
 name = "yaml"
-language-servers = ["yaml-language-server", "ansible-language-server", "harper-ls"]
+language-servers = ["yaml-language-server", "ansible-language-server", "harper-code"]
