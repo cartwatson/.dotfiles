@@ -31,6 +31,17 @@ in
     pillar = {
       secrets.enable = true;
       services.timezone.tz = "Etc/Zulu";
+      services.oauth2-proxy = {
+        enable = true;
+        domain = cfg.domainName;
+        setup = {
+          clientID = "Ov23liGmeEEYor02mUtZ";
+          # TODO: secrets fill in
+          clientSecretFile = null;
+          cookieSecretFile = null;
+          authorizedEmailsFile = null;
+        };
+      };
       services.tailscale = {
         enable = true;
         authKeyFile = "/run/secrets/tailscale/auth_key";
@@ -56,6 +67,7 @@ in
         proxy = {
           enable = true;
           subdomain = "dashboard";
+          auth = false;
         };
       };
       services.personal-site = {
