@@ -8,7 +8,7 @@
     ./glance
     ./minecraft
     ./openttd-server.nix
-    ./oauth2-proxy.nix
+    ./oauth2-proxy
     ./personal-site.nix
     ./rf.nix
     ./ssh.nix
