@@ -41,7 +41,7 @@ in
         # Restrict allowed methods or disable password enforcement if possible,
         # and tell Actual to trust headers or change login behavior:
         loginMethod = "header";
-        allowedLoginMethods = [ "header" ];
+        allowedLoginMethods = [ "password" "header" ];
       };
     };
   };
