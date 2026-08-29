@@ -33,8 +33,7 @@ in
         default = null;
       };
       authorizedEmailsFile = lib.mkOption {
-        type = lib.types.nullOr lib.types.path;
-        default = null;
+        type = lib.types.path;
         description = "File of authorized users email's, each on it's own line.";
       };
     };
@@ -60,14 +59,20 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-     assertions = [
+    assertions = [
       {
         assertion = !cfg.proxy.auth;
         message = "Auth cannot require Auth! Circular dependency error otherwise.";
       }
-     ];
+    ];
 
-     services.oauth2-proxy = {
+    # some nonsense about who has access to secrets
+    # this is how it's done upstream
+    systemd.services.oauth2-proxy.serviceConfig.LoadCredential = [
+      lib.optional (cfg.setup.authorizedEmailsFile != null) "emails:${cfg.setup.authorizedEmailsFile}"
+    ];
+
+    services.oauth2-proxy = {
       enable = true;
       provider = "github";
       reverseProxy = true;
@@ -85,7 +90,7 @@ in
       };
 
       extraConfig = {
-        authenticated-emails-file = cfg.setup.authorizedEmailsFile;
+        authenticated-emails-file = lib.optional (cfg.setup.authorizedEmailsFile != null) "%d/emails";
       };
     };
   };
