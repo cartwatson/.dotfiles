@@ -13,7 +13,7 @@ let
           # Intercept the 401 response from oauth2-proxy
           @error status 401
           handle_response @error {
-            redir * https://${baseCfg.oauth2-proxy.proxy.subdomain}.${cfg.domain}/oauth2/sign_in?rd={scheme}://{host}{uri.path} 302
+            redir * https://${baseCfg.oauth2-proxy.proxy.subdomain}.${cfg.domain}/oauth2/sign_in?rd={scheme}://{host}{uri} 302
           }
         }
       ''
