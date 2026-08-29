@@ -1,67 +1,186 @@
+{{define "sign_in.html"}}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" charset="utf-8">
 
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <title>Sign In · JJWatson</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-  <!-- Gruvbox dark hard -->
+  <link rel="stylesheet" href="{{.ProxyPrefix}}/static/css/bulma.min.css">
+
   <style>
+    html,
     body {
-      background-color: #1d2021;
-      color: #ebdbb2;
-    }
-
-    .box {
-      background-color: #282828 !important;
+      background-color: #1d2021 !important;
       color: #ebdbb2 !important;
-      border: 1px solid #3c3836;
-      border-radius: 4px;
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+      height: 100vh;
     }
 
-    .title {
+    .sign-in-box {
+      max-width: 400px;
+      margin: 5rem auto;
+      background-color: #282828 !important;
+      border: 1px solid #3c3836 !important;
+      border-radius: 6px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    }
+
+    .logo-box {
+      margin: 1.5rem 3rem;
+    }
+
+    .title,
+    h1,
+    h2,
+    label {
       color: #fabd2f !important;
     }
 
+    p,
     .subtitle {
       color: #a89984 !important;
     }
 
-    .button.is-dark {
-      background-color: #3c3836;
-      border: 1px solid #504945;
-      color: #ebdbb2;
+    .button.is-primary {
+      background-color: #504945 !important;
+      border: 1px solid #665c54 !important;
+      color: #ebdbb2 !important;
+      font-weight: bold;
     }
 
-    .button.is-dark:hover {
-      background-color: #504945;
-      border-color: #665c54;
+    .button.is-primary:hover {
+      background-color: #665c54 !important;
+      color: #fbf1c7 !important;
+    }
+
+    .input {
+      background-color: #1d2021 !important;
+      border-color: #3c3836 !important;
+      color: #ebdbb2 !important;
+    }
+
+    .input::placeholder {
+      color: #7c6f64 !important;
+    }
+
+    .alert {
+      padding: 8px;
+      background-color: #cc241d;
       color: #fbf1c7;
+      margin-top: 10px;
+      border-radius: 4px;
+      font-size: 0.9rem;
+    }
+
+    .closebtn {
+      margin-left: 10px;
+      color: #fbf1c7;
+      font-weight: bold;
+      float: right;
+      font-size: 18px;
+      line-height: 18px;
+      cursor: pointer;
+    }
+
+    .closebtn:hover {
+      color: #ffffff;
+    }
+
+    footer {
+      background-color: #1d2021 !important;
+    }
+
+    footer a {
+      color: #83a598 !important;
+      text-decoration: underline;
     }
   </style>
 </head>
 
 <body>
-  <section class="section" style="min-height: 100vh; display: flex; align-items: center; justify-content: center;">
-    <div class="container">
-      <div class="columns is-centered">
-        <div class="column is-4-desktop is-6-tablet">
-          <div class="box p-6">
-            <h1 class="title is-4 has-text-centered mb-2">Restricted Access</h1>
-            <p class="subtitle is-6 has-text-centered mb-5">Authentication required to continue.</p>
+  <section class="section">
+    <div class="box block sign-in-box has-text-centered">
+      {{ if .LogoData }}
+      <div class="block logo-box">
+        {{.LogoData}}
+      </div>
+      {{ end }}
 
-            <div class="has-text-centered">
-              <a href="{{ .SignInURL }}" class="button is-dark is-fullwidth is-medium">
-                Sign In with GitHub
-              </a>
-            </div>
+      <h2 class="title is-4 mb-4">Restricted Access</h2>
+
+      <form method="GET" action="{{.ProxyPrefix}}/start">
+        <input type="hidden" name="rd" value="{{.Redirect}}">
+        {{ if .SignInMessage }}
+        <p class="block">{{.SignInMessage}}</p>
+        {{ end}}
+        <button type="submit" class="button block is-primary is-fullwidth">Sign in with {{.ProviderName}}</button>
+      </form>
+
+      {{ if .CustomLogin }}
+      <hr style="background-color: #3c3836;">
+
+      <form method="POST" action="{{.ProxyPrefix}}/sign_in" class="block">
+        <input type="hidden" name="rd" value="{{.Redirect}}">
+
+        <div class="field">
+          <label class="label has-text-left" for="username">Username</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="e.g. userx@example.com" name="username" id="username">
           </div>
         </div>
+
+        <div class="field">
+          <label class="label has-text-left" for="password">Password</label>
+          <div class="control">
+            <input class="input" type="password" placeholder="********" name="password" id="password">
+          </div>
+        </div>
+        <button class="button is-primary is-fullwidth">Sign in</button>
+      </form>
+      {{ end }}
+
+      {{ if eq .StatusCode 400 401 }}
+      <div class="alert">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        {{ if eq .StatusCode 400 }}
+        {{.StatusCode}}: Username cannot be empty
+        {{ else }}
+        {{.StatusCode}}: Invalid Username or Password
+        {{ end }}
       </div>
+      {{ end }}
+
     </div>
   </section>
+
+  <script>
+    if (window.location.hash) {
+      (function () {
+        var inputs = document.getElementsByName('rd');
+        for (var i = 0; i < inputs.length; i++) {
+          var idx = inputs[i].value.indexOf('#');
+          if (idx >= 0) {
+            inputs[i].value = inputs[i].value.substr(0, idx);
+          }
+          inputs[i].value += window.location.hash;
+        }
+      })();
+    }
+  </script>
+
+  <footer class="footer is-size-7">
+    <div class="content has-text-centered">
+      {{ if eq .Footer "-" }}
+      {{ else if eq .Footer ""}}
+      <p style="color: #928374;">Secured with <a href="https://github.com/oauth2-proxy/oauth2-proxy#oauth2_proxy">OAuth2
+          Proxy</a> version {{.Version}}</p>
+      {{ else }}
+      <p style="color: #928374;">{{.Footer}}</p>
+      {{ end }}
+    </div>
+  </footer>
+
 </body>
 
 </html>
+{{end}}
