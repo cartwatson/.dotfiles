@@ -38,6 +38,7 @@ in
       services.oauth2-proxy = {
         enable = true;
         domain = cfg.domainName;
+        proxy.enable = true;
         setup = {
           clientID = "Ov23liGmeEEYor02mUtZ";
           clientSecretFile = "/run/secrets/oauth2-proxy/client_secret";

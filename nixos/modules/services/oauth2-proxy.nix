@@ -69,7 +69,7 @@ in
     # some nonsense about who has access to secrets
     # this is how it's done upstream
     systemd.services.oauth2-proxy.serviceConfig.LoadCredential = [
-      lib.optional (cfg.setup.authorizedEmailsFile != null) "emails:${cfg.setup.authorizedEmailsFile}"
+      "emails:${cfg.setup.authorizedEmailsFile}"
     ];
 
     services.oauth2-proxy = {
@@ -90,7 +90,7 @@ in
       };
 
       extraConfig = {
-        authenticated-emails-file = lib.optional (cfg.setup.authorizedEmailsFile != null) "%d/emails";
+        authenticated-emails-file = "%d/emails";
       };
     };
   };

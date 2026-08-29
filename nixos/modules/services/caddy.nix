@@ -9,10 +9,12 @@ let
       "${serviceCfg.proxy.subdomain}.${cfg.domain}".extraConfig = lib.optionalString serviceCfg.proxy.auth ''
         forward_auth  :${toString baseCfg.oauth2-proxy.port} {
           uri /oauth2/auth
-        }
 
-        handle_errors 401 {
-           redir https://${baseCfg.oauth2-proxy.proxy.subdomain}.${cfg.domain}/oauth2/start?rd={scheme}://{host}{uri.path} 302
+          # Intercept the 401 response from oauth2-proxy
+          @error status 401
+          handle_response @error {
+            redir * https://${baseCfg.oauth2-proxy.proxy.subdomain}.${cfg.domain}/oauth2/sign_in?rd={scheme}://{host}{uri.path} 302
+          }
         }
       ''
       +
