@@ -7,7 +7,7 @@ keys:
   - &saturn_varlib age1s35qz9phpew20dnesamndxmmxx097gx8rlhwgtarquc59pjfjdjq7sr0e5
   - &kuiper_varlib age18f6nm2nqs9ntz0c6604pntffcyhpzmsxgn2d2e3f9ay0x3mk8g8s6yrpzg
 creation_rules:
-  - path_regex: secrets/secrets.yaml
+  - path_regex: secrets/.*\.yaml$
     key_groups:
     - age:
       - *jupiter_cwatson

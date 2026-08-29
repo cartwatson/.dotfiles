@@ -26,6 +26,10 @@ in
       "api_tokens/cloudflare" = {};
       "tailscale/auth_key" = {};
       "glance/location" = {};
+
+      "oauth2-proxy/client_secret" = { sopsFile = ../secrets/oauth2-proxy.yaml; };
+      "oauth2-proxy/cookie_secret" = { sopsFile = ../secrets/oauth2-proxy.yaml; };
+      "oauth2-proxy/authorized_emails" = { sopsFile = ../secrets/oauth2-proxy.yaml; };
     };
 
     pillar = {
@@ -36,10 +40,9 @@ in
         domain = cfg.domainName;
         setup = {
           clientID = "Ov23liGmeEEYor02mUtZ";
-          # TODO: secrets fill in
-          clientSecretFile = null;
-          cookieSecretFile = null;
-          authorizedEmailsFile = null;
+          clientSecretFile = "/run/secrets/oauth2-proxy/client_secret";
+          cookieSecretFile = "/run/secrets/oauth2-proxy/cookie_secret";
+          authorizedEmailsFile = "/run/secrets/oauth2-proxy/authorized_emails";
         };
       };
       services.tailscale = {
