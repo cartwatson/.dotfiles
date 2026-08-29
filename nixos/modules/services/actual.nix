@@ -1,5 +1,4 @@
-
-{ config, lib, pkgs, pkgs-unstable, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   baseCfg = config.pillar.services;

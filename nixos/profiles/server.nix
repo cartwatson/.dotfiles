@@ -39,6 +39,7 @@ in
         proxy = {
           enable = true;
           subdomain = "budget";
+          auth = true;
         };
       };
       services.caddy = {
