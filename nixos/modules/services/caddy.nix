@@ -6,19 +6,19 @@ let
 
   virtualHost = serviceCfg:
     lib.mkIf serviceCfg.proxy.enable {
-      "${serviceCfg.proxy.subdomain}.${cfg.domain}".extraConfig = lib.optionalString serviceCfg.proxy.auth ''
-        forward_auth  :${toString baseCfg.oauth2-proxy.port} {
+      "${serviceCfg.proxy.subdomain}.${cfg.domain}".extraConfig = ''
+        ${lib.optionalString serviceCfg.proxy.auth ''
+        forward_auth :${toString baseCfg.oauth2-proxy.port} {
           uri /oauth2/auth
+          copy_headers X-Auth-Request-User X-Auth-Request-Email X-Auth-Request-Access-Token
 
           # Intercept the 401 response from oauth2-proxy
           @error status 401
           handle_response @error {
             redir * https://${baseCfg.oauth2-proxy.proxy.subdomain}.${cfg.domain}/oauth2/sign_in?rd={scheme}://{host}{uri} 302
           }
-        }
-      ''
-      +
-      ''
+        ''}
+
         reverse_proxy :${toString serviceCfg.port}
       '';
     };
