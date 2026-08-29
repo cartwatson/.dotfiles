@@ -34,27 +34,13 @@ in
 
     pillar = {
       secrets.enable = true;
-      services.timezone.tz = "Etc/Zulu";
-      services.oauth2-proxy = {
+      services.actual = {
         enable = true;
-        domain = cfg.domainName;
-        proxy.enable = true;
-        setup = {
-          clientID = "Ov23liGmeEEYor02mUtZ";
-          clientSecretFile = "/run/secrets/oauth2-proxy/client_secret";
-          cookieSecretFile = "/run/secrets/oauth2-proxy/cookie_secret";
-          authorizedEmailsFile = "/run/secrets/oauth2-proxy/authorized_emails";
+        proxy = {
+          enable = true;
+          subdomain = "budget";
+          auth = true;
         };
-      };
-      services.tailscale = {
-        enable = true;
-        authKeyFile = "/run/secrets/tailscale/auth_key";
-        ssh.enable = true;
-        exit-node.enable = true;
-      };
-      services.ssh = {
-        enable = true;
-        port = 9999;
       };
       services.caddy = {
         enable = true;
@@ -74,11 +60,33 @@ in
           auth = true;
         };
       };
+      services.minecraftServer.enable = true;
+      services.oauth2-proxy = {
+        enable = true;
+        domain = cfg.domainName;
+        proxy.enable = true;
+        setup = {
+          clientID = "Ov23liGmeEEYor02mUtZ";
+          clientSecretFile = "/run/secrets/oauth2-proxy/client_secret";
+          cookieSecretFile = "/run/secrets/oauth2-proxy/cookie_secret";
+          authorizedEmailsFile = "/run/secrets/oauth2-proxy/authorized_emails";
+        };
+      };
       services.personal-site = {
         enable = false; # TODO: FIX: this is broken, needs a diff host
         port = 8002;
       };
-      services.minecraftServer.enable = true;
+      services.ssh = {
+        enable = true;
+        port = 9999;
+      };
+      services.tailscale = {
+        enable = true;
+        authKeyFile = "/run/secrets/tailscale/auth_key";
+        ssh.enable = true;
+        exit-node.enable = true;
+      };
+      services.timezone.tz = "Etc/Zulu";
     };
 
     # auto pull down changes nightly
