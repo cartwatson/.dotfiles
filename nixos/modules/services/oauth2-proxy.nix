@@ -92,6 +92,8 @@ in
       extraConfig = {
         authenticated-emails-file = "%d/emails";
         redirect-url = "https://${cfg.proxy.subdomain}.${cfg.domain}/oauth2/callback";
+        # Tells oauth2-proxy to trust X-Forwarded-* headers for the redirect target
+        real-client-ip-header = "X-Forwarded-For";
       };
     };
   };
