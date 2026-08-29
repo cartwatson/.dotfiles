@@ -78,7 +78,7 @@ in
       reverseProxy = true;
       trustedProxyIP = [ "127.0.0.1" ];
       httpAddress = "http://127.0.0.1:${toString cfg.port}";
-      customTemplatesDir = ./templates/oauth2;
+      customTemplatesDir = ./.;
 
       clientID = cfg.setup.clientID;
       clientSecretFile = cfg.setup.clientSecretFile;
