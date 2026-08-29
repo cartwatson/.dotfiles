@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Sign In · JJWatson</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <!-- Gruvbox dark hard -->
+  <style>
+    body {
+      background-color: #1d2021;
+      color: #ebdbb2;
+    }
+
+    .box {
+      background-color: #282828 !important;
+      color: #ebdbb2 !important;
+      border: 1px solid #3c3836;
+      border-radius: 4px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+    }
+
+    .title {
+      color: #fabd2f !important;
+    }
+
+    .subtitle {
+      color: #a89984 !important;
+    }
+
+    .button.is-dark {
+      background-color: #3c3836;
+      border: 1px solid #504945;
+      color: #ebdbb2;
+    }
+
+    .button.is-dark:hover {
+      background-color: #504945;
+      border-color: #665c54;
+      color: #fbf1c7;
+    }
+  </style>
+</head>
+
+<body>
+  <section class="section" style="min-height: 100vh; display: flex; align-items: center; justify-content: center;">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-4-desktop is-6-tablet">
+          <div class="box p-6">
+            <h1 class="title is-4 has-text-centered mb-2">Restricted Access</h1>
+            <p class="subtitle is-6 has-text-centered mb-5">Authentication required to continue.</p>
+
+            <div class="has-text-centered">
+              <a href="{{ .SignInURL }}" class="button is-dark is-fullwidth is-medium">
+                Sign In with GitHub
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+
+</html>

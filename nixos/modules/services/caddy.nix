@@ -6,8 +6,21 @@ let
 
   virtualHost = serviceCfg:
     lib.mkIf serviceCfg.proxy.enable {
-      "${serviceCfg.proxy.subdomain}.${cfg.domain}".extraConfig =
-        "reverse_proxy :${toString serviceCfg.port}";
+      "${serviceCfg.proxy.subdomain}.${cfg.domain}".extraConfig = lib.optionalString serviceCfg.proxy.auth ''
+        forward_auth  :${toString baseCfg.oauth2-proxy.port} {
+          uri /oauth2/auth
+
+          # Intercept the 401 response from oauth2-proxy
+          @error status 401
+          handle_response @error {
+            redir * https://${baseCfg.oauth2-proxy.proxy.subdomain}.${cfg.domain}/oauth2/sign_in?rd={scheme}://{host}{uri} 302
+          }
+        }
+      ''
+      +
+      ''
+        reverse_proxy :${toString serviceCfg.port}
+      '';
     };
 in
 {
@@ -24,8 +37,11 @@ in
     services.caddy = {
       enable = true;
       virtualHosts = lib.mkMerge [
-        # TODO: pull enabled services from config.pillar
+        # pillar services
+        (virtualHost baseCfg.oauth2-proxy)
         (virtualHost baseCfg.glance)
+
+        # misc services
         (lib.mkIf baseCfg.personal-site.enable {"cartwatson.com".extraConfig = '' reverse_proxy :${toString baseCfg.personal-site.port} '';})
         ({"caddy.${cfg.domain}".extraConfig = '' respond "Caddy Up V2!" '';}) # test caddy for glance dash
       ];

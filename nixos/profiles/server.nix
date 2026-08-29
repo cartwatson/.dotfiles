@@ -26,11 +26,26 @@ in
       "api_tokens/cloudflare" = {};
       "tailscale/auth_key" = {};
       "glance/location" = {};
+
+      "oauth2-proxy/client_secret" = { sopsFile = ../secrets/oauth2-proxy.yaml; };
+      "oauth2-proxy/cookie_secret" = { sopsFile = ../secrets/oauth2-proxy.yaml; };
+      "oauth2-proxy/authorized_emails" = { sopsFile = ../secrets/oauth2-proxy.yaml; };
     };
 
     pillar = {
       secrets.enable = true;
       services.timezone.tz = "Etc/Zulu";
+      services.oauth2-proxy = {
+        enable = true;
+        domain = cfg.domainName;
+        proxy.enable = true;
+        setup = {
+          clientID = "Ov23liGmeEEYor02mUtZ";
+          clientSecretFile = "/run/secrets/oauth2-proxy/client_secret";
+          cookieSecretFile = "/run/secrets/oauth2-proxy/cookie_secret";
+          authorizedEmailsFile = "/run/secrets/oauth2-proxy/authorized_emails";
+        };
+      };
       services.tailscale = {
         enable = true;
         authKeyFile = "/run/secrets/tailscale/auth_key";
@@ -56,6 +71,7 @@ in
         proxy = {
           enable = true;
           subdomain = "dashboard";
+          auth = true;
         };
       };
       services.personal-site = {
