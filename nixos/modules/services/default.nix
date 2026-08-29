@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./actual.nix
     ./caddy.nix
     ./ctf.nix
     ./ddclient.nix
