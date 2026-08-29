@@ -4,7 +4,6 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-bleedingedge.url = "github:nixos/nixpkgs/master";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     nixos-hardware.inputs.nixpkgs.follows = "nixpkgs";
@@ -23,7 +22,6 @@
     self,
     nixpkgs,
     nixpkgs-unstable,
-    nixpkgs-bleedingedge,
     nixos-hardware,
     disko,
     defcon-wifi,
@@ -37,21 +35,17 @@
 
       pkgs = import nixpkgs { inherit system; };
     in {
+      # Define the NixOS configurations
       # https://github.com/Electrostasy/dots/blob/0eb9d91d517d74b7f0891bff5992b17eb50f207c/flake.nix#L102-L121
       nixosConfigurations = lib.pipe ./hosts [
         builtins.readDir
 
-        # Define the NixOS configurations
         (lib.mapAttrs (name: _value:
           lib.nixosSystem {
             specialArgs = {
               inherit self;
               inherit nix-minecraft;
               pkgs-unstable = import nixpkgs-unstable {
-                config.allowUnfree = true;
-                inherit system;
-              };
-              pkgs-bleedingedge = import nixpkgs-bleedingedge {
                 config.allowUnfree = true;
                 inherit system;
               };
