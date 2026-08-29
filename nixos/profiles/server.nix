@@ -71,7 +71,7 @@ in
         proxy = {
           enable = true;
           subdomain = "dashboard";
-          auth = false;
+          auth = true;
         };
       };
       services.personal-site = {
