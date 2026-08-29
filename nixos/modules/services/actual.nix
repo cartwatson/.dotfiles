@@ -37,7 +37,6 @@ in
     services.actual = {
       enable = true;
       openFirewall = false;
-      hostname = "";
       settings.port = cfg.port;
     };
   };

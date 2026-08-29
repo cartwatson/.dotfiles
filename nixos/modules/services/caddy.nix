@@ -38,8 +38,9 @@ in
       enable = true;
       virtualHosts = lib.mkMerge [
         # pillar services
-        (virtualHost baseCfg.oauth2-proxy)
+        (virtualHost baseCfg.actual)
         (virtualHost baseCfg.glance)
+        (virtualHost baseCfg.oauth2-proxy)
 
         # misc services
         (lib.mkIf baseCfg.personal-site.enable {"cartwatson.com".extraConfig = '' reverse_proxy :${toString baseCfg.personal-site.port} '';})

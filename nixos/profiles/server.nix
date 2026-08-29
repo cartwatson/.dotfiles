@@ -34,8 +34,8 @@ in
 
     pillar = {
       secrets.enable = true;
-      sevices.actual = {
-        enable = true
+      services.actual = {
+        enable = true;
         proxy = {
           enable = true;
           subdomain = "budget";
