@@ -36,7 +36,13 @@ in
     services.actual = {
       enable = true;
       openFirewall = false;
-      settings.port = cfg.port;
+      settings = {
+        port = cfg.port;
+        # Restrict allowed methods or disable password enforcement if possible,
+        # and tell Actual to trust headers or change login behavior:
+        loginMethod = "header";
+        allowedLoginMethods = [ "header" ];
+      };
     };
   };
 }
