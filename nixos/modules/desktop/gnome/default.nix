@@ -122,10 +122,15 @@ in
               };
 
               "org/gnome/desktop/wm/keybindings" = {
+                # ctrl+alt+shfit+direction moves windows
                 move-to-workspace-left = ["<Control><Alt><Shift>Left" "<Control><Alt><Shift>h" "<Super><Shift>h"];
                 move-to-workspace-right = ["<Control><Alt><Shift>Right" "<Control><Alt><Shift>l" "<Super><Shift>l"];
+
+                # ctrl+alt+direction moves view
                 switch-to-workspace-left = ["<Control><Alt>Left" "<Control><Alt>h"];
                 switch-to-workspace-right = ["<Control><Alt>Right" "<Control><Alt>l"];
+
+                # super+# switches to that workspace
                 switch-to-workspace-1 = [ "<Super>1" ];
                 switch-to-workspace-2 = [ "<Super>2" ];
                 switch-to-workspace-3 = [ "<Super>3" ];
@@ -135,11 +140,17 @@ in
                 switch-to-workspace-7 = [ "<Super>7" ];
                 switch-to-workspace-8 = [ "<Super>8" ];
                 switch-to-workspace-9 = [ "<Super>9" ];
+
+                # alt+tab switches windows instead of apps
+                switch-applications = mkEmptyArray type.string;
+                switch-applications-backward = mkEmptyArray type.string;
+                switch-windows = [ "<Alt>Tab" ];
+                switch-windows-backward = [ "<Shift><Alt>Tab" ];
               };
 
               "org/gnome/desktop/wm/preferences" = {
-                focus-mode="sloppy";
-                num-workspaces=lib.gvariant.mkInt32 cfg.numWorkspaces;
+                focus-mode = "sloppy";
+                num-workspaces = mkInt32 cfg.numWorkspaces;
               };
 
               "org/gnome/mutter" = {
