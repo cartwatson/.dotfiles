@@ -46,9 +46,10 @@ function tas() {
 alias gs="git status --short --branch"
 alias ga="git add"
 alias gl="git log --oneline --graph --decorate"
-alias glf="git log --oneline --patch --follow"
+alias glf="git log --oneline --patch --follow" # provide filename to scroll through history
 alias gc="git commit -m"
 alias gd="git diff --minimal"
+alias gds="git diff --minimal --staged"
 alias gp="git push"
 alias gpl="git pull"
 alias gsll="clear; ll; gs"
@@ -77,7 +78,8 @@ alias untar="tar -xvzf"
 alias toggle-theme="$HOME/.dotfiles/toggle-gnome-helix-tmux-light_dark-mode.sh"
 alias jfu="journalctl --output=short-iso --follow --unit"
 
-alias rebuild="$HOME/.dotfiles/nixos/rebuild.sh"
+## NixOS
+alias pillar="$HOME/.dotfiles/nixos/rebuild.sh"
 
 function git-init-custom-status() {
     echo "Who built this?"
