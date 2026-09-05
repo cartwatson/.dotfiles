@@ -18,6 +18,10 @@
       packages = with pkgs; lib.lists.optionals config.pillar.profiles.desktop.enable [
         discord
       ];
+
+      interactiveShellInit = ''
+        alias pillar="$HOME/.dotfiles/nixos/rebuild.sh"
+      '';
     };
   };
 }

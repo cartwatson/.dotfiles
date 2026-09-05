@@ -17,6 +17,10 @@
         ++ (lib.optional config.virtualisation.docker.enable "docker");
 
       packages = [];
+
+      interactiveShellInit = ''
+        alias pillar="$HOME/.dotfiles/nixos/rebuild.sh"
+      '';
     };
   };
 }
