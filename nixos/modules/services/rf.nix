@@ -27,6 +27,8 @@ in
       # utilities
       sox
       audacity
+      sdrangel
+      dump1090-fa
     ];
   };
 }
