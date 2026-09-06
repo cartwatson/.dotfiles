@@ -1,4 +1,3 @@
-
 { lib, config, ... }:
 
 let
@@ -10,6 +9,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    # REF: https://wiki.archlinux.org/title/Lenovo_ThinkPad_T480s
     services = {
       # enable updating firmware
       #   run the following occasionally
