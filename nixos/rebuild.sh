@@ -14,7 +14,7 @@ MENU="true"
 NIXOS_DIRECTORY="$HOME/.dotfiles/nixos"
 
 function help_message() {
-  echo -e "Script to auto rebuild NixOS system\n"
+  echo -e "Script to auto rebuild NixOS systems\n"
   echo -e "-n, --no-rebuild\n\tDon't rebuild system"
   echo -e "-u, --update\n\tUpdate flake.lock"
   echo -e "-e, --update-hw\n\tUpdate hardware-configuration.nix"
@@ -197,13 +197,14 @@ if [[ $MENU == "true" ]]; then
   if [[ $# -eq 0 ]]; then
     echo
     echo "Select an option:"
-    echo "    1) Rebuild (enter)"
-    echo "    2) Update Flake"
-    echo "    3) Update Repo & Rebuild"
-    echo "    4) Update HW Config"
-    echo "    5) Clean System"
-    echo "    6) Generate ISO"
-    echo "    q) Exit"
+    echo "  1) Rebuild (enter)"
+    echo "  2) Update Flake"
+    echo "  3) Update Repo & Rebuild"
+    echo "  4) Update HW Config"
+    echo "  5) Clean System"
+    echo "  6) Generate ISO"
+    echo "  h) Help"
+    echo "  q) Exit"
     echo
     read -p "Make your selection [1-6]: " choice
     echo
@@ -215,6 +216,7 @@ if [[ $MENU == "true" ]]; then
         4) update_hardware ;;
         5) cleanup ;;
         6) generate_iso ;;
+        'h') help_message ;;
         *) echo "Exiting"; exit 0 ;;
     esac
   fi
