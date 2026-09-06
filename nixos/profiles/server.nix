@@ -2,6 +2,18 @@
 
 let
   cfg = config.pillar.profiles.server;
+  ports = {
+    openttd   = 3979; # unused
+    oauth2    = 4180;
+    mc-kuiper = 5003; # configured in ../../nixos/modules/services/minecraft/kuiper.nix
+    actual    = 5006;
+    glance    = 8001;
+    blog      = 8002;
+    ssh       = 9999;
+  };
+
+  port_collision_check = ports_dict:
+    (ports: ports == lib.lists.unique ports) (builtins.attrValues ports_dict);
 in
 {
   options.pillar.profiles.server = {
@@ -18,6 +30,10 @@ in
       {
         assertion = cfg.domainName != "";
         message = "A domain name is required to enable server";
+      }
+      {
+        assertion = port_collision_check ports;
+        message = "Server ports must not collide";
       }
     ];
 
@@ -36,6 +52,7 @@ in
       secrets.enable = true;
       services.actual = {
         enable = true;
+        port = ports.actual;
         proxy = {
           enable = true;
           subdomain = "budget";
@@ -53,7 +70,7 @@ in
       };
       services.glance = {
         enable = true;
-        port = 8001;
+        port = ports.glance;
         proxy = {
           enable = true;
           subdomain = "dashboard";
@@ -65,6 +82,7 @@ in
         enable = true;
         domain = cfg.domainName;
         proxy.enable = true;
+        port = ports.oauth2;
         setup = {
           clientID = "Ov23liGmeEEYor02mUtZ";
           clientSecretFile = "/run/secrets/oauth2-proxy/client_secret";
@@ -74,11 +92,11 @@ in
       };
       services.personal-site = {
         enable = false; # TODO: FIX: this is broken, needs a diff host
-        port = 8002;
+        port = cfg.blog;
       };
       services.ssh = {
         enable = true;
-        port = 9999;
+        port = ports.ssh;
       };
       services.tailscale = {
         enable = true;
