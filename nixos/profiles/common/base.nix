@@ -56,6 +56,10 @@
     radeontop # needed for btop
   ]);
 
+  programs.bash.interactiveShellInit = ''
+    alias pillar="$HOME/.dotfiles/nixos/rebuild.sh"
+  '';
+
   nixpkgs.config.allowUnfree = true;
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
