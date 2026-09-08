@@ -9,7 +9,7 @@ dialect = "American"
 
 # https://writewithharper.com/docs/rules
 [language-server.harper-docs.config.harper-ls.linters]
-SpellCheck = true
+SpellCheck = false
 SpelledNumbers = false
 AnA = true
 SentenceCapitalization = true
@@ -48,6 +48,8 @@ ExpandThrough = false
 ExpandThough = false
 ExpandPerformance = false
 ExpandBecause = false
+OrthographicConsistency = false
+Dashes = false
 
 [[language]]
 name = "markdown"
