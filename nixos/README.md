@@ -42,6 +42,10 @@ packages = (with pkgs; [
 ]);
 ```
 
+### REPL
+
+import lib `lib = (import <nixpkgs> {}).lib;`
+
 ## Promised LAN
 
 - [why](https://notes.pault.ag/tpl/)
