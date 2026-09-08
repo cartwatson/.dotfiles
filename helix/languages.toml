@@ -48,6 +48,7 @@ ExpandThrough = false
 ExpandThough = false
 ExpandPerformance = false
 ExpandBecause = false
+EllipsesLength = false
 OrthographicConsistency = false
 Dashes = false
 
