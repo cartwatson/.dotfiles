@@ -21,13 +21,9 @@ which all devices are named after.
 
 - [Vimjoyers Nix/Flakes](https://www.youtube.com/watch?v=a67Sv4Mbxmc)
 
-## Useful Nix tidbits
-
-Sections of nix code that I find myself copying all the time
-
 ### diff sources + option enabled
 
-combine multiple sets of packages from diff sources + only include packages if option is enabled
+Combine multiple sets of packages from diff sources + only include packages if option is enabled
 
 ```nix
 packages = (with pkgs; [
