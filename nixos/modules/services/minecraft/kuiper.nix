@@ -39,16 +39,16 @@ in
         # CDN: find link to specific file, and `copy link` from the download button
         # SHA512: `nix-prefetch-url --type sha512 --name <NAME> "<URL>"`
         FerriteCore = pkgs.fetchurl {
-          url = "https://cdn.modrinth.com/data/uXXizFIs/versions/d5ddUdiB/ferritecore-9.0.0-fabric.jar?mr_download_reason=standalone&mr_game_version=26.1.2&mr_loader=fabric";
+          url = "https://cdn.modrinth.com/data/uXXizFIs/versions/d5ddUdiB/ferritecore-9.0.0-fabric.jar?mr_download_reason=standalone&mr_game_version=26.3&mr_loader=fabric";
           sha512 = "22fbjz59a2qh4bynn6rmplbawi36wgddycwsqvz1x5f11l5355khay5m6kf8xx1bzjcx4vivl1pc00xhcrz9hl95za1jk3q25zaj7yq";
         };
         Fabric-API = pkgs.fetchurl {
-          url = "https://cdn.modrinth.com/data/P7dR8mSH/versions/E1mjhYMF/fabric-api-0.150.0%2B26.1.2.jar?mr_download_reason=standalone&mr_game_version=26.1.2&mr_loader=fabric";
-          sha512 = "3f22p9dnm9v2mk4djrlkb7zrjmdh3lkbwvamh73gpvvd51r4ynlsaqyj200yrk4139izyxhyy423kqlqy4clkjnbcnivlhff8xpk313";
+          url = "https://cdn.modrinth.com/data/P7dR8mSH/versions/bNnaTiuM/fabric-api-0.161.0%2B26.3.jar?mr_download_reason=standalone&mr_game_version=26.3&mr_loader=fabric";
+          sha512 = "2fi1nhjdv0rr194ln31msvdd8413a1hipwkj7xmrrvdasp17qbrkqjyrql7wpnqpza98vz44rqbd68yqlksbxbjhkg1zqgxss32aszd";
         };
         lithium = pkgs.fetchurl {
-          url = "https://cdn.modrinth.com/data/gvQqBUqZ/versions/rzrH7czY/lithium-fabric-0.24.4%2Bmc26.1.2.jar?mr_download_reason=standalone&mr_game_version=26.1.2&mr_loader=fabric";
-          sha512 = "35bcmy6pyzv9w0zykxxzzfs43p367wqlffaam53ff7ywxqibp5cn6pl4a50gm8gszkdc0h68ry919pg8v77cfralvp6vh4bjrh9chsx";
+          url = "https://cdn.modrinth.com/data/gvQqBUqZ/versions/WXHRsMRl/lithium-fabric-0.26.1%2Bmc26.3.jar?mr_download_reason=standalone&mr_game_version=26.3&mr_loader=fabric";
+          sha512 = "1crqr1z83p23r0a1i46di0sw1qbpg8dbf9hj53ys9vhv3rgnpn029cscccvj4lah1j7dljspd53h6b0hvcz22x20dg00gr0g81rpfxc";
         };
       });
 
