@@ -6,10 +6,7 @@ in
 {
   kuiper = {
     enable = true;
-    # HACK: IDK why
-    # REF: https://github.com/search?q=fabricServers.fabric-26_1_2&type=code
-    package = pkgs.fabricServers.fabric-26_1_2.override { jre_headless = pkgs.openjdk25_headless; };
-    enableReload = true;
+    package = pkgs.fabricServers.fabric-26_3;
 
     serverProperties = {
       server-port = port;
