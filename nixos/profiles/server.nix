@@ -45,9 +45,21 @@ in
       "tailscale/auth_key" = {};
       "glance/location" = {};
 
-      "oauth2-proxy/client_secret" = { sopsFile = ../secrets/oauth2-proxy.yaml; };
-      "oauth2-proxy/cookie_secret" = { sopsFile = ../secrets/oauth2-proxy.yaml; };
-      "oauth2-proxy/authorized_emails" = { sopsFile = ../secrets/oauth2-proxy.yaml; };
+      "oauth2-proxy/client_secret" = {
+        sopsFile = ../secrets/oauth2-proxy.yaml;
+         owner = config.users.users.oauth2-proxy.name;
+         group = config.users.users.oauth2-proxy.group;
+      };
+      "oauth2-proxy/cookie_secret" = {
+        sopsFile = ../secrets/oauth2-proxy.yaml;
+         owner = config.users.users.oauth2-proxy.name;
+         group = config.users.users.oauth2-proxy.group;
+      };
+      "oauth2-proxy/authorized_emails" = {
+        sopsFile = ../secrets/oauth2-proxy.yaml;
+         owner = config.users.users.oauth2-proxy.name;
+         group = config.users.users.oauth2-proxy.group;
+      };
 
       "grafana/secret_key" = {
          sopsFile = ../secrets/grafana.yaml;

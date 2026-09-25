@@ -66,12 +66,6 @@ in
       }
     ];
 
-    # some nonsense about who has access to secrets
-    # this is how it's done upstream
-    systemd.services.oauth2-proxy.serviceConfig.LoadCredential = [
-      "emails:${cfg.setup.authorizedEmailsFile}"
-    ];
-
     services.oauth2-proxy = {
       enable = true;
       provider = "github";
