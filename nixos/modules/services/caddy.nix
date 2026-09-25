@@ -41,6 +41,7 @@ in
         # pillar services
         (virtualHost baseCfg.actual)
         (virtualHost baseCfg.glance)
+        (virtualHost baseCfg.grafana)
         (virtualHost baseCfg.oauth2-proxy)
 
         # misc services
