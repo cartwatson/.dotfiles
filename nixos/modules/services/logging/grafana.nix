@@ -6,6 +6,11 @@ in
 {
   options.pillar.services.grafana = {
     enable = lib.mkEnableOption "Enable Grafana.";
+    domain = lib.mkOption {
+      type = lib.types.str;
+      default = "example.com";
+      description = "Base domain used for proxying";
+    };
     port = lib.mkOption {
       type = lib.types.port;
       default = 3000;
@@ -13,7 +18,6 @@ in
     };
 
     security = {
-      # TODO: necessary wiring for oauth2-proxy shenanigans
       secret_key = lib.mkOption {
         type = lib.types.nullOr lib.types.path;
         default = null;
@@ -45,10 +49,33 @@ in
           http_port = cfg.port;
           enforce_domain = true;
           enable_gzip = true;
-          domain = "${cfg.proxy.subdomain}.jjwatson.dev"; # FIX: hardcoded domain
+          domain = "${cfg.proxy.subdomain}.${cfg.domain}";
+          root_url = "https://${cfg.proxy.subdomain}.${cfg.domain}/";
         };
 
-        # TODO: wire in to oauth2-proxy auth instead of grafana auth
+# ----- TEST -------------------------------------------------------------------
+        # Turn off Grafana's own credential-based login entirely.
+        auth = {
+          disable_login_form = true; # no username/password form
+          disable_signout_menu = true; # signout is handled by oauth2-proxy's /oauth2/sign_out
+        };
+        # Trust identity forwarded by oauth2-proxy instead.
+        # https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/auth-proxy/
+        "auth.proxy" = {
+          enabled = true;
+          header_name = "X-Auth-Request-User";
+          header_property = "username";
+          auto_sign_up = true; # create Grafana users on first login
+          sync_ttl = 60; # minutes between re-syncing user info from headers
+          whitelist = "127.0.0.1";
+          headers = "Email:X-Auth-Request-Email Name:X-Auth-Request-Preferred-Username";
+        };
+
+        # Optional: give every proxy-authenticated user Editor by default
+        # instead of Viewer, or manage roles via org mapping elsewhere.
+        users.auto_assign_org_role = "Viewer";
+# ----- TEST -------------------------------------------------------------------
+
         security = {
           secret_key = "$__file{${cfg.security.secret_key}}";
         };

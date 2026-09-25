@@ -9,7 +9,7 @@ let
       "${serviceCfg.proxy.subdomain}.${cfg.domain}".extraConfig = lib.optionalString serviceCfg.proxy.auth ''
         forward_auth  :${toString baseCfg.oauth2-proxy.port} {
           uri /oauth2/auth
-          copy_headers X-Auth-Request-User X-Auth-Request-Email X-Auth-Request-Access-Token
+          copy_headers X-Auth-Request-User X-Auth-Request-Email X-Auth-Request-Access-Token X-Auth-Request-Preferred-Username
 
           # Intercept the 401 response from oauth2-proxy
           @error status 401

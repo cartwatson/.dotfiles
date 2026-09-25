@@ -2,6 +2,7 @@
 
 let
   cfg = config.pillar.profiles.server;
+  sopscfg = config.sops.secrets;
   ports = {
     grafana   = 3000;
     openttd   = 3979; # unused
@@ -99,6 +100,7 @@ in
       };
       services.grafana = {
         enable = true;
+        domain = cfg.domainName;
         port = ports.grafana;
         security = {
           secret_key = "/run/secrets/grafana/secret_key";
