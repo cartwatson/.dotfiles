@@ -48,6 +48,8 @@ in
       "oauth2-proxy/client_secret" = { sopsFile = ../secrets/oauth2-proxy.yaml; };
       "oauth2-proxy/cookie_secret" = { sopsFile = ../secrets/oauth2-proxy.yaml; };
       "oauth2-proxy/authorized_emails" = { sopsFile = ../secrets/oauth2-proxy.yaml; };
+
+      "grafana/secret_key" = { sopsFile = ../secrets/grafana.yaml; };
     };
 
     pillar = {
