@@ -20,6 +20,13 @@
       ctf.enable = true;
       gaming.enable = true;
       gaming.openttd = true;
+      gnome.extensions.listOfExtensions = (with pkgs.gnomeExtensions; [
+        just-perfection
+        panel-date-format
+        auto-move-windows
+        user-themes
+        caffeine
+      ]);
     };
   };
 
