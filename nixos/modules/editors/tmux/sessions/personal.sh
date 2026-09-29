@@ -10,12 +10,12 @@ if [ $? != 0 ]; then
   tmux new-session   -d -s "$SESH" -n "$window"
   tmux send-keys     -t "$SESH:$window".1 "cd $HOME/personal/idx" C-m
   tmux split-window  -t "$SESH:$window".1 -h -c "$HOME/personal/idx"
-  tmux send-keys     -t "$SESH:$window".1 "hx TODO.md" C-m
-  tmux send-keys     -t "$SESH:$window".2 "hx ." C-m
+  tmux split-window  -t "$SESH:$window".1 -v -c "$HOME/personal/idx"
+  tmux send-keys     -t "$SESH:$window".3 "hx ." C-m
 
   window="btop"
   tmux new-window    -t "$SESH" -n "$window"
-  tmux move-window   -s "$SESH:$window" -t "$SESH":0
+  tmux swap-window   -s "$SESH:$window" -t "$SESH":0
   tmux send-keys     -t "$SESH:$window" "btop" C-m
 
   window="dotfiles"
