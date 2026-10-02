@@ -20,8 +20,6 @@ in
   config = (lib.mkIf cfg.enable {
     nixpkgs.overlays = [ nix-minecraft.overlay ];
 
-    # TODO: install mcrcon for RCON commands
-
     services.minecraft-servers = {
       enable = true;
       eula = true;
