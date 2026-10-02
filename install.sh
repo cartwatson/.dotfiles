@@ -50,9 +50,11 @@ function symlink_config {
     ln -s "$WORKING_DIR"/vimrc.vim          "$HOME"/.vimrc           || ((failed++))
     ln -s "$WORKING_DIR"/gitconfig-personal "$HOME"/.gitconfig       || ((failed++))
 
+    # TODO: this should only fire on a work machine lowk
+    # although it's not harmful on a personal machine
     if [ ! -f ~/work/.gitconfig ]; then
         # don't create symlink here so this file can be edited
-        ln "$WORKING_DIR"/gitconfig-personal "$HOME"/work/.gitconfig
+        cp "$WORKING_DIR"/gitconfig-personal "$HOME"/work/.gitconfig
     fi
 
     if [ "$failed" -eq 0 ]; then
@@ -237,13 +239,13 @@ function welcome_menu {
 
     echo
     echo "Select an option:"
-    echo "    1) Full install"
-    echo "    2) Reinstall"
-    echo "    3) Remote Machine Install"
-    echo "    4) Helix config"
-    echo "    5) Generate new SSH key"
-    echo "    6) NixOS Install"
-    echo "    q) Exit script"
+    echo "  1) Full install"
+    echo "  2) Reinstall"
+    echo "  3) Remote Machine Install"
+    echo "  4) Helix config"
+    echo "  5) Generate new SSH key"
+    echo "  6) NixOS Install"
+    echo "  q) Exit script"
     echo
     read -p "Make your selection [1-6]: " choice
 

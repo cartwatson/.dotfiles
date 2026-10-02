@@ -68,9 +68,11 @@ if [ -z "$type_of_key" ]; then
 fi
 
 file_name="$type_of_key@$site"
-ssh-keygen -q -t ed25519 -f "$HOME/.ssh/$file_name" -C "$email" -N "$(read -sp "Passphrase for ssh-key (press enter for no passphrase): ")" && echo
+read -s -p "Passphrase for ssh-key (press enter for no passphrase): " passphrase
+echo
+ssh-keygen -q -t ed25519 -f "$HOME/.ssh/$file_name" -C "$email" -N "$passphrase"
 
-if [ -n $SSH_AGENT_PID ]; then
+if [ -z "$SSH_AGENT_PID" ]; then
   eval "$(ssh-agent -s)" > /dev/null || error "starting ssh-agent"
 fi
 
@@ -88,15 +90,14 @@ case "$input" in
     # see if it's already been added to ssh/config and bail if it has
     mkdir -p "$HOME/.ssh"
     touch "$HOME/.ssh/config"
-    if [ cat "$HOME/.ssh/config" | grep -c "$site" != 0 ]; then
-      echo -e "Host $site\n  IdentityFile ~/.ssh/$file_name\n" >> "$HOME/.ssh/config"
-      if [ ! $? ]; then
+    if ! grep -q "$site" "$HOME/.ssh/config"; then
+      if ! echo -e "Host $site\n  IdentityFile ~/.ssh/$file_name\n" >> "$HOME/.ssh/config"; then
         error "Unable to add key+site combo to ~/.ssh/config";
       fi
     fi
   ;;
   *)
-    echo "View your `~/.ssh/config` file and ensure it's correct"
+    echo "View your ~/.ssh/config file and ensure it's correct"
   ;;
 esac
 
