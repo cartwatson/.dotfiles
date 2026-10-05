@@ -28,7 +28,8 @@ in
 
       servers = customServers;
 
-      # HACK: uncomment this to force all output to journal logs instead of getting buried by tmux
+      # NOTE: comment this to force all output to tmux instead of journal
+      # NOTE: no clue why you would want to do that honestly
       # REF: https://github.com/Infinidoge/nix-minecraft/issues/119
       managementSystem.systemd-socket.enable = true;
     };

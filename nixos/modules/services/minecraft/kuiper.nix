@@ -16,7 +16,6 @@ in
       sync-chunk-writes = false;
       difficulty = "hard";
       gamemode = "survival";
-      # motd = "§9Kuiper§r: Hosted by garamond";
       motd = "\\u00A79Kuiper\\u00A7r: Hosted by garamond";
     };
 
