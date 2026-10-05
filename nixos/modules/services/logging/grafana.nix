@@ -71,9 +71,7 @@ in
           headers = "Email:X-Auth-Request-Email Name:X-Auth-Request-Preferred-Username";
         };
 
-        # Optional: give every proxy-authenticated user Editor by default
-        # instead of Viewer, or manage roles via org mapping elsewhere.
-        users.auto_assign_org_role = "Viewer";
+        users.auto_assign_org_role = "Admin"; # TODO: role based security eventually
 # ----- TEST -------------------------------------------------------------------
 
         security = {
