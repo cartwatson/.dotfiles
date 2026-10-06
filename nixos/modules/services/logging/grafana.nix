@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 let
   baseCfg = config.pillar.services;
   cfg = baseCfg.grafana;
@@ -23,6 +23,19 @@ in
         default = null;
         description = "";
       };
+    };
+
+    sources = lib.mkOption {
+      type = lib.types.listOf lib.types.attrs;
+      default = [];
+      description = "Additional data sources, local source is always configured.";
+      example = [
+          {
+            type = "prometheus";
+            name = "remote-prometheus-1"; # arbitrary
+            url = "http://10.0.0.5:9090";
+          }
+      ];
     };
 
     proxy = {
@@ -53,12 +66,20 @@ in
           root_url = "https://${cfg.proxy.subdomain}.${cfg.domain}/";
         };
 
-# ----- TEST -------------------------------------------------------------------
-        # Turn off Grafana's own credential-based login entirely.
+        security = {
+          secret_key = "$__file{${cfg.security.secret_key}}";
+        };
+
+        # Prevents Grafana from phoning home
+        analytics.reporting_enabled = false;
+
+        # ----- AUTH -----------------------------------------------------------
+        # Turn off Grafana's own credential-based login
         auth = {
           disable_login_form = true; # no username/password form
           disable_signout_menu = true; # signout is handled by oauth2-proxy's /oauth2/sign_out
         };
+
         # Trust identity forwarded by oauth2-proxy instead.
         # https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/auth-proxy/
         "auth.proxy" = {
@@ -72,14 +93,22 @@ in
         };
 
         users.auto_assign_org_role = "Admin"; # TODO: role based security eventually
-# ----- TEST -------------------------------------------------------------------
+        # ----- AUTH -----------------------------------------------------------
+      };
 
-        security = {
-          secret_key = "$__file{${cfg.security.secret_key}}";
-        };
+      provision = {
+        enable = true;
+        dashboards.settings.providers = [
+          # { options.path = ./grafana-dashboards; } # TODO: make dir + dashboards, then uncomment
+        ];
 
-        # Prevents Grafana from phoning home
-        analytics.reporting_enabled = false;
+        datasources.settings.datasources = [
+          {
+            type = "prometheus";
+            name = "local-prometheus";
+            url = "http://localhost:${toString config.pillar.services.prometheus.port}";
+          }
+        ] ++ cfg.sources;
       };
     };
   };

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 let
   baseCfg = config.pillar.services;
   cfg = baseCfg.prometheus.node;

@@ -2,17 +2,17 @@
 
 let
   cfg = config.pillar.profiles.server;
-  sopscfg = config.sops.secrets;
   ports = {
-    grafana   = 3000;
-    openttd   = 3979; # unused
-    oauth2    = 4180;
-    mc-kuiper = 5003; # configured in ../../nixos/modules/services/minecraft/kuiper.nix
-    actual    = 5006;
-    glance    = 8001;
-    blog      = 8002;
-    p-node    = 9001; # prometheus node
-    ssh       = 9999;
+    grafana    = 3000;
+    openttd    = 3979; # unused
+    oauth2     = 4180;
+    mc-kuiper  = 5003; # configured in ../../nixos/modules/services/minecraft/kuiper.nix
+    actual     = 5006;
+    glance     = 8001;
+    blog       = 8002;
+    p-node     = 9001; # prometheus node
+    prometheus = 9090;
+    ssh        = 9999;
   };
 
   port_collision_check = ports_dict:
@@ -130,6 +130,7 @@ in
       };
       services.prometheus = {
         enable = true;
+        port = ports.prometheus;
         node = {
           enable = true;
           port = ports.p-node;

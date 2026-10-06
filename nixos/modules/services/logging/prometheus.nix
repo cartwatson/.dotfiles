@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 let
   baseCfg = config.pillar.services;
   cfg = baseCfg.prometheus;
@@ -13,11 +13,13 @@ in
     };
     targets = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      # TODO: is there a better way to do this?
-      default = [
-        "localhost:${toString config.pillar.services.prometheus.node.port}"
-      ];
-      description = "List of targets to gather data from";
+      default = [];
+      description = "List of additional targets to gather data from, local node is always configured.";
+    };
+    port = lib.mkOption {
+      type = lib.types.port;
+      default = 9090;
+      description = "Port for the prometheus server.";
     };
   };
 
@@ -27,11 +29,16 @@ in
   config = lib.mkIf cfg.enable {
     services.prometheus = {
       enable = true;
+      port = cfg.port;
       globalConfig.scrape_interval = cfg.pollingInterval;
       scrapeConfigs = [
         {
           job_name = "node";
-          static_configs = [{ targets = cfg.targets; }];
+          static_configs = [{
+            targets = [
+              "localhost:${toString config.pillar.services.prometheus.node.port}"
+            ] ++ cfg.targets;
+          }];
         }
       ];
     };
