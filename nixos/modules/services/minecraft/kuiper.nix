@@ -2,6 +2,7 @@
 
 let
   port = 5003;
+  version = "26.03";
 in
 {
   kuiper = {
@@ -16,7 +17,8 @@ in
       sync-chunk-writes = false;
       difficulty = "hard";
       gamemode = "survival";
-      motd = "\\u00A79Kuiper\\u00A7r: Hosted by garamond";
+      # motd = "§6§lKuiper§r: Hosted by Garamond§r\n§a§lVersion§r: ${version}";
+      motd = "\\u00a76\\u00a7lKuiper\\u00a7r: Hosted by Garamond\\u00a7r\\n\\u00a7a\\u00a7lVersion\\u00a7r: ${version}";
     };
 
     jvmOpts = "-Xms2G -Xmx4G";
