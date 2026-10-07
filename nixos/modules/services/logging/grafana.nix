@@ -101,7 +101,7 @@ in
 
         # Trust identity forwarded by oauth2-proxy instead.
         # https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/auth-proxy/
-        "auth.proxy" = lib.mkIf cfg.proxy.auth && baseCfg.oauth2-proxy.enable {
+        "auth.proxy" = lib.mkIf (cfg.proxy.auth && baseCfg.oauth2-proxy.enable) {
           enabled = true;
           header_name = "X-Auth-Request-User";
           header_property = "username";
