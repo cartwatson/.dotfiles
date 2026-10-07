@@ -2,6 +2,12 @@
 let
   baseCfg = config.pillar.services;
   cfg = baseCfg.grafana;
+
+  localSource = lib.optional baseCfg.prometheus.enable {
+    type = "prometheus";
+    name = "local-prometheus";
+    url = "http://localhost:${toString baseCfg.prometheus.port}";
+  };
 in
 {
   options.pillar.services.grafana = {
@@ -54,6 +60,17 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    assertions = [
+      {
+        assertion = cfg.security.secret_key != null;
+        message = "Grafana requires a secret key.";
+      }
+      { # NOTE: `or false` removes the need to have the caddy module available
+        assertion = baseCfg.caddy.enable or false -> baseCfg.caddy.domain == cfg.domain;
+        message = "If Caddy is enabled, the domain for Caddy and Grafana must be the same.";
+      }
+    ];
+
     services.grafana = {
       enable = true;
       settings = {
@@ -102,13 +119,7 @@ in
           # { options.path = ./grafana-dashboards; } # TODO: make dir + dashboards, then uncomment
         ];
 
-        datasources.settings.datasources = [
-          {
-            type = "prometheus";
-            name = "local-prometheus";
-            url = "http://localhost:${toString config.pillar.services.prometheus.port}";
-          }
-        ] ++ cfg.sources;
+        datasources.settings.datasources = localSource ++ cfg.sources;
       };
     };
   };

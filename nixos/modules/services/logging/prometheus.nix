@@ -2,6 +2,8 @@
 let
   baseCfg = config.pillar.services;
   cfg = baseCfg.prometheus;
+
+  localTarget = lib.optional cfg.node.enable "localhost:${toString cfg.node.port}";
 in
 {
   options.pillar.services.prometheus = {
@@ -35,9 +37,7 @@ in
         {
           job_name = "node";
           static_configs = [{
-            targets = [
-              "localhost:${toString config.pillar.services.prometheus.node.port}"
-            ] ++ cfg.targets;
+            targets = localTarget ++ cfg.targets;
           }];
         }
       ];
