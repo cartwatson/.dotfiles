@@ -59,11 +59,11 @@ in
          group = config.users.users.oauth2-proxy.group;
       };
 
-      "grafana/secret_key" = {
-         sopsFile = ../secrets/grafana.yaml;
-         owner = config.users.users.grafana.name;
-         group = config.users.users.grafana.group;
-      };
+      # "grafana/secret_key" = {
+      #    sopsFile = ../secrets/grafana.yaml;
+      #    owner = config.users.users.grafana.name;
+      #    group = config.users.users.grafana.group;
+      # };
     };
 
     pillar = {
