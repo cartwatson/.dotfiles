@@ -116,7 +116,7 @@ in
       provision = {
         enable = true;
         dashboards.settings.providers = [
-          # { options.path = ./grafana-dashboards; } # TODO: make dir + dashboards, then uncomment
+          { options.path = ./grafana-dashboards; }
         ];
 
         datasources.settings.datasources = localSource ++ cfg.sources;
