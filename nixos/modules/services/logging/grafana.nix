@@ -115,9 +115,10 @@ in
 
       provision = {
         enable = true;
-        dashboards.settings.providers = [
-          { options.path = ./grafana-dashboards; }
-        ];
+        dashboards.settings.providers = [{
+          name = "pillar";
+          options.path = ./grafana-dashboards;
+        }];
 
         datasources.settings.datasources = localSource ++ cfg.sources;
       };
