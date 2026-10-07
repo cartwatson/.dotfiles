@@ -16,7 +16,7 @@ in
     targets = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       default = [];
-      description = "List of additional targets to gather data from, local node is always configured.";
+      description = "List of additional targets to gather data from, local node is pre-configured when enabled.";
     };
     port = lib.mkOption {
       type = lib.types.port;

@@ -8,7 +8,7 @@ in
     enable = lib.mkEnableOption "Enable prometheus.";
     port = lib.mkOption {
       type = lib.types.port;
-      default = 9000;
+      default = 9100;
       description = "Port for the prometheus node.";
     };
   };
