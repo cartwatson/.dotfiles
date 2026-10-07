@@ -18,19 +18,14 @@ in
       enable = true;
       port = cfg.port;
       # For the list of available collectors, run, depending on your install:
-      # - Flake-based: nix run nixpkgs#prometheus-node-exporter -- --help
-      # - Classic: nix-shell -p prometheus-node-exporter --run "node_exporter --help"
+      # nix run nixpkgs#prometheus-node-exporter -- --help
       enabledCollectors = [
         "ethtool"
         "softirqs"
         "systemd"
         "tcpstat"
-        "wifi"
       ];
-      # You can pass extra options to the exporter using `extraFlags`, e.g.
-      # to configure collectors or disable those enabled by default.
-      # Enabling a collector is also possible using "--collector.[name]",
-      # but is otherwise equivalent to using `enabledCollectors` above.
+      # You can pass extra options to the exporter using `extraFlags`
       extraFlags = [ "--collector.ntp.protocol-version=4" "--no-collector.mdadm" ];
     };
   };
