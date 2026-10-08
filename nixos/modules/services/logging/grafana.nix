@@ -34,7 +34,7 @@ in
     sources = lib.mkOption {
       type = lib.types.listOf lib.types.attrs;
       default = [];
-      description = "Additional data sources, local source is always configured.";
+      description = "Additional data sources, local source is pre-configured when prometheus is enabled.";
       example = [
           {
             type = "prometheus";
@@ -65,8 +65,10 @@ in
         assertion = cfg.security.secret_key != null;
         message = "Grafana requires a secret key.";
       }
-      { # NOTE: `or false` removes the need to have the caddy module available
-        assertion = baseCfg.caddy.enable or false -> baseCfg.caddy.domain == cfg.domain;
+      {
+        # this is only necessary for grafana due to `enforce_domain`
+        # NOTE: `or false` removes the need to have the caddy module available
+        assertion = cfg.proxy.enable -> baseCfg.caddy.enable or false -> baseCfg.caddy.domain == cfg.domain;
         message = "If Caddy is enabled, the domain for Caddy and Grafana must be the same.";
       }
     ];
@@ -92,14 +94,14 @@ in
 
         # ----- AUTH -----------------------------------------------------------
         # Turn off Grafana's own credential-based login
-        auth = {
+        auth = lib.mkIf cfg.proxy.auth {
           disable_login_form = true; # no username/password form
           disable_signout_menu = true; # signout is handled by oauth2-proxy's /oauth2/sign_out
         };
 
         # Trust identity forwarded by oauth2-proxy instead.
         # https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/auth-proxy/
-        "auth.proxy" = {
+        "auth.proxy" = lib.mkIf (cfg.proxy.auth && baseCfg.oauth2-proxy.enable) {
           enabled = true;
           header_name = "X-Auth-Request-User";
           header_property = "username";
