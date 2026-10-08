@@ -86,9 +86,10 @@ in
       };
 
       extraConfig = {
-        authenticated-emails-file = "%d/emails";
+        authenticated-emails-file = cfg.setup.authorizedEmailsFile;
         redirect-url = "https://${cfg.proxy.subdomain}.${cfg.domain}/oauth2/callback";
         whitelist-domain = "*.${cfg.domain}";
+        set-xauthrequest = "true"; # needed for grafana login
       };
     };
   };

@@ -1,0 +1,633 @@
+{
+  "id": null,
+  "uid": "systemd-units",
+  "title": "Systemd Units",
+  "tags": [
+    "systemd",
+    "node-exporter"
+  ],
+  "timezone": "browser",
+  "schemaVersion": 39,
+  "version": 3,
+  "refresh": "30s",
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "templating": {
+    "list": [
+      {
+        "name": "datasource",
+        "label": "Data source",
+        "type": "datasource",
+        "query": "prometheus",
+        "current": {}
+      },
+      {
+        "name": "instance",
+        "label": "Host",
+        "type": "query",
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${datasource}"
+        },
+        "query": {
+          "query": "label_values(node_systemd_unit_state, instance)",
+          "refId": "inst"
+        },
+        "definition": "label_values(node_systemd_unit_state, instance)",
+        "refresh": 2,
+        "includeAll": true,
+        "multi": true,
+        "allValue": ".*",
+        "current": {
+          "text": "All",
+          "value": "$__all"
+        }
+      },
+      {
+        "name": "unit",
+        "label": "Unit filter (regex)",
+        "type": "textbox",
+        "query": ".+\\.service",
+        "current": {
+          "text": ".+\\.service",
+          "value": ".+\\.service"
+        },
+        "options": [
+          {
+            "selected": true,
+            "text": ".+\\.service",
+            "value": ".+\\.service"
+          }
+        ]
+      },
+      {
+        "name": "my_services",
+        "label": "My services",
+        "type": "constant",
+        "hide": 2,
+        "query": "actual|caddy|glance|grafana|oauth2-proxy|prometheus|prometheus-node-exporter|sshd|tailscaled|minecraft-server-.*",
+        "current": {
+          "text": "actual|caddy|glance|grafana|oauth2-proxy|prometheus|prometheus-node-exporter|sshd|tailscaled|minecraft-server-.*",
+          "value": "actual|caddy|glance|grafana|oauth2-proxy|prometheus|prometheus-node-exporter|sshd|tailscaled|minecraft-server-.*"
+        },
+        "options": []
+      },
+      {
+        "name": "my_timers",
+        "label": "My timer-driven services",
+        "type": "constant",
+        "hide": 2,
+        "query": "ddclient",
+        "current": {
+          "text": "ddclient",
+          "value": "ddclient"
+        },
+        "options": []
+      }
+    ]
+  },
+  "panels": [
+    {
+      "id": 1,
+      "type": "stat",
+      "title": "Failed units",
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 0,
+        "y": 0
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "instant": true,
+          "expr": "count(node_systemd_unit_state{instance=~\"$instance\", state=\"failed\", name=~\"$unit\"} == 1) or vector(0)"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
+      }
+    },
+    {
+      "id": 2,
+      "type": "stat",
+      "title": "Active units",
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 6,
+        "y": 0
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "instant": true,
+          "expr": "count(node_systemd_unit_state{instance=~\"$instance\", state=\"active\", name=~\"$unit\"} == 1) or vector(0)"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
+      }
+    },
+    {
+      "id": 3,
+      "type": "stat",
+      "title": "Inactive units",
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 12,
+        "y": 0
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "instant": true,
+          "expr": "count(node_systemd_unit_state{instance=~\"$instance\", state=\"inactive\", name=~\"$unit\"} == 1) or vector(0)"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "text",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
+      }
+    },
+    {
+      "id": 4,
+      "type": "stat",
+      "title": "Hosts reporting",
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 18,
+        "y": 0
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "instant": true,
+          "expr": "count(count by (instance) (node_systemd_unit_state{instance=~\"$instance\"})) or vector(0)"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
+      }
+    },
+    {
+      "id": 10,
+      "type": "row",
+      "title": "My services",
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 4
+      },
+      "panels": []
+    },
+    {
+      "id": 11,
+      "type": "stat",
+      "title": "Service status",
+      "description": "Daemons must be active. Timer-driven services (like ddclient) are healthy when their .timer is active and the last run did not fail. Edit the my_services / my_timers dashboard variables to change the lists.",
+      "gridPos": {
+        "h": 6,
+        "w": 24,
+        "x": 0,
+        "y": 5
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "legendFormat": "{{name}}",
+          "expr": "node_systemd_unit_state{instance=~\"$instance\", state=\"active\", name=~\"($my_services)[.]service\"}",
+          "instant": true
+        },
+        {
+          "refId": "B",
+          "legendFormat": "{{name}}",
+          "expr": "node_systemd_unit_state{instance=~\"$instance\", state=\"active\", name=~\"($my_timers)[.]timer\"}",
+          "instant": true
+        },
+        {
+          "refId": "C",
+          "legendFormat": "{{name}} last run",
+          "expr": "1 - node_systemd_unit_state{instance=~\"$instance\", state=\"failed\", name=~\"($my_timers)[.]service\"}",
+          "instant": true
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": {
+                  "text": "DOWN",
+                  "color": "red",
+                  "index": 0
+                },
+                "1": {
+                  "text": "UP",
+                  "color": "green",
+                  "index": 1
+                }
+              }
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "C"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "type": "value",
+                    "options": {
+                      "0": {
+                        "text": "FAILED",
+                        "color": "red",
+                        "index": 0
+                      },
+                      "1": {
+                        "text": "OK",
+                        "color": "green",
+                        "index": 1
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "textMode": "value_and_name",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        }
+      }
+    },
+    {
+      "id": 12,
+      "type": "state-timeline",
+      "title": "My services over time",
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 11
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "legendFormat": "{{name}}",
+          "expr": "node_systemd_unit_state{instance=~\"$instance\", state=\"active\", name=~\"($my_services)[.]service\"}"
+        },
+        {
+          "refId": "B",
+          "legendFormat": "{{name}}",
+          "expr": "node_systemd_unit_state{instance=~\"$instance\", state=\"active\", name=~\"($my_timers)[.]timer\"}"
+        },
+        {
+          "refId": "C",
+          "legendFormat": "{{name}} last run",
+          "expr": "1 - node_systemd_unit_state{instance=~\"$instance\", state=\"failed\", name=~\"($my_timers)[.]service\"}"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": {
+                  "text": "Down",
+                  "color": "red",
+                  "index": 0
+                },
+                "1": {
+                  "text": "Up",
+                  "color": "green",
+                  "index": 1
+                }
+              }
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              }
+            ]
+          },
+          "custom": {
+            "fillOpacity": 80,
+            "lineWidth": 0
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "C"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "type": "value",
+                    "options": {
+                      "0": {
+                        "text": "FAILED",
+                        "color": "red",
+                        "index": 0
+                      },
+                      "1": {
+                        "text": "OK",
+                        "color": "green",
+                        "index": 1
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "showValue": "never",
+        "mergeValues": true,
+        "rowHeight": 0.8,
+        "legend": {
+          "showLegend": false
+        }
+      }
+    },
+    {
+      "id": 20,
+      "type": "row",
+      "title": "Everything else",
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 20
+      },
+      "panels": []
+    },
+    {
+      "id": 21,
+      "type": "table",
+      "title": "Failed units right now",
+      "gridPos": {
+        "h": 6,
+        "w": 24,
+        "x": 0,
+        "y": 21
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "instant": true,
+          "format": "table",
+          "expr": "node_systemd_unit_state{instance=~\"$instance\", state=\"failed\", name=~\"$unit\"} == 1"
+        }
+      ],
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true,
+              "__name__": true,
+              "Value": true,
+              "job": true,
+              "state": true
+            },
+            "renameByName": {
+              "name": "Unit",
+              "instance": "Host",
+              "type": "Type"
+            }
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "options": {
+        "showHeader": true
+      }
+    },
+    {
+      "id": 22,
+      "type": "state-timeline",
+      "title": "Units that failed during this time range",
+      "description": "Empty means nothing failed in the selected range.",
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 27
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "legendFormat": "{{name}}",
+          "expr": "node_systemd_unit_state{instance=~\"$instance\", state=\"failed\", name=~\"$unit\"} and on(instance, name) (max_over_time(node_systemd_unit_state{instance=~\"$instance\", state=\"failed\", name=~\"$unit\"}[$__range]) > 0)"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": {
+                  "text": "OK",
+                  "color": "green",
+                  "index": 0
+                },
+                "1": {
+                  "text": "Failed",
+                  "color": "red",
+                  "index": 1
+                }
+              }
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "custom": {
+            "fillOpacity": 80,
+            "lineWidth": 0
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "showValue": "never",
+        "mergeValues": true,
+        "rowHeight": 0.8,
+        "legend": {
+          "showLegend": false
+        }
+      }
+    }
+  ]
+}

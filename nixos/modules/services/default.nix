@@ -7,6 +7,7 @@
     ./ctf.nix
     ./ddclient.nix
     ./glance
+    ./logging
     ./minecraft
     ./openttd-server.nix
     ./oauth2-proxy

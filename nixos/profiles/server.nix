@@ -3,13 +3,16 @@
 let
   cfg = config.pillar.profiles.server;
   ports = {
-    openttd   = 3979; # unused
-    oauth2    = 4180;
-    mc-kuiper = 5003; # configured in ../../nixos/modules/services/minecraft/kuiper.nix
-    actual    = 5006;
-    glance    = 8001;
-    blog      = 8002;
-    ssh       = 9999;
+    grafana    = 3000;
+    openttd    = 3979; # unused
+    oauth2     = 4180;
+    mc-kuiper  = 5003; # configured in ../../nixos/modules/services/minecraft/kuiper.nix
+    actual     = 5006;
+    glance     = 8001;
+    blog       = 8002;
+    p-node     = 9001; # prometheus node
+    prometheus = 9090;
+    ssh        = 9999;
   };
 
   port_collision_check = ports_dict:
@@ -95,6 +98,19 @@ in
           auth = true;
         };
       };
+      services.grafana = {
+        enable = true;
+        domain = cfg.domainName;
+        port = ports.grafana;
+        security = {
+          secret_key = "/run/secrets/grafana/secret_key";
+        };
+        proxy = {
+          enable = true;
+          subdomain = "logs";
+          auth = true;
+        };
+      };
       services.minecraftServer.enable = true;
       services.oauth2-proxy = {
         enable = true;
@@ -111,6 +127,14 @@ in
       services.personal-site = {
         enable = false; # TODO: FIX: this is broken, needs a diff host
         port = cfg.blog;
+      };
+      services.prometheus = {
+        enable = true;
+        port = ports.prometheus;
+        node = {
+          enable = true;
+          port = ports.p-node;
+        };
       };
       services.ssh = {
         enable = true;
