@@ -29,7 +29,7 @@ function set_tmux() {
   swapto=$2
 
   echo "Setting Tmux..."
-  sed -i "s#$current#$swapto#g" "$HOME/.dotfiles/tmux/tmux.conf"
+  sed -i "s#$current#$swapto#g" "$HOME/.tmux.conf"
 
   # reload tmux
   tmux source "$HOME/.dotfiles/tmux/tmux.conf"
