@@ -53,21 +53,18 @@ alias gds="git diff --minimal --staged"
 alias gp="git push"
 alias gpl="git pull"
 alias gsll="clear; ll; gs"
-function gco () {
-    git checkout "$(git config init.defaultBranch)";
-}
+function gcom() { git checkout "$(git config init.defaultBranch)"; }
 function gac() { git add "${@:1:$#-1}" && git commit -m "${@: -1}"; }
 function gcp() { git commit -m "$@" && git push; }
 function gacp() { git add "${@:1:$#-1}" && git commit -m "${@: -1}" && git push; }
 function gpsu() { git push --set-upstream origin "$(git branch --show-current)"; }
 
 ## override builtins
+# relies on above aliases: ll, gs
 function cd() {
-    builtin cd "$@";
-    ll;
-    if [ -d ".git" ]; then
-        gs;
-    fi
+    builtin cd "$@"
+    ll
+    if [ -d ".git" ]; then gs; fi
 }
 
 alias clear="clear -x" # don't clear scroll
@@ -77,28 +74,41 @@ alias zip="tar -czf"
 alias untar="tar -xvzf"
 alias toggle-theme="$HOME/.dotfiles/toggle-gnome-helix-tmux-light_dark-mode.sh"
 alias jfu="journalctl --output=short-iso --follow --unit"
+# nonsense for jfu auto completetion
+_jfu_complete() {
+    local saved_words=("${COMP_WORDS[@]}")
+    local saved_cword=$COMP_CWORD
 
-## NixOS
-alias pillar="$HOME/.dotfiles/nixos/rebuild.sh"
+    COMP_WORDS=(journalctl --unit "${COMP_WORDS[@]:1}")
+    COMP_CWORD=$((saved_cword + 1))
+
+    _journalctl
+
+    COMP_WORDS=("${saved_words[@]}")
+    COMP_CWORD=$saved_cword
+}
+complete -F _jfu_complete jfu
 
 function git-init-custom-status() {
-    echo "Who built this?"
-    git shortlog -sn --no-merges | head -5
-    read -p "press enter..."
+    local messages=(
+        "Who built this?"
+        "What files change often?"
+        "What files are getting fixes?"
+        "Commit count per month"
+        "How often are reverts/hotfixes needed?"
+    )
+    local commands=(
+        'git shortlog -sn --no-merges | head -5'
+        'git log --format=format: --name-only --since="1 year ago" | sort | uniq -c | sort -nr | head -20'
+        'git log -i -E --grep="fix|bug|broken" --name-only --format='' | sort | uniq -c | sort -nr | head -20'
+        'git log --format='%ad' --date=format:'%Y-%m' | sort | uniq -c'
+        'git log --oneline --since="1 year ago" | grep -iE "revert|hotfix|emergency|rollback"'
+    )
 
-    echo "What files change often?"
-    git log --format=format: --name-only --since="1 year ago" | sort | uniq -c | sort -nr | head -20
-    read -p "press enter..."
-
-    echo "What files are getting fixes?"
-    git log -i -E --grep="fix|bug|broken" --name-only --format='' | sort | uniq -c | sort -nr | head -20
-    read -p "press enter..."
-
-    echo "Commit count per month"
-    git log --format='%ad' --date=format:'%Y-%m' | sort | uniq -c
-    read -p "press enter..."
-
-    echo "How often are reverts/hotfixes needed?"
-    git log --oneline --since="1 year ago" | grep -iE 'revert|hotfix|emergency|rollback'
-    read -p "press enter..."
+    for i in "${!messages[@]}"; do
+        echo "${messages[i]}"
+        eval "${commands[i]}"
+        read -p "press enter..."
+        echo
+    done
 }
