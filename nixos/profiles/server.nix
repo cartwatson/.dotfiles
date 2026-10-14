@@ -12,7 +12,6 @@ let
     blog       = 8002;
     p-node     = 9001; # prometheus node
     prometheus = 9090;
-    ssh        = 9999;
   };
 
   port_collision_check = ports_dict:
@@ -135,10 +134,6 @@ in
           enable = true;
           port = ports.p-node;
         };
-      };
-      services.ssh = {
-        enable = true;
-        port = ports.ssh;
       };
       services.tailscale = {
         enable = true;
