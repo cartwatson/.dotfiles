@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   cfg = config.pillar.profiles.server;
@@ -6,7 +6,7 @@ let
     grafana    = 3000;
     openttd    = 3979; # unused
     oauth2     = 4180;
-    mc-kuiper  = 5003; # configured in ../../nixos/modules/services/minecraft/kuiper.nix
+    mc-kuiper  = 5003;
     actual     = 5006;
     glance     = 8001;
     blog       = 8002;
@@ -110,7 +110,10 @@ in
           auth = true;
         };
       };
-      services.minecraftServer.enable = true;
+      services.minecraftServer = {
+        enable = true;
+        servers.kuiper = import ../modules/services/minecraft/kuiper.nix { inherit pkgs; } // { port = ports.mc-kuiper; };
+      };
       services.oauth2-proxy = {
         enable = true;
         domain = cfg.domainName;
