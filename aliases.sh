@@ -82,7 +82,7 @@ _jfu_complete() {
     COMP_WORDS=(journalctl --unit "${COMP_WORDS[@]:1}")
     COMP_CWORD=$((saved_cword + 1))
 
-    _journalctl
+    _fzf_path_completion journalctl
 
     COMP_WORDS=("${saved_words[@]}")
     COMP_CWORD=$saved_cword
