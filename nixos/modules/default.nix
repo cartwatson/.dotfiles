@@ -7,6 +7,7 @@
     ./networking
     ./services
 
+    ./data.nix
     ./sops.nix
   ];
 }
