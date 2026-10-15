@@ -13,8 +13,7 @@
       description = "Jessica G. Watson";
       extraGroups = [
         "wheel"
-      ] ++ (lib.optional config.networking.networkmanager.enable "networkmanager")
-        ++ (lib.optional config.virtualisation.docker.enable "docker");
+      ] ++ (lib.optional config.networking.networkmanager.enable "networkmanager");
 
       packages = [];
     };
