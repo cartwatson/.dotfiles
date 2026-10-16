@@ -8,7 +8,8 @@ in
 {
   options.pillar.services.restic = {
     enable = lib.mkEnableOption "Enable Restic.";
-    security = {
+    server = {
+      enable = lib.mkEnableOption "Enable Restic's server on this device.";
       htpasswd-file = lib.mkOption {
         type = lib.types.nullOr lib.types.path;
         default = null;
@@ -22,12 +23,10 @@ in
         options = {
           serverURL = lib.mkOption {
             type = lib.types.path;
-            default = "";
             description = "Path to secret containing serverURL";
           };
           passwordFile = lib.mkOption {
             type = lib.types.path;
-            default = "";
             description = "Path to secret containing server password";
           };
           backupPaths = lib.mkOption {
@@ -61,11 +60,10 @@ in
     };
 
     services.restic = {
-      # uncomment to be able to recieve backups at current location
-      # server = {
-      #   enable = true;
-      #   htpasswd-file = cfg.security.htpasswd-file;
-      # };
+      server = lib.mkIf cfg.server.enable {
+        enable = true;
+        htpasswd-file = cfg.server.htpasswd-file;
+      };
 
       backups = lib.mapAttrs (name: connectionCfg: {
         initialize = true;
