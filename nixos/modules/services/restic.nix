@@ -74,13 +74,13 @@ in
 
         pruneOpts = [
           "--keep-daily 7"
-          "--keep-weekly 5"
+          "--keep-weekly 4"
           "--keep-monthly 12"
-          "--keep-yearly 75"
+          "--keep-yearly 1"
         ];
 
         timerConfig = {
-          OnCalendar = "daily";
+          OnCalendar = "*-*-* 09:00:00";
           Persistent = true;
         };
 
