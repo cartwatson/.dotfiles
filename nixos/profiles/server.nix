@@ -47,24 +47,24 @@ in
 
       "oauth2-proxy/client_secret" = {
         sopsFile = ../secrets/oauth2-proxy.yaml;
-         owner = config.users.users.oauth2-proxy.name;
-         group = config.users.users.oauth2-proxy.group;
+        owner = config.users.users.oauth2-proxy.name;
+        group = config.users.users.oauth2-proxy.group;
       };
       "oauth2-proxy/cookie_secret" = {
         sopsFile = ../secrets/oauth2-proxy.yaml;
-         owner = config.users.users.oauth2-proxy.name;
-         group = config.users.users.oauth2-proxy.group;
+        owner = config.users.users.oauth2-proxy.name;
+        group = config.users.users.oauth2-proxy.group;
       };
       "oauth2-proxy/authorized_emails" = {
         sopsFile = ../secrets/oauth2-proxy.yaml;
-         owner = config.users.users.oauth2-proxy.name;
-         group = config.users.users.oauth2-proxy.group;
+        owner = config.users.users.oauth2-proxy.name;
+        group = config.users.users.oauth2-proxy.group;
       };
 
       "grafana/secret_key" = {
-         sopsFile = ../secrets/grafana.yaml;
-         owner = config.users.users.grafana.name;
-         group = config.users.users.grafana.group;
+        sopsFile = ../secrets/grafana.yaml;
+        owner = config.users.users.grafana.name;
+        group = config.users.users.grafana.group;
       };
     };
 
@@ -136,6 +136,16 @@ in
         node = {
           enable = true;
           port = ports.p-node;
+        };
+      };
+      services.restic = {
+        enable = true;
+        backupConnections = {
+          # TODO: define backup connections
+          # backblaze = {
+          #   serverURL = "temp";
+          #   passwordFile = "temp";
+          # };
         };
       };
       services.tailscale = {
