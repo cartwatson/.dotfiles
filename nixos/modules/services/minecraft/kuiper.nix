@@ -23,31 +23,19 @@
   };
 
   # CDN: find link to specific file, and `copy link` from the download button
-  # SHA512: `nix-prefetch-url --type sha512 "<URL>"`
+  # SHA512: `nix-prefetch-url --type sha512 --name <NAME> "<URL>"`
   mods = pkgs.linkFarmFromDrvs "mods" (builtins.attrValues {
-    Fabric-API = pkgs.fetchurl {
-      url = "https://cdn.modrinth.com/data/P7dR8mSH/versions/bNnaTiuM/fabric-api-0.161.0%2B26.3.jar?mr_download_reason=standalone&mr_game_version=26.3&mr_loader=fabric";
-      sha512 = "2fi1nhjdv0rr194ln31msvdd8413a1hipwkj7xmrrvdasp17qbrkqjyrql7wpnqpza98vz44rqbd68yqlksbxbjhkg1zqgxss32aszd";
-    };
-
-    # Performance
     FerriteCore = pkgs.fetchurl {
       url = "https://cdn.modrinth.com/data/uXXizFIs/versions/d5ddUdiB/ferritecore-9.0.0-fabric.jar?mr_download_reason=standalone&mr_game_version=26.3&mr_loader=fabric";
       sha512 = "22fbjz59a2qh4bynn6rmplbawi36wgddycwsqvz1x5f11l5355khay5m6kf8xx1bzjcx4vivl1pc00xhcrz9hl95za1jk3q25zaj7yq";
     };
+    Fabric-API = pkgs.fetchurl {
+      url = "https://cdn.modrinth.com/data/P7dR8mSH/versions/bNnaTiuM/fabric-api-0.161.0%2B26.3.jar?mr_download_reason=standalone&mr_game_version=26.3&mr_loader=fabric";
+      sha512 = "2fi1nhjdv0rr194ln31msvdd8413a1hipwkj7xmrrvdasp17qbrkqjyrql7wpnqpza98vz44rqbd68yqlksbxbjhkg1zqgxss32aszd";
+    };
     lithium = pkgs.fetchurl {
       url = "https://cdn.modrinth.com/data/gvQqBUqZ/versions/WXHRsMRl/lithium-fabric-0.26.1%2Bmc26.3.jar?mr_download_reason=standalone&mr_game_version=26.3&mr_loader=fabric";
       sha512 = "1crqr1z83p23r0a1i46di0sw1qbpg8dbf9hj53ys9vhv3rgnpn029cscccvj4lah1j7dljspd53h6b0hvcz22x20dg00gr0g81rpfxc";
-    };
-
-    # Metrics
-    spark = pkgs.fetchurl {
-      url = "https://cdn.modrinth.com/data/l6YH9Als/versions/e3hsPc1o/spark-1.10.187-fabric.jar";
-      sha512 = "2a3iag9ns7w8qi7cj04xhyn1nxd39xk8h1ppws1z484ahwdhw8lm77rybk2fnmzly8izs8mh0m2fas1av3yl5x7dvn4a93bl7azajy7";
-    };
-    fabric-exporter = pkgs.fetchurl {
-      url = "https://github.com/cartwatson/fabric-exporter-fork/releases/download/26.3-v1.0.22/fabricexporter-26.3-1.0.22.jar";
-      sha512 = "1zcblk9r0mzy5infgjs2rfci5dyki3y10vad9rcbgl7kw5dws28135ypbvp95yikgsvdx78b51sd3fnx2j2d52fw7a4yn018al7k3qj";
     };
   });
 }
