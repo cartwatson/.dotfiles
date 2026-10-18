@@ -16,6 +16,24 @@ let
 
   port_collision_check = ports_dict:
     (ports: ports == lib.lists.unique ports) (builtins.attrValues ports_dict);
+
+  # secrets management
+  oauth2-proxy = {
+    sopsFile = ../secrets/oauth2-proxy.yaml;
+    owner = config.users.users.oauth2-proxy.name;
+    group = config.users.users.oauth2-proxy.group;
+  };
+  grafana = {
+    sopsFile = ../secrets/grafana.yaml;
+    owner = config.users.users.grafana.name;
+    group = config.users.users.grafana.group;
+  };
+  restic = {
+    sopsFile = ../secrets/backups.yaml;
+    owner = config.users.users.restic.name;
+    group = config.users.users.restic.group;
+  };
+
 in
 {
   options.pillar.profiles.server = {
@@ -45,27 +63,23 @@ in
       "tailscale/auth_key" = {};
       "glance/location" = {};
 
-      "oauth2-proxy/client_secret" = {
-        sopsFile = ../secrets/oauth2-proxy.yaml;
-        owner = config.users.users.oauth2-proxy.name;
-        group = config.users.users.oauth2-proxy.group;
-      };
-      "oauth2-proxy/cookie_secret" = {
-        sopsFile = ../secrets/oauth2-proxy.yaml;
-        owner = config.users.users.oauth2-proxy.name;
-        group = config.users.users.oauth2-proxy.group;
-      };
-      "oauth2-proxy/authorized_emails" = {
-        sopsFile = ../secrets/oauth2-proxy.yaml;
-        owner = config.users.users.oauth2-proxy.name;
-        group = config.users.users.oauth2-proxy.group;
-      };
-
-      "grafana/secret_key" = {
-        sopsFile = ../secrets/grafana.yaml;
-        owner = config.users.users.grafana.name;
-        group = config.users.users.grafana.group;
-      };
+      "oauth2-proxy/client_secret" = oauth2-proxy;
+      "oauth2-proxy/cookie_secret" = oauth2-proxy;
+      "oauth2-proxy/authorized_emails" =  oauth2-proxy;
+      "grafana/secret_key" = grafana;
+      "restic/blackblaze/server-url" = restic;
+      "restic/blackblaze/keyId" = restic;
+      "restic/restic-password" = restic;
+    };
+    sops.templates."backblaze-restic.env" = {
+      mode = "0400";
+      content = ''
+        RESTIC_REPOSITORY=${config.sops.placeholder."backblaze/server-url"}
+        AWS_DEFAULT_REGION=${config.sops.placeholder."backblaze/access-region"}
+        AWS_ACCESS_KEY_ID=${config.sops.placeholder."backblaze/key-id"}
+        AWS_SECRET_ACCESS_KEY=${config.sops.placeholder."backblaze/application-key"}
+        RESTIC_PASSWORD=${config.sops.placeholder."backblaze/restic-password"}
+      '';
     };
 
     pillar = {
@@ -141,11 +155,7 @@ in
       services.restic = {
         enable = true;
         backupConnections = {
-          # TODO: define backup connections
-          # backblaze = {
-          #   serverURL = "temp";
-          #   passwordFile = "temp";
-          # };
+          backblaze.environmentFile = config.sops.templates."backblaze-restic.env".path;
         };
       };
       services.tailscale = {

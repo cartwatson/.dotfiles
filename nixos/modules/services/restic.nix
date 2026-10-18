@@ -22,11 +22,18 @@ in
       type = lib.types.attrsOf (lib.types.submodule ({ name, ... }: {
         options = {
           serverURL = lib.mkOption {
-            type = lib.types.path;
+            type = lib.types.nullOr lib.types.path;
+            default = null;
             description = "Path to secret containing serverURL";
           };
           passwordFile = lib.mkOption {
-            type = lib.types.path;
+            type = lib.types.nullOr lib.types.path;
+            default = null;
+            description = "Path to secret containing server password";
+          };
+          environmentFile = lib.mkOption {
+            type = lib.types.nullOr lib.types.path;
+            default = null;
             description = "Path to secret containing server password";
           };
           backupPaths = lib.mkOption {
@@ -40,6 +47,17 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    # TODO: rename all assertions so I know where they're from
+    assertions = lib.mapAttrsToList (name: c: {
+      assertion = c.environmentFile == null -> (c.passwordFile != null && c.serverURL != null);
+      message = "pillar.services.restic.backupConnections.${name}: `environmentFile` or (`passwordFile` + `serverURL`) must be non-null.";
+    }) cfg.backupConnections
+    ++ [
+      {
+        assertion = cfg.server.enable -> cfg.server.htpasswd-file != null;
+        message = "pillar.services.restic.server: htpasswd-file is required (rest-server won't start without auth configured).";
+      }
+    ];
 
     # run restic as user instead of as root
     users = {
@@ -70,6 +88,11 @@ in
         user = "restic";
         package = pkgs.writeShellScriptBin "restic" ''exec /run/wrappers/bin/restic "$@"'';
 
+        # no problems setting these null, assertion will catch bad setups
+        repositoryFile = connectionCfg.serverURL;
+        passwordFile = connectionCfg.passwordFile;
+        environmentFile = connectionCfg.environmentFile;
+
         paths = data.backupPaths ++ connectionCfg.backupPaths;
 
         pruneOpts = [
@@ -83,10 +106,6 @@ in
           OnCalendar = "*-*-* 09:00:00";
           Persistent = true;
         };
-
-        # Encryption key for repository
-        passwordFile = connectionCfg.passwordFile;
-        repositoryFile = connectionCfg.serverURL;
       }) cfg.backupConnections;
     };
 
