@@ -22,13 +22,11 @@ in
       type = lib.types.attrsOf (lib.types.submodule ({ name, ... }: {
         options = {
           serverURL = lib.mkOption {
-            type = lib.types.nullOr lib.types.path;
-            default = null;
+            type = lib.types.path;
             description = "Path to secret containing serverURL";
           };
           passwordFile = lib.mkOption {
-            type = lib.types.nullOr lib.types.path;
-            default = null;
+            type = lib.types.path;
             description = "Path to secret containing server password";
           };
           environmentFile = lib.mkOption {
@@ -48,11 +46,7 @@ in
 
   config = lib.mkIf cfg.enable {
     # TODO: rename all assertions so I know where they're from
-    assertions = lib.mapAttrsToList (name: c: {
-      assertion = c.environmentFile == null -> (c.passwordFile != null && c.serverURL != null);
-      message = "pillar.services.restic.backupConnections.${name}: `environmentFile` or (`passwordFile` + `serverURL`) must be non-null.";
-    }) cfg.backupConnections
-    ++ [
+    assertions = [
       {
         assertion = cfg.server.enable -> cfg.server.htpasswd-file != null;
         message = "pillar.services.restic.server: htpasswd-file is required (rest-server won't start without auth configured).";

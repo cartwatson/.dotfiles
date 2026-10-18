@@ -2,6 +2,7 @@
 
 let
   cfg = config.pillar.profiles.server;
+  secretCfg = config.sops.secrets;
   ports = {
     grafana    = 3000;
     openttd    = 3979; # unused
@@ -67,18 +68,19 @@ in
       "oauth2-proxy/cookie_secret" = oauth2-proxy;
       "oauth2-proxy/authorized_emails" =  oauth2-proxy;
       "grafana/secret_key" = grafana;
-      "restic/blackblaze/server-url" = restic;
-      "restic/blackblaze/keyId" = restic;
-      "restic/restic-password" = restic;
+
+      "backblaze/server-url" = restic;
+      "backblaze/access-region" = restic;
+      "backblaze/key-id" = restic;
+      "backblaze/application-key" = restic;
+      "backblaze/restic-password" = restic;
     };
     sops.templates."backblaze-restic.env" = {
       mode = "0400";
       content = ''
-        RESTIC_REPOSITORY=${config.sops.placeholder."backblaze/server-url"}
         AWS_DEFAULT_REGION=${config.sops.placeholder."backblaze/access-region"}
         AWS_ACCESS_KEY_ID=${config.sops.placeholder."backblaze/key-id"}
         AWS_SECRET_ACCESS_KEY=${config.sops.placeholder."backblaze/application-key"}
-        RESTIC_PASSWORD=${config.sops.placeholder."backblaze/restic-password"}
       '';
     };
 
@@ -99,7 +101,7 @@ in
       };
       services.ddclient = {
         enable = true;
-        cloudflareApiKeyPath = "/run/secrets/api_tokens/cloudflare";
+        cloudflareApiKeyPath = secretCfg."api_tokens/cloudflare".path;
         domainName = cfg.domainName;
       };
       services.glance = {
@@ -116,7 +118,7 @@ in
         domain = cfg.domainName;
         port = ports.grafana;
         security = {
-          secret_key = "/run/secrets/grafana/secret_key";
+          secret_key = secretCfg."grafana/secret_key".path;
         };
         proxy = {
           enable = true;
@@ -135,14 +137,14 @@ in
         port = ports.oauth2;
         setup = {
           clientID = "Ov23liGmeEEYor02mUtZ";
-          clientSecretFile = "/run/secrets/oauth2-proxy/client_secret";
-          cookieSecretFile = "/run/secrets/oauth2-proxy/cookie_secret";
-          authorizedEmailsFile = "/run/secrets/oauth2-proxy/authorized_emails";
+          clientSecretFile = secretCfg."oauth2-proxy/client_secret".path;
+          cookieSecretFile = secretCfg."oauth2-proxy/cookie_secret".path;
+          authorizedEmailsFile = secretCfg."oauth2-proxy/authorized_emails".path;
         };
       };
       services.personal-site = {
         enable = false; # TODO: FIX: this is broken, needs a diff host
-        port = cfg.blog;
+        port = ports.blog;
       };
       services.prometheus = {
         enable = true;
@@ -155,7 +157,11 @@ in
       services.restic = {
         enable = true;
         backupConnections = {
-          backblaze.environmentFile = config.sops.templates."backblaze-restic.env".path;
+          backblaze = {
+            serverURL = secretCfg."backblaze/server-url".path;
+            passwordFile = secretCfg."backblaze/restic-password".path;
+            environmentFile = config.sops.templates."backblaze-restic.env".path;
+          };
         };
       };
       services.tailscale = {
