@@ -4,15 +4,15 @@ let
   cfg = config.pillar.profiles.server;
   secretCfg = config.sops.secrets;
   ports = {
-    grafana    = 3000;
-    openttd    = 3979; # unused
-    oauth2     = 4180;
-    mc-kuiper  = 5003;
-    actual     = 5006;
-    glance     = 8001;
-    blog       = 8002;
-    p-node     = 9001; # prometheus node
-    prometheus = 9090;
+    grafana     = 3000;
+    openttd     = 3979; # unused
+    oauth2      = 4180;
+    mc-amalthea = 5003;
+    actual      = 5006;
+    glance      = 8001;
+    blog        = 8002;
+    p-node      = 9001; # prometheus node
+    prometheus  = 9090;
   };
 
   port_collision_check = ports_dict:
@@ -34,7 +34,6 @@ let
     owner = config.users.users.restic.name;
     group = config.users.users.restic.group;
   };
-
 in
 {
   options.pillar.profiles.server = {
@@ -128,7 +127,7 @@ in
       };
       services.minecraftServer = {
         enable = true;
-        servers.kuiper = import ../modules/services/minecraft/kuiper.nix { inherit pkgs; } // { port = ports.mc-kuiper; };
+        servers.kuiper = import ../modules/services/minecraft/amalthea.nix { inherit pkgs; } // { port = ports.mc-amalthea; };
       };
       services.oauth2-proxy = {
         enable = true;
