@@ -95,6 +95,7 @@
       # nix develop .#network-debug
       devShells.${system} = {
         network-debug = pkgs.mkShell {
+          name = "network-debug";
           packages = with pkgs; [
             busybox # contains: telnet, traceroute
             dig
