@@ -34,6 +34,11 @@ in
   config = (lib.mkIf cfg.enable {
     nixpkgs.overlays = [ nix-minecraft.overlay ];
 
+    # add **all** world data to backups
+    pillar.data.backupPaths = lib.mapAttrsToList (name: _:
+     "/srv/minecraft/${name}"
+    ) cfg.servers;
+
     services.minecraft-servers = {
       enable = true;
       eula = true;

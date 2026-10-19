@@ -12,6 +12,7 @@
     ./openttd-server.nix
     ./oauth2-proxy
     ./personal-site.nix
+    ./restic.nix
     ./rf.nix
     ./ssh.nix
     ./sunshine.nix
