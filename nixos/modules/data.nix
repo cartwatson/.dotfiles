@@ -1,4 +1,10 @@
-{ lib, ... }:
+{ config, lib, ... }:
+
+let
+  data = config.pillar.data;
+  forwarded_services_collision_check = forwardedServices:
+    (forwardedServices: forwardedServices == lib.lists.unique forwardedServices) (builtins.attrValues forwardedServices);
+in
 {
   options.pillar.data = {
     backupPaths = lib.mkOption {
@@ -26,19 +32,26 @@
           proxy = lib.mkOption {
             type = lib.types.submodule {
               options = {
-                enable = lib.mkEnableOption "Enable proxy";
-                auth = lib.mkEnableOption "Should the proxy require auth to access this service.";
+                enable = lib.mkEnableOption "reverse proxy for selected service";
+                auth = lib.mkEnableOption "auth from the reverse proxy to access this service.";
                 subdomain = lib.mkOption {
                   type = lib.types.str;
                   description = "The subdomain the proxy should use to reverse proxy.";
                 };
-                # TODO: make this do something in ./services/caddy.nix
-                internal = lib.mkEnableOption "Should the proxy host this service internally or externally.";
               };
             };
           };
         };
       });
     };
+  };
+
+  config = {
+    assertions = [
+      {
+        assertion = forwarded_services_collision_check data.forwardedServices;
+        message = "pillar.data.forwardedServices: Services must not share a name.";
+      }
+    ];
   };
 }
