@@ -45,11 +45,7 @@ in
         default = "auth";
         description = "The subdomain for the reverse proxy.";
       };
-      auth = lib.mkOption {
-        type = lib.types.bool;
-        default = false;
-        description = "This must stay false. Option is defined only for consistency.";
-      };
+      auth = lib.mkEnableOption "This must stay false. Option is defined to satisfy conditions of pillar.data.forwardedServices.";
     };
   };
 

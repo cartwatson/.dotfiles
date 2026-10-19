@@ -27,11 +27,7 @@ in
           default = "restic";
           description = "The subdomain the proxy should use to reverse proxy.";
         };
-        auth = lib.mkOption {
-          type = lib.types.bool;
-          default = true;
-          description = "Should the proxy require auth to access this service.";
-        };
+        auth = lib.mkEnableOption "Should the proxy require auth to access this service.";
       };
     };
     backupConnections = lib.mkOption {
@@ -67,6 +63,10 @@ in
       {
         assertion = cfg.server.enable -> cfg.server.htpasswd-file != null;
         message = "pillar.services.restic.server: htpasswd-file is required (rest-server won't start without auth configured).";
+      }
+      {
+        assertion = !cfg.server.proxy.auth;
+        message = "pillar.services.restic.server.proxy.auth: Auth must not be enabled.";
       }
     ];
 

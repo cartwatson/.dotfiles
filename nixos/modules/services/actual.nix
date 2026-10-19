@@ -19,11 +19,7 @@ in
         default = "actual";
         description = "The subdomain the proxy should use to reverse proxy.";
       };
-      auth = lib.mkOption {
-        type = lib.types.bool;
-        default = false;
-        description = "Should the proxy require auth to access this service.";
-      };
+      auth = lib.mkEnableOption "Should the proxy require auth to access this service.";
     };
   };
 
