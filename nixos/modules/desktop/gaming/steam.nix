@@ -1,4 +1,4 @@
-{ config, lib, pkgs, pkgs-unstable, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   cfg = config.pillar.services.gaming;
@@ -9,7 +9,7 @@ in
   };
 
   config = lib.mkIf (cfg.enable && cfg.steam) {
-    environment.systemPackages = (with pkgs-unstable; [
+    environment.systemPackages = (with pkgs; [
       steam
       protontricks
     ]);

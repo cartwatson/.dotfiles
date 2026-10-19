@@ -1,4 +1,4 @@
-{ config, lib, pkgs, pkgs-unstable, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   cfg = config.pillar.services.gaming;
@@ -17,7 +17,7 @@ in
   config = lib.mkIf cfg.enable (
     lib.mkMerge [
       (lib.mkIf cfg.openttd {
-        environment.systemPackages = (with pkgs-unstable; [
+        environment.systemPackages = (with pkgs; [
           openttd
         ]);
       })
