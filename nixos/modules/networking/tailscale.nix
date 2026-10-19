@@ -19,11 +19,11 @@ in
     assertions = [
       {
         assertion = cfg.ssh.enable -> (cfg.authKeyFile != null);
-        message = "ssh.enable requires a valid authKeyFile";
+        message = "pillar.services.tailscaile.ssh.enable: requires a valid authKeyFile";
       }
       {
         assertion = cfg.exit-node.enable -> (cfg.authKeyFile != null);
-        message = "exit-node.enable requires a valid authKeyFile";
+        message = "pillar.services.tailscaile.exit-node.enable: exit-node.enable requires a valid authKeyFile";
       }
     ];
 

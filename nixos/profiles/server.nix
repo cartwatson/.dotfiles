@@ -50,11 +50,11 @@ in
     assertions = [
       {
         assertion = cfg.domainName != "";
-        message = "A domain name is required to enable server";
+        message = "pillar.profiles.server.domainName: A domain name is required to enable server";
       }
       {
         assertion = port_collision_check ports;
-        message = "Server ports must not collide";
+        message = "pillar.profiles.server: Server ports must not collide";
       }
     ];
 

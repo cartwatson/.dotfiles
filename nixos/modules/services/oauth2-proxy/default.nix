@@ -62,7 +62,7 @@ in
     assertions = [
       {
         assertion = !cfg.proxy.auth;
-        message = "Auth cannot require Auth! Circular dependency error otherwise.";
+        message = "pillar.services.oauth2-proxy.proxy.auth: Auth cannot require Auth!";
       }
     ];
 

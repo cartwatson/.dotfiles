@@ -38,7 +38,7 @@ in
         # ----- tests -----
         assertions = [{
             assertion = builtins.hasAttr config.networking.hostName oort.peers;
-            message = "Host '${config.networking.hostName}' not found in modules/wireguard/oort-peers.nix";
+            message = "pillar.services.wireguard: Host '${config.networking.hostName}' not found in modules/wireguard/oort-peers.nix";
           }];
 
         # ---- config -----

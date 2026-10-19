@@ -63,13 +63,13 @@ in
     assertions = [
       {
         assertion = cfg.security.secret_key != null;
-        message = "Grafana requires a secret key.";
+        message = "pillar.services.grafana.security.secret_key: A secret key is required.";
       }
       {
         # this is only necessary for grafana due to `enforce_domain`
         # NOTE: `or false` removes the need to have the caddy module available
         assertion = cfg.proxy.enable -> baseCfg.caddy.enable or false -> baseCfg.caddy.domain == cfg.domain;
-        message = "If Caddy is enabled, the domain for Caddy and Grafana must be the same.";
+        message = "pillar.services.grafana.security.secret_key: If Caddy is enabled, the domain for Caddy and Grafana must be the same.";
       }
     ];
 
