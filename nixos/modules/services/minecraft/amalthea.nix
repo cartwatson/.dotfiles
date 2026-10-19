@@ -3,7 +3,7 @@
   port = 5003;
   pkg = pkgs.fabricServers.fabric-26_3.override { jre_headless = pkgs.openjdk25_headless; };
   maxPlayers = 10;
-  motd = "\\u00a76\\u00a7lKuiper\\u00a7r: Hosted by Garamond\\u00a7r\\n\\u00a7a\\u00a7lVersion\\u00a7r: 26.03";
+  motd = "\\u00a76\\u00a7lKuiper\\u00a7r: Hosted by Garamond\\u00a7r\\n\\u00a7a\\u00a7lVersion\\u00a7r: 26.3";
   worldType = "hard";
 
   # To add to whitelist, run the below
@@ -26,17 +26,16 @@
   # SHA512: `nix-prefetch-url --type sha512 --name <NAME> "<URL>"`
   mods = pkgs.linkFarmFromDrvs "mods" (builtins.attrValues {
     FerriteCore = pkgs.fetchurl {
-      url = "https://cdn.modrinth.com/data/uXXizFIs/versions/d5ddUdiB/ferritecore-9.0.0-fabric.jar?mr_download_reason=standalone&mr_game_version=26.3&mr_loader=fabric";
+      url = "https://cdn.modrinth.com/data/uXXizFIs/versions/d5ddUdiB/ferritecore-9.0.0-fabric.jar";
       sha512 = "22fbjz59a2qh4bynn6rmplbawi36wgddycwsqvz1x5f11l5355khay5m6kf8xx1bzjcx4vivl1pc00xhcrz9hl95za1jk3q25zaj7yq";
     };
     Fabric-API = pkgs.fetchurl {
-      url = "https://cdn.modrinth.com/data/P7dR8mSH/versions/bNnaTiuM/fabric-api-0.161.0%2B26.3.jar?mr_download_reason=standalone&mr_game_version=26.3&mr_loader=fabric";
+      url = "https://cdn.modrinth.com/data/P7dR8mSH/versions/bNnaTiuM/fabric-api-0.161.0%2B26.3.jar";
       sha512 = "2fi1nhjdv0rr194ln31msvdd8413a1hipwkj7xmrrvdasp17qbrkqjyrql7wpnqpza98vz44rqbd68yqlksbxbjhkg1zqgxss32aszd";
     };
     lithium = pkgs.fetchurl {
-      url = "https://cdn.modrinth.com/data/gvQqBUqZ/versions/WXHRsMRl/lithium-fabric-0.26.1%2Bmc26.3.jar?mr_download_reason=standalone&mr_game_version=26.3&mr_loader=fabric";
+      url = "https://cdn.modrinth.com/data/gvQqBUqZ/versions/WXHRsMRl/lithium-fabric-0.26.1%2Bmc26.3.jar";
       sha512 = "1crqr1z83p23r0a1i46di0sw1qbpg8dbf9hj53ys9vhv3rgnpn029cscccvj4lah1j7dljspd53h6b0hvcz22x20dg00gr0g81rpfxc";
     };
   });
 }
-
