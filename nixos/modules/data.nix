@@ -4,13 +4,19 @@
     backupPaths = lib.mkOption {
       type = lib.types.listOf lib.types.path;
       default = [ ];
-      description = "Paths to be backedup by backup services (eg Restic).";
+      description = "Paths to be backed up by backup services (eg Restic).";
     };
+
+    # DOCS:
+    # All services requesting reverse proxy MUST implement options that match
+    # the below submodule exactly. They must be provided to this data scheme
+    # without extra options and with options that strictly match the below
+    #
+    # NOTE: This submodule only validates form of supplied options and ensures
+    # that the supplied options are available
     forwardedServices = lib.mkOption {
       default = { };
       description = "Services to be forwarded by reverse proxy (eg Caddy).";
-      # NOTE: this submodule exists **ONLY** to validate form
-      # modules MUST implment options themselves
       type = lib.types.attrsOf (lib.types.submodule {
         options = {
           port = lib.mkOption {
