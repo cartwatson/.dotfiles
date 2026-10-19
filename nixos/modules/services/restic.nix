@@ -7,9 +7,9 @@ let
 in
 {
   options.pillar.services.restic = {
-    enable = lib.mkEnableOption "Enable Restic.";
+    enable = lib.mkEnableOption "Restic.";
     server = {
-      enable = lib.mkEnableOption "Enable Restic's server on this device.";
+      enable = lib.mkEnableOption "Restic's server.";
       htpasswd-file = lib.mkOption {
         type = lib.types.nullOr lib.types.path;
         default = null;
@@ -21,13 +21,13 @@ in
         description = "Port for the local restic server.";
       };
       proxy = {
-        enable = lib.mkEnableOption "Enable proxy";
+        enable = lib.mkEnableOption "reverse proxy for selected service";
+        auth = lib.mkEnableOption "auth from the reverse proxy to access this service.";
         subdomain = lib.mkOption {
           type = lib.types.str;
           default = "restic";
           description = "The subdomain the proxy should use to reverse proxy.";
         };
-        auth = lib.mkEnableOption "Should the proxy require auth to access this service.";
       };
     };
     backupConnections = lib.mkOption {
@@ -69,7 +69,7 @@ in
         message = "pillar.services.restic.server.proxy.auth: Auth must not be enabled.";
       }
       {
-        assertion = cfg.server.enable == cfg.server.proxy.enable;
+        assertion = cfg.server.enable -> cfg.server.proxy.enable;
         message = "pillar.services.restic.server: Proxy must be enabled for security reasons!";
       }
     ];
@@ -100,6 +100,7 @@ in
     services.restic = {
       server = lib.mkIf cfg.server.enable {
         enable = true;
+        privateRepos = true;
         htpasswd-file = cfg.server.htpasswd-file;
         listenAddress = "127.0.0.1:${toString cfg.server.port}";
       };
