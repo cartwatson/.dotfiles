@@ -45,7 +45,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    # TODO: rename all assertions so I know where they're from
     assertions = [
       {
         assertion = cfg.server.enable -> cfg.server.htpasswd-file != null;
@@ -78,6 +77,8 @@ in
       };
 
       backups = lib.mapAttrs (name: connectionCfg: {
+        # TODO: auto mount remote repos
+        # dev shells or something - something like this
         initialize = true;
         user = "restic";
         package = pkgs.writeShellScriptBin "restic" ''exec /run/wrappers/bin/restic "$@"'';

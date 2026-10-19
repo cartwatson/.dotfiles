@@ -66,7 +66,7 @@ in
 
       "oauth2-proxy/client_secret" = oauth2-proxy;
       "oauth2-proxy/cookie_secret" = oauth2-proxy;
-      "oauth2-proxy/authorized_emails" =  oauth2-proxy;
+      "oauth2-proxy/authorized_emails" = oauth2-proxy;
       "grafana/secret_key" = grafana;
 
       "backblaze/server-url" = restic;
@@ -166,7 +166,7 @@ in
       };
       services.tailscale = {
         enable = true;
-        authKeyFile = "/run/secrets/tailscale/auth_key";
+        authKeyFile = secretCfg."tailscale/auth_key".path;
         ssh.enable = true;
         exit-node.enable = true;
       };
