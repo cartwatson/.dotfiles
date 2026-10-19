@@ -68,6 +68,10 @@ in
         assertion = !cfg.server.proxy.auth;
         message = "pillar.services.restic.server.proxy.auth: Auth must not be enabled.";
       }
+      {
+        assertion = cfg.server.enable == cfg.server.proxy.enable;
+        message = "pillar.services.restic.server: Proxy must be enabled for security reasons!";
+      }
     ];
 
     # run restic as user instead of as root
@@ -97,7 +101,7 @@ in
       server = lib.mkIf cfg.server.enable {
         enable = true;
         htpasswd-file = cfg.server.htpasswd-file;
-        listenAddress = "127.0.0.1:${cfg.server.port}";
+        listenAddress = "127.0.0.1:${toString cfg.server.port}";
       };
 
       backups = lib.mapAttrs (name: connectionCfg: {
