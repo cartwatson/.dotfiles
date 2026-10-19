@@ -3,6 +3,7 @@
 let
   baseCfg = config.pillar.services;
   cfg = baseCfg.caddy;
+  data = config.pillar.data;
 
   virtualHost = serviceCfg:
     lib.mkIf serviceCfg.proxy.enable {
@@ -37,17 +38,12 @@ in
   config = lib.mkIf cfg.enable {
     services.caddy = {
       enable = true;
-      virtualHosts = lib.mkMerge [
-        # pillar services
-        (virtualHost baseCfg.actual)
-        (virtualHost baseCfg.glance)
-        (virtualHost baseCfg.grafana)
-        (virtualHost baseCfg.oauth2-proxy)
-
-        # misc services
-        (lib.mkIf baseCfg.personal-site.enable {"cartwatson.com".extraConfig = '' reverse_proxy :${toString baseCfg.personal-site.port} '';})
-        ({"caddy.${cfg.domain}".extraConfig = '' respond "Caddy Up!" '';})
-      ];
+      virtualHosts = lib.mkMerge (
+        map virtualHost data.forwardedServices
+      ++ [
+          (lib.mkIf baseCfg.personal-site.enable {"cartwatson.com".extraConfig = '' reverse_proxy :${toString baseCfg.personal-site.port} '';})
+          ({"caddy.${cfg.domain}".extraConfig = '' respond "Caddy Up!" '';})
+      ]);
     };
 
     networking.firewall.allowedTCPPorts = [ 80 443 ];

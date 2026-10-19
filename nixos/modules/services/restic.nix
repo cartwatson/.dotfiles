@@ -15,6 +15,24 @@ in
         default = null;
         description = "";
       };
+      port = lib.mkOption {
+        type = lib.types.port;
+        default = 8080;
+        description = "Port for the local restic server.";
+      };
+      proxy = {
+        enable = lib.mkEnableOption "Enable proxy";
+        subdomain = lib.mkOption {
+          type = lib.types.str;
+          default = "grafana";
+          description = "The subdomain the proxy should use to reverse proxy.";
+        };
+        auth = lib.mkOption {
+          type = lib.types.bool;
+          default = true;
+          description = "Should the proxy require auth to access this service.";
+        };
+      };
     };
     backupConnections = lib.mkOption {
       default = { };
@@ -50,6 +68,10 @@ in
         assertion = cfg.server.enable -> cfg.server.htpasswd-file != null;
         message = "pillar.services.restic.server: htpasswd-file is required (rest-server won't start without auth configured).";
       }
+      {
+        assertion = cfg.proxy.enable -> cfg.server.enable;
+        message = "pillar.services.restic.proxy: Server must be enabled for proxy to work.";
+      }
     ];
 
     # run restic as user instead of as root
@@ -70,20 +92,20 @@ in
       capabilities = "cap_dac_read_search+ep";
     };
 
+    pillar.data.forwardedServices = lib.mkIf cfg.server.enable [ cfg.server ];
     services.restic = {
       server = lib.mkIf cfg.server.enable {
         enable = true;
         htpasswd-file = cfg.server.htpasswd-file;
+        listenAddress = "127.0.0.1:${cfg.server.port}";
       };
 
       backups = lib.mapAttrs (name: connectionCfg: {
-        # TODO: auto mount remote repos
-        # dev shells or something - something like this
+        # TODO: auto mount remote repos - dev shells or something like that
         initialize = true;
         user = "restic";
         package = pkgs.writeShellScriptBin "restic" ''exec /run/wrappers/bin/restic "$@"'';
 
-        # no problems setting these null, assertion will catch bad setups
         repositoryFile = connectionCfg.serverURL;
         passwordFile = connectionCfg.passwordFile;
         environmentFile = connectionCfg.environmentFile;

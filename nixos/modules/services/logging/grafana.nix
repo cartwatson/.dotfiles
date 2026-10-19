@@ -2,6 +2,7 @@
 let
   baseCfg = config.pillar.services;
   cfg = baseCfg.grafana;
+  data = config.pillar.data;
 
   localSource = lib.optional baseCfg.prometheus.enable {
     type = "prometheus";
@@ -73,6 +74,7 @@ in
       }
     ];
 
+    pillar.data.forwardedServices = [ cfg ];
     services.grafana = {
       enable = true;
       settings = {

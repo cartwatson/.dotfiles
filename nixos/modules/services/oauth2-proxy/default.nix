@@ -2,6 +2,7 @@
 
 let
   cfg = config.pillar.services.oauth2-proxy;
+  data = config.pillar.data;
 in
 {
   options.pillar.services.oauth2-proxy = {
@@ -66,6 +67,7 @@ in
       }
     ];
 
+    pillar.data.forwardedServices = [ cfg ];
     services.oauth2-proxy = {
       enable = true;
       provider = "github";

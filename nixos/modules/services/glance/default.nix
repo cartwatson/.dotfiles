@@ -3,6 +3,7 @@
 let
   baseCfg = config.pillar.services;
   cfg = baseCfg.glance;
+  data = config.pillar.data;
 
   configFile = pkgs.writeText "glance-env"
     ''
@@ -60,6 +61,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    pillar.data.forwardedServices = [ cfg ];
     services.glance = {
       enable = true;
       package = pkgs-unstable.glance;

@@ -3,6 +3,7 @@
 let
   baseCfg = config.pillar.services;
   cfg = baseCfg.actual;
+  data = config.pillar.data;
 in
 {
   options.pillar.services.actual = {
@@ -33,6 +34,8 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    pillar.data.forwardedServices = [ cfg ];
+
     services.actual = {
       enable = true;
       openFirewall = false;
