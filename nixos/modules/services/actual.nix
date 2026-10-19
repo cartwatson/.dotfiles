@@ -3,7 +3,6 @@
 let
   baseCfg = config.pillar.services;
   cfg = baseCfg.actual;
-  data = config.pillar.data;
 in
 {
   options.pillar.services.actual = {
@@ -20,11 +19,6 @@ in
         default = "actual";
         description = "The subdomain the proxy should use to reverse proxy.";
       };
-      internal = lib.mkOption {
-        type = lib.types.bool;
-        default = false;
-        description = "Should the proxy host this service internally or externally.";
-      };
       auth = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -34,7 +28,10 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    pillar.data.forwardedServices = [ cfg ];
+    pillar.data.forwardedServices.actual = {
+      port = cfg.port;
+      proxy = cfg.proxy;
+    };
 
     services.actual = {
       enable = true;

@@ -3,7 +3,6 @@
 let
   baseCfg = config.pillar.services;
   cfg = baseCfg.glance;
-  data = config.pillar.data;
 
   configFile = pkgs.writeText "glance-env"
     ''
@@ -47,11 +46,6 @@ in
         default = "glance";
         description = "The subdomain the proxy should use to reverse proxy.";
       };
-      internal = lib.mkOption {
-        type = lib.types.bool;
-        default = true;
-        description = "Should the proxy host this service internally or externally.";
-      };
       auth = lib.mkOption {
         type = lib.types.bool;
         default = true;
@@ -61,7 +55,11 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    pillar.data.forwardedServices = [ cfg ];
+    pillar.data.forwardedServices.glance = {
+      port = cfg.port;
+      proxy = cfg.proxy;
+    };
+
     services.glance = {
       enable = true;
       package = pkgs-unstable.glance;

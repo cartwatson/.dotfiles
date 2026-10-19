@@ -2,7 +2,6 @@
 
 let
   cfg = config.pillar.services.oauth2-proxy;
-  data = config.pillar.data;
 in
 {
   options.pillar.services.oauth2-proxy = {
@@ -46,11 +45,6 @@ in
         default = "auth";
         description = "The subdomain for the reverse proxy.";
       };
-      internal = lib.mkOption {
-        type = lib.types.bool;
-        default = true;
-        description = "Should the proxy host this service internally or externally.";
-      };
       auth = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -67,7 +61,11 @@ in
       }
     ];
 
-    pillar.data.forwardedServices = [ cfg ];
+    pillar.data.forwardedServices.oauth2-proxy = {
+      port = cfg.port;
+      proxy = cfg.proxy;
+    };
+
     services.oauth2-proxy = {
       enable = true;
       provider = "github";

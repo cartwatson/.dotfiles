@@ -5,7 +5,7 @@ let
   cfg = baseCfg.caddy;
   data = config.pillar.data;
 
-  virtualHost = serviceCfg:
+  virtualHost = _: serviceCfg:
     lib.mkIf serviceCfg.proxy.enable {
       "${serviceCfg.proxy.subdomain}.${cfg.domain}".extraConfig = lib.optionalString serviceCfg.proxy.auth ''
         forward_auth  :${toString baseCfg.oauth2-proxy.port} {
@@ -39,7 +39,7 @@ in
     services.caddy = {
       enable = true;
       virtualHosts = lib.mkMerge (
-        map virtualHost data.forwardedServices
+        lib.mapAttrsToList virtualHost data.forwardedServices
       ++ [
           (lib.mkIf baseCfg.personal-site.enable {"cartwatson.com".extraConfig = '' reverse_proxy :${toString baseCfg.personal-site.port} '';})
           ({"caddy.${cfg.domain}".extraConfig = '' respond "Caddy Up!" '';})

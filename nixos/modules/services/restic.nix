@@ -24,7 +24,7 @@ in
         enable = lib.mkEnableOption "Enable proxy";
         subdomain = lib.mkOption {
           type = lib.types.str;
-          default = "grafana";
+          default = "restic";
           description = "The subdomain the proxy should use to reverse proxy.";
         };
         auth = lib.mkOption {
@@ -68,10 +68,6 @@ in
         assertion = cfg.server.enable -> cfg.server.htpasswd-file != null;
         message = "pillar.services.restic.server: htpasswd-file is required (rest-server won't start without auth configured).";
       }
-      {
-        assertion = cfg.proxy.enable -> cfg.server.enable;
-        message = "pillar.services.restic.proxy: Server must be enabled for proxy to work.";
-      }
     ];
 
     # run restic as user instead of as root
@@ -88,11 +84,15 @@ in
       source = lib.getExe pkgs.restic;
       owner = "restic";
       group = "restic";
-      permissions = "500"; # or u=rx,g=,o=
+      permissions = "500";
       capabilities = "cap_dac_read_search+ep";
     };
 
-    pillar.data.forwardedServices = lib.mkIf cfg.server.enable [ cfg.server ];
+    pillar.data.forwardedServices.restic = lib.mkIf cfg.server.enable {
+      port = cfg.server.port;
+      proxy = cfg.server.proxy;
+    };
+
     services.restic = {
       server = lib.mkIf cfg.server.enable {
         enable = true;

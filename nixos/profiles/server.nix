@@ -115,10 +115,8 @@ in
       services.grafana = {
         enable = true;
         domain = cfg.domainName;
+        security.secret_key = secretCfg."grafana/secret_key".path;
         port = ports.grafana;
-        security = {
-          secret_key = secretCfg."grafana/secret_key".path;
-        };
         proxy = {
           enable = true;
           subdomain = "logs";
