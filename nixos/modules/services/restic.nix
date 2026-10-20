@@ -77,8 +77,6 @@ in
       };
 
       backups = lib.mapAttrs (name: connectionCfg: {
-        # TODO: auto mount remote repos
-        # dev shells or something - something like this
         initialize = true;
         user = "restic";
         package = pkgs.writeShellScriptBin "restic" ''exec /run/wrappers/bin/restic "$@"'';
@@ -101,8 +99,10 @@ in
           OnCalendar = "*-*-* 09:00:00";
           Persistent = true;
         };
+
+        # NOTE: https://github.com/NixOS/nixpkgs/blob/09063bd1f2b36fd9fd793c36dfade7bd40a93dfc/nixos/modules/services/backup/restic.nix#L532-L553
+        # repos can be accessed via `sudo restic-${name}`
       }) cfg.backupConnections;
     };
-
   };
 }

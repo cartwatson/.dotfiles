@@ -127,7 +127,7 @@ in
       };
       services.minecraftServer = {
         enable = true;
-        servers.kuiper = import ../modules/services/minecraft/amalthea.nix { inherit pkgs; } // { port = ports.mc-amalthea; };
+        servers.amalthea = import ../modules/services/minecraft/amalthea.nix { inherit pkgs; } // { port = ports.mc-amalthea; };
       };
       services.oauth2-proxy = {
         enable = true;
