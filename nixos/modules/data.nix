@@ -2,8 +2,10 @@
 
 let
   data = config.pillar.data;
-  forwarded_services_collision_check = forwardedServices:
-    (forwardedServices: forwardedServices == lib.lists.unique forwardedServices) (builtins.attrValues forwardedServices);
+  forwarded_services_subdomain_collision_check = forwardedServices:
+    (subdomains: subdomains == lib.lists.unique subdomains) # check all subdomains are unique
+      (lib.mapAttrsToList (_: svc: svc.proxy.subdomain) # build list of subdomains
+        (lib.filterAttrs (_: svc: svc.proxy.enable) forwardedServices)); # filter to enabled services only
 in
 {
   options.pillar.data = {
@@ -49,8 +51,8 @@ in
   config = {
     assertions = [
       {
-        assertion = forwarded_services_collision_check data.forwardedServices;
-        message = "pillar.data.forwardedServices: Services must not share a name.";
+        assertion = forwarded_services_subdomain_collision_check data.forwardedServices;
+        message = "pillar.data.forwardedServices: Services must not share a subdomain.";
       }
     ];
   };
