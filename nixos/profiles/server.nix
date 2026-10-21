@@ -170,7 +170,7 @@ in
       services.timezone.tz = "Etc/Zulu";
       services.autoUpdate = {
         enable = true;
-        time = "10:00"; # 1000 UTC -> 0300 PST
+        updateTime = "10:00"; # 1000 UTC -> 0300 PST
       };
     };
   };

@@ -1,7 +1,7 @@
 { config, lib, ... }:
 
 let
-  cfg = config.pillar.services.autoUpgrade;
+  cfg = config.pillar.services.autoUpdate;
 
   # custom mod because nix's builtin doesn't behave like python's
   mod = a: b: let r = a - (b * (builtins.div a b)); in if r < 0 then r + b else r;
@@ -23,29 +23,26 @@ let
   upperTime = time: modifyTime time (60);
 in
 {
-  options.pillar.services.autoUpgrade= {
-    enable = lib.mkEnableOption "";
-    time = {
-      enable = lib.mkEnableOption "auto updating";
-      updateTime = lib.mkOption {
-        type = lib.types.strMatching "[0-9]{2}:[0-9]{2}";
-        default = "01:00";
-        description = "Time to update, device may reboot within 1hr of provided time";
-      };
+  options.pillar.services.autoUpdate = {
+    enable = lib.mkEnableOption "automatic system upgrades";
+    updateTime = lib.mkOption {
+      type = lib.types.strMatching "[0-9]{2}:[0-9]{2}";
+      default = "01:00";
+      description = "Time to update, device may reboot within 1hr of provided time";
     };
   };
 
   config = lib.mkIf cfg.enable {
-    system.autoUpgrade = lib.mkIf cfg.autoUpdate.enable {
+    system.autoUpgrade = {
       enable = true;
       upgrade = false; # don't pull in updates not in flake
       persistent = true; # if powered down during window. Upgrade when back online
-      dates = "*-*-* ${cfg.autoUpdate.updateTime}:00";
+      dates = "*-*-* ${cfg.updateTime}:00";
       flake = "github:cartwatson/.dotfiles?dir=nixos";
 
       allowReboot = true; # Reboots ONLY if the kernel/boot loader changes
-      rebootWindow.lower = lowerTime cfg.autoUpdate.updateTime;
-      rebootWindow.upper = upperTime cfg.autoUpdate.updateTime;
+      rebootWindow.lower = lowerTime cfg.updateTime;
+      rebootWindow.upper = upperTime cfg.updateTime;
     };
   };
 }
