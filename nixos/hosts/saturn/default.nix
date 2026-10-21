@@ -15,6 +15,7 @@
       enable = true;
       keyFile = "/var/lib/custom-sops/keys.txt";
     };
+    services.autoUpdate.enable = true;
     services.tailscale = {
       authKeyFile = "/run/secrets/tailscale/auth_key";
       ssh.enable = true;

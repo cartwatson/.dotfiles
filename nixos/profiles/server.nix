@@ -168,21 +168,9 @@ in
         exit-node.enable = true;
       };
       services.timezone.tz = "Etc/Zulu";
-    };
-
-    # auto pull down changes nightly
-    system.autoUpgrade = {
-      enable = true;
-      # Server is in UTC
-      # 0300 PST -> 1000 UTC
-      # 0400 PST -> 1100 UTC
-      dates = "*-*-* 10:00:00";
-      flake = "github:cartwatson/.dotfiles?dir=nixos";
-
-      allowReboot = true; # Reboots ONLY if the kernel/boot loader changes
-      rebootWindow = {
-        lower = "10:00";  # Earliest time a reboot can happen
-        upper = "11:00";  # Latest time a reboot can happen
+      services.autoUpdate = {
+        enable = true;
+        time = "10:00"; # 1000 UTC -> 0300 PST
       };
     };
   };

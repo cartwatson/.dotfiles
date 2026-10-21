@@ -3,6 +3,7 @@
 {
   imports = [
     ./actual.nix
+    ./autoUpdate.nix
     ./caddy.nix
     ./ctf.nix
     ./ddclient.nix
