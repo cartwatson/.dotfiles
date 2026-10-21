@@ -1,8 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  baseCfg = config.pillar.services;
-  cfg = baseCfg.helix;
+  cfg = config.pillar.services.helix;
   lspPackages = import ./lsp-packages.nix { inherit pkgs; };
 in
 {

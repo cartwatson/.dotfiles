@@ -1,8 +1,7 @@
 { config, pkgs, lib, ... }:
 
 let
-  baseCfg = config.pillar.services;
-  cfg = baseCfg.restic;
+  cfg = config.pillar.services.restic;
   data = config.pillar.data;
 in
 {

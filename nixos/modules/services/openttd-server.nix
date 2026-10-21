@@ -1,8 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  baseCfg = config.pillar.services;
-  cfg = baseCfg.openttd.server;
+  cfg = config.pillar.services.openttd.server;
   mainDir = "/var/lib/openttd";
   configDir = "${mainDir}/.openttd";
   configFile = pkgs.writeText "openttd.cfg" ''

@@ -1,8 +1,7 @@
 { config, lib, nix-minecraft, ... }:
 
 let
-  baseCfg = config.pillar.services;
-  cfg = baseCfg.minecraftServer;
+  cfg = config.pillar.services.minecraftServer;
 in
 {
   imports = [

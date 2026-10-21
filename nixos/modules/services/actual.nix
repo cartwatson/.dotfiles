@@ -1,8 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  baseCfg = config.pillar.services;
-  cfg = baseCfg.actual;
+  cfg = config.pillar.services.actual;
 in
 {
   options.pillar.services.actual = {

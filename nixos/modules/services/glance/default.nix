@@ -1,8 +1,7 @@
 { config, lib, pkgs, pkgs-unstable, ... }:
 
 let
-  baseCfg = config.pillar.services;
-  cfg = baseCfg.glance;
+  cfg = config.pillar.services.glance;
 
   configFile = pkgs.writeText "glance-env"
     ''

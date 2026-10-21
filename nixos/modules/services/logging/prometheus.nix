@@ -1,7 +1,6 @@
 { config, lib, ... }:
 let
-  baseCfg = config.pillar.services;
-  cfg = baseCfg.prometheus;
+  cfg = config.pillar.services.prometheus;
 
   localTarget = lib.optional cfg.node.enable "localhost:${toString cfg.node.port}";
 in
