@@ -36,7 +36,12 @@ in
 
     # add **all** world data to backups
     pillar.data.backupPaths = lib.mapAttrsToList (name: _:
-     "/srv/minecraft/${name}"
+     "/srv/minecraft/${name}/world"
+     # UNUSED: could be useful on future servers but should become nix code if needed
+     # "/srv/minecraft/${name}/banned-ips.json"
+     # "/srv/minecraft/${name}/banned-players.json"
+     # "/srv/minecraft/${name}/ops.json"
+     # "/srv/minecraft/${name}/config"
     ) cfg.servers;
 
     services.minecraft-servers = {

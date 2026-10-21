@@ -1,4 +1,4 @@
-{ config, lib, pkgs, pkgs-unstable, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   baseCfg = config.pillar.services;
@@ -11,7 +11,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = (with pkgs-unstable; [
+    environment.systemPackages = (with pkgs; [
       helix
     ]) ++ (with pkgs; [
       gh

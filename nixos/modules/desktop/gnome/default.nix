@@ -48,7 +48,10 @@ in
       services.displayManager.gdm.enable = true;
       services.desktopManager.gnome.enable = true;
 
+      # speechd + exclude orca, saves significantly in closure size
+      services.speechd.enable = false;
       environment.gnome.excludePackages = (with pkgs; [
+        orca                  # Screen reader (also sets speechd.enable, must be excluded)
         epiphany              # Web browser
         geary                 # Email client
         seahorse              # Password manager
@@ -60,6 +63,8 @@ in
         gnome-maps
         gnome-weather
         gnome-clocks
+        gnome-user-docs
+        yelp
         # keep for now
         # gnome-music           # Music player
       ]);
