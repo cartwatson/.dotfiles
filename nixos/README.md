@@ -34,7 +34,7 @@ packages = (with pkgs; [
 
 ## REPL Help
 
-- to import lib `lib = (import <nixpkgs> {}).lib;`
+- to import lib `lib = (import <nixpkgs> {}).lib`
 
 ## Future work
 

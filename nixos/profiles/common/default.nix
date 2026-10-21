@@ -1,7 +1,8 @@
-{ config, lib, pkgs, ... }:
+{ ... }:
 
 {
   imports = [
     ./base.nix
+    ./fonts.nix
   ];
 }

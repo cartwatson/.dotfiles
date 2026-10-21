@@ -1,12 +1,8 @@
 # Baseline config
 
-{ config, lib, pkgs, ... }:
+{ lib, pkgs, ... }:
 
 {
-  imports = [
-    ./fonts.nix
-  ];
-
   pillar = {
     users.cwatson.enable = lib.mkDefault true;
     users.wwatson.enable = lib.mkDefault false;
@@ -17,14 +13,6 @@
     services.fonts.enable = lib.mkDefault true;
     services.timezone.enable = true;
   };
-
-  # TODO: test this out in the future, could be useful for live-iso ssh access/discovery
-  # services.avahi = {
-  #   enable = true;
-  #   nssmdns4 = true;
-  #   publish.enable = true;
-  #   publish.addresses = true;
-  # };
 
   # Enable firmware updates
   hardware.enableRedistributableFirmware = true;
@@ -56,6 +44,7 @@
     radeontop # needed for btop
   ]);
 
+  # TODO: this isn't very clean lowk
   programs.bash.interactiveShellInit = ''
     alias pillar="$HOME/.dotfiles/nixos/rebuild.sh"
   '';
