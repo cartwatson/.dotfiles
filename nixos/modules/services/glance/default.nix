@@ -46,20 +46,16 @@ in
         default = "glance";
         description = "The subdomain the proxy should use to reverse proxy.";
       };
-      internal = lib.mkOption {
-        type = lib.types.bool;
-        default = true;
-        description = "Should the proxy host this service internally or externally.";
-      };
-      auth = lib.mkOption {
-        type = lib.types.bool;
-        default = true;
-        description = "Should the proxy require auth to access this service.";
-      };
+      auth = lib.mkEnableOption "Should the proxy require auth to access this service.";
     };
   };
 
   config = lib.mkIf cfg.enable {
+    pillar.data.forwardedServices.glance = {
+      port = cfg.port;
+      proxy = cfg.proxy;
+    };
+
     services.glance = {
       enable = true;
       package = pkgs-unstable.glance;

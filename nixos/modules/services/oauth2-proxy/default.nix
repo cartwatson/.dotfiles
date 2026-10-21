@@ -45,16 +45,7 @@ in
         default = "auth";
         description = "The subdomain for the reverse proxy.";
       };
-      internal = lib.mkOption {
-        type = lib.types.bool;
-        default = true;
-        description = "Should the proxy host this service internally or externally.";
-      };
-      auth = lib.mkOption {
-        type = lib.types.bool;
-        default = false;
-        description = "This must stay false. Option is defined only for consistency.";
-      };
+      auth = lib.mkEnableOption "This must stay false. Option is defined to satisfy conditions of pillar.data.forwardedServices.";
     };
   };
 
@@ -65,6 +56,11 @@ in
         message = "pillar.services.oauth2-proxy.proxy.auth: Auth cannot require Auth!";
       }
     ];
+
+    pillar.data.forwardedServices.oauth2-proxy = {
+      port = cfg.port;
+      proxy = cfg.proxy;
+    };
 
     services.oauth2-proxy = {
       enable = true;

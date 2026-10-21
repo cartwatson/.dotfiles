@@ -7,13 +7,27 @@ let
 in
 {
   options.pillar.services.restic = {
-    enable = lib.mkEnableOption "Enable Restic.";
+    enable = lib.mkEnableOption "Restic.";
     server = {
-      enable = lib.mkEnableOption "Enable Restic's server on this device.";
+      enable = lib.mkEnableOption "Restic's server.";
       htpasswd-file = lib.mkOption {
         type = lib.types.nullOr lib.types.path;
         default = null;
         description = "";
+      };
+      port = lib.mkOption {
+        type = lib.types.port;
+        default = 8080;
+        description = "Port for the local restic server.";
+      };
+      proxy = {
+        enable = lib.mkEnableOption "reverse proxy for selected service";
+        auth = lib.mkEnableOption "auth from the reverse proxy to access this service.";
+        subdomain = lib.mkOption {
+          type = lib.types.str;
+          default = "restic";
+          description = "The subdomain the proxy should use to reverse proxy.";
+        };
       };
     };
     backupConnections = lib.mkOption {
@@ -50,6 +64,14 @@ in
         assertion = cfg.server.enable -> cfg.server.htpasswd-file != null;
         message = "pillar.services.restic.server: htpasswd-file is required (rest-server won't start without auth configured).";
       }
+      {
+        assertion = !cfg.server.proxy.auth;
+        message = "pillar.services.restic.server.proxy.auth: Auth must not be enabled.";
+      }
+      {
+        assertion = cfg.server.enable -> cfg.server.proxy.enable;
+        message = "pillar.services.restic.server: Proxy must be enabled for security reasons!";
+      }
     ];
 
     # run restic as user instead of as root
@@ -66,14 +88,21 @@ in
       source = lib.getExe pkgs.restic;
       owner = "restic";
       group = "restic";
-      permissions = "500"; # or u=rx,g=,o=
+      permissions = "500";
       capabilities = "cap_dac_read_search+ep";
+    };
+
+    pillar.data.forwardedServices.restic = lib.mkIf cfg.server.enable {
+      port = cfg.server.port;
+      proxy = cfg.server.proxy;
     };
 
     services.restic = {
       server = lib.mkIf cfg.server.enable {
         enable = true;
+        privateRepos = true;
         htpasswd-file = cfg.server.htpasswd-file;
+        listenAddress = "127.0.0.1:${toString cfg.server.port}";
       };
 
       backups = lib.mapAttrs (name: connectionCfg: {
@@ -81,7 +110,6 @@ in
         user = "restic";
         package = pkgs.writeShellScriptBin "restic" ''exec /run/wrappers/bin/restic "$@"'';
 
-        # no problems setting these null, assertion will catch bad setups
         repositoryFile = connectionCfg.serverURL;
         passwordFile = connectionCfg.passwordFile;
         environmentFile = connectionCfg.environmentFile;
@@ -102,6 +130,7 @@ in
 
         # NOTE: https://github.com/NixOS/nixpkgs/blob/09063bd1f2b36fd9fd793c36dfade7bd40a93dfc/nixos/modules/services/backup/restic.nix#L532-L553
         # repos can be accessed via `sudo restic-${name}`
+        createWrapper = true; # defaults true
       }) cfg.backupConnections;
     };
   };

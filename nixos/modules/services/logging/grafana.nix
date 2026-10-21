@@ -51,11 +51,7 @@ in
         default = "grafana";
         description = "The subdomain the proxy should use to reverse proxy.";
       };
-      auth = lib.mkOption {
-        type = lib.types.bool;
-        default = true;
-        description = "Should the proxy require auth to access this service.";
-      };
+      auth = lib.mkEnableOption "Should the proxy require auth to access this service.";
     };
   };
 
@@ -72,6 +68,11 @@ in
         message = "pillar.services.grafana.security.secret_key: If Caddy is enabled, the domain for Caddy and Grafana must be the same.";
       }
     ];
+
+    pillar.data.forwardedServices.grafana = {
+      port = cfg.port;
+      proxy = cfg.proxy;
+    };
 
     services.grafana = {
       enable = true;

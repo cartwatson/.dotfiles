@@ -19,20 +19,16 @@ in
         default = "actual";
         description = "The subdomain the proxy should use to reverse proxy.";
       };
-      internal = lib.mkOption {
-        type = lib.types.bool;
-        default = false;
-        description = "Should the proxy host this service internally or externally.";
-      };
-      auth = lib.mkOption {
-        type = lib.types.bool;
-        default = false;
-        description = "Should the proxy require auth to access this service.";
-      };
+      auth = lib.mkEnableOption "Should the proxy require auth to access this service.";
     };
   };
 
   config = lib.mkIf cfg.enable {
+    pillar.data.forwardedServices.actual = {
+      port = cfg.port;
+      proxy = cfg.proxy;
+    };
+
     services.actual = {
       enable = true;
       openFirewall = false;
