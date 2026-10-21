@@ -42,3 +42,4 @@ packages = (with pkgs; [
   - jungle.jjwatson.dev (shuffling always on* music player of jungle music)
   - jellyfin
   - restic server (repos for FAN users)
+  - recipes repo
