@@ -3,6 +3,5 @@
 {
   imports = [
     ./tailscale.nix
-    ./wireguard
   ];
 }
