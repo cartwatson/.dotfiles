@@ -13,6 +13,19 @@
           widgets = [
             {
               type = "bookmarks";
+              title = "SelfHosted";
+              groups = [
+                {
+                  color = "\${GRUVBOX_RED}";
+                  links = [
+                    { title = "Logs"; url = "https://logs.jjwatson.dev" ; }
+                    { title = "Budget"; url = "https://budget.jjwatson.dev" ; }
+                  ];
+                }
+              ];
+            }
+            {
+              type = "bookmarks";
               groups = [
                 {
                   title = "General";
