@@ -24,5 +24,5 @@
   # boot.initrd.kernelModules = [ "amdgpu" ];
   # hardware.graphics.enable = true;
 
-  # TODO: on install verify this is the correct version, then delete this comment
+  # NOTE: on install verify this is the correct version, then delete this comment
   system.stateVersion = "26.05"; }
