@@ -29,5 +29,4 @@ if [ $? != 0 ]; then
   tmux new-window -t "$SESH"
 fi
 
-# attempt to switch clients, if fails attach
-tmux switch-client -t "$SESH" || tmux attach-session -t "$SESH"
+tmux attach-session -t "$SESH"
