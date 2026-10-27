@@ -1,6 +1,0 @@
-# Author : Carter Watson <github.com/cartwatson>
-# The theme uses the gruvbox dark palette with hard contrast: github.com/morhetz/gruvbox
-
-inherits = "gruvbox_dark_hard"
-
-"ui.background" = {} # uncomment for transparent background

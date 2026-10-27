@@ -1,5 +1,0 @@
-# Author : Carter Watson <github.com/cartwatson>
-# The theme uses the gruvbox light palette with hard contrast: github.com/morhetz/gruvbox
-# This file only exists to make the auto switching of light <> dark easier
-
-inherits = "gruvbox_light_hard"

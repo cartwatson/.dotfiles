@@ -49,26 +49,26 @@ in
               cursor-colors-set=false;
               foreground-color="rgb(235,219,178)";
               highlight-colors-set=false;
-              palette=["rgb(28,28,28)" "rgb(204,36,29)" "rgb(152,151,26)" "rgb(215,153,33)" "rgb(69,133,136)" "rgb(177,98,134)" "rgb(104,157,106)" "rgb(168,153,132)" "rgb(40,40,40)" "rgb(251,73,52)" "rgb(184,187,38)" "rgb(250,189,47)" "rgb(131,165,152)" "rgb(211,134,155)" "rgb(142,192,124)" "rgb(235,219,178)"];
+              palette=["rgb(29,32,33)" "rgb(204,36,29)" "rgb(152,151,26)" "rgb(215,153,33)" "rgb(69,133,136)" "rgb(177,98,134)" "rgb(104,157,106)" "rgb(168,153,132)" "rgb(146,131,116)" "rgb(251,73,52)" "rgb(184,187,38)" "rgb(250,189,47)" "rgb(131,165,152)" "rgb(211,134,155)" "rgb(142,192,124)" "rgb(235,219,178)"];
               use-theme-colors=false;
               use-theme-transparency=true;
               use-transparent-background=false;
-              visible-name="gruvbox";
+              visible-name="gruvbox-dark";
             };
 
             "org/gnome/terminal/legacy/profiles:/:869345bb-44f7-4591-a4dc-7faaf83458e2" = {
-              background-color="rgb(255,255,221)";
+              background-color="rgb(249,245,215)";
               background-transparency-percent=0.0;
               bold-color-same-as-fg=true;
               bold-is-bright=false;
-              foreground-color="rgb(0,0,0)";
+              foreground-color="rgb(40,40,40)";
               login-shell=false;
-              palette=["rgb(46,52,54)" "rgb(204,0,0)" "rgb(78,154,6)" "rgb(196,160,0)" "rgb(52,101,164)" "rgb(117,80,123)" "rgb(6,152,154)" "rgb(211,215,207)" "rgb(85,87,83)" "rgb(239,41,41)" "rgb(138,226,52)" "rgb(252,233,79)" "rgb(114,159,207)" "rgb(173,127,168)" "rgb(52,226,226)" "rgb(238,238,236)"];
+              palette=["rgb(249,245,215)" "rgb(204,36,29)" "rgb(152,151,26)" "rgb(215,153,33)" "rgb(69,133,136)" "rgb(177,98,134)" "rgb(104,157,106)" "rgb(124,111,100)" "rgb(146,131,116)" "rgb(157,0,6)" "rgb(121,116,14)" "rgb(181,118,20)" "rgb(7,102,120)" "rgb(143,63,113)" "rgb(66,123,88)" "rgb(60,56,54)"];
               use-custom-command=false;
               use-theme-colors=false;
               use-theme-transparency=false;
               use-transparent-background=false;
-              visible-name="Outside";
+              visible-name="gruvbox-light";
             };
           };
         }

@@ -38,12 +38,12 @@ function set_tmux() {
 if [[ "$(gsettings get org.gnome.desktop.interface color-scheme)" == "'prefer-dark'" ]]; then
   echo "Setting Light Mode"
   set_gnome default
-  set_helix gruvbox_dark_hard_custom gruvbox_light_hard_custom
+  set_helix gruvbox_dark_hard gruvbox_light_hard
   set_tmux gruvbox-dark-tmux.conf gruvbox-light-tmux.conf
 else # currently light mode
   echo "Setting Dark Mode"
   set_gnome prefer-dark
-  set_helix gruvbox_light_hard_custom gruvbox_dark_hard_custom
+  set_helix gruvbox_light_hard gruvbox_dark_hard
   set_tmux gruvbox-light-tmux.conf gruvbox-dark-tmux.conf
 fi
 

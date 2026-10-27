@@ -1,4 +1,4 @@
-theme = "gruvbox_dark_hard_custom" # current theme, used for easy toggling
+theme = "gruvbox_dark_hard" # current theme, used for easy toggling
 
 # Dark Themes
 # theme = "dark_plus" # vscode color scheme
