@@ -29,10 +29,10 @@ function set_tmux() {
   swapto=$2
 
   echo "Setting Tmux..."
-  sed -i "s#$current#$swapto#g" "$HOME/.tmux.conf"
+  sed -i "s#$current#$swapto#g" "$HOME/.dotfiles/nixos/modules/editors/tmux/themes/design.conf"
 
   # reload tmux
-  tmux source "$HOME/.dotfiles/tmux/tmux.conf"
+  tmux source "$HOME/.tmux.conf"
 }
 
 if [[ "$(gsettings get org.gnome.desktop.interface color-scheme)" == "'prefer-dark'" ]]; then
