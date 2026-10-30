@@ -1,14 +1,35 @@
 #!/usr/bin/env bash
 # sets gnome, helix, and tmux theme based on current gnome theme selection
+# on locked gnome systems. It will change tmux and helix themes
 
 set -e
+
+[ "$(gsettings get org.gnome.desktop.interface color-scheme)" = "'prefer-dark'" ]
+switchToLightMode=$?
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    --dark | -d)
+      switchToLightMode=0
+      shift
+      ;;
+    --light | -l)
+      switchToLightMode=1
+      shift
+      ;;
+    *)
+      echo "unknown arg: $1"
+      exit 1
+      ;;
+  esac
+done
 
 function set_gnome() {
   swapto=$1
 
   echo "Setting gnome..."
   if ! gsettings set org.gnome.desktop.interface color-scheme "$swapto"; then
-    echo "Unable to set gnome mode to $swapto\nExiting..."
+    echo -e "Unable to set gnome mode to $swapto\nExiting..."
     return 1
   fi
 }
@@ -35,19 +56,18 @@ function set_tmux() {
   tmux source "$HOME/.tmux.conf"
 }
 
-if [[ "$(gsettings get org.gnome.desktop.interface color-scheme)" == "'prefer-dark'" ]]; then
+if [ "$switchToLightMode" -eq "1" ]; then
   echo "Setting Light Mode"
-  set_gnome default
   set_helix gruvbox_dark_hard gruvbox_light_hard
   set_tmux gruvbox-dark-tmux.conf gruvbox-light-tmux.conf
-else # currently light mode
+  set_gnome default
+else
   echo "Setting Dark Mode"
-  set_gnome prefer-dark
   set_helix gruvbox_light_hard gruvbox_dark_hard
   set_tmux gruvbox-light-tmux.conf gruvbox-dark-tmux.conf
+  set_gnome prefer-dark
 fi
 
 echo "All done"
 echo "Make sure to set the terminal theme manually"
-
 
