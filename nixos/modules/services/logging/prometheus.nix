@@ -30,7 +30,7 @@ in
   config = lib.mkIf cfg.enable {
     services.prometheus = {
       enable = true;
-      port = cfg.port;
+      inherit (cfg) port;
       globalConfig.scrape_interval = cfg.pollingInterval;
       scrapeConfigs = [
         {

@@ -1,8 +1,8 @@
 { config, pkgs, lib, ... }:
 
 let
+  inherit (config.pillar) data;
   cfg = config.pillar.services.restic;
-  data = config.pillar.data;
 in
 {
   options.pillar.services.restic = {
@@ -91,16 +91,13 @@ in
       capabilities = "cap_dac_read_search+ep";
     };
 
-    pillar.data.forwardedServices.restic = lib.mkIf cfg.server.enable {
-      port = cfg.server.port;
-      proxy = cfg.server.proxy;
-    };
+    pillar.data.forwardedServices.restic = lib.mkIf cfg.server.enable { inherit (cfg.server) port proxy; };
 
     services.restic = {
       server = lib.mkIf cfg.server.enable {
         enable = true;
         privateRepos = true;
-        htpasswd-file = cfg.server.htpasswd-file;
+        inherit (cfg.server) htpasswd-file;
         listenAddress = "127.0.0.1:${toString cfg.server.port}";
       };
 
@@ -110,8 +107,7 @@ in
         package = pkgs.writeShellScriptBin "restic" ''exec /run/wrappers/bin/restic "$@"'';
 
         repositoryFile = connectionCfg.serverURL;
-        passwordFile = connectionCfg.passwordFile;
-        environmentFile = connectionCfg.environmentFile;
+        inherit (connectionCfg) passwordFile environmentFile;
 
         paths = data.backupPaths ++ connectionCfg.backupPaths;
 

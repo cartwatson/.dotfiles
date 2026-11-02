@@ -25,7 +25,7 @@ in
       defaultSopsFormat = "yaml";
 
       age = {
-        keyFile = cfg.keyFile;
+        inherit (cfg) keyFile;
         generateKey = true;
       };
     };

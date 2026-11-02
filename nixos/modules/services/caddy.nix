@@ -1,9 +1,9 @@
 { config, lib, ... }:
 
 let
+  inherit (config.pillar) data;
   baseCfg = config.pillar.services;
   cfg = baseCfg.caddy;
-  data = config.pillar.data;
 
   virtualHost = _: serviceCfg:
     lib.mkIf serviceCfg.proxy.enable {

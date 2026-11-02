@@ -1,7 +1,7 @@
 { config, lib, ... }:
 
 let
-  data = config.pillar.data;
+  inherit (config.pillar) data;
   forwarded_services_subdomain_collision_check = forwardedServices:
     (subdomains: subdomains == lib.lists.unique subdomains) # check all subdomains are unique
       (lib.mapAttrsToList (_: svc: svc.proxy.subdomain) # build list of subdomains

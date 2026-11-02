@@ -50,10 +50,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    pillar.data.forwardedServices.glance = {
-      port = cfg.port;
-      proxy = cfg.proxy;
-    };
+    pillar.data.forwardedServices.glance = { inherit (cfg) port proxy; };
 
     services.glance = {
       enable = true;
@@ -74,7 +71,7 @@ in
           # favicon-url = null;
         };
         server = {
-          port = cfg.port;
+          inherit (cfg) port;
           host = "127.0.0.1";
         };
         pages = [

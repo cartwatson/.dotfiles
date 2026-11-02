@@ -57,10 +57,7 @@ in
       }
     ];
 
-    pillar.data.forwardedServices.oauth2-proxy = {
-      port = cfg.port;
-      proxy = cfg.proxy;
-    };
+    pillar.data.forwardedServices.oauth2-proxy = { inherit (cfg) port proxy; };
 
     services.oauth2-proxy = {
       enable = true;
@@ -70,8 +67,7 @@ in
       httpAddress = "http://127.0.0.1:${toString cfg.port}";
       customTemplatesDir = ./.;
 
-      clientID = cfg.setup.clientID;
-      clientSecretFile = cfg.setup.clientSecretFile;
+      inherit (cfg.setup) clientID clientSecretFile;
 
       # ref: https://oauth2-proxy.github.io/oauth2-proxy/configuration/overview/
       cookie = {

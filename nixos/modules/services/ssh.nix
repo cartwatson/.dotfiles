@@ -58,7 +58,7 @@ in
     (lib.mkIf cfg.endlessh {
       services.endlessh = {
         enable = true;
-        port = cfg.port;
+        inherit (cfg) port;
         openFirewall = true;
       };
     })

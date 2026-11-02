@@ -15,7 +15,7 @@ in
   config = lib.mkIf cfg.enable {
     services.prometheus.exporters.node = {
       enable = true;
-      port = cfg.port;
+      inherit (cfg) port;
       # For the list of available collectors, run, depending on your install:
       # nix run nixpkgs#prometheus-node-exporter -- --help
       enabledCollectors = [

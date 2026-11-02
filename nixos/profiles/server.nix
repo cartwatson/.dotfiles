@@ -100,8 +100,8 @@ in
       };
       services.ddclient = {
         enable = true;
+        inherit (cfg) domainName;
         cloudflareApiKeyPath = secretCfg."api_tokens/cloudflare".path;
-        domainName = cfg.domainName;
       };
       services.glance = {
         enable = true;

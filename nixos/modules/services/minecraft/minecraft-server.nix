@@ -52,7 +52,7 @@ in
       servers = lib.mapAttrs (name: serverCfg: {
         enable = true;
         package = serverCfg.pkg;
-        whitelist = serverCfg.whitelist;
+        inherit (serverCfg) whitelist;
         symlinks.mods = serverCfg.mods;
         # RCON_CMDS_STARTUP: gamerule playersSleepingPercentage 1
 
@@ -68,7 +68,7 @@ in
           sync-chunk-writes = false;
           difficulty = if serverCfg.worldType == "creative" then "medium" else serverCfg.worldType;
           gamemode = if serverCfg.worldType != "creative" then "survival" else serverCfg.worldType;
-          motd = serverCfg.motd;
+          inherit (serverCfg) motd;
         };
       }) cfg.servers;
 

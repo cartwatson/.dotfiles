@@ -69,10 +69,7 @@ in
       }
     ];
 
-    pillar.data.forwardedServices.grafana = {
-      port = cfg.port;
-      proxy = cfg.proxy;
-    };
+    pillar.data.forwardedServices.grafana = { inherit (cfg) port proxy; };
 
     services.grafana = {
       enable = true;

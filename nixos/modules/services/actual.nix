@@ -23,16 +23,13 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    pillar.data.forwardedServices.actual = {
-      port = cfg.port;
-      proxy = cfg.proxy;
-    };
+    pillar.data.forwardedServices.actual = { inherit (cfg) port proxy; };
 
     services.actual = {
       enable = true;
       openFirewall = false;
       settings = {
-        port = cfg.port;
+        inherit (cfg) port;
         # Restrict allowed methods or disable password enforcement if possible,
         # and tell Actual to trust headers or change login behavior:
         loginMethod = "header";

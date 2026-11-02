@@ -36,7 +36,7 @@ in
       enable = true;
       interfaceName = "oort";
       openFirewall = true;
-      authKeyFile = cfg.authKeyFile;
+      inherit (cfg) authKeyFile;
 
       extraUpFlags = if cfg.ssh.enable then [ "--ssh" ] else [ ];
       extraSetFlags = if cfg.exit-node.enable then [ "--advertise-exit-node" ] else [ ];

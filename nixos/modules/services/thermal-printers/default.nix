@@ -38,7 +38,7 @@ in
       ensureDefaultPrinter = cfg.name;
       ensurePrinters = [
         {
-          name = cfg.name;
+          inherit (cfg) name;
           location = "home";
 
           deviceUri = "socket://${cfg.ip}:9100";
