@@ -19,21 +19,14 @@ let
     (ports: ports == lib.lists.unique ports) (builtins.attrValues ports_dict);
 
   # secrets management
-  oauth2-proxy = {
-    sopsFile = ../secrets/oauth2-proxy.yaml;
-    owner = config.users.users.oauth2-proxy.name;
-    group = config.users.users.oauth2-proxy.group;
+  secretManager = user: sopsFile: {
+    inherit sopsFile;
+    owner = config.users.users."${user}".name; # group is auto assigned from user
   };
-  grafana = {
-    sopsFile = ../secrets/grafana.yaml;
-    owner = config.users.users.grafana.name;
-    group = config.users.users.grafana.group;
-  };
-  restic = {
-    sopsFile = ../secrets/backups.yaml;
-    owner = config.users.users.restic.name;
-    group = config.users.users.restic.group;
-  };
+
+  oauth2-proxy = secretManager "oauth2-proxy" ../secrets/oauth2-proxy.yaml;
+  grafana = secretManager "grafana" ../secrets/grafana.yaml;
+  restic = secretManager "restic" ../secrets/backups.yaml;
 in
 {
   options.pillar.profiles.server = {
