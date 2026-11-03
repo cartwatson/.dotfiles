@@ -5,33 +5,40 @@
 
 # ---PROMPT---------------------------------------------------------------------
 
-# get current branch
+## --COLORS----------------------------
+# \001/\002 are the raw bytes bash's \[ \] become; needed because PS1 variables
+# are expanded after prompt-escape decoding, so a literal \[ would print as-is
+GREEN=$'\001\033[01;32m\002'
+BLUE=$'\001\033[01;34m\002'
+RED=$'\001\033[01;31m\002'
+CYAN=$'\001\033[0;36m\002'
+YELLOW=$'\001\033[01;33m\002'
+RESET=$'\001\033[00m\002'
+
+## --HELPERS---------------------------
 function __git_branch_ps1() {
     BRANCH=$(git branch --show-current --no-color 2> /dev/null)
-    if [[ -n "$BRANCH" ]]; then
-        printf " (%s)" "$BRANCH"
-    fi
-}
-GIT_BRANCH=$(__git_branch_ps1)
+    TAG=$(git describe --exact-match --tags 2> /dev/null)
 
-# see if terminal is being remoted/ssh into
-if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
-    SESSION_TYPE=remote/ssh
-else
-    case $(ps -o comm= -p $PPID) in
-        sshd|*/sshd) SESSION_TYPE=remote/ssh;;
-    esac
+    [[ -n "$BRANCH" ]] && printf " %s(%s)" "$RED" "$BRANCH"
+    [[ -n "$TAG"    ]] && printf " %s(%s)" "$YELLOW" "$TAG"
+}
+# append git check and guard against adding multiple git checks on re-source
+if [[ "$PROMPT_COMMAND" != *__git_branch_ps1* ]]; then
+    PROMPT_COMMAND='GIT_BRANCH=$(__git_branch_ps1)'${PROMPT_COMMAND:+";$PROMPT_COMMAND"}
 fi
 
-PROMPT_COMMAND='GIT_BRANCH=$(__git_branch_ps1);'
+# see if terminal is being remoted into
+[[ -n "$SSH_CLIENT$SSH_TTY" ]] && SESSION_TYPE=remote/ssh
 
-# create prompt line - see example
-# (ssh session)user@machine:working/dir/full/path (git branch)
-# $
-PS1='\[\033[0;36m\]${SESSION_TYPE:+("SSH") }\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[01;31m\]$GIT_BRANCH\[\033[00m\]\033[01;32m\]${IN_NIX_SHELL:+ ($name)}${VIRTUAL_ENV:+ (venv)}\[\033[00m\]\n\$ '
-
-# below is legacy, only used if color prompt not available
-# PS1='${SESSION_TYPE:+("SSH") }\u@\h:\w$GIT_BRANCH${IN_NIX_SHELL:+ ($name)}${VIRTUAL_ENV:+ (venv)}\n\$ '
+## --PROMPT-CREATION-------------------
+# create prompt line
+PS1='${CYAN}${SESSION_TYPE:+(SSH) }'                                           # SSH session indicator
+PS1+='${GREEN}\u@\h${RESET}:'                                                  # user + host
+PS1+='${BLUE}\w'                                                               # working dir (from user home)
+PS1+='${GIT_BRANCH}'                                                           # git branch and/or tag
+PS1+='${GREEN}${IN_NIX_SHELL:+ ($name)}${VIRTUAL_ENV:+ (venv)}'                # Nix Shell indicator
+PS1+='${RESET}\n\$ '                                                           # input on newline
 
 # ---COMPLETION+ALIASES---------------------------------------------------------
 
