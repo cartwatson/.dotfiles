@@ -32,7 +32,7 @@
         just-perfection
         user-themes
       ]) ++ [
-        pkgs.gnome49Extensions."dash-to-dock@micxgx.gmail.com"
+        pkgs.gnomeExtensions.dash-to-dock
       ];
     };
     services.gaming = {
