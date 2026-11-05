@@ -24,9 +24,9 @@ let
     owner = config.users.users."${user}".name; # group is auto assigned from user
   };
 
-  oauth2-proxy = secretManager "oauth2-proxy" ../secrets/oauth2-proxy.yaml;
-  grafana = secretManager "grafana" ../secrets/grafana.yaml;
-  restic = secretManager "restic" ../secrets/backups.yaml;
+  oauth2-proxy-secrets = secretManager "oauth2-proxy" ../secrets/oauth2-proxy.yaml;
+  grafana-secrets = secretManager "grafana" ../secrets/grafana.yaml;
+  restic-secrets = secretManager "restic" ../secrets/backups.yaml;
 in
 {
   options.pillar.profiles.server = {
@@ -56,16 +56,16 @@ in
       "tailscale/auth_key" = {};
       "glance/location" = {};
 
-      "oauth2-proxy/client_secret" = oauth2-proxy;
-      "oauth2-proxy/cookie_secret" = oauth2-proxy;
-      "oauth2-proxy/authorized_emails" = oauth2-proxy;
-      "grafana/secret_key" = grafana;
+      "oauth2-proxy/client_secret" = oauth2-proxy-secrets;
+      "oauth2-proxy/cookie_secret" = oauth2-proxy-secrets;
+      "oauth2-proxy/authorized_emails" = oauth2-proxy-secrets;
+      "grafana/secret_key" = grafana-secrets;
 
-      "backblaze/server-url" = restic;
-      "backblaze/access-region" = restic;
-      "backblaze/key-id" = restic;
-      "backblaze/application-key" = restic;
-      "backblaze/restic-password" = restic;
+      "backblaze/server-url" = restic-secrets;
+      "backblaze/access-region" = restic-secrets;
+      "backblaze/key-id" = restic-secrets;
+      "backblaze/application-key" = restic-secrets;
+      "backblaze/restic-password" = restic-secrets;
     };
     sops.templates."backblaze-restic.env" = {
       mode = "0400";
@@ -118,7 +118,7 @@ in
       };
       services.minecraftServer = {
         enable = true;
-        servers.amalthea = import ../modules/services/minecraft/amalthea.nix { inherit pkgs; } // { port = ports.mc-amalthea; };
+        servers.amalthea = import ../modules/services/minecraft/amalthea.nix { inherit pkgs; port = ports.mc-amalthea; };
       };
       services.oauth2-proxy = {
         enable = true;
