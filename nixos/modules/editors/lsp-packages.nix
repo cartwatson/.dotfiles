@@ -7,6 +7,7 @@ with pkgs; [
   python312Packages.python-lsp-server
   rust-analyzer
   gopls
+  protols
   # configs
   nil
   nixd
