@@ -45,7 +45,8 @@ function tas() {
 ## git
 alias gs="git status --short --branch"
 alias ga="git add"
-alias gl="git log --oneline --graph --decorate"
+alias gl="git log --pretty=format:'%C(yellow)%h%C(reset) %C(green)(%cs) %C(bold blue)<%an>%C(reset) %C(auto)%d%C(reset) %s'"
+alias gls="git log --oneline --graph --decorate" # short version, remove if unused
 alias glf="git log --oneline --patch --follow" # provide filename to scroll through history
 alias gc="git commit -m"
 alias gd="git diff --minimal"
