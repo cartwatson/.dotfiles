@@ -9,6 +9,7 @@ with pkgs; [
   gopls
   # configs
   nil
+  nixd
   yaml-language-server
   vscode-langservers-extracted
   # misc
