@@ -7,13 +7,16 @@ with pkgs; [
   python312Packages.python-lsp-server
   rust-analyzer
   gopls
-  protols
+  protols # protobuf
+  buf # protobuf
+
   # configs
   nil
   nixd
   yaml-language-server
   vscode-langservers-extracted
+
   # misc
   marksman
-  harper # spell check - https://writewithharper.com/
+  # harper # spell check - https://writewithharper.com/ # NOTE: this is lowk buns
 ]
