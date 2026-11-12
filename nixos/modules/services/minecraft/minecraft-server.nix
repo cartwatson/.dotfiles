@@ -64,7 +64,7 @@ in
           server-port = serverCfg.port;
           max-players = serverCfg.maxPlayers;
           white-list = serverCfg.whitelist != null;
-          enable-query = true;
+          enable-query = false;
           sync-chunk-writes = false;
           difficulty = if serverCfg.worldType == "creative" then "medium" else serverCfg.worldType;
           gamemode = if serverCfg.worldType != "creative" then "survival" else serverCfg.worldType;
